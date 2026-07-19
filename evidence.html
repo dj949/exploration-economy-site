@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Story of the Tests — What we did to EDEN before asking anyone to believe in it</title>
+<meta name="description" content="We crash-tested a new economic design for months: three crashes, three public redesigns, every failure published. The whole story in plain language — no math required.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:80px 0 64px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:22px auto 0;font-size:18px;color:var(--soft)}
+  .statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);max-width:760px;margin:44px auto 0}
+  .stat{background:var(--card);padding:20px 16px;text-align:center}
+  .stat b{display:block;font-size:26px;color:var(--deep);font-family:'Courier New',monospace}
+  .stat span{font-size:12.5px;color:var(--soft)}
+  article{padding:64px 0}
+  article h2{font-size:clamp(23px,3vw,30px);color:var(--deep);line-height:1.25;margin:52px 0 16px}
+  article h2:first-child{margin-top:0}
+  article p{margin-bottom:18px}
+  article p b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:24px 26px;margin:34px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .figure{margin:34px auto 6px}
+  .figure svg{width:100%;height:auto;display:block}
+  .figcap{font-size:12.5px;color:var(--soft);font-style:italic;text-align:center;margin:8px 0 26px}
+  .crashmark{display:inline-block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--coral);padding:3px 10px;border-radius:2px;margin-bottom:10px}
+  .fixmark{display:inline-block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--green);padding:3px 10px;border-radius:2px;margin-bottom:10px}
+  .divider{text-align:center;color:var(--gold);letter-spacing:.6em;margin:56px 0;font-size:15px}
+  .cta{background:var(--deep);color:#e9efe9;border-radius:8px;padding:40px 36px;margin:64px 0 0;text-align:center}
+  .cta h2{color:#fff;margin:0 0 12px;font-size:24px}
+  .cta p{color:#c4d4c8;font-size:15.5px;max-width:54ch;margin:0 auto 24px}
+  .btn{display:inline-block;padding:13px 24px;border-radius:3px;font-size:15px;border:none}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">THE EVIDENCE · PLAIN LANGUAGE · ~15 MINUTES</div>
+    <h1>The Story of the Tests</h1>
+    <p class="sub">What we did to EDEN before asking anyone to believe in it. Every claim below traces to a re-runnable model; this page just tells the story without the math.</p>
+    <div class="statrow sans">
+      <div class="stat"><b>39</b><span>waves of simulation</span></div>
+      <div class="stat"><b>3</b><span>crashes — published</span></div>
+      <div class="stat"><b>100k+</b><span>simulated people per world</span></div>
+      <div class="stat"><b>49/54</b><span>programs reproduce to the 6th decimal</span></div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+
+    <p style="font-style:italic;color:var(--soft);margin-bottom:26px">A note before we start: I'm not an economist. I'm one person who couldn't shake the feeling this could work — and couldn't prove it. The honest way to answer that wasn't a better argument; it was to try as hard as I could to break the idea, and to show you every place it broke. So that's what this is. When I say "we" on this page, I mean the effort this is becoming — I built it, but it gets sharper every time someone else attacks it, and you're invited into that "we."</p>
+
+    <h2>Why you crash-test an economy</h2>
+    <p>You can't crash a real airplane to find out where it's weak. So aerospace engineers build flight simulators and fly them into every storm they can imagine — engine out, ice on the wings, both at once — until the design either breaks or earns trust. We did the same thing to EDEN. We built a small artificial world inside a computer — a hundred thousand simulated people earning, creating, spending, and living under EDEN's rules — and then we spent months trying to make it crash. Droughts. Market collapses. Waves of fraud. Bank-run panics. Greedy heirs. Lazy incentives. A hostile auditor.</p>
+    <p>This is the story of those crashes — including the ones we caused, the ones we survived, and the places we had to redesign the plane.</p>
+
+    <h2>Calling the shot</h2>
+    <div class="callout">
+      <p>Before any test ran, we wrote down what failure would mean — like a pool player calling the pocket before the shot. Our called shot, never changed across four generations of models: <b>if the poorest tenth of people can't afford basic essentials for three months in a row, in any plausible scenario, the design fails.</b> Not "underperforms." Fails. Everything below was measured against that line.</p>
+    </div>
+
+    <h2><span class="crashmark sans">Crash №1</span><br>The bathtub — and our first failure</h2>
+    <p>Picture the money supply as a bathtub. EDEN's original design had a faucet that never turns off — every hour anyone spends engaging with digital work mints new coins for its creator — and only a tiny drain (coins vanish when someone dies). Faucet always on, drain barely open: the tub fills. More money chasing the same groceries means grocery prices climb about 10% a year, forever. Meanwhile the poorest people's incomes climbed much slower. In the very first simulation, the bottom tenth couldn't afford essentials <b>by month sixteen</b> — and never recovered.</p>
+    <p>That was our design. Our baby. And the honest test broke it in a year and a half of simulated time. This is why you test.</p>
+
+    <div class="figure" role="img" aria-label="Bathtub diagram: the mint faucet always on, a tiny drain, water rising ten percent a year — and the fix, a governor dial on the faucet that slows minting when money outruns real goods.">
+      <svg viewBox="0 0 760 288" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue',Arial,sans-serif">
+        <text x="120" y="20" font-size="12.5" font-weight="700" fill="var(--deep)">THE FAUCET — always on</text>
+        <path d="M120 52 H210 V90" fill="none" stroke="var(--ink)" stroke-width="5"/>
+        <text x="222" y="58" font-size="11.5" fill="var(--soft)">every hour of attention mints coins</text>
+        <path d="M206 98 v10 M212 104 v12 M218 100 v9" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="150" cy="52" r="17" fill="var(--card)" stroke="var(--gold)" stroke-width="3"/>
+        <path d="M150 52 L160 42" stroke="var(--gold)" stroke-width="3"/>
+        <text x="20" y="84" font-size="11.5" font-weight="700" fill="var(--gold)">THE FIX: a governor</text>
+        <text x="20" y="97" font-size="10.5" fill="var(--soft)">a formula, not a chairman —</text>
+        <text x="20" y="110" font-size="10.5" fill="var(--soft)">slows the faucet when money</text>
+        <text x="20" y="123" font-size="10.5" fill="var(--soft)">outruns real goods</text>
+        <path d="M110 130 V240 Q110 252 124 252 H636 Q650 252 650 240 V130" fill="none" stroke="var(--ink)" stroke-width="4"/>
+        <rect x="114" y="170" width="532" height="78" fill="var(--dim)"/>
+        <path d="M114 170 H646" stroke="var(--soft)" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <path d="M380 160 v-22 M380 138 l-6 9 M380 138 l6 9" stroke="var(--coral)" stroke-width="2"/>
+        <text x="396" y="150" font-size="11.5" font-weight="700" fill="var(--coral)">without the governor: prices +10%/yr, forever</text>
+        <text x="380" y="216" font-size="12.5" fill="var(--soft)" text-anchor="middle">the money supply (more coins chasing the same groceries)</text>
+        <path d="M600 252 v14" stroke="var(--ink)" stroke-width="3"/>
+        <text x="600" y="278" font-size="10.5" fill="var(--soft)" text-anchor="middle">tiny drain: coins vanish only at death</text>
+        <text x="710" y="191" font-size="11" fill="var(--green)" text-anchor="middle" transform="rotate(-90 710 191)">with governor: ~0% inflation</text>
+      </svg>
+    </div>
+    <p class="figcap sans">Crash №1 in one picture — and the thermostat that fixed it.</p>
+
+    <h2><span class="fixmark sans">The fix</span><br>The thermostat — and the rule that anchors everything</h2>
+    <p>The repair matters because of what it <em>isn't</em>: it isn't a person, a committee, or a government office. It's a <b>thermostat on the faucet</b>. Nobody decides the temperature of your house each hour — a dumb, honest rule nudges the furnace. Same here: a formula written once into the system's constitution slows the coin-per-hour rate slightly whenever money is being created faster than real goods, and eases it back when it isn't. No chairman. No votes. In testing, this held grocery-price inflation at roughly zero for fifteen simulated years — through every storm we threw.</p>
+    <p>One more rule completes the core: <b>humans mint, machines pay.</b> When a person spends an hour with someone's work, new money is created for the creator — human attention is the only thing that prints. When an AI company or institution consumes a million people's data, it doesn't print anything; it must <em>buy</em> coins from people and pay them. Robots don't get free tickets to the show; they buy them from the audience. This one rule keeps the money supply tied to something no server farm can fake — human time — and turns every ordinary person's data into something institutions must pay them for.</p>
+
+    <h2><span class="crashmark sans">Crash №2</span><br>Won't everyone just stop working?</h2>
+    <p>Every guaranteed floor in history has faced this question, and it deserves a real answer, not a slogan. So we let our simulated people <em>choose</em> — work or don't, based on what actually pays.</p>
+    <p>Here we found our second real design flaw. The original floor "topped everyone up" to the line — which sounds generous until you notice what it does to a struggling musician earning 70% of the line: whether she keeps playing or quits entirely, she ends up at exactly the line. Her effort buys <em>nothing</em>. Imagine a bartender who fills every glass to the same height — anything you pour in yourself, he just pours that much less. Why pour? In the simulation, when essentials were expensive, half the lower earners rationally quit, and the economy lost up to a quarter of its output.</p>
+    <p><b>The fix is old, boring, and proven: the ramp instead of the cliff.</b> Your guarantee at zero stays exactly the same — but every coin you earn adds <em>half a coin on top</em> of it, always. Pouring always raises your glass. Same dignity, and the simulated economy kept essentially all of its output. That's now the ratified design: effort is never, ever pointless.</p>
+
+    <div class="figure" role="img" aria-label="Two small charts. Left, the cliff: everyone topped up to the same line, so effort below the line adds nothing. Right, the ramp: the same guarantee at zero, but every coin earned adds half a coin on top, so effort always pays.">
+      <svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue',Arial,sans-serif">
+        <text x="185" y="26" font-size="13" font-weight="700" fill="var(--coral)" text-anchor="middle">THE CLIFF (before)</text>
+        <path d="M60 250 V60 M60 250 H340" stroke="var(--soft)" stroke-width="1.5"/>
+        <path d="M60 170 H200 L340 100" fill="none" stroke="var(--coral)" stroke-width="3"/>
+        <path d="M60 170 H200" stroke="var(--coral)" stroke-width="3"/>
+        <rect x="62" y="172" width="138" height="76" fill="var(--coral)" opacity="0.10"/>
+        <path d="M60 170 H340" stroke="var(--rule)" stroke-dasharray="4 5"/>
+        <text x="66" y="158" font-size="10.5" fill="var(--soft)">the floor line</text>
+        <text x="131" y="216" font-size="11" font-weight="700" fill="var(--coral)" text-anchor="middle">dead zone:</text>
+        <text x="131" y="230" font-size="10.5" fill="var(--coral)" text-anchor="middle">effort adds nothing</text>
+        <text x="200" y="272" font-size="10.5" fill="var(--soft)" text-anchor="middle">what you earn &#8594;</text>
+        <text x="42" y="160" font-size="10.5" fill="var(--soft)" text-anchor="middle" transform="rotate(-90 42 160)">what you keep &#8594;</text>
+        <text x="200" y="292" font-size="10.5" fill="var(--soft)" text-anchor="middle">half of low earners rationally quit; output &#8722;25%</text>
+        <text x="565" y="26" font-size="13" font-weight="700" fill="var(--green)" text-anchor="middle">THE RAMP (ratified)</text>
+        <path d="M440 250 V60 M440 250 H720" stroke="var(--soft)" stroke-width="1.5"/>
+        <path d="M440 170 L720 78" fill="none" stroke="var(--green)" stroke-width="3"/>
+        <path d="M440 170 H720" stroke="var(--rule)" stroke-dasharray="4 5"/>
+        <text x="446" y="188" font-size="10.5" fill="var(--soft)">same guarantee at zero</text>
+        <text x="570" y="118" font-size="11.5" font-weight="700" fill="var(--green)" text-anchor="middle" transform="rotate(-18 570 118)">every coin adds +&#189; on top, always</text>
+        <text x="580" y="272" font-size="10.5" fill="var(--soft)" text-anchor="middle">what you earn &#8594;</text>
+        <text x="580" y="292" font-size="10.5" fill="var(--soft)" text-anchor="middle">effort never pointless; output essentially kept</text>
+      </svg>
+    </div>
+    <p class="figcap sans">Crash №2: same promise, different shape — the shape turned out to be everything.</p>
+
+    <h2>The dead water the gardens</h2>
+    <p>The oldest rule here — no one inherits a money machine — grew into something more beautiful under testing. When a creator dies, their work stays free for everyone, forever. It keeps earning when people use it — but the dead don't collect. <b>Those earnings flow toward the people who have least.</b> Every hour someone spends with the works of those who came before becomes bread for the living. In testing, this "ancestral dividend" turned out to be the safety net's single strongest funding source.</p>
+    <p>And the no-money-machine rule itself? We tested the sneaky version: what if heirs simply <em>bought</em> income streams with inherited cash? In a world where that's allowed, the grandchildren of today's winners are still on top five generations later about <b>two-thirds of the time — nearly the same as today's economy (79%)</b>. Under EDEN's rule — income streams can be earned, never bought or inherited — that number falls to <b>10%, which is what a fair deck looks like</b>: being born lucky stops predicting where you end up. We even tested the corporate loophole — hiding a dynasty inside an immortal company — and the defenses held there too. Since then it's been closed in ratified canon, down to the registry that enforces it: a company holds nothing without a living, accountable human anchored to it, the registration itself is the deed, and splitting into shells just gets you counted as one. One rule, and the escalator that <em>automatically</em> carries the same families upward becomes a staircase everyone can climb — the ones already high up keep their footing by continuing to contribute, not by coasting on an inheritance. Success stays wide open to newcomers instead of being locked to birth.</p>
+
+    <div class="figure" role="img" aria-label="Bar chart: dynasty persistence over five generations — 79% in today's economy, 68% if income streams could be bought, 10.4% under EDEN's rule.">
+      <svg viewBox="0 0 760 236" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue',Arial,sans-serif">
+        <text x="20" y="22" font-size="11.5" letter-spacing="1.5" fill="var(--gold)">SAME FAMILIES STILL ON TOP, 5 GENERATIONS LATER</text>
+        <text x="20" y="56" font-size="12.5" fill="var(--soft)">Today's economy</text>
+        <rect x="20" y="65" width="474" height="18" rx="3" fill="var(--rule)"/>
+        <text x="504" y="79" font-family="'Courier New',monospace" font-size="13.5" font-weight="700" fill="var(--soft)">79%</text>
+        <text x="20" y="114" font-size="12.5" fill="var(--soft)">If income streams could be bought</text>
+        <rect x="20" y="123" width="408" height="18" rx="3" fill="var(--gold)" opacity="0.55"/>
+        <text x="438" y="137" font-family="'Courier New',monospace" font-size="13.5" font-weight="700" fill="var(--soft)">68%</text>
+        <text x="20" y="172" font-size="12.5" font-weight="700" fill="var(--deep)">EDEN — earned, never bought or inherited</text>
+        <rect x="20" y="181" width="62" height="18" rx="3" fill="var(--green)"/>
+        <text x="92" y="195" font-family="'Courier New',monospace" font-size="13.5" font-weight="700" fill="var(--green)">10.4%</text>
+        <text x="20" y="228" font-size="11.5" fill="var(--soft)">10% is what a fair deck looks like — being born lucky stops predicting where you end up.</text>
+      </svg>
+    </div>
+    <p class="figcap sans">One rule carries the whole anti-dynasty result — so we attacked exactly that rule, from every angle we could invent.</p>
+
+    <h2><span class="crashmark sans">Crash №3</span><br>The heist tests</h2>
+    <p>Then we stopped playing defense and hired ourselves as thieves. Fake identities. Bot farms watching their own AI-generated videos to print money. Whole rings of rented accounts.</p>
+    <p>Two findings, one comforting and one that forced our third redesign. The comforting one: <b>the floor never broke.</b> Even in the absurd worst case — half of all identities fake, with zero fraud detection — the poorest real people stayed safely above the essentials line. The system fails gracefully: attackers steal from the <em>system's</em> efficiency, never from the poorest's bread.</p>
+    <p>The uncomfortable one: a <em>smart</em> thief — rotating freshly AI-generated content and "watching" it — could earn almost six times the floor per fake identity, and at scale, rings like that could capture a third of all new money, quietly bleeding honest creators. Our first fraud analysis had only imagined lazy thieves. The audit caught it; we redesigned.</p>
+    <p>Two locks closed the vault. First, the <b>recipe punch card</b>: the system already paid less each time you re-watched the same thing — but thieves just renamed the thing. Now near-identical content is recognized as the same <em>recipe</em>, no matter what it's called, and shares one shrinking payout. A xerox farm with a serial-number stamper gets paid like one asset, not ten thousand. Second, the <b>security deposit</b>: earning at scale requires posting a stake, and getting caught burns it — cheating stops being "free if undetected" and becomes a bet you lose. On top sits the quietest deterrent in the whole design: in EDEN you get <b>one identity for life</b>, and it's the most valuable thing you'll ever own. Renting it to a fraud ring risks permanent exile of your only economic self. When we re-ran the thief's business plan against all three locks, <b>it didn't pay in a single tested case.</b> The tunnel costs more than the vault holds.</p>
+
+    <h2>The bank-run test</h2>
+    <p>Could EDEN death-spiral like the infamous Terra collapse — a currency that fell to zero in a week when confidence broke? We simulated the same panic against both designs. Terra-style money was a sandcastle: its only value was everyone believing in it, so when belief ran, nothing remained. EDEN's coin has something underneath: machines and institutions <em>must</em> buy it to pay people for data. In the panic test, EDEN dipped about a quarter and climbed back. The honest fine print: that resilience holds while most coins are held by people <em>using</em> them; if EDEN's coin ever became mostly a casino chip — held overwhelmingly by speculators — it too could crater. Keeping real use dominant isn't a nice-to-have; it's a survival requirement, written into the design goals.</p>
+
+    <h2>What it costs, honestly</h2>
+    <p>Three numbers we will always say out loud. <b>At launch, a floor can't pay for itself</b> — a young network is like a lemonade stand promising pensions; in the closed-world models it needed outside funding for its first years, tapering as the network grew. Hiding that number is how projects die of embarrassment later; ours is on the label. <b>Self-funding has a boundary</b>: in those same models it held while essentials cost up to about 60% of a typical member's income — about 75% once the ancestral dividend matured — and beyond that it needed help. And <b>whether people hoard the coin matters</b>: our anti-hoarding levers work in the model, but how strongly they nudge real humans is something only a real pilot can measure. We wrote that down too.</p>
+
+    <h2>The audit — or, why the scars are the proof</h2>
+    <p>Near the end of the first wave, we did the thing advocacy projects never do: we handed everything to the most adversarial reviewer available with one instruction — <em>break it</em>. The audit re-ran every model from scratch (every number reproduced), then found what it was hunting for: a reserve fund coded eight times larger than its own description, a welfare model accidentally built on a too-equal world, fraud tests that had only imagined dumb attackers, and summary headlines rounder and prettier than the results beneath them. Every one of those is now fixed <b>in the open</b> — the flawed originals archived beside the corrections, like a captain's log that keeps the storm entries. Three claims came out <em>weaker and truer</em>. Two came out stronger than before. That's what earned trust looks like: not a spotless record, but a public record of every dent and every repair.</p>
+
+    <div class="divider">· · ·</div>
+
+    <h2>The second wave — the tests got harder</h2>
+    <p>The audit was not the end; it was the moment the tests got harder. Everything above ran inside one closed world with prices we controlled. The second wave tore the roof off and let the real world in.</p>
+
+    <p><b>Real prices, and a job market nobody expected.</b> We rebuilt the economy with <em>actual</em> market prices instead of our own — real data-licensing rates, real software spend, a real exchange rate that could crash. Most of the reassuring old numbers shrank, and the design got <em>stronger</em> for it, because now it was claiming less and proving it better. One genuinely new thing appeared: at even a fraction of what the world already spends on software, <b>paying the people who maintain open-source tools becomes a real living</b> — the unglamorous, unpaid backbone of modern software turning into a paycheck. That "builder economy" is now EDEN's strongest single result, because it fixes a problem that documentably exists today. Its honest dependency is also on the label: it holds only if institutions actually pay at plausible rates — the exact question the field experiment exists to settle.</p>
+
+    <p><b>The safety net, sold honestly.</b> The harder tests retired the old "it pays for itself" story: across a realistic range of real-world demand, no floor activated without real outside funding. What replaced it is better because it's true — the floor doesn't need a magic funding source; it needs a <em>customer</em>. Delivering guaranteed basics through EDEN's rails came out about <b>a quarter cheaper than traditional welfare</b>, and — crucially — when we simulated the government funder walking away, <b>nobody was left stranded</b>: everyone landed back where they'd have been without it, never worse. That single result changes the ethics of ever running a real pilot. We also found the fragility: lean the whole net on <b>one</b> sponsor and their exit crashes the currency 92%. So we tested the fix — <b>five sponsors, no one over 40%, each posting a deposit</b> — and the 92% cliff became a 10% ripple nobody fell through. (Honest catch: "a quarter cheaper" is a <em>calm-weather</em> price; whoever agrees to catch a collapse should be paid for that promise.)</p>
+
+    <p><b>We stopped testing against dumb attackers.</b> The adversarial wave threw smart, adapting attackers at the design. Three reassuring old claims died and were rewritten truer. Our "effort score" that supposedly tamed addictive content <b>fell apart against an optimizing content farm</b> — replaced by paying creators only when their work proves genuinely useful, backed by surprise audits that make cheating pay <em>worse</em> than honesty. Our claim that the currency only dips gently in a panic <b>died against a leveraged attack across multiple exchanges</b> — replaced by an honest new posture: under a determined financial assault the <em>price</em> can crash, but <em>people's groceries are still delivered every single month</em>, because the net is anchored to real essentials, not to the coin's price. <b>Protect the people; concede the price.</b> And the nightmare that a stolen fingerprint is forever? We ran the breach as a fire drill and found it survivable by design — compartments stay small, essentials keep flowing, and the real owner out-argues the thief because they have the body, the history, and the guardians they named on day one.</p>
+
+    <p><b>Then we scaled it to the whole planet.</b> Forty regions, richest to poorest, one shared net. The scariest scenario — the poorest quarter of humanity joining in three years — held with <b>zero breaches and zero printing</b>, because an hour of attention mints the same money everywhere, so newcomers arrive as contributors, not just claimants. The wall the world hits first isn't money; it's <b>consent</b> — whether well-off regions will keep funding a net they rarely draw on. That's a political problem, not a math one, and we named it rather than hiding it.</p>
+
+    <p><b>And finally, the machine underneath.</b> The newest tests stopped asking "do the rules work?" and started asking "does the engine that runs them hold?" We designed the ledger to be guarded not by whoever owns the most coins but by a <b>lottery of verified people, like jury duty</b> — and tried to pack the jury: the cheapest attack we could build costs about twenty times the scariest attacker we'd ever budgeted, and unlike ordinary crypto it <em>doesn't</em> get cheaper to attack when the price crashes, because real people don't go on sale. We tested the "notaries" who bundle everyone's activity and found that a one-week hold on fresh money plus occasional spot-checks makes cheating them a losing bet. We priced the heavy math that keeps it all honest and found it's a rounding error. And — keeping the tradition — where a test's own trustworthiness check <em>failed</em>, we filed it as <b>provisional, not proof</b>, and said so out loud.</p>
+
+    <p><b>We tried to bribe the price gauge.</b> Everything above leans on one number: the measured price of essentials. So we priced corrupting it. The gauge reads three independent channels — bonded human reporters, bonded merchants, and the actual flow of grocery-lane commerce — and faking two of the three costs about <b>$100 million to steal about $1 million</b>: spend a hundred to take one. That flips the threat from thief to vandal — someone might pay to <em>break</em> the gauge, but nobody profits from it. Even when we granted the attacker the capture <em>for free</em>, the emergency brakes kept <b>96%</b> of essentials flowing. Two bars failed honestly and taught us the real lesson: the weak point isn't the attack, it's <b>how quickly we re-check the gauge</b>. The live, prize-funded attempt to fool it for real remains a launch requirement, not a formality.</p>
+
+    <p><b>One crook in every uniform.</b> Every heist test so far attacked one layer at a time — but a real adversary would wear every hat at once: fake registrar, fake validator, fake notary, fake price-reporter, all built on one pool of fake identities. Composed, the numbers move the wrong way: the combined attack costs <b>a third less</b> than the sum of the separate ones, and the damage from a stolen-identity breach <b>compounds past the safety gate</b> once downstream leverage counts. The fix was then measured, not assumed: <b>one joint cap — no actor above 15% combined across all roles</b> — pulls the compounded damage back inside the line. That cap is now proposed as its own live gate.</p>
+
+    <p><b>Can money buy the steering wheel?</b> The house of governance that weights votes by <em>contribution</em> — can a whale just buy it? As designed, votes grow like the <b>square root</b> of contribution and hard-stop at <b>5%</b> per actor: a whale holding 30% of all contribution ends up with about <b>1% of the vote</b>, and a majority takes roughly <b>1,600 colluders</b>, each of whom is still just one person among millions in the person-house next door. The run also caught a real flaw in our own rule as first written — under extreme concentration the cap <em>leaked</em> to 9.4% — and the corrected version holds it at exactly 5.00%. One honest wrinkle stays on the label: even governance ultimately leans on the identity keystone.</p>
+
+    <p><b>Then we checked the checkers.</b> A fresh session with no memory of building any of this re-ran the whole vault: <b>49 of 54 programs regenerate their published numbers to the sixth decimal</b>, and the handful that don't are explained down to the individual value — including one real bug that would have tripped an outside replicator, found, fixed, and re-verified in public. Every failed bar mentioned above is recorded in the files <em>as a failure</em>. The wind tunnel doesn't just claim its results; it hands you the keys to regenerate them.</p>
+
+    <h2>What the second wave left open — on the label</h2>
+    <p>Whether institutions will really pay for data and code (the true hinge — a field experiment, not a simulation). Whether a machine can reliably tell a live human from a convincing fake (the keystone under everything). Whether the price gauge survives a funded <em>live</em> attacker — the design-level attack is now priced at unprofitable-by-80×, but the real-world red-team is still owed. And the honest meta-point the audit taught us: everything here is still <em>our</em> machine checking <em>our</em> machine — every simulation so far was produced and checked by AI models from the same family. The one test we can't run on ourselves is a hostile outside expert trying to break all of it, which is why we built a replication kit to hand them — <a href="/replication">it's here, free to download</a>: every model, every registered pass/fail bar, every archived original, and one command that re-runs the lot.</p>
+
+    <h2>What these tests are — and aren't</h2>
+    <p>A wind tunnel is not the sky. These models prove that EDEN's <em>logic</em> holds — that the rules, working together, produce the promised outcomes even under storms, thieves, and human nature, and that removing any one piece brings back a specific, nameable failure. They cannot prove that real humans will adopt it, that the identity technology performs at scale, or that the price-measuring system survives real-world manipulation. Those questions have names, published pass/fail criteria, and a pilot designed to answer them. We are not asking anyone to believe a forecast. We are showing them a machine that has survived every storm we could invent — and inviting them to invent a worse one.</p>
+
+    <div class="callout">
+      <p><b>The one-sentence version of everything above:</b> we built the harshest testing ground we could, called our shots in advance, crashed our own design three times, fixed it in public each time — and the economy that came out the other side keeps every person above the essentials line under every attack we modeled, keeps effort worth it, keeps fraud unprofitable, dissolves dynasties, and delivers a safety net honestly — funded by real, named sponsors, about a quarter cheaper than the way we do it today — in every storm we've been able to imagine so far.</p>
+    </div>
+
+    <div class="cta">
+      <h2>Invent a worse storm.</h2>
+      <p>Every model, every line of code, every result — including the embarrassing archived originals — is open. If you can break it, we want to publish how.</p>
+      <a class="btn gold sans" href="/#subscribe">Join the list — help us break it</a>
+    </div>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/faq">FAQ</a> · <a href="/book">Book</a> · <a href="/about">About</a> · <a href="/replication">Replication</a> · <a href="/support">Support</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. The open questions — will institutions pay, does identity hold at scale, do live adversaries break the price gauge — are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

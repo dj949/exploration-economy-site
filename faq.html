@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — The Exploration Economy, answered straight</title>
+<meta name="description" content="Is this crypto? UBI? Socialism? What happens to my EdenQuest coins? What's still unproven? Short answers, no hedging.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.68;font-size:17px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 56px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep)}
+  header .sub{max-width:54ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  article{padding:56px 0 72px}
+  .faq{border:1px solid var(--rule);border-radius:5px;background:var(--card);margin-bottom:14px;overflow:hidden}
+  .faq summary{cursor:pointer;padding:20px 24px;font-size:17.5px;color:var(--deep);font-weight:700;list-style:none;position:relative;padding-right:52px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:after{content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);font-family:'Courier New',monospace;font-size:22px;color:var(--gold)}
+  .faq[open] summary:after{content:"–"}
+  .faq .a{padding:0 24px 22px;color:var(--soft);font-size:15.5px}
+  .faq .a p{margin-bottom:12px}
+  .faq .a p:last-child{margin-bottom:0}
+  .faq .a b{color:var(--deep)}
+  h2.sect{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:44px 0 16px;font-family:'Helvetica Neue',Arial,sans-serif}
+  h2.sect:first-child{margin-top:0}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">FREQUENTLY ASKED QUESTIONS</div>
+    <h1>Answered straight, hedges included on purpose.</h1>
+    <p class="sub">Short answers first, honest fine print second. If your question isn't here, ask — the pushback becomes the next piece.</p>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+
+    <h2 class="sect">The basics</h2>
+
+    <details class="faq" open>
+      <summary>What is EDEN, in one breath?</summary>
+      <div class="a">
+        <p>An economic layer on top of the internet we already have, where your data, your creations, and your genuine attention are assets that pay <em>you</em> — automatically, whenever a person, company, or AI uses them. The most valuable long-lived data stays in EDEN's custody (questions in, answers out — no bulk copies), and everything you share carries a <b>minimum ask</b>: a network-wide lowest price, tied to the cost of essentials, that no buyer — and no seller under pressure — can push below. New money is minted only by verified human engagement with real value; machines and institutions never mint, they only pay. <b>EVE</b> is the money; <b>EDEN</b> is the economy it runs on; <b>EdenQuest</b> is the free app that's real today.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Is this a cryptocurrency? Is there a token I can buy?</summary>
+      <div class="a">
+        <p><b>No.</b> There is no token sale, nothing to buy, and nothing to speculate on. If someone offers to sell you EVE, it's a scam. The design borrows the useful parts of ledger technology (a public, checkable record) and deliberately rejects the rest: EVE can't be pre-mined, bought at launch, or minted by machines — it's created only by verified human attention, and income streams can't be bought, sold, or inherited. The whole design goal is that holding-and-flipping never beats using-and-contributing.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Is this just UBI with extra steps?</summary>
+      <div class="a">
+        <p>No — and the difference matters. UBI is a payment program funded by taxes, run by a government, promising a fixed income. EDEN is an <em>engine</em>: it makes what you already produce — data, creations, attention — into paying assets. There's no fixed payout and no promise of one.</p>
+        <p>The design does include the most heavily tested safety-net blueprint we know of. But we don't promise it — see the floor question below. What we lead with is what held up under attack: the engine.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Is this socialism? / Is this anti-capitalism?</summary>
+      <div class="a">
+        <p>Neither. Nothing is seized, redistributed by decree, or centrally planned — there's no state at the center at all, and participation is voluntary from the first click to the last. It's closer to a missing property right: today your data and attention generate enormous value that others capture; EDEN makes them <em>your</em> assets, with markets doing the pricing. Ownership, markets, and voluntary exchange stay. What changes is who owns the most valuable thing ordinary people produce.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Does this replace the dollar? Do I have to leave my job or bank?</summary>
+      <div class="a">
+        <p>No. Dollars stay the everyday pricing language, your job stays your job, and nothing here asks you to move your life. EDEN is a parallel layer that grows alongside the existing economy — you give nothing up to join, and every step is optional.</p>
+      </div>
+    </details>
+
+    <h2 class="sect">The money</h2>
+
+    <details class="faq">
+      <summary>Where does the money actually come from?</summary>
+      <div class="a">
+        <p>From verified human attention — the one thing no server farm can fake. When a real person genuinely engages with something valuable (learns from it, uses it, builds on it), a small amount of EVE is minted and flows to whoever created that value. When an AI company or institution uses people's data, it mints nothing — it must buy EVE from people and pay it. A formula in the system's constitution (not a committee) slows minting whenever money outruns real goods; in testing it held inflation near zero for fifteen simulated years.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>What about the safety net — the "floor"? I heard EDEN guarantees essentials.</summary>
+      <div class="a">
+        <p><b>We don't promise a floor. We publish the best-tested one that exists.</b> The original vision guaranteed everyone could always earn life's essentials, and that work is real — reserve mechanics, activation formulas, what happens when a funder walks away, all stress-tested. But when we tested harder, the honest finding was that it doesn't fund itself the way a protocol property should: every scenario that worked needed real outside funding.</p>
+        <p>So the floor is now exactly what the evidence supports: a published blueprint any community, government, or coalition can fund and run on EDEN's rails, in public. The modeling says it's worth their while — about 26% cheaper than traditional welfare delivery, with an exit that strands no one. If people want to prove a floor can hold at scale, everything needed to try is on the shelf.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>How much would I actually earn?</summary>
+      <div class="a">
+        <p>Honestly: nobody knows yet, and anyone who quotes you a number is selling something. In modeling at today's real-world prices, passive participation was small (tens of dollars a month), active contribution more, and skilled building — maintaining software, contributing research — potentially a real living. But every one of those numbers depends on the single most decisive open question: <b>will institutions actually pay for data, code, and access at plausible rates?</b> A field experiment is designed to test exactly that, with failure defined in advance. Until it runs, treat every earnings figure as a model output, not a promise.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Won't people just stop working if basics are covered?</summary>
+      <div class="a">
+        <p>We tested exactly this — it caused our second design crash. The original "top-up" floor made effort pointless near the line, and simulated people rationally quit. The fix is the ramp: every coin earned adds half a coin above the guarantee, always, so effort is never pointless. With it, the simulated economy kept essentially all of its output. <a href="/evidence">The full story is in the tests →</a></p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>What stops fraud — bots, fake identities, content farms?</summary>
+      <div class="a">
+        <p>Three locks, tested against smart attackers (after an audit caught us only imagining dumb ones): near-identical content shares one shrinking payout no matter how it's renamed; earning at scale requires posting a stake you lose if caught; and each person gets one identity for life — too valuable to rent to a fraud ring. Re-running the thief's business plan against all three: it didn't pay in any tested case. The honest label: this holds <em>in the model</em>; whether identity verification holds against real adversaries at scale is a pilot question, and we say so.</p>
+      </div>
+    </details>
+
+    <h2 class="sect">EdenQuest</h2>
+
+    <details class="faq">
+      <summary>Will my EQ Coins become EVE?</summary>
+      <div class="a">
+        <p><b>No — never. And here's why that protects you.</b> EQ Coins are self-issued rewards inside a game whose rules you write: you decide how many points a workout is worth. Converting self-defined points into a network currency would make "set my behaviors to a million points" the cheapest attack on the whole economy — and would turn your habit tracker into a speculative grind. No conversion, no exchange rate, no grandfathering, ever.</p>
+        <p>The two layers do different jobs, on purpose: <b>EQ Coins are what your effort is worth to you. EVE is what your contribution is worth to the world.</b> What carries forward from EdenQuest isn't coins — it's your data, your self-knowledge, and your head start in a system built around them.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>What happens to my EdenQuest data? Who can see it?</summary>
+      <div class="a">
+        <p>Today: it improves your own life, full stop — reports, streaks, experiment analysis, yours. Any future data commons is opt-in and anonymized by default: nothing is ever taken, and sharing more identifiable detail is always your explicit choice (and pays more, because it's worth more). Privacy is the starting point, never something you have to earn back.</p>
+      </div>
+    </details>
+
+    <h2 class="sect">The honesty</h2>
+
+    <details class="faq">
+      <summary>What's still unproven? Give it to me straight.</summary>
+      <div class="a">
+        <p>Three things, in order of importance. <b>One:</b> whether institutions will actually pay for data and code at the levels this needs — unmeasured in the real world; a field experiment is designed and waiting. <b>Two:</b> whether unique human identity can be verified at scale against real adversaries — the keystone under everything; only a live pilot can answer it. <b>Three:</b> whether any of this reaches people at all — the most likely failure mode isn't technical, it's that a well-tested idea never gets shown to anyone. This FAQ existing is part of the answer to that one.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Who reviewed this? Why should I trust simulations?</summary>
+      <div class="a">
+        <p>You shouldn't trust them blindly — and neither do we. Every simulation so far was produced and checked by AI models from the same family: rigorous, adversarial, pre-registered, reproducible (49 of 54 programs regenerate their published numbers to the sixth decimal) — but still our machine checking our machine. <b>It has not yet been independently reviewed, and we say so everywhere.</b> The next steps are exactly what that requires: outside economists, hostile out-of-family replication (<a href="/replication">the replication kit is here</a> — every model, every registered pass/fail bar, every archived original), and real-world experiments with pass/fail criteria published before they run.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Why should I trust an economic design from someone who isn't an economist?</summary>
+      <div class="a">
+        <p>You shouldn't — not on authority, because I have none to offer. That's the whole reason this works the way it does: instead of asking you to trust my credentials, I tried to break the idea thirty-nine times and published every failure. Not being an economist is exactly <em>why</em> the next step is handing all of it to economists — and why the whole design is built to be checked, not believed.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Isn't this just more AI hype? What's your relationship to AI?</summary>
+      <div class="a">
+        <p>No token, no hype. AI here is two things: a <b>payer</b> and a <b>testing tool</b> — never the product. The design's core purpose is to make AI <em>pay</em> people instead of replacing them and scraping their data for free — a machine can never mint currency, only buy it from humans. And AI is what let one person stress-test an entire economy from every angle. The honest caveat stays loud: AI helping <em>test</em> this is a strength; AI being the <em>only</em> thing that's checked it is the gap independent review exists to close. <a href="/about">More on the AI question →</a></p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>Who's behind this?</summary>
+      <div class="a">
+        <p>One person, building in the open, with AI research assistance and early collaborators — while raising a family and working a job. It was never meant to be about its founder: a system owned by everyone can't belong to anyone. <a href="/about">The honest version is on the About page →</a></p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>How can I help?</summary>
+      <div class="a">
+        <p>Four ways, pick your temperament: <b>use</b> EdenQuest (it's free, and useful on day one); <b>read</b> the evidence and try to break it — skeptics are contributors here; <b>follow</b> the build (subscribe — the essays and every open problem, in the open); or <b>bring skills</b> — economics, product, design, community. And if you're able, you can <b><a href="/support">help fund</a></b> the next steps (independent review and the two experiments) — recognition only, never control. The ask is never belief. It's an honest read and a hard question.</p>
+      </div>
+    </details>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/about">About</a> · <a href="/replication">Replication</a> · <a href="/support">Support</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions — will institutions pay, does identity hold at scale, do live adversaries break the price gauge — are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Stories We Invest In — Are They Worth It? — The Exploration Economy</title>
+<meta name="description" content="A simple framework for deciding which narratives deserve your time, energy, and belief.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.75;font-size:18px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:680px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:72px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  h1{font-size:clamp(28px,4.6vw,42px);line-height:1.18;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .dek{max-width:52ch;margin:18px auto 0;font-size:17.5px;color:var(--soft);font-style:italic}
+  article{padding:56px 0}
+  article p{margin-bottom:22px}
+  article b,article strong{color:var(--deep)}
+  article ul{margin:0 0 22px 24px}
+  article li{margin-bottom:8px;color:var(--soft);font-style:italic}
+  .filter{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:20px 24px;margin:30px 0;font-size:18.5px;color:var(--deep);font-style:italic;font-weight:700}
+  .next{border-top:1px solid var(--rule);margin-top:20px;padding-top:30px}
+  .next .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px}
+  .next a{font-weight:700}
+  .subnote{background:var(--dim);border:1px solid var(--rule);border-radius:5px;padding:24px 26px;text-align:center;margin-top:36px}
+  .subnote p{color:var(--soft);font-size:15px;max-width:50ch;margin:0 auto 16px}
+  .btn{display:inline-block;padding:12px 22px;border-radius:3px;font-size:14.5px;border:none}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/essays">← All essays</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">ESSAY 02</div>
+    <h1>The Stories We Invest In — Are They Worth It?</h1>
+    <p class="dek">A simple framework for deciding which narratives deserve your time, energy, and belief.</p>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+    <p>If <a href="/the-power-of-stories">stories have the power</a> to change the world, it's important to look at the ones we're fueling.</p>
+
+    <p>When you look around in life, what do you see?</p>
+
+    <p>Hate, greed, violence, and the polarization of everyone witnessing it may seem to be the overwhelming message. But if you look for it, you'll find good deeds everywhere. People dedicating their lives to the pursuit of truth for the benefit of all. Organizations focused on creating more love, empathy, and understanding. Individuals doing the right thing not because it benefits them, but because it's in their nature. At the end of the day, it depends on where — and at what — you're looking.</p>
+
+    <p>Which begs the question: how do we know which stories are worth investing our time and energy into?</p>
+
+    <p>To answer that, it helps to have a framework — a quick way to determine whether a story deserves our time. And the first thing to examine is intent.</p>
+
+    <p>Ask these questions of any story to find its end goals:</p>
+    <ul>
+      <li>Who benefits from it?</li>
+      <li>Does it create value for all parties involved?</li>
+      <li>Does anyone's benefit come at someone else's cost?</li>
+    </ul>
+
+    <p>Answering these completely can take considerable work. Stories are often designed to shroud exactly these details — which is why journalists matter so much, and why you can predict the future of a nation by the integrity of its journalism. With poor journalism, individuals are left to pursue the truth on their own, and not everyone has the time. That's where a simple filter helps us separate stories with a noble purpose from those with a dishonest one:</p>
+
+    <div class="filter">Does this story have us focus on fear for our lives or our future — while offering control as the solution?</div>
+
+    <p>This question cuts to the core of any narrative. If a story boils down to keeping people focused on fear over truth, it isn't intended to benefit everyone. And it's especially concerning when control is promoted as the solution. Control, in the long run, benefits the people who get to be in control — at the expense of the controlled. It's the foundation of every form of slavery, and slavery is the ultimate profit engine. Control is often sold as protection, as serving the "greater good." But over time, control always serves its master.</p>
+
+    <p>Unless a story benefits everyone involved — and doesn't come at the cost of someone outside it — it probably isn't worth fueling. When one party suffers and then seeks retribution, the cycle of suffering continues for everyone.</p>
+
+    <p>Once a story passes the intent test, the next criterion is its likelihood of success. These questions help us predict a story's trajectory — whether it will actually reach its intended destination:</p>
+    <ul>
+      <li>Are we going the right direction?</li>
+      <li>Are we using our time and energy effectively?</li>
+      <li>Are we creating more freedom, or more control?</li>
+    </ul>
+
+    <p>Three more filters answer them.</p>
+
+    <div class="filter">Does this story keep you focused on the problems, or does it facilitate the pursuit of solutions?</div>
+
+    <p>When our problems drive us, it's easy to accept the first solution that appears — without taking the time to understand the new problems that solution creates. Every solution has its cons. If we don't understand them before rushing to implement, we enable a cycle of problems. When problems are leading us, we never know what the future will look like. We can choose our problems, or they will choose us — and inevitably lead us in the wrong direction.</p>
+
+    <div class="filter">Does this story motivate you to find who's to blame, or to find common ground to move forward on?</div>
+
+    <p>It's important to understand how we got here so we can get where we want to go — but assigning blame doesn't get us there. Yes, there may be people and organizations to blame, but the blame can always go around. It's a self-deluding cycle that wastes time and energy. When we recognize that people on both sides of any argument have real reasons — and real value in the experiences that led to them — we can work with all the variables in front of us instead of arguing about whose experience matters more.</p>
+
+    <div class="filter">Does this story create dependencies on someone or something else, or does it empower individuals?</div>
+
+    <p>Some people genuinely need help — that's worth recognizing. But to truly help them, we have to come from a place of empowerment, not dependency. Real solutions leave a person able to do something for themselves next time, instead of remaining at the mercy of someone else. Dependency is a normal part of life, but solutions <em>built</em> on dependency do exactly what you'd expect: they create a whole segment of the population dependent on others to provide for them. That breeds resentment and continues the suffering.</p>
+
+    <p>To stay aligned with goals worth pursuing, we have to look at stories holistically: the path a story asks us to walk, what it wants us to focus on, and how it treats individuals. If problems lead the way, they will lead us astray. Blame only burns the resources we could be spending on answers. And freedom can only come from equipping people with the tools to solve their own problems — never from manufacturing dependence.</p>
+
+    <p>If a story is genuinely attempting a mutually beneficial result for everyone involved — and its approach aligns with that intent — it's a story worth investing in. If it's built to benefit one group at another's expense, it just continues a cycle of unnecessary suffering.</p>
+
+    <p>Figuring out which stories deserve your time is hard without a process to run them through. No framework is 100% accurate; each has its cons, like any solution. But when your time is limited, a quick way to make effective decisions about where you spend your life is invaluable. These are the standards I hold any story to before I invest in it.</p>
+
+    <p><b>How do you decide which narratives are worth your time?</b></p>
+
+    <div class="next">
+      <span class="tag sans">READ NEXT</span>
+      <a href="/why-we-feel-powerless">Why We Feel Powerless — And What You Can Do About It →</a>
+    </div>
+
+    <div class="subnote">
+      <p>New essays land here first, alongside build-in-public updates. Subscribe free — and reply with the hole you found.</p>
+      <a class="btn gold sans" href="/#subscribe">Subscribe free</a>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

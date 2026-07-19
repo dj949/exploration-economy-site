@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EdenQuest — Your data, finally on your side</title>
+<meta name="description" content="EdenQuest is a live personal-growth OS: habits, goals, self-experiments, and your own data improving your own life. It's also the honest first step of something much bigger.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:88px 0 72px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+  h1{font-size:clamp(30px,5vw,50px);line-height:1.15;color:var(--deep);max-width:20ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:24px auto 0;font-size:18.5px;color:var(--soft)}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;margin-top:34px}
+  .btn.primary{background:var(--deep);color:#fff}.btn.primary:hover{background:var(--green)}
+  section{padding:72px 0}
+  section.dim{background:var(--dim);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  h2{font-size:clamp(24px,3.2vw,34px);color:var(--deep);line-height:1.22}
+  .lede{font-size:18px;color:var(--soft);max-width:62ch;margin-top:14px}
+  .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:44px}
+  .f{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:26px 22px}
+  .f h3{font-size:17px;color:var(--deep);margin-bottom:8px}
+  .f p{font-size:14.5px;color:var(--soft)}
+  .ladder{margin-top:44px}
+  .rung{display:flex;gap:20px;padding:24px 0;border-top:1px solid var(--rule)}
+  .rung:last-child{border-bottom:1px solid var(--rule)}
+  .rung .n{font-family:'Courier New',monospace;font-size:20px;color:var(--gold);min-width:44px;padding-top:2px}
+  .rung h4{font-size:17.5px;color:var(--deep)}
+  .rung p{font-size:15px;color:var(--soft);margin-top:5px;max-width:68ch}
+  .rung.now{background:linear-gradient(90deg,rgba(46,139,95,.07),transparent);border-left:3px solid var(--green);padding-left:16px}
+  .rung .badge{font-size:10.5px;letter-spacing:.14em;color:#fff;background:var(--green);padding:3px 8px;border-radius:2px;vertical-align:middle;margin-left:8px}
+  .promise{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:26px;margin-top:44px}
+  .promise h3{font-size:17px;color:var(--deep);margin-bottom:8px}
+  .promise p{font-size:15px;color:var(--soft)}
+  footer{padding:44px 0;font-size:13.5px;color:var(--soft);text-align:center}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch;margin-left:auto;margin-right:auto;text-align:left}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">EDENQUEST — LIVE NOW AT EDENQUEST.ORG</div>
+    <h1>Your data has been building someone else's empire. Time it built your life.</h1>
+    <p class="sub">EdenQuest is a personal-growth operating system: habits, goals, life experiments, and check-ins — with every data point you create working for exactly one person. You.</p>
+    <a class="btn primary sans" href="https://edenquest.org?utm_source=eeo&utm_medium=site&utm_campaign=eq_page">Open EdenQuest →</a>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow sans">WHAT IT DOES TODAY</div>
+    <h2>A gym for your life — with a scientist inside.</h2>
+    <div class="feats">
+      <div class="f"><h3>Quests, not chores</h3><p>Turn real goals into quests with milestones and momentum. Gamified enough to be fun; honest enough to matter.</p></div>
+      <div class="f"><h3>Your own experiments</h3><p>Does the morning walk actually help your focus? Run the experiment on yourself, with real data, and know instead of guess.</p></div>
+      <div class="f"><h3>Check-ins that connect dots</h3><p>Mood, energy, sleep, habits — tracked simply, correlated honestly, so patterns in your life become visible to you first.</p></div>
+      <div class="f"><h3>A personal coin economy</h3><p>Earn EQ Coins from the effort you define, spend them on the rewards you choose. A private economy for one — practice for valuing your own time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="dim">
+  <div class="wrap">
+    <div class="eyebrow sans">THE BIGGER PICTURE</div>
+    <h2>The first rung of a much taller ladder.</h2>
+    <p class="lede">EdenQuest stands entirely on its own — a good app, worth using for its own sake. It is also, deliberately, the first step into the Exploration Economy. Here's the whole ladder, honestly labeled — including which rungs exist and which are still being earned.</p>
+    <div class="ladder">
+      <div class="rung now"><div class="n">01</div><div><h4>Your data improves your life <span class="badge sans">LIVE NOW</span></h4><p>Habits, experiments, and check-ins — insight belongs to you from day one, and the habit of constructive data collection begins.</p></div></div>
+      <div class="rung"><div class="n">02</div><div><h4>A consented data commons <span style="font-size:11px;letter-spacing:.1em;color:var(--gold)" class="sans">NEXT — OPT-IN ONLY</span></h4><p>Anonymized by default, always your call: contribute patterns to a commons and get better insights and benchmarks back. Nothing is ever taken; everything is opt-in.</p></div></div>
+      <div class="rung"><div class="n">03</div><div><h4>Machines start paying people <span style="font-size:11px;letter-spacing:.1em;color:var(--gold)" class="sans">THE OPEN QUESTION</span></h4><p>Companies and AIs that want to learn from the commons must pay the people it came from — in EVE, the network's currency. Whether institutions will actually pay enough is the single most decisive open question in this whole project. A field experiment is designed, with failure defined in advance. We'd rather test it than promise it.</p></div></div>
+      <div class="rung"><div class="n">04</div><div><h4>The safety net — published, not promised <span style="font-size:11px;letter-spacing:.1em;color:var(--gold)" class="sans">A BLUEPRINT ON THE SHELF</span></h4><p>The most heavily tested piece of the design is a floor under everyone's essentials — reserve mechanics, activation by formula, an exit that strands no one. Under harder testing it didn't fund itself, so we don't promise it. We publish it — for any community or government to fund and run in public, about a quarter cheaper than traditional delivery in modeling. If it ever activates, you'll have watched the reserve fill on a public ledger first.</p></div></div>
+    </div>
+    <div class="promise">
+      <h3>One promise, made early and kept forever</h3>
+      <p><b>EQ Coins will never convert into EVE.</b> Your in-app coins are yours — a personal reward system, not a speculative asset. If the EVE economy arrives, it will be earned through real contribution and real data, never through grinding an app. Any project that promises otherwise is building the very thing this one exists to end. What carries forward from EdenQuest isn't coins — it's your <em>data</em>, your habits of self-knowledge, and your head start in a system built around them. <a href="/faq">Why this protects you →</a></p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="text-align:center">
+    <h2>Start where everything starts: with one better week.</h2>
+    <p class="lede" style="margin-left:auto;margin-right:auto">No belief required. No economics required. If the bigger vision never moves you, EdenQuest is still just a genuinely useful app — and if it does move you, you'll already be standing on the first rung.</p>
+    <a class="btn primary sans" href="https://edenquest.org?utm_source=eeo&utm_medium=site&utm_campaign=eq_footer">Open EdenQuest →</a>
+    <p style="margin-top:22px;font-size:14px"><a href="/evidence">Or inspect the economics first →</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/evidence">Evidence</a> · <a href="/essays">Essays</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. EdenQuest is real and live today; the economy behind it is a tested design whose decisive questions — will institutions pay, does identity hold — have experiments designed and waiting. If they fail, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

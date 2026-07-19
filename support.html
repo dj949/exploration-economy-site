@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support the work — fund the next steps</title>
+<meta name="description" content="Help the next steps happen: independent economist review, the willingness-to-pay field experiment, and the identity pilot. Funding buys recognition and a place in the record — never control or advantage inside the system.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:22ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:48px 0 16px}
+  article h2:first-child{margin-top:0}
+  .asks{display:grid;gap:18px;margin:26px 0}
+  .ask{background:var(--card);border:1px solid var(--rule);border-radius:6px;border-left:4px solid var(--green);padding:22px 24px}
+  .ask h3{font-size:17.5px;color:var(--deep);margin-bottom:6px}
+  .ask p{font-size:15px;color:var(--soft);margin:0}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .cta{background:var(--deep);color:#e9efe9;border-radius:8px;padding:36px 32px;margin-top:48px;text-align:center}
+  .cta h2{color:#fff;margin:0 0 10px;font-size:22px}
+  .cta p{color:#c4d4c8;font-size:15px;max-width:52ch;margin:0 auto 20px}
+  .btn{display:inline-block;padding:13px 24px;border-radius:3px;font-size:15px;border:none;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">SUPPORT THE WORK</div>
+    <h1>Help the garden come to exist.</h1>
+    <p class="sub">The design has survived every storm one person and a lot of testing could invent. The next steps can't be simulated — they take real economists and real experiments. If you're in a position to help those happen, here's exactly what your support would fund.</p>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+
+    <h2>What funding actually moves</h2>
+    <p>This isn't an abstract "donate to the cause" ask. Three specific, decisive steps stand between a well-tested idea and a tested-in-the-world one — the exact things the project openly says it hasn't done yet:</p>
+
+    <div class="asks">
+      <div class="ask">
+        <h3>1. Independent economist review</h3>
+        <p>A professional economist, with no stake in EDEN succeeding, engaged to attack the work at full strength — the hostile outside read the whole design has never had. The replication kit is already built to hand them.</p>
+      </div>
+      <div class="ask">
+        <h3>2. The willingness-to-pay field experiment</h3>
+        <p>The single most decisive open question: will institutions actually pay for data and code at plausible rates? A real experiment is designed, with failure defined in advance at an order of magnitude below the model's anchors. It just needs to run.</p>
+      </div>
+      <div class="ask">
+        <h3>3. The identity pilot</h3>
+        <p>The keystone under everything: can unique human identity hold against real adversaries at scale? No simulation can settle it — only a contained, real-world pilot can.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><b>What your support buys — and what it deliberately doesn't.</b> Funding buys recognition and a place in the record. It buys <em>never</em> control of EDEN, and <em>never</em> any economic advantage inside it. That's not a limitation to apologize for — it's the entire point. A system meant to belong to everyone can't be bought into. If a contribution could purchase influence over the rules or a better position in the economy, it would break the thing it was meant to help build.</p>
+    </div>
+
+    <h2>Founding patrons</h2>
+    <p>Anyone who helps stand this up can be recognized as a founding patron — an optional, opt-in place in the public record of the people who funded the experiments that decided whether this could work. No tiers, no governance weight, no economic edge. Just the honest legacy: you helped find out.</p>
+
+    <div class="cta">
+      <h2>If you can help fund the next steps, get in touch.</h2>
+      <p>Tell me which step you'd want to move, and we'll talk specifics — scope, amount, and how you'd like to be recognized (or not).</p>
+      <a class="btn gold sans" href="mailto:devan@ai-realized.com?subject=Supporting%20the%20Exploration%20Economy">Email devan@ai-realized.com</a>
+    </div>
+
+    <p style="margin-top:30px;font-size:15px;color:var(--soft)">Not in a position to fund it? The most valuable thing most people can give is an honest read and a hard question — <a href="/#subscribe">follow the build</a>, or <a href="/replication">try to break the work</a>.</p>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a> · <a href="/replication">Replication</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions — will institutions pay, does identity hold at scale, do live adversaries break the price gauge — are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Common Sense — the book behind the Exploration Economy</title>
+<meta name="description" content="Where today's economy went wrong, what a better one looks like, and the honest path between here and there — written for humans, not economists.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.7;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:84px 0 64px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(34px,6vw,54px);line-height:1.12;color:var(--deep)}
+  header .sub{max-width:54ch;margin:22px auto 0;font-size:18.5px;color:var(--soft)}
+  article{padding:60px 0 72px}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(22px,3vw,28px);color:var(--deep);line-height:1.25;margin:44px 0 14px}
+  .status{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:24px 26px;margin:34px 0}
+  .status p{margin-bottom:0;font-size:15.5px;color:var(--soft)}
+  .status b{color:var(--deep)}
+  .gate{background:var(--dim);border:1px solid var(--rule);border-radius:5px;padding:30px 28px;text-align:center;margin-top:44px}
+  .gate h2{margin:0 0 10px}
+  .gate p{color:var(--soft);font-size:15.5px;max-width:50ch;margin:0 auto 20px}
+  .sub-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .sub-form input{padding:13px 16px;border:1.5px solid var(--rule);border-radius:3px;font-size:15px;min-width:240px;background:var(--card);color:var(--ink);font-family:inherit}
+  .btn{display:inline-block;padding:13px 24px;border-radius:3px;font-size:15px;border:none;cursor:pointer}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">THE BOOK · DRAFT 3</div>
+    <h1><em>Common Sense</em></h1>
+    <p class="sub">Where today's economy went wrong, what a better one looks like, and the honest path between here and there — written for humans, not economists.</p>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+    <p>Two and a half centuries ago, a pamphlet with this name made a radical case in plain language: the system everyone treated as permanent was just a story — and a better one was available to anyone willing to tell it. This book tries to do the same job for the economy.</p>
+    <p>It's the human story behind everything else on this site: why money created as debt quietly bends every incentive around it, why your data became the most valuable thing you give away for free, why feeling powerless is the rational response to the current setup — and why none of that is the end of the story. The economics live in the <a href="/docs/whitepaper">white paper</a> and <a href="/evidence">the tests</a>; the book is the <em>why</em>, told the way a friend would tell it.</p>
+
+    <div class="status">
+      <p><b>Honest status: it's a draft (the third one), and it reads like one in places.</b> It's being finished in the open, the same way the rest of this project is built. Early readers get chapters as they're polished — and their pushback shapes the final version. No release date promised; formulas instead of dates is kind of our whole thing.</p>
+    </div>
+
+    <h2>What it covers</h2>
+    <p><b>Part one — the story we're living in.</b> How the debt engine works, what it does to people, and why "just work harder" stopped being an answer. <b>Part two — the story we could choose.</b> The exploration economy, told through lives rather than mechanisms: what a day looks like when your data pays you, when effort is never pointless, and when honesty is the profitable strategy. <b>Part three — the honest path.</b> No revolutions, no overnight anything: the staircase from a habit app to a tested economy, including every place it could fail.</p>
+
+    <div class="gate">
+      <h2>Read it as it's finished.</h2>
+      <p>Join the list and chapters arrive as they're ready — along with the essays and build-in-public updates. Your pushback becomes the next revision.</p>
+      <!-- LIVE SITE: map to Ghost Portal signup -->
+      <form class="sub-form sans" onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address">
+        <button class="btn gold" type="submit">Get the chapters</button>
+      </form>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

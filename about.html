@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — The Exploration Economy</title>
+<meta name="description" content="An average person thinking out loud about a better economy — built in the open, stress-tested until it breaks, and yours to poke holes in.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 60px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:22ch;margin:0 auto}
+  article{padding:60px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(22px,3vw,28px);color:var(--deep);line-height:1.25;margin:48px 0 14px}
+  .working{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:30px 0 10px}
+  .w{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:22px 20px}
+  .w .tag{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;display:inline-block;padding:3px 8px;border-radius:2px}
+  .w .tag.live{background:var(--green);color:#fff}
+  .w .tag.draft{background:#f4ecd9;color:#7a5c1a}
+  .w h3{font-size:16.5px;color:var(--deep);margin-bottom:6px}
+  .w p{font-size:14px;color:var(--soft);margin:0}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:24px 26px;margin:34px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .cta{background:var(--deep);color:#e9efe9;border-radius:8px;padding:38px 34px;margin-top:56px;text-align:center}
+  .cta h2{color:#fff;margin:0 0 10px;font-size:23px}
+  .cta p{color:#c4d4c8;font-size:15px;max-width:52ch;margin:0 auto 22px}
+  .btn{display:inline-block;padding:13px 24px;border-radius:3px;font-size:15px;border:none}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">ABOUT</div>
+    <h1>I'm an average person who believes we could be and do so much more.</h1>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+
+    <p>For years I've carried a question I couldn't put down: almost everything in modern life feels designed to keep us hooked, divided, and barely keeping up — and I don't think that's because people are evil. I think it's the incentives. It's the system. And systems are really just stories we agreed to and keep feeding with our time.</p>
+
+    <p><b>Exploration Economy is where I think out loud about a different story:</b> an economy where your life creates value you actually own, where no one has to prove their life is worth having its basic needs met, and where the more you give, the more you get.</p>
+
+    <p>I'm not an expert lecturing you. I'm a fellow traveler who finally sat down to write it all out — and I write from a naive place on purpose, because I'd rather be shown the gaps than defend a comfortable idea.</p>
+
+    <p>For years I tried to explain this to anyone who'd listen. People felt the objection before they could name it — "it sounds good, but nobody would ever actually do it." I couldn't prove them wrong, and that bothered me enough to keep going: building the app, writing the book, writing down every problem I could think of before someone else raised it. What I never had was a way to test the whole thing — until I did. Then I ran it into every wall I could build, and the objection I'd feared most became the first thing I put on trial.</p>
+
+    <p>Some of what you'll find here is essays. Some of it is the actual system I've spent months building and trying to break — it broke three times, and I'm <b>publishing all of it now, in the open</b>: every fix posted right next to the embarrassing original, nothing sanded off. This launch <em>is</em> me opening the whole record for the first time. All of it is an invitation — and the "we" I keep slipping into is the one I'm hoping you'll join: one person built this, but it gets better every time someone else tries to break it.</p>
+
+    <h2>What I'm working on</h2>
+    <div class="working sans">
+      <div class="w"><span class="tag live">LIVE</span><h3>EdenQuest</h3><p>A free personal-growth app — habits, experiments, your data working for you. The real, working front door.</p></div>
+      <div class="w"><span class="tag live">PUBLISHING NOW</span><h3>The testing program</h3><p>39 waves of adversarial simulation with pre-registered pass/fail bars. Three crashes, three public redesigns, everything reproducible.</p></div>
+      <div class="w"><span class="tag draft">DRAFT</span><h3>The white paper</h3><p>The formal design — labeled a draft because it is one, awaiting the review of hostile outside experts.</p></div>
+      <div class="w"><span class="tag draft">DRAFT</span><h3>The book — <em>Common Sense</em></h3><p>Where today's economy went wrong and the honest path to a better one — written for humans, not economists.</p></div>
+      <div class="w"><span class="tag draft">DESIGNED</span><h3>The two experiments</h3><p>Will institutions pay for data? Does identity hold against real adversaries? Both designed, failure defined in advance, waiting to run.</p></div>
+      <div class="w"><span class="tag live">ONGOING</span><h3>The essays</h3><p>One honest piece at a time — stories, powerlessness, incentives. The pushback becomes the next piece.</p></div>
+    </div>
+
+    <h2>The honest state of it</h2>
+    <p>I'm one person who built this quietly and is now putting all of it in the open — a book, an economic design, an app, and this site — while raising a family and working a job. I'd rather show you the real, unfinished progress than sell you a polished fantasy.</p>
+    <p><b>A word on the AI in all this, since there's good reason to be wary of it.</b> I used AI heavily — but to build, not to extract. With limited time and money, it's what let one person stress-test an entire economic design from angles I could never have covered alone. The goal was never to use AI to take value from people; it was to design a system where AI has to pay them. I think that's the difference that matters, and I'd rather state it plainly than have you wonder. Using AI to <em>test</em> this is a strength; it being the <em>only</em> thing that's checked it is the limitation the next steps exist to close.</p>
+    <p>What's still unproven, stated plainly: whether institutions will actually pay enough to make the economics real, and whether unique human identity can be verified at scale against a real adversary. Both have experiments designed and waiting to run — that's the honest next step, not more simulation. And the design has not yet been independently reviewed; every test so far is our machine checking our machine, which is exactly why the <a href="/replication">replication kit</a> exists to hand to hostile experts.</p>
+
+    <div class="callout">
+      <p>You're not crazy, and you're not alone. If the way things work has ever felt rigged to you, you were paying attention. The answer isn't burning it down — it's building the alternative in the open and letting you check the work.</p>
+    </div>
+
+    <div class="cta">
+      <h2>Subscribe if you want to find out whether we're onto something.</h2>
+      <p>And help build it if we are. One honest essay at a time, every open problem in the open, no hype. Reply anytime — the hard questions are the point.</p>
+      <a class="btn gold sans" href="/#subscribe">Subscribe free</a>
+    </div>
+
+    <p style="margin-top:26px;font-size:15px;color:var(--soft)">If you're in a position to help fund the next steps — independent economist review and the two real-world experiments — <a href="/support">here's how</a>. It buys recognition and a place in the record, never control or advantage inside the system. That's the point.</p>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/faq">FAQ</a> · <a href="/replication">Replication</a> · <a href="/support">Support</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions — will institutions pay, does identity hold at scale, do live adversaries break the price gauge — are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

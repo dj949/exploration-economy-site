@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The White Paper — EDEN, the formal version</title>
+<meta name="description" content="The full economic design: how money is minted, routed, governed, and defended — every result graded, every open question labeled. A draft, and labeled as one.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.7;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:80px 0 60px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.14;color:var(--deep);max-width:20ch;margin:0 auto}
+  header .sub{max-width:54ch;margin:22px auto 0;font-size:18px;color:var(--soft)}
+  article{padding:60px 0 72px}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  .status{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:24px 26px;margin:34px 0}
+  .status p{margin-bottom:0;font-size:15.5px;color:var(--soft)}
+  .status b{color:var(--deep)}
+  .paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:36px}
+  .p{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:24px 22px}
+  .p .tag{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
+  .p h3{font-size:17px;color:var(--deep);margin-bottom:8px}
+  .p p{font-size:14.5px;color:var(--soft);margin:0 0 12px}
+  .p a{font-weight:700;font-size:14.5px}
+  .gate{background:var(--dim);border:1px solid var(--rule);border-radius:5px;padding:30px 28px;text-align:center;margin-top:44px}
+  .gate h2{font-size:22px;color:var(--deep);margin:0 0 10px}
+  .gate p{color:var(--soft);font-size:15.5px;max-width:50ch;margin:0 auto 20px}
+  .sub-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .sub-form input{padding:13px 16px;border:1.5px solid var(--rule);border-radius:3px;font-size:15px;min-width:240px;background:var(--card);color:var(--ink);font-family:inherit}
+  .btn{display:inline-block;padding:13px 24px;border-radius:3px;font-size:15px;border:none;cursor:pointer}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">THE FORMAL VERSION</div>
+    <h1>The EDEN White Paper</h1>
+    <p class="sub">The full design: how money is minted, routed, governed, and defended — with every result graded and every open question labeled.</p>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+    <p>Everything the rest of this site says in plain language, said precisely: the minting rule, the governor, the routing of payments through dependency chains, the identity and fraud stack, the governance houses, the price index, and the safety-net blueprint — each with the simulation evidence behind it and the honest grade it earned.</p>
+
+    <div class="status">
+      <p><b>Honest status: it's a draft, and its title page says so.</b> The current consolidation reflects the open-economy era of testing — real prices, real market anchors, sponsor-funded floors — and it is written to be handed to a hostile economist as their starting brief. It has not yet been independently reviewed; getting it that review is the point of publishing it.</p>
+    </div>
+
+    <div class="paths sans">
+      <div class="p">
+        <span class="tag">READ FIRST · 15 MIN</span>
+        <h3>Not sure you want the math?</h3>
+        <p>The Story of the Tests covers the same ground in plain language — crashes, fixes, and open questions.</p>
+        <a href="/evidence">Read the story →</a>
+      </div>
+      <div class="p">
+        <span class="tag">THE DRAFT PDF</span>
+        <h3>The current draft</h3>
+        <p>The full document, failures and all. Ask and it's yours — or grab it below the moment it's posted.</p>
+        <a href="/#subscribe">Request the draft →</a>
+      </div>
+      <div class="p">
+        <span class="tag">FOR EXPERTS</span>
+        <h3>Want to break it?</h3>
+        <p>A replication kit exists: every model, every registered pass/fail bar, every archived original. Free to download; hostile reviews welcome — that's the ask.</p>
+        <a href="/replication">Download the kit →</a>
+      </div>
+    </div>
+
+    <div class="gate">
+      <h2>Get the draft the day it posts.</h2>
+      <p>Join the list and the white paper lands in your inbox when the current consolidation is ratified — along with what changed and why.</p>
+      <!-- LIVE SITE: map to Ghost Portal signup; swap this page's "Request" links to the PDF URL once uploaded -->
+      <form class="sub-form sans" onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address">
+        <button class="btn gold" type="submit">Send me the draft</button>
+      </form>
+    </div>
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

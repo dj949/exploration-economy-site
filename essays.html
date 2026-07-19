@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essays — The Exploration Economy</title>
+<meta name="description" content="One honest essay at a time: stories, powerlessness, and why the incentives — not the people — are the problem.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:860px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 56px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep)}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  section{padding:60px 0 72px}
+  .post{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:32px 30px;margin-bottom:22px;transition:transform .25s ease,box-shadow .25s ease}
+  .post:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(13,53,36,.10)}
+  .post .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block}
+  .post h2{font-size:23px;color:var(--deep);line-height:1.28;margin-bottom:8px}
+  .post h2 a{border:none;color:inherit}
+  .post .dek{font-size:15.5px;color:var(--soft);font-style:italic;margin-bottom:12px}
+  .post p{font-size:15px;color:var(--soft)}
+  .post .more{display:inline-block;margin-top:14px;font-weight:700;font-size:15px}
+  .subnote{background:var(--dim);border:1px solid var(--rule);border-radius:5px;padding:26px 28px;text-align:center;margin-top:38px}
+  .subnote p{color:var(--soft);font-size:15.5px;max-width:52ch;margin:0 auto 18px}
+  .btn{display:inline-block;padding:13px 24px;border-radius:3px;font-size:15px;border:none}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">THE WRITING</div>
+    <h1>One honest essay at a time.</h1>
+    <p class="sub">No hype, no spam — the ideas, the evidence, and every open problem, in the open. Reply anytime; the pushback becomes the next piece.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <!-- LIVE SITE: on Ghost, this page is simply the post feed (or a pinned tag).
+         These three cards mirror the launch posts; once published, link each card
+         to its Ghost post URL and let the feed take over for everything after. -->
+
+    <div class="post">
+      <span class="tag sans">START HERE · ESSAY 01</span>
+      <h2><a href="/the-power-of-stories">The Power of Stories and How They Can Save Us</a></h2>
+      <p class="dek">Everything humanity has ever built — or destroyed — began as a story. So did the way out.</p>
+      <p>Stories inspire, teach, divide, and unite us. They become the beliefs that shape everything that follows — whether they're true or not. Money, nations, and economies are stories too: powerful precisely because we all keep telling them. Which means the way out of a broken story isn't a war. It's a better story, told well, opted into.</p>
+      <a class="more" href="/the-power-of-stories">Read the essay →</a>
+    </div>
+
+    <div class="post">
+      <span class="tag sans">ESSAY 02</span>
+      <h2><a href="/the-stories-we-invest-in">The Stories We Invest In — Are They Worth It?</a></h2>
+      <p class="dek">A simple framework for deciding which narratives deserve your time, energy, and belief.</p>
+      <p>If stories have the power to change the world, it matters which ones we're fueling. Hate and doom are the loudest stories on offer — but they're not the only ones, and attention is the currency they all run on. A practical look at auditing where yours goes.</p>
+      <a class="more" href="/the-stories-we-invest-in">Read the essay →</a>
+    </div>
+
+    <div class="post">
+      <span class="tag sans">ESSAY 03</span>
+      <h2><a href="/why-we-feel-powerless">Why We Feel Powerless — And What You Can Do About It</a></h2>
+      <p class="dek">Feeling powerless is a documented psychological effect — staying powerless is a choice.</p>
+      <p>Scrolling the news and wondering if anything you do matters isn't a personal failing; it's a measurable effect with a name. History and research both say the same surprising thing about how small groups actually shift the world — and what reclaiming your own sense of impact looks like in practice.</p>
+      <a class="more" href="/why-we-feel-powerless">Read the essay →</a>
+    </div>
+
+    <div class="subnote">
+      <p>New essays land here first, alongside build-in-public updates on the economy, the app, and every open problem. Subscribe free — and reply with the hole you found.</p>
+      <a class="btn gold sans" href="/#subscribe">Subscribe free</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/evidence">Evidence</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

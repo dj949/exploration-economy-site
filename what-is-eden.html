@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Is EDEN? — A plain-language guide for newcomers</title>
+<meta name="description" content="The one document to read if you've never seen this project before: the engine, the overlay, the pieces that fit together, and what we don't yet know — said out loud.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .wrap{max-width:740px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 60px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep)}
+  header .sub{max-width:54ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  article{padding:60px 0}
+  article h2{font-size:clamp(22px,3vw,28px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article p{margin-bottom:18px}
+  article b{color:var(--deep)}
+  article ul{margin:0 0 18px 22px}
+  article li{margin-bottom:10px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .figure{margin:34px auto 6px}
+  .figure svg{width:100%;height:auto;display:block}
+  .figcap{font-size:12.5px;color:var(--soft);font-style:italic;text-align:center;margin:8px 0 26px}
+  /* HTML diagrams — text wraps, boxes grow, overflow impossible */
+  .dg{font-family:'Helvetica Neue',Arial,sans-serif}
+  .dg .lane-t{font-size:12px;letter-spacing:2px;color:var(--gold);margin:0 0 10px}
+  .dg .frow{display:flex;align-items:stretch}
+  .dg .fnode{flex:1 1 0;min-width:0;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:12px 14px;display:flex;gap:11px;align-items:center}
+  .dg .fnode.hl{border-color:var(--green);border-width:1.6px}
+  .dg .fnode .ic{flex:0 0 auto;width:auto;height:auto;display:inline-block}
+  .dg .fnode b{display:block;font-size:13.5px;color:var(--deep);line-height:1.25}
+  .dg .fnode span{display:block;font-size:11.5px;color:var(--soft);margin-top:3px;line-height:1.3}
+  .dg .farr{flex:0 0 96px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 9px;text-align:center}
+  .dg .farr.wide{flex-basis:160px}
+  .dg .farr i{font-style:normal;display:block;font-size:11px;line-height:1.3;color:var(--soft);margin-bottom:6px}
+  .dg .farr i.g{color:var(--green);font-weight:700}
+  .dg .farr i.au{color:var(--gold);font-weight:700}
+  .dg .farr em{font-style:normal;display:block;font-size:10.5px;line-height:1.3;color:var(--soft);margin-top:6px}
+  .dg .farr .sh{position:relative;height:2px;width:100%;background:var(--green)}
+  .dg .farr.au .sh{background:var(--gold)}
+  .dg .farr .sh::after{content:"";position:absolute;right:-1px;top:-4px;border-left:8px solid var(--green);border-top:5px solid transparent;border-bottom:5px solid transparent}
+  .dg .farr.au .sh::after{border-left-color:var(--gold)}
+  .dg .dgdiv{display:flex;align-items:center;gap:14px;margin:18px 0;color:var(--green);font-family:'Courier New',monospace;font-weight:700;font-size:13.5px}
+  .dg .dgdiv::before,.dg .dgdiv::after{content:"";flex:1;border-top:1px dashed var(--rule)}
+  .dg .dgnote{text-align:center;font-size:11.5px;color:var(--soft);margin-top:16px;line-height:1.45}
+  /* overlay stack rows */
+  .dg .orow{display:grid;grid-template-columns:118px 1fr 34px 1.35fr;gap:0 12px;align-items:center;background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:13px 14px;margin-bottom:8px}
+  .dg .orow .k{font-family:'Courier New',monospace;font-size:11px;color:var(--green)}
+  .dg .orow .old{font-size:12.5px;color:var(--soft);text-decoration:line-through}
+  .dg .orow .oa{position:relative;height:2px;background:var(--green)}
+  .dg .orow .oa::after{content:"";position:absolute;right:-1px;top:-4px;border-left:8px solid var(--green);border-top:5px solid transparent;border-bottom:5px solid transparent}
+  .dg .orow .new{font-size:13px;font-weight:700;color:var(--deep);line-height:1.3}
+  .dg .obase{background:var(--dim);border:1px solid var(--rule);border-radius:5px;padding:13px 14px;text-align:center;margin-top:12px}
+  .dg .obase .b1{font-size:11.5px;letter-spacing:2px;color:var(--soft)}
+  .dg .obase .b2{font-size:12px;color:var(--soft);margin-top:5px}
+  /* floor module */
+  .dg .floorgrid{display:grid;grid-template-columns:auto 84px 1.35fr 1fr;gap:0 14px;align-items:center}
+  .dg .funders{display:flex;flex-direction:column;gap:10px}
+  .dg .funders span{font-size:12px;color:var(--soft);border-right:2px solid var(--rule);padding-right:12px;text-align:right}
+  .dg .floorbox{position:relative;background:var(--card);border:1.6px dashed var(--gold);border-radius:8px;padding:16px 14px 20px;text-align:center}
+  .dg .floorbox b{display:block;font-size:14.5px;color:var(--deep);letter-spacing:1px}
+  .dg .floorbox span{display:block;font-size:11.5px;color:var(--soft);margin-top:5px;line-height:1.35}
+  .dg .floorbox .prongs{position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);display:flex;gap:18px}
+  .dg .floorbox .prongs i{width:13px;height:13px;background:var(--deep)}
+  .dg .gauge{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .dg .gauge span{font-size:11px;color:var(--soft);margin-top:8px;line-height:1.35}
+  .dg .railband{background:var(--dim);border:1px solid var(--rule);border-radius:5px;padding:13px 14px;text-align:center;margin-top:14px}
+  .dg .railband b{display:block;font-family:'Courier New',monospace;font-size:12.5px;color:var(--green)}
+  .dg .railband span{display:block;font-size:11.5px;color:var(--soft);margin-top:4px}
+  @media(max-width:680px){
+    .dg .frow{flex-direction:column}
+    .dg .farr,.dg .farr.wide{flex-basis:auto;padding:9px 0}
+    .dg .farr .sh{width:2px;height:20px}
+    .dg .farr .sh::after,.dg .farr.au .sh::after{right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:-2px;border:none;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid var(--green)}
+    .dg .farr.au .sh::after{border-top-color:var(--gold)}
+    .dg .orow{grid-template-columns:1fr;gap:7px}
+    .dg .orow .oa{width:22px;justify-self:start}
+    .dg .floorgrid{grid-template-columns:1fr;gap:16px;justify-items:center}
+    .dg .funders{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px 14px}
+    .dg .funders span{border-right:none;border-bottom:2px solid var(--rule);padding:0 0 6px;text-align:center}
+    .dg .fundarr{display:none}
+  }
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <a class="back sans" href="/">← Back to the map</a>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="kicker sans">PLAIN LANGUAGE · THE NEWCOMER'S GUIDE</div>
+    <h1>What is EDEN?</h1>
+    <p class="sub">The one page to read if you've never seen this project before. Every claim here traces to a published test; the uncertain parts are labeled uncertain, out loud.</p>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+
+    <h2>What the names mean</h2>
+    <p><b>EDEN</b> stands for the <em>Exploration-Driven Economic Network</em> — "exploration" because the whole system is built to reward discovery and genuine contribution over extraction. Its currency is <b>EVE</b>, <em>Equitable Value Exchange</em>. The free app that's real today is <b>EdenQuest</b>. That's the whole vocabulary; everything below is just how it works. In one sentence: <b>EDEN is an economy where your data, creations, and attention are assets that pay you — and where AI has to pay people rather than replace them.</b></p>
+
+    <h2>Why we're telling you this first</h2>
+    <p>This project has spent months trying to break its own idea before asking anyone to believe it. Thirty-nine waves of simulation, pass/fail bars written down <em>before</em> each one ran, three full public redesigns forced by results the team didn't like, and every failure published as a failure instead of quietly fixed. That habit is rarer than it sounds — plenty of ambitious economic ideas arrive pre-polished, with the failures sanded off. This one doesn't, on purpose. Read everything below with that in mind: the confident parts are confident because they survived real attempts to break them, and the uncertain parts are labeled uncertain by the people who built it.</p>
+
+    <h2>The problem, in one breath</h2>
+    <p>Most of the big troubles we argue about — widening inequality, corruption, why it's so hard to act on the climate, why everyone seems angrier — sit on top of the same foundation: an economy whose incentives are pointed the wrong way. Today's money is created mostly as debt, which means the whole system needs to keep growing just to service what it owes — regardless of whether people actually need more. It rewards <em>owning</em> things and <em>managing perception</em> more than it rewards <em>creating</em> value, and the people who already hold assets pull steadily ahead of the people who actually make and do things.</p>
+    <p>EDEN is a proposal to rebuild that foundation — not as a single new economy, but as a new layer underneath the internet we already have.</p>
+
+    <h2>The core idea: everyone owns a money-making machine</h2>
+    <p>Today, only people with capital — property, stocks, a business — have assets that earn money while they sleep. Everyone else trades hours for a paycheck. EDEN's core move is to make your data, your creations, and your verified attention into that same kind of asset: something you own, that pays you automatically whenever someone else uses it. Not a subscription you pay into and hope comes back. A machine you already have, that starts earning the moment it's built.</p>
+    <p>The unit that anchors it is <b>time</b>: honest human attention and effort on real work. When a verified person genuinely engages with something valuable — learns from it, uses it, builds on it — a small amount of currency (EVE) is minted, and it flows to the people who created that value. Machines and institutions never mint; they only pay, transferring existing currency to the people whose work they use. That's true whether the payer is a research lab training a model or your own personal AI assistant reading someone else's data on your behalf — every non-human actor pays, only verified human attention creates new money.</p>
+    <p>Digital things — knowledge, tools, art, code — are <b>free for anyone to use</b>. Their creators don't charge a toll at the door; instead they're paid automatically whenever their work is actually used. The more your work helps others, the more you earn. <b>The more you give, the more you get</b> — the system is built to be symbiotic, not zero-sum.</p>
+
+    <div class="figure dg" role="img" aria-label="Diagram: verified human attention mints new EVE for creators; AI and institutions never mint, they buy and pay existing EVE to the people whose work they use.">
+      <div class="lane-t">HOW NEW MONEY IS BORN</div>
+      <div class="frow">
+        <div class="fnode">
+          <svg class="ic" style="width:32px;height:32px" width="32" height="32" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="12" r="6" fill="none" stroke="var(--green)" stroke-width="2"/><path d="M5 30 q12 -14 24 0" fill="none" stroke="var(--green)" stroke-width="2"/></svg>
+          <div><b>A verified human</b><span>real attention, real effort</span></div>
+        </div>
+        <div class="farr"><i>genuinely engages</i><div class="sh"></div></div>
+        <div class="fnode">
+          <svg class="ic" style="width:30px;height:32px" width="30" height="32" viewBox="0 0 34 34" aria-hidden="true"><rect x="7" y="4" width="20" height="26" rx="3" fill="none" stroke="var(--deep)" stroke-width="2"/><path d="M12 12 h10 M12 18 h10 M12 24 h6" stroke="var(--deep)" stroke-width="1.6"/></svg>
+          <div><b>someone's work</b><span>free for anyone to use</span></div>
+        </div>
+        <div class="farr"><i class="g">&#10035; new EVE minted</i><div class="sh"></div></div>
+        <div class="fnode hl"><div><b>the creator is paid</b><span>automatically, every use — and the archive itself never leaves</span></div></div>
+      </div>
+      <div class="dgdiv">humans mint &#183; machines pay</div>
+      <div class="lane-t">HOW MACHINES JOIN IN</div>
+      <div class="frow">
+        <div class="fnode">
+          <svg class="ic" style="width:32px;height:32px" width="32" height="32" viewBox="0 0 34 34" aria-hidden="true"><rect x="8" y="10" width="18" height="14" rx="2" fill="none" stroke="var(--deep)" stroke-width="2"/><path d="M12 10 V5 M17 10 V5 M22 10 V5 M12 24 v5 M17 24 v5 M22 24 v5" stroke="var(--deep)" stroke-width="1.6"/></svg>
+          <div><b>AI / institution</b><span>never mints. Ever.</span></div>
+        </div>
+        <div class="farr au wide"><i class="au">buys &amp; pays existing EVE</i><div class="sh"></div><em>for the data &amp; code it uses</em></div>
+        <div class="fnode">
+          <svg class="ic" style="width:44px;height:22px" width="44" height="22" viewBox="0 0 46 24" aria-hidden="true"><circle cx="8" cy="12" r="6" fill="none" stroke="var(--green)" stroke-width="1.8"/><circle cx="23" cy="12" r="6" fill="none" stroke="var(--green)" stroke-width="1.8"/><circle cx="38" cy="12" r="6" fill="none" stroke="var(--green)" stroke-width="1.8"/></svg>
+          <div><b>the people it learned from</b><span>your data becomes your income</span></div>
+        </div>
+      </div>
+      <div class="dgnote">The money supply stays tied to the one thing no server farm can fake: human time.</div>
+    </div>
+    <p class="figcap sans">The whole engine in one picture — the top lane is the only place new money is ever created.</p>
+
+    <h2>Not a new economy — an overlay</h2>
+    <p>It's tempting to describe this as "a whole new internet," and the project itself tried that framing and rejected it as overreach. The honest, defensible version: EDEN is an overlay on the internet we already have, replacing four of its layers — <b>monetization</b> (ads and paywalls become minting-plus-machine-pay, so creators are paid natively instead of through a platform's ad market), <b>discovery</b> (engagement-maximizing feeds become neutral retrieval with disclosed ranking), <b>identity</b> (per-platform accounts become one portable, self-owned identity), and <b>provenance</b> (unverifiable content becomes signed, on-ledger origin tracking). Transport, hosting, browsers, and devices all stay exactly as they are. Think less "replace the internet" and more "a new layer for how value, trust, and attribution move through it."</p>
+
+    <div class="figure dg" role="img" aria-label="Stack diagram: EDEN replaces four internet layers — monetization, discovery, identity, provenance — while transport, hosting, browsers and devices stay unchanged.">
+      <div class="lane-t">FOUR LAYERS CHANGE &#8212; HOW VALUE &amp; TRUST MOVE</div>
+      <div class="orow"><span class="k">MONETIZATION</span><span class="old">ads &amp; paywalls</span><span class="oa"></span><span class="new">creators paid natively when work is used</span></div>
+      <div class="orow"><span class="k">DISCOVERY</span><span class="old">engagement-bait feeds</span><span class="oa"></span><span class="new">neutral retrieval, ranking disclosed</span></div>
+      <div class="orow"><span class="k">IDENTITY</span><span class="old">an account per platform</span><span class="oa"></span><span class="new">one portable, self-owned identity</span></div>
+      <div class="orow"><span class="k">PROVENANCE</span><span class="old">unverifiable content</span><span class="oa"></span><span class="new">signed, checkable origin</span></div>
+      <div class="obase"><div class="b1">EVERYTHING ELSE STAYS EXACTLY AS IT IS</div><div class="b2">transport &#183; hosting &#183; browsers &#183; devices &#183; your job &#183; your dollars</div></div>
+    </div>
+    <p class="figcap sans">An overlay, not a replacement — the four rows that change, and the foundation that doesn't.</p>
+
+    <h2>Transparency wins because it earns more</h2>
+    <p>Corruption and manipulation thrive in the dark. EDEN's answer isn't to police dishonesty — it's to make honesty pay better, so it outcompetes opacity instead of needing to be mandated. Reviews and quality information that can't be bought or buried let good work rise on its own; in century-scale modeling, transparent goods markets ended up capturing 96% of sales for exactly this reason — not because payment forced it, but because true information, once it exists, can't stay hidden. Corruption doesn't get defeated. It just runs out of anywhere to stand.</p>
+
+    <h2>Science partially funds itself</h2>
+    <p>When researchers get free access to data and creators are paid automatically when their work is used, the resource bottleneck on discovery loosens — and something else happens that's easy to miss: failed experiments become paid, visible assets instead of vanishing into a file drawer. In modeling, institutions doing research this way discovered things at nearly twice the rate of otherwise-identical institutions outside it — and when the team tested <em>why</em>, they found it wasn't a fluke: most of the gain came specifically from failures being worth something and staying visible, so nobody wastes years re-running a dead end someone already ran. That's a real, mechanical answer to a real bottleneck in how research works today.</p>
+
+    <h2>Success you have to keep earning</h2>
+    <p>Income streams are non-transferable — you can't hand your money-making machine to your heirs. When a creator dies, their <em>work</em> stays free and useful to everyone forever, but the automatic, hands-off compounding stops; in modeling, those earnings instead flow toward funding continued exploration and discovery for everyone living. Families can absolutely stay successful across generations — by continuing to contribute, not by inheriting a money machine. What changes is that being born lucky stops <em>guaranteeing</em> where you end up. It's mobility, not abolition: more movement between top and bottom, not less success.</p>
+
+    <h2>The pieces that fit together</h2>
+    <ul>
+      <li><b>EVE</b> — the currency-and-routing rulebook; the technical heart.</li>
+      <li><b>ADAM</b> — the neutral standard for AI agents (including your own personal assistant) to find, price, and pay for digital assets fairly, so no single AI agent can quietly bury or favor content.</li>
+      <li><b>The EBI</b> — an independent measure of what essentials actually cost, used to keep any promises priced in real goods rather than in the currency itself.</li>
+      <li><b>Governance, shared</b> — decisions made by randomly selected juries of verified people (like jury duty) plus a two-house system, so neither raw wealth nor fake identities can capture the rules.</li>
+      <li><b>EdenQuest</b> — a real, working app: a gamified personal-growth tool designed as the friendly front door where people first feel "effort creates value" before the full system exists.</li>
+    </ul>
+
+    <h2>What about the safety net?</h2>
+    <p>The original version of this project set out to guarantee that everyone could always earn at least life's essentials — a protocol-level floor, activated automatically once the system could afford it. That work is real, and it's some of the most heavily tested material in the whole project: reserve mechanics, activation triggers, what happens when a sponsor walks away, how to keep a promise from being made and then broken. But when the team stress-tested it harder — asking not "does this design work under favorable assumptions" but "does this actually self-fund across a realistic range of real-world demand" — the honest answer came back no: every scenario where a floor activated did so only with ongoing, real outside funding, not as something the protocol pays for on its own.</p>
+    <div class="callout">
+      <p><b>So here's the honest current position: EDEN doesn't promise a floor.</b> What it offers instead is the best-tested safety-net blueprint that exists anywhere — published, in the open, for any community, government, or coalition to fund and run on top of EDEN's rails, under their own rules, in full public view. If people want to prove a guaranteed floor can hold at scale, everything needed to try it is already built and sitting on the shelf.</p>
+    </div>
+
+    <div class="figure dg" role="img" aria-label="Diagram: the floor is an optional module that plugs into EDEN's tested rails, funded by a community, government, or coalition, with its reserve visible on a public ledger.">
+      <div class="floorgrid">
+        <div class="funders"><span>a community</span><span>a government</span><span>a coalition</span></div>
+        <div class="farr au fundarr"><i class="au">funds</i><div class="sh"></div></div>
+        <div class="floorbox">
+          <b>THE FLOOR</b>
+          <span>reserve mechanics &#183; formula trigger</span>
+          <span>an exit that strands no one</span>
+          <div class="prongs" aria-hidden="true"><i></i><i></i></div>
+        </div>
+        <div class="gauge">
+          <svg style="width:72px;height:72px" width="72" height="72" viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="33" fill="var(--card)" stroke="var(--rule)" stroke-width="1.6"/><path d="M12 52 a30 30 0 0 1 52 0" fill="none" stroke="var(--rule)" stroke-width="2"/><path d="M38 38 L58 18" stroke="var(--green)" stroke-width="2.5"/></svg>
+          <span>reserve on a public ledger —<br>anyone can watch it fill</span>
+        </div>
+      </div>
+      <div class="railband"><b>EDEN RAILS &#8212; tested end to end, running either way</b><span>minting &#183; machine-pay &#183; identity &#183; governance</span></div>
+      <div class="dgnote"><b style="color:var(--deep);font-size:12.5px">Published, not promised.</b><br>Whoever makes the promise, the machinery holds them honest: priced in advance, visible to all, impossible to quietly raid.</div>
+    </div>
+
+    <h2>Where growth fits in</h2>
+    <p>A separate argument worth stating carefully, because it's genuinely distinctive and genuinely unproven: today's debt-based money needs the economy to keep growing just to service what's owed, independent of whether anyone needs more. Because EDEN's currency isn't lent into existence, and because value can keep growing through knowledge, quality, and discovery rather than only through using more physical stuff, there's a real argument that this kind of system could grow without that same built-in compulsion to over-consume. The project rates this argument <b>"promising, not proven"</b> — and it's honestly counterweighted by the fact that this system runs on AI processing human data, and AI compute is itself one of the fastest-growing energy loads on the planet. That cost is real and belongs in the ledger, not waved away.</p>
+
+    <h2>What we don't yet know — said out loud</h2>
+    <ul>
+      <li><b>Will people and institutions actually pay</b> for data, AI access, and code at anything like the levels this needs? This is unmeasured in the real world — a field experiment is designed and waiting to run, with failure defined in advance at exactly the level a skeptic would predict.</li>
+      <li><b>Does identity hold?</b> The entire system rests on telling real, unique humans from fakes and rented accounts at scale. No simulation can settle this — only a real pilot, tested by real adversaries, can.</li>
+      <li><b>Does this actually launch, or does it stay a well-documented idea?</b> That's not a modeling risk. It's the most likely reason a good idea never gets tested — and this website exists to end it.</li>
+    </ul>
+
+    <h2>What EDEN is not</h2>
+    <ul>
+      <li><b>Not a cryptocurrency token sale.</b> There's nothing to buy or speculate on.</li>
+      <li><b>Not a plan to abolish the dollar.</b> Dollars stay the everyday pricing language; this adds a parallel layer, it doesn't seize the existing one.</li>
+      <li><b>Not a forecast.</b> Every result is "this rule closes this loophole under these assumptions," never "this will definitely happen."</li>
+      <li><b>Not independently reviewed — yet.</b> Every simulation and every conclusion so far was produced and checked by AI models from the same family. The next steps are exactly the things that requires: outside economists, hostile independent replication, and real-world experiments.</li>
+    </ul>
+
+    <h2>Where it goes next</h2>
+    <p><b>Ship what's already finished</b> — essays, explainers, a working app — instead of waiting for one perfect launch. <b>Hand the work to professional economists</b> and invite hostile outside replication. <b>Run the willingness-to-pay experiment</b> — the single most decisive missing piece. <b>Pilot the identity system</b> — the keystone no model can prove.</p>
+    <p>EDEN today is a thoroughly stress-tested design and a working on-ramp app — prepared as carefully as an idea can be before it meets the real world. The next evidence has to come from people, not more models. Which is why you're reading this.</p>
+
+    <p style="margin-top:36px"><em>Want to go deeper without the math? <a href="/evidence">The Story of the Tests</a> walks the full testing journey in plain language. For the formal version, see the <a href="/docs/whitepaper">white paper</a>. Or just <a href="/edenquest">start with EdenQuest</a> — it's free.</em></p>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a> · <a href="/replication">Replication</a> · <a href="/support">Support</a></p>
+    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions — will institutions pay, does identity hold at scale, do live adversaries break the price gauge — are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+  </div>
+</footer>
+<script>
+/* Local preview: when opened as a file (not on the live site), rewrite
+   site links (/evidence, /faq, ...) to the neighboring .html files. */
+if(location.protocol==='file:'){
+  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
+    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
+    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
+    '/the-power-of-stories':'the-power-of-stories.html',
+    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
+    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
+    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
+    if(h==='')h='/';
+    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
+  });
+}
+</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>
