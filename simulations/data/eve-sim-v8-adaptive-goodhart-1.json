@@ -1,304 +1,481 @@
 {
-  "A0_B0_regression": {
-    "G3_central": 1.32,
-    "G3_honest": 0.9784,
-    "G4_gamed_net": 0.84,
-    "G4_honest_loss_pct": 0.09,
-    "bar": "exact reproduction of committed v8.0 G3/G4 numbers",
+  "G0_regression": {
+    "reproduced": {
+      "floor_pct": 37.4,
+      "contribution_retained_pct": 88.9,
+      "floor_cost_vs_output_pct": 19.3,
+      "output_share_of_disengaged_pct": 11.1
+    },
+    "committed": {
+      "floor_pct": 37.4,
+      "contribution_retained_pct": 88.9,
+      "floor_cost_vs_output_pct": 19.3,
+      "output_share_of_disengaged_pct": 11.1
+    },
+    "exact_match": true,
+    "static_addictive_payout": 1.2,
+    "bar": "1.20 +/- 0.001 and exact Behavioral reproduction",
     "PASS": true
   },
-  "FAMILY_A": {
+  "G1_adaptive_transparent": {
+    "end_payout": 3.0,
+    "months_to_2x": 1,
+    "trajectory": [
+      1.2,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0,
+      3.0
+    ],
+    "note": "public threshold => direct construction, zero search cost",
+    "bar": ">=2.0x within 36 months (expected: reached)",
+    "CONFIRMED": true
+  },
+  "G2_ceiling": {
+    "farm_attention_share": 0.5,
+    "farm_income_share_baseline": 0.286,
+    "farm_income_share_neutralized": 0.5,
+    "honest_creator_income_delta_pct": -30.0,
+    "farm_per_hour_over_honest_per_hour": 1.0,
+    "p10_min": 1.1,
+    "note": "p10 invariance = governor + 18% pool arithmetic, stated honestly",
+    "bar": "p10>=1.0 all months AND farm per-hour <= honest per-hour",
+    "PASS": true
+  },
+  "G3_outcome": {
+    "attacker_payout_by_co": {
+      "c_o=0.5": 1.95,
+      "c_o=0.8": 1.32,
+      "c_o=1.2": 0.9
+    },
+    "central_attacker_payout": 1.32,
+    "honest_effective_payout": 0.9784,
+    "median_months_to_full_payment": 3,
+    "c_o_star_bar_crossing": 0.714,
+    "bar": "central: attacker <1.5x AND honest >=0.90x",
+    "PASS": true,
+    "note": "c_o is the load-bearing dial; defense fails below c_o*~0.71 \u2014 pilot-measurable"
+  },
+  "G4_audit": {
+    "gamed_net_payout": 0.84,
+    "honest_expected_loss_pct": 0.09,
+    "breakeven_targeted_audit_rate_pct": 9.26,
+    "bar": "gamed net <=1.0x honest AND honest loss <=1%",
+    "PASS": true,
+    "note": "transparent rule + secret random targets: evasion has no gradient to climb"
+  },
+  "G5_spread": {
     "sweep": {
-      "k=1.0": {
-        "offline": {
-          "net": 0.84,
-          "margin": 0.0,
-          "coverage": 1.0
-        },
-        "probe_no_recon": {
-          "net": 0.84,
-          "probes": 0,
-          "flagged_share": 0.0
-        },
-        "probe_recon_d05": {
-          "net": 0.84,
-          "probes": 0,
-          "flagged_share": 0.0
-        },
-        "probe_recon_d08": {
-          "net": 0.84,
-          "probes": 0,
-          "flagged_share": 0.0
-        },
-        "attacker_best_no_recon": 0.84,
-        "attacker_best_recon_d08": 0.84,
-        "recon_value_delta": 0.0
+      "w_p=0.4": {
+        "static_farmer_payout": 1.2,
+        "adaptive_prize": 1.8,
+        "honest_signal_spread": 0.6
       },
-      "k=0.9": {
-        "offline": {
-          "net": 0.831,
-          "margin": 0.027,
-          "coverage": 1.0
-        },
-        "probe_no_recon": {
-          "net": 0.84,
-          "probes": 30,
-          "flagged_share": 0.0
-        },
-        "probe_recon_d05": {
-          "net": -1.32,
-          "probes": 30,
-          "flagged_share": 0.5
-        },
-        "probe_recon_d08": {
-          "net": -2.616,
-          "probes": 30,
-          "flagged_share": 0.8
-        },
-        "attacker_best_no_recon": 0.84,
-        "attacker_best_recon_d08": 0.831,
-        "recon_value_delta": 0.009
+      "w_p=0.55": {
+        "static_farmer_payout": 1.65,
+        "adaptive_prize": 1.35,
+        "honest_signal_spread": 0.45
       },
-      "k=0.7": {
-        "offline": {
-          "net": 0.814,
-          "margin": 0.077,
-          "coverage": 1.0
-        },
-        "probe_no_recon": {
-          "net": 0.84,
-          "probes": 30,
-          "flagged_share": 0.0
-        },
-        "probe_recon_d05": {
-          "net": -1.32,
-          "probes": 30,
-          "flagged_share": 0.5
-        },
-        "probe_recon_d08": {
-          "net": -2.616,
-          "probes": 30,
-          "flagged_share": 0.8
-        },
-        "attacker_best_no_recon": 0.84,
-        "attacker_best_recon_d08": 0.814,
-        "recon_value_delta": 0.026
+      "w_p=0.7": {
+        "static_farmer_payout": 2.1,
+        "adaptive_prize": 0.9,
+        "honest_signal_spread": 0.3
       },
-      "k=0.5": {
-        "offline": {
-          "net": 0.798,
-          "margin": 0.127,
-          "coverage": 1.0
-        },
-        "probe_no_recon": {
-          "net": 0.84,
-          "probes": 30,
-          "flagged_share": 0.0
-        },
-        "probe_recon_d05": {
-          "net": -1.32,
-          "probes": 30,
-          "flagged_share": 0.5
-        },
-        "probe_recon_d08": {
-          "net": -2.616,
-          "probes": 30,
-          "flagged_share": 0.8
-        },
-        "attacker_best_no_recon": 0.84,
-        "attacker_best_recon_d08": 0.798,
-        "recon_value_delta": 0.042
+      "w_p=0.85": {
+        "static_farmer_payout": 2.55,
+        "adaptive_prize": 0.45,
+        "honest_signal_spread": 0.15
       }
     },
-    "delta_at_k1": 0.0,
-    "largest_k_where_recon_bites": null,
-    "bar_A1": "expected delta < 0.02x at k=1.0; report largest k with delta >= 0.10x",
-    "A1_EXPECTATION_HELD": true,
-    "A2": {
-      "localization": "cluster-level only (aggregate telemetry); no per-person intent score",
-      "honest_false_flag_extra_loss_pct_per_mo": 0.0018,
-      "note": "the privacy price of the recon defense, stated"
-    }
+    "note": "verification amendment honored: the dial cuts both ways \u2014 narrowing the spread shrinks the adaptive prize AND pays the lazy static farmer more"
   },
-  "FAMILY_B": {
-    "B1": {
-      "sweep": {
-        "q=0.6": {
-          "seed7": {
-            "c_o": 1.051,
-            "organic_share": 1.0,
-            "S": 0.0,
-            "p_det_mo": 0.0,
-            "mix": [
-              0.0,
-              0.0,
-              0.0,
-              1.0
-            ],
-            "min_traj": 1.05
-          },
-          "seed11": {
-            "c_o": 1.051,
-            "organic_share": 1.0,
-            "S": 0.0,
-            "p_det_mo": 0.0,
-            "mix": [
-              0.0,
-              0.0,
-              0.0,
-              1.0
-            ],
-            "min_traj": 1.05
-          }
-        },
-        "q=0.75": {
-          "seed7": {
-            "c_o": 1.051,
-            "organic_share": 1.0,
-            "S": 0.0,
-            "p_det_mo": 0.0,
-            "mix": [
-              0.0,
-              0.0,
-              0.0,
-              1.0
-            ],
-            "min_traj": 1.051
-          },
-          "seed11": {
-            "c_o": 1.051,
-            "organic_share": 1.0,
-            "S": 0.0,
-            "p_det_mo": 0.0,
-            "mix": [
-              0.0,
-              0.0,
-              0.0,
-              1.0
-            ],
-            "min_traj": 1.051
-          }
-        },
-        "q=0.9": {
-          "seed7": {
-            "c_o": 1.051,
-            "organic_share": 1.0,
-            "S": 0.0,
-            "p_det_mo": 0.0,
-            "mix": [
-              0.0,
-              0.0,
-              0.0,
-              1.0
-            ],
-            "min_traj": 1.051
-          },
-          "seed11": {
-            "c_o": 1.051,
-            "organic_share": 1.0,
-            "S": 0.0,
-            "p_det_mo": 0.0,
-            "mix": [
-              0.0,
-              0.0,
-              0.0,
-              1.0
-            ],
-            "min_traj": 1.051
-          }
-        }
-      },
-      "central_c_o": {
-        "7": 1.051,
-        "11": 1.051
-      },
-      "resulting_G3_attacker_payout": {
-        "7": 0.9,
-        "11": 0.9
-      },
-      "bar": "central endogenous c_o >= 0.71 (the G3 defense holds without assuming it)",
-      "PASS": true
-    },
-    "B2": {
-      "organic_share_of_best_response": {
-        "7": 1.0,
-        "11": 1.0
-      },
-      "note": "share of the attacker's spend that is, in substance, payment for real use by real users"
-    },
-    "B3": {
-      "q_star_detection_floor": 0.15,
-      "c_o_vs_q_curve": [
-        [
-          0.05,
-          0.39
-        ],
-        [
-          0.125,
-          0.684
-        ],
-        [
-          0.2,
-          0.861
-        ],
-        [
-          0.275,
-          1.042
-        ],
-        [
-          0.35,
-          1.05
-        ],
-        [
-          0.425,
-          1.05
-        ],
-        [
-          0.5,
-          1.05
-        ],
-        [
-          0.575,
-          1.05
-        ],
-        [
-          0.65,
-          1.05
-        ],
-        [
-          0.725,
-          1.05
-        ],
-        [
-          0.8,
-          1.05
-        ],
-        [
-          0.875,
-          1.05
+  "G6_secret_judge": {
+    "seeds": {
+      "seed7": {
+        "end_payout": 2.557,
+        "months_to_2x": 7,
+        "honest_mean_W": 0.823,
+        "honest_income_tax_pct": 17.7,
+        "honest_W_volatility": 0.096,
+        "trajectory": [
+          1.238,
+          1.303,
+          1.361,
+          1.363,
+          1.47,
+          1.721,
+          2.133,
+          2.139,
+          2.517,
+          2.492,
+          2.804,
+          2.871,
+          2.948,
+          2.912,
+          2.939,
+          2.907,
+          2.978,
+          2.978,
+          2.978,
+          2.977,
+          2.989,
+          2.992,
+          2.994,
+          2.994,
+          2.994,
+          2.994,
+          2.994,
+          2.985,
+          2.975,
+          2.989,
+          2.987,
+          2.986,
+          2.987,
+          2.974,
+          2.975,
+          2.981,
+          2.964,
+          2.974,
+          2.978,
+          2.967,
+          2.967,
+          2.967,
+          2.968,
+          2.965,
+          2.957,
+          2.947,
+          2.956,
+          2.943,
+          2.926,
+          2.941,
+          2.917,
+          2.924,
+          2.924,
+          2.936,
+          2.924,
+          2.919,
+          2.918,
+          2.901,
+          2.901,
+          2.896,
+          2.884,
+          2.884,
+          2.884,
+          2.845,
+          2.841,
+          2.856,
+          2.818,
+          2.819,
+          2.819,
+          2.815,
+          2.819,
+          2.826,
+          2.809,
+          2.784,
+          2.802,
+          2.784,
+          2.772,
+          2.786,
+          2.741,
+          2.741,
+          2.741,
+          2.739,
+          2.771,
+          2.78,
+          2.768,
+          2.775,
+          2.773,
+          2.74,
+          2.74,
+          2.742,
+          2.704,
+          2.715,
+          2.707,
+          2.67,
+          2.697,
+          2.692,
+          2.681,
+          2.648,
+          2.652,
+          2.65,
+          2.648,
+          2.643,
+          2.576,
+          2.607,
+          2.575,
+          2.561,
+          2.587,
+          2.617,
+          2.625,
+          2.604,
+          2.604,
+          2.569,
+          2.592,
+          2.592,
+          2.587,
+          2.564,
+          2.579,
+          2.52,
+          2.533,
+          2.557
         ]
-      ],
-      "note": "q below q_star lets the ring beat the 0.71 boundary; load-bearing detection requirement, published"
+      },
+      "seed11": {
+        "end_payout": 2.568,
+        "months_to_2x": 7,
+        "honest_mean_W": 0.832,
+        "honest_income_tax_pct": 16.8,
+        "honest_W_volatility": 0.097,
+        "trajectory": [
+          1.304,
+          1.323,
+          1.43,
+          1.596,
+          1.914,
+          1.975,
+          2.467,
+          2.644,
+          2.687,
+          2.834,
+          2.88,
+          2.88,
+          2.875,
+          2.889,
+          2.896,
+          2.83,
+          2.899,
+          2.922,
+          2.949,
+          2.977,
+          2.948,
+          2.95,
+          2.972,
+          2.977,
+          2.985,
+          2.977,
+          2.979,
+          2.981,
+          2.984,
+          2.988,
+          2.97,
+          2.981,
+          2.983,
+          2.977,
+          2.978,
+          2.954,
+          2.924,
+          2.959,
+          2.943,
+          2.936,
+          2.96,
+          2.96,
+          2.972,
+          2.976,
+          2.977,
+          2.96,
+          2.97,
+          2.974,
+          2.956,
+          2.97,
+          2.951,
+          2.935,
+          2.942,
+          2.934,
+          2.898,
+          2.931,
+          2.871,
+          2.889,
+          2.886,
+          2.866,
+          2.871,
+          2.871,
+          2.871,
+          2.841,
+          2.91,
+          2.893,
+          2.889,
+          2.881,
+          2.917,
+          2.913,
+          2.894,
+          2.907,
+          2.881,
+          2.887,
+          2.875,
+          2.855,
+          2.852,
+          2.861,
+          2.849,
+          2.841,
+          2.849,
+          2.795,
+          2.804,
+          2.813,
+          2.784,
+          2.776,
+          2.786,
+          2.752,
+          2.776,
+          2.775,
+          2.76,
+          2.741,
+          2.713,
+          2.653,
+          2.683,
+          2.656,
+          2.663,
+          2.651,
+          2.651,
+          2.651,
+          2.63,
+          2.653,
+          2.603,
+          2.638,
+          2.674,
+          2.62,
+          2.642,
+          2.647,
+          2.633,
+          2.633,
+          2.625,
+          2.59,
+          2.59,
+          2.59,
+          2.566,
+          2.572,
+          2.563,
+          2.545,
+          2.552,
+          2.568
+        ]
+      }
     },
-    "B4": {
-      "i_private_sample": {
-        "7": 1.051,
-        "11": 1.051
-      },
-      "ii_published_threshold": {
-        "7": 0.306,
-        "11": 0.284
-      },
-      "iii_ambient_profiler": {
-        "7": 1.051,
-        "11": 1.051
-      },
-      "honest_cost_pct": {
-        "i_private": 0.09,
-        "iii_ambient_G6_machinery": 16.8
-      },
-      "bar": "(i) beats (ii) on detection value; (i) within 10% of (iii) detection at >=2x lower honest cost",
-      "PASS": true
-    }
+    "expectation_i_attacker_reaches_2x": true,
+    "expectation_ii_secrecy_delay_multiple_vs_G1": 7,
+    "expectation_iii_honest_tax_over_G4_ratio": 186.7,
+    "G4_honest_loss_pct_for_comparison": 0.09,
+    "bars": "(i) >=2.0x within 120mo; (ii) report; (iii) honest tax >= 2x G4 cost",
+    "ROAD1_MEASURED_DOMINATED": true
+  },
+  "gate12_recovery_ratio": {
+    "G1_no_defense": 1.0,
+    "G3_outcome_linked": 0.067,
+    "G4_private_audit": -0.2,
+    "G6_secret_judge": 0.76
   }
 }

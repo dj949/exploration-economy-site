@@ -35,7 +35,7 @@
       "floor_protected": false,
       "recovered": true,
       "min_throughput": 0.65,
-      "min_creator_real": 0.95,
+      "min_creator_real": 0.949,
       "max_topup_share": 0.0,
       "longest_under_run": 1
     },
@@ -48,9 +48,171 @@
       "floor_protected": false,
       "recovered": false,
       "min_throughput": 0.65,
-      "min_creator_real": 0.711,
+      "min_creator_real": 0.721,
       "max_topup_share": 0.0,
       "longest_under_run": 1
+    }
+  },
+  "D1_demurrage": {
+    "stable": {
+      "STRICT": true,
+      "RESILIENCE": true,
+      "max_abs_infl": 0.0,
+      "bounded_le20": true,
+      "arrested": true,
+      "floor_protected": true,
+      "recovered": true,
+      "min_throughput": 1.0,
+      "min_creator_real": 1.0,
+      "max_topup_share": 0.0,
+      "longest_under_run": 0
+    },
+    "hoarding": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.435,
+      "bounded_le20": false,
+      "arrested": true,
+      "floor_protected": false,
+      "recovered": true,
+      "min_throughput": 0.597,
+      "min_creator_real": 1.0,
+      "max_topup_share": 0.0,
+      "longest_under_run": 2
+    },
+    "confidence": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.576,
+      "bounded_le20": false,
+      "arrested": false,
+      "floor_protected": false,
+      "recovered": true,
+      "min_throughput": 0.65,
+      "min_creator_real": 0.86,
+      "max_topup_share": 0.0,
+      "longest_under_run": 1
+    },
+    "combined": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.576,
+      "bounded_le20": false,
+      "arrested": false,
+      "floor_protected": false,
+      "recovered": true,
+      "min_throughput": 0.65,
+      "min_creator_real": 0.798,
+      "max_topup_share": 0.0,
+      "longest_under_run": 1
+    }
+  },
+  "D2_mild_inflation": {
+    "stable": {
+      "STRICT": true,
+      "RESILIENCE": true,
+      "max_abs_infl": 0.02,
+      "bounded_le20": true,
+      "arrested": true,
+      "floor_protected": true,
+      "recovered": true,
+      "min_throughput": 1.0,
+      "min_creator_real": 1.0,
+      "max_topup_share": 0.0,
+      "longest_under_run": 0
+    },
+    "hoarding": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.428,
+      "bounded_le20": false,
+      "arrested": true,
+      "floor_protected": false,
+      "recovered": false,
+      "min_throughput": 0.5,
+      "min_creator_real": 1.0,
+      "max_topup_share": 0.0,
+      "longest_under_run": 2
+    },
+    "confidence": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.754,
+      "bounded_le20": false,
+      "arrested": false,
+      "floor_protected": false,
+      "recovered": true,
+      "min_throughput": 0.65,
+      "min_creator_real": 0.98,
+      "max_topup_share": 0.0,
+      "longest_under_run": 2
+    },
+    "combined": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.754,
+      "bounded_le20": false,
+      "arrested": false,
+      "floor_protected": false,
+      "recovered": true,
+      "min_throughput": 0.65,
+      "min_creator_real": 0.799,
+      "max_topup_share": 0.0,
+      "longest_under_run": 2
+    }
+  },
+  "D3_price_aware": {
+    "stable": {
+      "STRICT": true,
+      "RESILIENCE": true,
+      "max_abs_infl": 0.002,
+      "bounded_le20": true,
+      "arrested": true,
+      "floor_protected": true,
+      "recovered": true,
+      "min_throughput": 1.0,
+      "min_creator_real": 1.0,
+      "max_topup_share": 0.0,
+      "longest_under_run": 0
+    },
+    "hoarding": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.552,
+      "bounded_le20": false,
+      "arrested": false,
+      "floor_protected": false,
+      "recovered": false,
+      "min_throughput": 0.5,
+      "min_creator_real": 0.18,
+      "max_topup_share": 0.0,
+      "longest_under_run": 1
+    },
+    "confidence": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.801,
+      "bounded_le20": false,
+      "arrested": false,
+      "floor_protected": false,
+      "recovered": false,
+      "min_throughput": 0.65,
+      "min_creator_real": 0.361,
+      "max_topup_share": 0.0,
+      "longest_under_run": 2
+    },
+    "combined": {
+      "STRICT": false,
+      "RESILIENCE": false,
+      "max_abs_infl": 0.801,
+      "bounded_le20": false,
+      "arrested": false,
+      "floor_protected": false,
+      "recovered": false,
+      "min_throughput": 0.65,
+      "min_creator_real": 0.196,
+      "max_topup_share": 0.0,
+      "longest_under_run": 2
     }
   },
   "D4_combined": {
@@ -89,7 +251,7 @@
       "floor_protected": false,
       "recovered": true,
       "min_throughput": 0.65,
-      "min_creator_real": 0.885,
+      "min_creator_real": 0.883,
       "max_topup_share": 0.0,
       "longest_under_run": 2
     },
@@ -102,7 +264,7 @@
       "floor_protected": false,
       "recovered": true,
       "min_throughput": 0.65,
-      "min_creator_real": 0.815,
+      "min_creator_real": 0.816,
       "max_topup_share": 0.0,
       "longest_under_run": 2
     }

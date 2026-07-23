@@ -91,6 +91,11 @@
   .scard a{font-weight:700;font-size:15px;border:none}
   .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
   .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+  .subrun{border-top:2px solid var(--rule);margin:52px 0 0;padding-top:8px}
+  .subrun h2{font-size:clamp(22px,3vw,28px);color:var(--deep);margin:14px 0 4px}
+  .subrun:first-of-type{border-top:none;margin-top:20px}
+  .toclist{font-family:'Helvetica Neue',Arial,sans-serif;font-size:14.5px;margin:6px 0 0}
+  .toclist a{display:inline-block;margin:0 14px 8px 0}
 </style>
 </head>
 <body>
@@ -101,7 +106,9 @@
 
 </div></header>
 <article><div class="wrap">
-<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<div class="banner"><b>How to read this page.</b> This program ran in several registered stages. Each stage below carries its own plain-language write-up, figures, technical results, and raw <code>results.json</code>, so you can check every number yourself. These are models of the design under stated assumptions — not forecasts.</div>
+<p class="eyebrow">Stages in this program</p><p class="toclist"><a href="#s-5-0">v5.0 World Model</a><a href="#s-5-1">v5.1 Convergence &amp; Physical Economy</a><a href="#s-5-2">v5.2 Slices &amp; Leakage</a><a href="#s-5-3">v5.3 Staged Activation</a></p>
+<div class="subrun" id="s-5-0"><h2>v5.0 World Model</h2></div>
 <p class="eyebrow">In plain language</p>
 <p><em>Companion to <code>RESULTS - World Model v5.0.md</code> (and the v5.1–v5.3 follow-ons in this folder). Every earlier test ran EDEN inside one population. This one scaled it to a stand-in for the whole planet — 40 regions from richest to poorest, ~1.6 million simulated people, one shared currency and one shared safety net — and asked whether the floor still holds when everybody's in the same pool.</em></p>
 <h2 id="the-scary-scenario-run-on-purpose">The scary scenario, run on purpose</h2>
@@ -116,187 +123,7 @@
 <h2 id="the-one-line-verdict">The one-line verdict</h2>
 <p><strong>Scaled to the whole planet — including the terrifying scenario of the poorest quarter of humanity joining in three years — EDEN's floor held everywhere with zero printing, because equal-per-hour minting makes newcomers contributors on arrival; the wall the world hits first is not money but <em>consent</em> — whether rich regions will fund a net they rarely draw on — and the model names that honestly instead of hiding it.</strong></p>
 <p><em>Usual honesty: real-world calibration numbers are 2024–25 approximations flagged for refresh; one shared currency, migration and cross-border trade out of scope; the genuine cold start still lives outside this model; the consent question is political and unsimulatable. Bars were registered before the run and the one failure stands as registered. Run July 2026; plain-language companion added July 9, 2026.</em></p>
-<p><em>Companion to <code>RESULTS - v5.1 Convergence &amp; Physical Economy</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation. The folder's existing <code>PLAIN LANGUAGE - v5.0 World Model.md</code> covers only v5.0.</em></p>
-<h2 id="the-question">The question</h2>
-<p>v5.0 scaled EDEN to the world. v5.1 adds what that model still idealized: convergence (poor regions catching up over time) and the physical economy — roughly 70% of income comes from locally-priced goods and services, none of it routed through EDEN's pool. With the whole economy honestly in the picture, does the funding story still hold? This run produced the program's most important structural finding since the bathtub.</p>
-<h2 id="what-we-found-three-failures-and-one-unbroken-promise">What we found — three failures and one unbroken promise</h2>
-<p>Against the registered bars: <strong>B1 FAIL</strong> — corrected net contribution ends at 18.7% (down from a 46% peak, still falling) against a ≤6% bar. <strong>B2 FAIL</strong> — the peak never decays below 6% within 10 years at any tested convergence speed (τ=5 ends at 14.9%; τ=20 at 23.9%). <strong>B4 FAIL</strong> — floor top-up printing peaks at 19–21% of issuance and is still roughly needed at year 15. <strong>B3 PASS</strong> — zero breaches, all runs: no region's poorest fell below local essentials, ever. One more finding, stated plainly: the registered floor ramp (0.7→1.0) is unworkable by construction — any ramp below 1/1.1 of essentials mechanically puts floor-dependent people below the line. The floor must be full from the day a region joins; any softening of the transition must come from the funding side, never the guarantee side.</p>
-<h2 id="why-this-isnt-a-tuning-problem">Why this isn't a tuning problem</h2>
-<p>The mismatch is structural: EDEN's floor obligation is sized against the <em>whole</em> cost of living, but its funding pool is fed only by the <em>digital</em> slice of the economy. With digital at ~30% of income, the 18% routing (verification + ancestral) is really ~5.4% of total economic flow — against floor obligations that, in poor regions, run to a third or more of total income. Convergence helps a lot (corrected transfers fell ~60% over 15 years — real and large) but cannot close a gap whose denominator is structurally too small; the consent problem and the solvency shortfall are two faces of the same mismatch. The silver linings are honestly earned: the guarantee never broke anywhere; the governor plus convergence absorbed even 20% top-up without price instability (world prices <em>fell</em> ~18% as poor-region essentials re-priced); the cost lands on creators via mint dilution, not on the poor via breach; and physical income's natural price-indexation makes individual earnings more shock-stable than any earlier model showed.</p>
-<h2 id="the-honest-catch">The honest catch</h2>
-<p>Four candidate fixes went on the design table, all post-hoc and all requiring fresh registration: route physical EVE commerce (a small 1–3% slice — philosophically heavy, since EDEN has never taxed person-to-person exchange); bet on the digital share growing (at 60–70% digital the mismatch largely closes on its own — the most EDEN-native answer, but it makes floor solvency contingent on the thesis being right, a dependency the white paper must state if adopted); accept measured top-up as transitional policy (risky to promise, cheap to keep testing); or contribution caps plus consent design — the part no simulation can settle. τ is assumed (swept 5/20), the digital share is frozen at 30%, the corrected metric is itself a modeling choice, single seed, money stock initialized mature. The ramp finding and all three failures stand as registered: until v5.2 resolves the mismatch, the white paper's world-scale claims must say the funding story does not yet hold.</p>
-<h2 id="one-line">One line</h2>
-<p><strong>With the physical economy honestly included, EDEN's floor promise held for every person in every run — zero breaches — but three of four registered bars FAILED (net contribution ending at 18.7% against a 6% bar, never decaying in time, and top-up printing peaking at 19–21% of issuance), because a floor promised against the whole cost of living cannot yet be funded from only the ~30% digital slice of it.</strong></p>
-<p><em>Companion to <code>RESULTS - v5.2 Slices &amp; Leakage</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation. The folder's existing <code>PLAIN LANGUAGE - v5.0 World Model.md</code> covers only v5.0.</em></p>
-<h2 id="the-question">The question</h2>
-<p>v5.1 ended on a structural mismatch: the floor is promised against the whole economy but funded from the digital slice alone. v5.2 tests the proposed repair — a small settlement slice (s) on physical EVE commerce, plus a jurisdiction slice (j) for governments — across four configs from optimistic to pessimistic leakage elasticity, asking whether it funds the floor without printing and how much commerce goes dark to avoid it.</p>
-<h2 id="what-we-found">What we found</h2>
-<p>The steady state fully delivers: zero top-up printing in every config, the floor slice sunsets to 1.95–2.65%, the guarantee is unbroken everywhere (C4 PASS: zero breaches, all configs), and there is no ratchet creep — the slice never rose after year 5 (C2 PASS). <strong>But C1 FAILS on the letter:</strong> to avoid printing during the convergence decade, the slice transiently peaked at 4.9–6.0% — above the registered 4% "smallness" cap — and early top-up ran up to 12.4% before the bounded controller caught up. The steady state delivers; the transition exceeds the cap. This is the same launch-era shape as every prior honest finding.</p>
-<p>Leakage has a darkness ceiling. At the central config, 25.8% of physical commerce goes off-ledger (C3 PASS; optimistic 16.3%). But at j=25% under pessimistic elasticity, <strong>51% — half the physical economy goes dark</strong>, hollowing both the White Box and government revenue; j=25% is documented as unsafe under pessimistic elasticity, and the practical guidance is that jurisdictions in EDEN live comfortably at ≤15–20%. C5 (jurisdiction revenue vs a 20% VAT with a 10% gap) came out MIXED — and the bar was mis-specified, an error owned in the RESULTS: comparing a 15% slice's revenue against a 20% VAT comparator fails by arithmetic regardless of collection quality. The registered verdict stands as FAIL at j=15% (0.68–0.74×); the fair equal-rate question is answered only indirectly by the j=25%-central cell (1.05× the VAT comparator even with 35% physical leakage, because digital flow never leaks and collection is total). Until an equal-rate comparison is run, the "cheapest revenue rail" pitch must carry its leakage condition.</p>
-<h2 id="the-honest-catch">The honest catch</h2>
-<p>The settlement slice remains <strong>PROPOSED</strong>, with a ratification choice on the table: (a) accept a transient slice up to ~6% — simple, but "small slice" is untrue for a few years — or (b) cap it at 4% constitutionally and bridge the residual transition gap from the already-accepted external launch treasury, a post-hoc proposal labeled as such that needs fresh registration if adopted. Leakage elasticity remains the load-bearing bracketed unknown (a pilot question); government revenue recycling is crude; enforcement is unmodeled (conservative for leakage); the controller's launch ramp wasn't optimized — a faster one would trim the early 12.4% spike; single seed; all v5.0/v5.1 limits carry.</p>
-<h2 id="one-line">One line</h2>
-<p><strong>The settlement-slice architecture is sound — in steady state it funds the world floor with zero printing, sunsets to about 2%, and never breaks the guarantee — but C1 FAILS on the letter because the slice must transiently run 4.9–6.0% (with early top-up to 12.4%) through the convergence years, and the pessimistic 25%-jurisdiction cell sends 51% of physical commerce off-ledger, so the slice stays PROPOSED pending the transient-vs-treasury ratification choice.</strong></p>
-<p><em>Companion to <code>RESULTS - v5.3 Staged Activation</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation. The folder's existing <code>PLAIN LANGUAGE - v5.0 World Model.md</code> covers only v5.0.</em></p>
-<h2 id="the-question">The question</h2>
-<p>Devan's staged-activation proposal: don't promise the floor on day 1 — bank into a Floor Reserve and switch the floor on by formula, either when the reserve can fund it (the solvency trigger) or when too many people have become EVE-dependent to leave unprotected (the dependence override). Does the floor arrive in reasonable time, funded, without a morally ugly gap? Six configs: {slow, base, fast} adoption × {±government accelerator}. One calibration correction was made before the scored run and noted openly: EVE's per-hour value now scales with network maturity — the first run valued attention at mature rates from day one, making activation trivial at month 7, an artifact archived in the JSON history.</p>
-<h2 id="what-we-found-first-scored-run">What we found (first scored run)</h2>
-<p>Activation came far earlier than expected — 2.5–4.4 years in every scenario (D2 PASS) — but by the wrong door: <strong>in every scenario the dependence override fired, not the solvency trigger.</strong> By then ~2% of participants — successful creators whose EVE earnings outgrow their fiat income — had crossed the dependence line, pulling activation forward before the reserve was fully funded. Under base and fast adoption the reserve held anyway (D1 PASS with zero printing; D5: fast kept 7.5 months of reserve, base a thin 2.8). <strong>Under slow adoption both FAIL:</strong> the override fired at 2.5 years with an unready reserve — exhausted, printing required. The moral gap stayed small (D3 PASS: peak 2.1% against a 5% bar), and the floorless early coin is resilient at a 30% speculative share (D4 PASS: real machine-pay demand ≈ 82% of EVE demand, crash floor ≈ 0.66 — a 34% drawdown that recovers — with the pre-registered caveat of bridge/holding limits if speculation exceeds ~50–60%). Two counterintuitive findings: faster adoption <em>delays</em> activation (4.4 vs 2.5 years — fresh members dilute the dependent fraction) and buys the reserve time, so growth is itself a funding mechanism; and the government accelerator never mattered — activation beat the year-6 government join everywhere, so the floor exists before governments arrive, which strengthens the pitch.</p>
-<h2 id="the-fix-flagged-and-then-done-properly">The fix, flagged and then done properly</h2>
-<p>The RESULTS flags its own metric critique rather than silently fixing it: the registered override counted <em>any</em> EVE-dependence — including a creator earning five times essentials purely in EVE, which is success, not exposure. The refinement — vulnerable dependence (EVE &gt; 50% of income AND total income &lt; 2F) — was a post-hoc change to a registered bar, so it was freshly registered as SPEC amendment v5.3b and re-run on July 2, 2026. Result: <strong>all five bars pass in all six scenarios.</strong> Activation is solvency-led everywhere at 5.5–5.8 years; zero printing in every scenario including slow adoption (the v5.3 FAIL is cured); peak vulnerable-dependence 0.78–1.33% against the 5% bar; reserve minimum 23.6–25.7 months post-activation, no exhaustion anywhere. The floor arrives ~1–3 years later than under the naive metric, fully funded, with the truly vulnerable still comfortably inside the moral-gap bar. The architecture — Floor Reserve + solvency trigger + vulnerable-dependence override — was ratified into <code>01 Canon/EVE Algorithm v1.4 - Ratified Spec</code>.</p>
-<h2 id="the-honest-catch">The honest catch</h2>
-<p>The launch-era consequences ratify themselves — no day-1 floor subsidy, no ~$190M floor line-item, no transient &gt;4% slice; the C1 ladder decision is formally deferred to the activation era. And the scope is stated: adoption curves and network-value scaling are assumed shapes; the fiat economy is exogenous and stable (a fiat crisis would spike dependence and force early activation — the override handles it, expensively); the bridge is frictionless 1:1; the dependence threshold and override parameters are design dials, not facts; single seed; D4 is algebra on the reflexivity model, not a new simulation.</p>
-<h2 id="one-line">One line</h2>
-<p><strong>Staged activation survives its test twice over: the first scored run switched the floor on by formula in 2.5–4.4 years but FAILED in slow-adoption worlds because prosperous creators tripped the override before the reserve was ready, and the openly flagged fix — counting only <em>vulnerable</em> dependence — was freshly registered as v5.3b, re-run, and passed all five bars in all six scenarios, with activation solvency-led at 5.5–5.8 years and zero printing anywhere.</strong></p>
 <p class="eyebrow">Technical results</p>
-<p><em>Run July 2, 2026 against the bars in <code>v5.1 SPEC</code> (registered before construction). Artifacts: <code>results_world_v51.json</code>. Verdict first, mechanism second — this run produced the program's most important structural finding since the bathtub.</em></p>
-<h2 id="verdicts-vs-registered-bars">Verdicts vs registered bars</h2>
-<table>
-<thead>
-<tr>
-<th>Bar</th>
-<th>Result</th>
-<th>Verdict</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>B1</strong> corrected net contribution ≤6% in converged steady state (τ=10)</td>
-<td>ends at <strong>18.7%</strong> (from a 46% peak), still falling but far above bar at yr 15</td>
-<td><strong>FAIL</strong></td>
-</tr>
-<tr>
-<td><strong>B2</strong> corrected peak decays below 6% within 10 years (τ=10)</td>
-<td>never within window (τ=5: ends 14.9%; τ=20: 23.9%)</td>
-<td><strong>FAIL</strong></td>
-</tr>
-<tr>
-<td><strong>B3</strong> no region's p10 below local essentials 3+ months</td>
-<td><strong>zero breaches, all runs</strong> — the guarantee held for every region throughout</td>
-<td><strong>PASS</strong></td>
-</tr>
-<tr>
-<td><strong>B4</strong> zero top-up in converged steady state</td>
-<td>top-up peaks <strong>19–21%</strong> of issuance and is still ~needed at yr 15</td>
-<td><strong>FAIL</strong></td>
-</tr>
-</tbody>
-</table>
-<p>Also reported as a finding: <strong>the registered floor ramp (0.7→1.0) is unworkable by construction</strong> — any ramp below 1/1.1 of essentials puts floor-dependent people below essentials and mechanically breaches the criterion. Removed; the floor must be full from the day a region joins. The "soften the transition" idea, if wanted, must come from the funding side, never the guarantee side.</p>
-<h2 id="the-structural-finding-why-this-isnt-a-tuning-problem">The structural finding (why this isn't a tuning problem)</h2>
-<p>Including the physical economy honestly — ~70% of income from locally-priced goods and services, none of it routed — exposes a mismatch the single-population models could not see:</p>
-<p><strong>EDEN's floor obligation is sized against the <em>whole</em> cost of living, but its funding pool is fed only by the <em>digital</em> slice of the economy.</strong> With digital at ~30% of income, the 18% routing (verification + ancestral) is really ~5.4% of total economic flow — against floor obligations that, in poor regions, run to a third or more of total income. Convergence shrinks the obligations (corrected transfers fell by ~60% over 15 years — real and large) but cannot close a gap whose denominator is structurally too small. The consent problem (Q2) and the solvency shortfall (B4) are two faces of the same mismatch.</p>
-<p>Silver linings, honestly earned: <strong>the guarantee itself never broke anywhere</strong> (B3) — the system pays the floor by printing when the pool falls short, and the governor + convergence absorbed even 20% top-up without price instability (world prices <em>fell</em> ~18% as poor-region essentials re-priced). The cost of the mismatch lands on creators via mint dilution, not on the poor via breach — consistent with every stress test since v1. And physical income's natural price-indexation makes individual earnings <em>more</em> shock-stable than any earlier model showed.</p>
-<h2 id="what-the-finding-forces-onto-the-design-table-v52-spec-v14-candidates-all-post-hoc-all-requiring-fresh-registration">What the finding forces onto the design table (v5.2 / spec v1.4 candidates — all post-hoc, all requiring fresh registration)</h2>
-<ol>
-<li><strong>Route physical EVE commerce.</strong> A small routing slice (1–3%?) on physical transactions in EVE would scale the pool with the whole economy. Philosophically heavy: it is a transaction fee — EDEN has never taxed person-to-person exchange. But it may be the honest price of a whole-economy guarantee.</li>
-<li><strong>Bet on the digital share growing.</strong> v5.1 froze digital at 30%. EDEN's own thesis — the exploration economy, AI abundance, machine-pay — implies the digital share rises for decades. At 60–70% digital, the mismatch largely closes on its own. This is the <em>most EDEN-native</em> answer, but it makes floor solvency contingent on the thesis being right — that dependency must be stated in the white paper if adopted.</li>
-<li><strong>Accept measured top-up as transitional policy.</strong> Printing 10–20% of issuance for the transition decade(s) held prices stable <em>in this model</em> because convergence deflates essentials simultaneously. Risky to promise; cheap to keep testing.</li>
-<li><strong>Contribution caps + consent design</strong> (from Q2): visibility of what donor regions receive (data access, ancestral commons, stability), and governance consent machinery — the part no simulation can settle.</li>
-</ol>
-<h2 id="honest-scope">Honest scope</h2>
-<p>τ is assumed (swept 5/20); digital share frozen at 30% (option 2 untested); corrected metric is itself a modeling choice; calibration constants approximate; single seed; money stock initialized mature. The ramp finding and all three failures stand as registered. <strong>Bottom line: at world scale, with the physical economy included, EDEN's floor promise held for every person in every run — but its stated funding story does not yet hold, and the white paper's world-scale claims must say so until v5.2 resolves the mismatch by one of the routes above.</strong></p>
-<p><em>Run July 2, 2026 against <code>v5.2 SPEC</code> (registered before construction). Four configs: (j=15%, L27=0.35 central), (15, 0.20 optimistic), (25, 0.35), (25, 0.50 pessimistic). Artifacts: <code>results_world_v52.json</code>. Convergence (τ=10y), full v1.3+v5.1 mechanics.</em></p>
-<h2 id="verdicts-vs-registered-bars">Verdicts vs registered bars</h2>
-<table>
-<thead>
-<tr>
-<th>Bar</th>
-<th>Result</th>
-<th>Verdict</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>C1</strong> zero top-up in steady state at s ≤ 4%</td>
-<td>Steady state: <strong>zero top-up in every config</strong>, slice sunset to <strong>1.95–2.65%</strong>. But s <em>transiently</em> peaked <strong>4.9–6.0%</strong> during the convergence years (and early top-up ran up to 12.4% before the bounded controller caught up)</td>
-<td><strong>FAIL on the letter</strong> — the steady state fully delivers, the transition exceeds the 4% cap</td>
-</tr>
-<tr>
-<td><strong>C2</strong> no ratchet creep after year 5</td>
-<td>s never rose after yr 5 in any config — the sunset is monotone in practice</td>
-<td><strong>PASS</strong></td>
-</tr>
-<tr>
-<td><strong>C3</strong> leakage ≤ 35% of physical commerce (central, s+j ≤ 27%)</td>
-<td>Central: <strong>25.8%</strong> ✅. Optimistic: 16.3%. But j=25% + pessimistic slope: <strong>51%</strong> — half the physical economy goes dark</td>
-<td><strong>PASS at central</strong>; j=25% documented as unsafe under pessimistic elasticity</td>
-</tr>
-<tr>
-<td><strong>C4</strong> floor criterion</td>
-<td><strong>Zero breaches, all configs</strong></td>
-<td><strong>PASS</strong></td>
-</tr>
-<tr>
-<td><strong>C5</strong> jurisdiction revenue ≥ a 20% VAT with 10% gap</td>
-<td>j=15%: 0.68–0.74× (fails); j=25% central: <strong>1.05×</strong> (passes, barely); j=25% pessimistic: 0.89×</td>
-<td><strong>MIXED — and the bar was mis-specified</strong> (see below)</td>
-</tr>
-</tbody>
-</table>
-<h2 id="what-the-results-mean">What the results mean</h2>
-<p><strong>The steady state works.</strong> With convergence done, the whole stack — floor slice sunset to ~2%, jurisdiction slice, moderate leakage — funds the world floor with <strong>zero printing</strong>, keeps the guarantee unbroken everywhere, and holds most commerce on-ledger at sane burdens. The core settlement-slice architecture is sound.</p>
-<p><strong>The transition is the honest cost, again.</strong> To avoid printing during the convergence decade, the slice must run up to ~5–6% before sunsetting — above the registered 4% "smallness" cap. This is the same launch-era shape as every prior honest finding. <strong>Post-hoc design proposal (labeled as such, needs fresh registration if adopted):</strong> cap s at 4% constitutionally and bridge the residual transition gap from the already-accepted external launch treasury — keeping "small slice" true forever at the price of a larger, still-bounded, still-temporary treasury.</p>
-<p><strong>Jurisdiction slices have a darkness ceiling.</strong> At j=15%, leakage stays contained under all tested elasticities; at j=25% under pessimistic elasticity, <strong>half of physical commerce leaves the ledger</strong>, hollowing both the White Box and government revenue. Practical guidance for the canon note: jurisdictions in EDEN live comfortably at ≤15–20% — which, combined with the welfare functions they no longer fund, is consistent with the "less revenue needed" arithmetic.</p>
-<p><strong>C5 was our own bar-design error, worth owning.</strong> Comparing a 15% slice's revenue against a 20% VAT comparator fails by arithmetic regardless of collection quality — apples to oranges. The registered verdict stands as FAIL at j=15%, but the <em>fair</em> question (equal rates: does on-ledger collection with realistic leakage beat VAT-with-gap at the same rate?) is answered indirectly by the j=25%-central result (1.05× vs a 20% comparator, i.e., a 25% on-ledger slice out-collects a 20% VAT even with 35% physical leakage — because digital flow never leaks and collection is total). An equal-rate comparison belongs in v5.3 or the pilot design; until then the "cheapest revenue rail" pitch must be stated with its leakage condition attached.</p>
-<h2 id="status-of-the-settlement-slice">Status of the settlement slice</h2>
-<p>Still <strong>PROPOSED</strong>. The evidence now says: architecture sound, steady state self-funding, sunset real, guarantee unbroken — with two ratification choices for Devan: <strong>(a)</strong> accept transient s up to ~6% (simple, but "small slice" is untrue for a few years), or <strong>(b)</strong> cap at 4% + launch-treasury bridge (keeps the promise clean, enlarges the treasury ask). Either choice then goes into spec v1.4 with the jurisdiction-slice guidance (≤15–20%) and the C5 fair-comparison caveat.</p>
-<h2 id="honest-scope">Honest scope</h2>
-<p>Leakage elasticity remains the load-bearing bracketed unknown (pilot question); government revenue recycling crude; enforcement unmodeled (conservative for leakage); controller start (2%, ±0.1pp/mo) not optimized — a faster launch ramp would trim the early 12.4% top-up spike; single seed; all v5.0/v5.1 limits carry.</p>
-<p><em>Run July 2, 2026 against <code>v5.3 SPEC</code> (registered before construction). Six configs: {slow, base, fast} adoption × {±government accelerator}. Artifact: <code>results_staged_activation.json</code>. One calibration correction made before the scored run and noted openly: EVE's per-hour value now scales with network maturity (the first run valued attention at mature rates from day one, making activation trivial at month 7 — an artifact, archived in the JSON history).</em></p>
-<h2 id="verdicts-vs-registered-bars">Verdicts vs registered bars</h2>
-<table>
-<thead>
-<tr>
-<th>Bar</th>
-<th>Result</th>
-<th>Verdict</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>D1</strong> zero printing in first 24 months post-activation</td>
-<td>Base &amp; fast: <strong>zero printing</strong> ✅. <strong>Slow adoption: FAIL</strong> — activation forced before the reserve was ready; printing required</td>
-<td><strong>PASS (base/fast), FAIL (slow)</strong></td>
-</tr>
-<tr>
-<td><strong>D2</strong> activation within 20 years</td>
-<td><strong>2.5–4.4 years</strong> in every scenario</td>
-<td><strong>PASS</strong> — far earlier than expected</td>
-</tr>
-<tr>
-<td><strong>D3</strong> &lt;5% of participants EVE-dependent &gt;12 months pre-activation</td>
-<td>Peak <strong>2.1%</strong></td>
-<td><strong>PASS</strong></td>
-</tr>
-<tr>
-<td><strong>D4</strong> pre-activation crash recoverable at 30% speculative share</td>
-<td>Real (machine-pay) demand ≈ 82% of EVE demand; crash floor ≈ <strong>0.66</strong> (34% drawdown, recovers)</td>
-<td><strong>PASS</strong>, with the pre-registered caveat: bridge/holding limits if speculation exceeds ~50–60%</td>
-</tr>
-<tr>
-<td><strong>D5</strong> no reserve exhaustion in first 24 months</td>
-<td>Fast: min 7.5 months of reserve ✅. Base: <strong>2.8 months — thin</strong> ✅. Slow: <strong>exhausted (0)</strong> ❌</td>
-<td><strong>PASS (fast), THIN-PASS (base), FAIL (slow)</strong></td>
-</tr>
-</tbody>
-</table>
-<h2 id="the-headline-finding-the-override-binds-not-the-solvency-trigger">The headline finding: the override binds, not the solvency trigger</h2>
-<p><strong>In every scenario, activation was forced by the dependence override, not earned by the solvency trigger.</strong> By year 2.5–4.4, ~2% of participants — successful creators whose EVE earnings outgrow their fiat income — cross the dependence line and stay there, pulling activation forward before the reserve is fully funded. Three consequences:</p>
-<ol>
-<li><strong>The floor arrives obligation-led, not funding-led.</strong> Under base/fast adoption the reserve holds anyway (thinly, at base). Under slow adoption it doesn't — the override fires at 2.5 years with an unready reserve, and the floor must be bridge-funded. The moral machinery works exactly as designed; the price of the guarantee appears precisely where the design says it should (protect the dependent first, fund elegantly second).</li>
-<li><strong>A counterintuitive inversion:</strong> faster adoption <em>delays</em> activation (4.4y vs 2.5y) — fresh members dilute the dependent fraction below the override threshold — and buys the reserve more time. Growth is itself a funding mechanism.</li>
-<li><strong>The government accelerator never mattered:</strong> activation beat the year-6 government-join in every scenario. The floor will exist <em>before</em> governments arrive — which strengthens, not weakens, the government pitch (they join a system whose safety net is already operating).</li>
-</ol>
-<h2 id="an-honest-metric-critique-flagged-not-silently-fixed">An honest metric critique (flagged, not silently fixed)</h2>
-<p>The registered override counts <em>any</em> EVE-dependence — including a creator earning five times essentials purely in EVE. That person is dependent on EVE the way a successful shop owner is dependent on their shop: it's success, not exposure. The override arguably should track <strong>vulnerable dependence</strong> (EVE-dependent AND total income &lt; 2F). Re-specifying it that way would likely restore solvency-led activation and cure the slow-adoption FAIL — but that is a post-hoc refinement of a registered bar, so it is <em>flagged here</em> and would need fresh registration and a re-run before it can carry weight. Alternative fixes if the metric stands: raise the pre-activation banking rate (slice 3% until activation, 2% after), or accept bounded bridge-printing in slow-adoption worlds as the honest cost of never lagging dependence.</p>
-<h2 id="what-this-means-for-the-program">What this means for the program</h2>
-<p>Devan's staged-activation proposal <strong>survives its test</strong>: the floor activates by formula within ~3–4 years, funded cleanly under realistic adoption, with the moral gap (D3) comfortably inside its bar and the floorless early coin resilient at realistic speculative shares. The launch-era consequences ratify themselves: <strong>no day-1 floor subsidy, no ~$190M floor line-item, no transient &gt;4% slice — the C1 ladder decision is formally deferred to the activation era.</strong> Remaining work — <strong>ALL COMPLETED July 2, 2026</strong>: the vulnerable-dependence refinement was registered (SPEC amendment v5.3b) and re-run (all bars pass — see the v5.3b section below); the architecture is ratified in <code>01 Canon/EVE Algorithm v1.4 - Ratified Spec</code>; the white paper carries it as the v1.5.2 changelog entry.</p>
-<h2 id="honest-scope">Honest scope</h2>
-<p>Adoption curves and network-value scaling are assumed shapes; fiat economy exogenous and stable (a fiat crisis would spike dependence and force early activation — the override handles it, expensively); frictionless 1:1 bridge; the dependence threshold (50% of income) and override parameters (2%, 12mo) are design dials, not facts; single seed; D4 is algebra on the reflexivity model, not a new simulation.</p>
-<hr>
-<h2 id="v53b-vulnerable-dependence-override-re-registered-amendment-re-run-july-2-2026">v5.3b — Vulnerable-Dependence Override (re-registered amendment, re-run July 2, 2026)</h2>
-<p>With the override re-registered as <strong>vulnerable dependence</strong> (EVE &gt; 50% of income AND income &lt; 2F), <strong>all five bars pass in all six scenarios</strong> (<code>results_staged_activation_v53b.json</code>): activation is <strong>solvency-led everywhere</strong> at <strong>5.5–5.8 years</strong>; <strong>D1: zero printing in every scenario including slow adoption</strong> (the v5.3 FAIL is cured); D3 peak vulnerable-dependence 0.78–1.33% (bar 5%); D5 reserve minimum 23.6–25.7 months post-activation (no exhaustion anywhere). Prosperous creators no longer force premature activation; the floor arrives ~1–3 years later than under the naive metric, fully funded, with the truly vulnerable population still comfortably inside the moral-gap bar throughout. <strong>The staged-activation architecture — Floor Reserve + solvency trigger + vulnerable-dependence override — is ratification-ready for spec v1.4.</strong></p>
 <p><em>Run July 2, 2026, against the bars registered in <code>EVE Sim v5 - World Model (SPEC).md</code> before construction. 40 regions expanded from four World-Bank income strata (calibration constants approximated from WDI/ILO/ITU/ID4D 2024–25 values — flagged for refresh), ~1.6M agents, ratified v1.3 mechanics, one global currency and pool, floors measured against local essentials. All artifacts in this folder (<code>results_world_*.json</code>).</em></p>
 <h2 id="verdict-table-bars-as-registered-no-goalposts-moved">Verdict table (bars as registered — no goalposts moved)</h2>
 <table>
@@ -358,6 +185,196 @@
 </ul>
 <h2 id="scorecard-against-the-specs-promise">Scorecard against the spec's promise</h2>
 <p>Five bars met or delivered, one failed honestly. The world-scale headline: <strong>the floor holds for the whole world in every scenario tested — including the hardest one — and the binding constraint at world scale is not solvency but political economy</strong> (who funds whom, and whether they consent). That is exactly the kind of finding a world model exists to surface, and exactly the right problem to hand to the governance layer and v5.1.</p>
+<div class="subrun" id="s-5-1"><h2>v5.1 Convergence &amp; Physical Economy</h2></div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v5.1 Convergence &amp; Physical Economy</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation. The folder's existing <code>PLAIN LANGUAGE - v5.0 World Model.md</code> covers only v5.0.</em></p>
+<h2 id="the-question">The question</h2>
+<p>v5.0 scaled EDEN to the world. v5.1 adds what that model still idealized: convergence (poor regions catching up over time) and the physical economy — roughly 70% of income comes from locally-priced goods and services, none of it routed through EDEN's pool. With the whole economy honestly in the picture, does the funding story still hold? This run produced the program's most important structural finding since the bathtub.</p>
+<h2 id="what-we-found-three-failures-and-one-unbroken-promise">What we found — three failures and one unbroken promise</h2>
+<p>Against the registered bars: <strong>B1 FAIL</strong> — corrected net contribution ends at 18.7% (down from a 46% peak, still falling) against a ≤6% bar. <strong>B2 FAIL</strong> — the peak never decays below 6% within 10 years at any tested convergence speed (τ=5 ends at 14.9%; τ=20 at 23.9%). <strong>B4 FAIL</strong> — floor top-up printing peaks at 19–21% of issuance and is still roughly needed at year 15. <strong>B3 PASS</strong> — zero breaches, all runs: no region's poorest fell below local essentials, ever. One more finding, stated plainly: the registered floor ramp (0.7→1.0) is unworkable by construction — any ramp below 1/1.1 of essentials mechanically puts floor-dependent people below the line. The floor must be full from the day a region joins; any softening of the transition must come from the funding side, never the guarantee side.</p>
+<h2 id="why-this-isnt-a-tuning-problem">Why this isn't a tuning problem</h2>
+<p>The mismatch is structural: EDEN's floor obligation is sized against the <em>whole</em> cost of living, but its funding pool is fed only by the <em>digital</em> slice of the economy. With digital at ~30% of income, the 18% routing (verification + ancestral) is really ~5.4% of total economic flow — against floor obligations that, in poor regions, run to a third or more of total income. Convergence helps a lot (corrected transfers fell ~60% over 15 years — real and large) but cannot close a gap whose denominator is structurally too small; the consent problem and the solvency shortfall are two faces of the same mismatch. The silver linings are honestly earned: the guarantee never broke anywhere; the governor plus convergence absorbed even 20% top-up without price instability (world prices <em>fell</em> ~18% as poor-region essentials re-priced); the cost lands on creators via mint dilution, not on the poor via breach; and physical income's natural price-indexation makes individual earnings more shock-stable than any earlier model showed.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Four candidate fixes went on the design table, all post-hoc and all requiring fresh registration: route physical EVE commerce (a small 1–3% slice — philosophically heavy, since EDEN has never taxed person-to-person exchange); bet on the digital share growing (at 60–70% digital the mismatch largely closes on its own — the most EDEN-native answer, but it makes floor solvency contingent on the thesis being right, a dependency the white paper must state if adopted); accept measured top-up as transitional policy (risky to promise, cheap to keep testing); or contribution caps plus consent design — the part no simulation can settle. τ is assumed (swept 5/20), the digital share is frozen at 30%, the corrected metric is itself a modeling choice, single seed, money stock initialized mature. The ramp finding and all three failures stand as registered: until v5.2 resolves the mismatch, the white paper's world-scale claims must say the funding story does not yet hold.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>With the physical economy honestly included, EDEN's floor promise held for every person in every run — zero breaches — but three of four registered bars FAILED (net contribution ending at 18.7% against a 6% bar, never decaying in time, and top-up printing peaking at 19–21% of issuance), because a floor promised against the whole cost of living cannot yet be funded from only the ~30% digital slice of it.</strong></p>
+<p class="eyebrow">Technical results</p>
+<p><em>Run July 2, 2026 against the bars in <code>v5.1 SPEC</code> (registered before construction). Artifacts: <code>results_world_v51.json</code>. Verdict first, mechanism second — this run produced the program's most important structural finding since the bathtub.</em></p>
+<h2 id="verdicts-vs-registered-bars">Verdicts vs registered bars</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>B1</strong> corrected net contribution ≤6% in converged steady state (τ=10)</td>
+<td>ends at <strong>18.7%</strong> (from a 46% peak), still falling but far above bar at yr 15</td>
+<td><strong>FAIL</strong></td>
+</tr>
+<tr>
+<td><strong>B2</strong> corrected peak decays below 6% within 10 years (τ=10)</td>
+<td>never within window (τ=5: ends 14.9%; τ=20: 23.9%)</td>
+<td><strong>FAIL</strong></td>
+</tr>
+<tr>
+<td><strong>B3</strong> no region's p10 below local essentials 3+ months</td>
+<td><strong>zero breaches, all runs</strong> — the guarantee held for every region throughout</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>B4</strong> zero top-up in converged steady state</td>
+<td>top-up peaks <strong>19–21%</strong> of issuance and is still ~needed at yr 15</td>
+<td><strong>FAIL</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Also reported as a finding: <strong>the registered floor ramp (0.7→1.0) is unworkable by construction</strong> — any ramp below 1/1.1 of essentials puts floor-dependent people below essentials and mechanically breaches the criterion. Removed; the floor must be full from the day a region joins. The "soften the transition" idea, if wanted, must come from the funding side, never the guarantee side.</p>
+<h2 id="the-structural-finding-why-this-isnt-a-tuning-problem">The structural finding (why this isn't a tuning problem)</h2>
+<p>Including the physical economy honestly — ~70% of income from locally-priced goods and services, none of it routed — exposes a mismatch the single-population models could not see:</p>
+<p><strong>EDEN's floor obligation is sized against the <em>whole</em> cost of living, but its funding pool is fed only by the <em>digital</em> slice of the economy.</strong> With digital at ~30% of income, the 18% routing (verification + ancestral) is really ~5.4% of total economic flow — against floor obligations that, in poor regions, run to a third or more of total income. Convergence shrinks the obligations (corrected transfers fell by ~60% over 15 years — real and large) but cannot close a gap whose denominator is structurally too small. The consent problem (Q2) and the solvency shortfall (B4) are two faces of the same mismatch.</p>
+<p>Silver linings, honestly earned: <strong>the guarantee itself never broke anywhere</strong> (B3) — the system pays the floor by printing when the pool falls short, and the governor + convergence absorbed even 20% top-up without price instability (world prices <em>fell</em> ~18% as poor-region essentials re-priced). The cost of the mismatch lands on creators via mint dilution, not on the poor via breach — consistent with every stress test since v1. And physical income's natural price-indexation makes individual earnings <em>more</em> shock-stable than any earlier model showed.</p>
+<h2 id="what-the-finding-forces-onto-the-design-table-v52-spec-v14-candidates-all-post-hoc-all-requiring-fresh-registration">What the finding forces onto the design table (v5.2 / spec v1.4 candidates — all post-hoc, all requiring fresh registration)</h2>
+<ol>
+<li><strong>Route physical EVE commerce.</strong> A small routing slice (1–3%?) on physical transactions in EVE would scale the pool with the whole economy. Philosophically heavy: it is a transaction fee — EDEN has never taxed person-to-person exchange. But it may be the honest price of a whole-economy guarantee.</li>
+<li><strong>Bet on the digital share growing.</strong> v5.1 froze digital at 30%. EDEN's own thesis — the exploration economy, AI abundance, machine-pay — implies the digital share rises for decades. At 60–70% digital, the mismatch largely closes on its own. This is the <em>most EDEN-native</em> answer, but it makes floor solvency contingent on the thesis being right — that dependency must be stated in the white paper if adopted.</li>
+<li><strong>Accept measured top-up as transitional policy.</strong> Printing 10–20% of issuance for the transition decade(s) held prices stable <em>in this model</em> because convergence deflates essentials simultaneously. Risky to promise; cheap to keep testing.</li>
+<li><strong>Contribution caps + consent design</strong> (from Q2): visibility of what donor regions receive (data access, ancestral commons, stability), and governance consent machinery — the part no simulation can settle.</li>
+</ol>
+<h2 id="honest-scope">Honest scope</h2>
+<p>τ is assumed (swept 5/20); digital share frozen at 30% (option 2 untested); corrected metric is itself a modeling choice; calibration constants approximate; single seed; money stock initialized mature. The ramp finding and all three failures stand as registered. <strong>Bottom line: at world scale, with the physical economy included, EDEN's floor promise held for every person in every run — but its stated funding story does not yet hold, and the white paper's world-scale claims must say so until v5.2 resolves the mismatch by one of the routes above.</strong></p>
+<div class="subrun" id="s-5-2"><h2>v5.2 Slices &amp; Leakage</h2></div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v5.2 Slices &amp; Leakage</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation. The folder's existing <code>PLAIN LANGUAGE - v5.0 World Model.md</code> covers only v5.0.</em></p>
+<h2 id="the-question">The question</h2>
+<p>v5.1 ended on a structural mismatch: the floor is promised against the whole economy but funded from the digital slice alone. v5.2 tests the proposed repair — a small settlement slice (s) on physical EVE commerce, plus a jurisdiction slice (j) for governments — across four configs from optimistic to pessimistic leakage elasticity, asking whether it funds the floor without printing and how much commerce goes dark to avoid it.</p>
+<h2 id="what-we-found">What we found</h2>
+<p>The steady state fully delivers: zero top-up printing in every config, the floor slice sunsets to 1.95–2.65%, the guarantee is unbroken everywhere (C4 PASS: zero breaches, all configs), and there is no ratchet creep — the slice never rose after year 5 (C2 PASS). <strong>But C1 FAILS on the letter:</strong> to avoid printing during the convergence decade, the slice transiently peaked at 4.9–6.0% — above the registered 4% "smallness" cap — and early top-up ran up to 12.4% before the bounded controller caught up. The steady state delivers; the transition exceeds the cap. This is the same launch-era shape as every prior honest finding.</p>
+<p>Leakage has a darkness ceiling. At the central config, 25.8% of physical commerce goes off-ledger (C3 PASS; optimistic 16.3%). But at j=25% under pessimistic elasticity, <strong>51% — half the physical economy goes dark</strong>, hollowing both the White Box and government revenue; j=25% is documented as unsafe under pessimistic elasticity, and the practical guidance is that jurisdictions in EDEN live comfortably at ≤15–20%. C5 (jurisdiction revenue vs a 20% VAT with a 10% gap) came out MIXED — and the bar was mis-specified, an error owned in the RESULTS: comparing a 15% slice's revenue against a 20% VAT comparator fails by arithmetic regardless of collection quality. The registered verdict stands as FAIL at j=15% (0.68–0.74×); the fair equal-rate question is answered only indirectly by the j=25%-central cell (1.05× the VAT comparator even with 35% physical leakage, because digital flow never leaks and collection is total). Until an equal-rate comparison is run, the "cheapest revenue rail" pitch must carry its leakage condition.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The settlement slice remains <strong>PROPOSED</strong>, with a ratification choice on the table: (a) accept a transient slice up to ~6% — simple, but "small slice" is untrue for a few years — or (b) cap it at 4% constitutionally and bridge the residual transition gap from the already-accepted external launch treasury, a post-hoc proposal labeled as such that needs fresh registration if adopted. Leakage elasticity remains the load-bearing bracketed unknown (a pilot question); government revenue recycling is crude; enforcement is unmodeled (conservative for leakage); the controller's launch ramp wasn't optimized — a faster one would trim the early 12.4% spike; single seed; all v5.0/v5.1 limits carry.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>The settlement-slice architecture is sound — in steady state it funds the world floor with zero printing, sunsets to about 2%, and never breaks the guarantee — but C1 FAILS on the letter because the slice must transiently run 4.9–6.0% (with early top-up to 12.4%) through the convergence years, and the pessimistic 25%-jurisdiction cell sends 51% of physical commerce off-ledger, so the slice stays PROPOSED pending the transient-vs-treasury ratification choice.</strong></p>
+<p class="eyebrow">Technical results</p>
+<p><em>Run July 2, 2026 against <code>v5.2 SPEC</code> (registered before construction). Four configs: (j=15%, L27=0.35 central), (15, 0.20 optimistic), (25, 0.35), (25, 0.50 pessimistic). Artifacts: <code>results_world_v52.json</code>. Convergence (τ=10y), full v1.3+v5.1 mechanics.</em></p>
+<h2 id="verdicts-vs-registered-bars">Verdicts vs registered bars</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>C1</strong> zero top-up in steady state at s ≤ 4%</td>
+<td>Steady state: <strong>zero top-up in every config</strong>, slice sunset to <strong>1.95–2.65%</strong>. But s <em>transiently</em> peaked <strong>4.9–6.0%</strong> during the convergence years (and early top-up ran up to 12.4% before the bounded controller caught up)</td>
+<td><strong>FAIL on the letter</strong> — the steady state fully delivers, the transition exceeds the 4% cap</td>
+</tr>
+<tr>
+<td><strong>C2</strong> no ratchet creep after year 5</td>
+<td>s never rose after yr 5 in any config — the sunset is monotone in practice</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>C3</strong> leakage ≤ 35% of physical commerce (central, s+j ≤ 27%)</td>
+<td>Central: <strong>25.8%</strong> ✅. Optimistic: 16.3%. But j=25% + pessimistic slope: <strong>51%</strong> — half the physical economy goes dark</td>
+<td><strong>PASS at central</strong>; j=25% documented as unsafe under pessimistic elasticity</td>
+</tr>
+<tr>
+<td><strong>C4</strong> floor criterion</td>
+<td><strong>Zero breaches, all configs</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>C5</strong> jurisdiction revenue ≥ a 20% VAT with 10% gap</td>
+<td>j=15%: 0.68–0.74× (fails); j=25% central: <strong>1.05×</strong> (passes, barely); j=25% pessimistic: 0.89×</td>
+<td><strong>MIXED — and the bar was mis-specified</strong> (see below)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-the-results-mean">What the results mean</h2>
+<p><strong>The steady state works.</strong> With convergence done, the whole stack — floor slice sunset to ~2%, jurisdiction slice, moderate leakage — funds the world floor with <strong>zero printing</strong>, keeps the guarantee unbroken everywhere, and holds most commerce on-ledger at sane burdens. The core settlement-slice architecture is sound.</p>
+<p><strong>The transition is the honest cost, again.</strong> To avoid printing during the convergence decade, the slice must run up to ~5–6% before sunsetting — above the registered 4% "smallness" cap. This is the same launch-era shape as every prior honest finding. <strong>Post-hoc design proposal (labeled as such, needs fresh registration if adopted):</strong> cap s at 4% constitutionally and bridge the residual transition gap from the already-accepted external launch treasury — keeping "small slice" true forever at the price of a larger, still-bounded, still-temporary treasury.</p>
+<p><strong>Jurisdiction slices have a darkness ceiling.</strong> At j=15%, leakage stays contained under all tested elasticities; at j=25% under pessimistic elasticity, <strong>half of physical commerce leaves the ledger</strong>, hollowing both the White Box and government revenue. Practical guidance for the canon note: jurisdictions in EDEN live comfortably at ≤15–20% — which, combined with the welfare functions they no longer fund, is consistent with the "less revenue needed" arithmetic.</p>
+<p><strong>C5 was our own bar-design error, worth owning.</strong> Comparing a 15% slice's revenue against a 20% VAT comparator fails by arithmetic regardless of collection quality — apples to oranges. The registered verdict stands as FAIL at j=15%, but the <em>fair</em> question (equal rates: does on-ledger collection with realistic leakage beat VAT-with-gap at the same rate?) is answered indirectly by the j=25%-central result (1.05× vs a 20% comparator, i.e., a 25% on-ledger slice out-collects a 20% VAT even with 35% physical leakage — because digital flow never leaks and collection is total). An equal-rate comparison belongs in v5.3 or the pilot design; until then the "cheapest revenue rail" pitch must be stated with its leakage condition attached.</p>
+<h2 id="status-of-the-settlement-slice">Status of the settlement slice</h2>
+<p>Still <strong>PROPOSED</strong>. The evidence now says: architecture sound, steady state self-funding, sunset real, guarantee unbroken — with two ratification choices for Devan: <strong>(a)</strong> accept transient s up to ~6% (simple, but "small slice" is untrue for a few years), or <strong>(b)</strong> cap at 4% + launch-treasury bridge (keeps the promise clean, enlarges the treasury ask). Either choice then goes into spec v1.4 with the jurisdiction-slice guidance (≤15–20%) and the C5 fair-comparison caveat.</p>
+<h2 id="honest-scope">Honest scope</h2>
+<p>Leakage elasticity remains the load-bearing bracketed unknown (pilot question); government revenue recycling crude; enforcement unmodeled (conservative for leakage); controller start (2%, ±0.1pp/mo) not optimized — a faster launch ramp would trim the early 12.4% top-up spike; single seed; all v5.0/v5.1 limits carry.</p>
+<div class="subrun" id="s-5-3"><h2>v5.3 Staged Activation</h2></div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v5.3 Staged Activation</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation. The folder's existing <code>PLAIN LANGUAGE - v5.0 World Model.md</code> covers only v5.0.</em></p>
+<h2 id="the-question">The question</h2>
+<p>Devan's staged-activation proposal: don't promise the floor on day 1 — bank into a Floor Reserve and switch the floor on by formula, either when the reserve can fund it (the solvency trigger) or when too many people have become EVE-dependent to leave unprotected (the dependence override). Does the floor arrive in reasonable time, funded, without a morally ugly gap? Six configs: {slow, base, fast} adoption × {±government accelerator}. One calibration correction was made before the scored run and noted openly: EVE's per-hour value now scales with network maturity — the first run valued attention at mature rates from day one, making activation trivial at month 7, an artifact archived in the JSON history.</p>
+<h2 id="what-we-found-first-scored-run">What we found (first scored run)</h2>
+<p>Activation came far earlier than expected — 2.5–4.4 years in every scenario (D2 PASS) — but by the wrong door: <strong>in every scenario the dependence override fired, not the solvency trigger.</strong> By then ~2% of participants — successful creators whose EVE earnings outgrow their fiat income — had crossed the dependence line, pulling activation forward before the reserve was fully funded. Under base and fast adoption the reserve held anyway (D1 PASS with zero printing; D5: fast kept 7.5 months of reserve, base a thin 2.8). <strong>Under slow adoption both FAIL:</strong> the override fired at 2.5 years with an unready reserve — exhausted, printing required. The moral gap stayed small (D3 PASS: peak 2.1% against a 5% bar), and the floorless early coin is resilient at a 30% speculative share (D4 PASS: real machine-pay demand ≈ 82% of EVE demand, crash floor ≈ 0.66 — a 34% drawdown that recovers — with the pre-registered caveat of bridge/holding limits if speculation exceeds ~50–60%). Two counterintuitive findings: faster adoption <em>delays</em> activation (4.4 vs 2.5 years — fresh members dilute the dependent fraction) and buys the reserve time, so growth is itself a funding mechanism; and the government accelerator never mattered — activation beat the year-6 government join everywhere, so the floor exists before governments arrive, which strengthens the pitch.</p>
+<h2 id="the-fix-flagged-and-then-done-properly">The fix, flagged and then done properly</h2>
+<p>The RESULTS flags its own metric critique rather than silently fixing it: the registered override counted <em>any</em> EVE-dependence — including a creator earning five times essentials purely in EVE, which is success, not exposure. The refinement — vulnerable dependence (EVE &gt; 50% of income AND total income &lt; 2F) — was a post-hoc change to a registered bar, so it was freshly registered as SPEC amendment v5.3b and re-run on July 2, 2026. Result: <strong>all five bars pass in all six scenarios.</strong> Activation is solvency-led everywhere at 5.5–5.8 years; zero printing in every scenario including slow adoption (the v5.3 FAIL is cured); peak vulnerable-dependence 0.78–1.33% against the 5% bar; reserve minimum 23.6–25.7 months post-activation, no exhaustion anywhere. The floor arrives ~1–3 years later than under the naive metric, fully funded, with the truly vulnerable still comfortably inside the moral-gap bar. The architecture — Floor Reserve + solvency trigger + vulnerable-dependence override — was ratified into <code>01 Canon/EVE Algorithm v1.4 - Ratified Spec</code>.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The launch-era consequences ratify themselves — no day-1 floor subsidy, no ~$190M floor line-item, no transient &gt;4% slice; the C1 ladder decision is formally deferred to the activation era. And the scope is stated: adoption curves and network-value scaling are assumed shapes; the fiat economy is exogenous and stable (a fiat crisis would spike dependence and force early activation — the override handles it, expensively); the bridge is frictionless 1:1; the dependence threshold and override parameters are design dials, not facts; single seed; D4 is algebra on the reflexivity model, not a new simulation.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Staged activation survives its test twice over: the first scored run switched the floor on by formula in 2.5–4.4 years but FAILED in slow-adoption worlds because prosperous creators tripped the override before the reserve was ready, and the openly flagged fix — counting only <em>vulnerable</em> dependence — was freshly registered as v5.3b, re-run, and passed all five bars in all six scenarios, with activation solvency-led at 5.5–5.8 years and zero printing anywhere.</strong></p>
+<p class="eyebrow">Technical results</p>
+<p><em>Run July 2, 2026 against <code>v5.3 SPEC</code> (registered before construction). Six configs: {slow, base, fast} adoption × {±government accelerator}. Artifact: <code>results_staged_activation.json</code>. One calibration correction made before the scored run and noted openly: EVE's per-hour value now scales with network maturity (the first run valued attention at mature rates from day one, making activation trivial at month 7 — an artifact, archived in the JSON history).</em></p>
+<h2 id="verdicts-vs-registered-bars">Verdicts vs registered bars</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D1</strong> zero printing in first 24 months post-activation</td>
+<td>Base &amp; fast: <strong>zero printing</strong> ✅. <strong>Slow adoption: FAIL</strong> — activation forced before the reserve was ready; printing required</td>
+<td><strong>PASS (base/fast), FAIL (slow)</strong></td>
+</tr>
+<tr>
+<td><strong>D2</strong> activation within 20 years</td>
+<td><strong>2.5–4.4 years</strong> in every scenario</td>
+<td><strong>PASS</strong> — far earlier than expected</td>
+</tr>
+<tr>
+<td><strong>D3</strong> &lt;5% of participants EVE-dependent &gt;12 months pre-activation</td>
+<td>Peak <strong>2.1%</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>D4</strong> pre-activation crash recoverable at 30% speculative share</td>
+<td>Real (machine-pay) demand ≈ 82% of EVE demand; crash floor ≈ <strong>0.66</strong> (34% drawdown, recovers)</td>
+<td><strong>PASS</strong>, with the pre-registered caveat: bridge/holding limits if speculation exceeds ~50–60%</td>
+</tr>
+<tr>
+<td><strong>D5</strong> no reserve exhaustion in first 24 months</td>
+<td>Fast: min 7.5 months of reserve ✅. Base: <strong>2.8 months — thin</strong> ✅. Slow: <strong>exhausted (0)</strong> ❌</td>
+<td><strong>PASS (fast), THIN-PASS (base), FAIL (slow)</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-headline-finding-the-override-binds-not-the-solvency-trigger">The headline finding: the override binds, not the solvency trigger</h2>
+<p><strong>In every scenario, activation was forced by the dependence override, not earned by the solvency trigger.</strong> By year 2.5–4.4, ~2% of participants — successful creators whose EVE earnings outgrow their fiat income — cross the dependence line and stay there, pulling activation forward before the reserve is fully funded. Three consequences:</p>
+<ol>
+<li><strong>The floor arrives obligation-led, not funding-led.</strong> Under base/fast adoption the reserve holds anyway (thinly, at base). Under slow adoption it doesn't — the override fires at 2.5 years with an unready reserve, and the floor must be bridge-funded. The moral machinery works exactly as designed; the price of the guarantee appears precisely where the design says it should (protect the dependent first, fund elegantly second).</li>
+<li><strong>A counterintuitive inversion:</strong> faster adoption <em>delays</em> activation (4.4y vs 2.5y) — fresh members dilute the dependent fraction below the override threshold — and buys the reserve more time. Growth is itself a funding mechanism.</li>
+<li><strong>The government accelerator never mattered:</strong> activation beat the year-6 government-join in every scenario. The floor will exist <em>before</em> governments arrive — which strengthens, not weakens, the government pitch (they join a system whose safety net is already operating).</li>
+</ol>
+<h2 id="an-honest-metric-critique-flagged-not-silently-fixed">An honest metric critique (flagged, not silently fixed)</h2>
+<p>The registered override counts <em>any</em> EVE-dependence — including a creator earning five times essentials purely in EVE. That person is dependent on EVE the way a successful shop owner is dependent on their shop: it's success, not exposure. The override arguably should track <strong>vulnerable dependence</strong> (EVE-dependent AND total income &lt; 2F). Re-specifying it that way would likely restore solvency-led activation and cure the slow-adoption FAIL — but that is a post-hoc refinement of a registered bar, so it is <em>flagged here</em> and would need fresh registration and a re-run before it can carry weight. Alternative fixes if the metric stands: raise the pre-activation banking rate (slice 3% until activation, 2% after), or accept bounded bridge-printing in slow-adoption worlds as the honest cost of never lagging dependence.</p>
+<h2 id="what-this-means-for-the-program">What this means for the program</h2>
+<p>Devan's staged-activation proposal <strong>survives its test</strong>: the floor activates by formula within ~3–4 years, funded cleanly under realistic adoption, with the moral gap (D3) comfortably inside its bar and the floorless early coin resilient at realistic speculative shares. The launch-era consequences ratify themselves: <strong>no day-1 floor subsidy, no ~$190M floor line-item, no transient &gt;4% slice — the C1 ladder decision is formally deferred to the activation era.</strong> Remaining work — <strong>ALL COMPLETED July 2, 2026</strong>: the vulnerable-dependence refinement was registered (SPEC amendment v5.3b) and re-run (all bars pass — see the v5.3b section below); the architecture is ratified in <code>01 Canon/EVE Algorithm v1.4 - Ratified Spec</code>; the white paper carries it as the v1.5.2 changelog entry.</p>
+<h2 id="honest-scope">Honest scope</h2>
+<p>Adoption curves and network-value scaling are assumed shapes; fiat economy exogenous and stable (a fiat crisis would spike dependence and force early activation — the override handles it, expensively); frictionless 1:1 bridge; the dependence threshold (50% of income) and override parameters (2%, 12mo) are design dials, not facts; single seed; D4 is algebra on the reflexivity model, not a new simulation.</p>
+<hr>
+<h2 id="v53b-vulnerable-dependence-override-re-registered-amendment-re-run-july-2-2026">v5.3b — Vulnerable-Dependence Override (re-registered amendment, re-run July 2, 2026)</h2>
+<p>With the override re-registered as <strong>vulnerable dependence</strong> (EVE &gt; 50% of income AND income &lt; 2F), <strong>all five bars pass in all six scenarios</strong> (<code>results_staged_activation_v53b.json</code>): activation is <strong>solvency-led everywhere</strong> at <strong>5.5–5.8 years</strong>; <strong>D1: zero printing in every scenario including slow adoption</strong> (the v5.3 FAIL is cured); D3 peak vulnerable-dependence 0.78–1.33% (bar 5%); D5 reserve minimum 23.6–25.7 months post-activation (no exhaustion anywhere). Prosperous creators no longer force premature activation; the floor arrives ~1–3 years later than under the naive metric, fully funded, with the truly vulnerable population still comfortably inside the moral-gap bar throughout. <strong>The staged-activation architecture — Floor Reserve + solvency trigger + vulnerable-dependence override — is ratification-ready for spec v1.4.</strong></p>
+<div class="subrun"><h2>Additional results &amp; data</h2></div>
 <p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v5-world-model-0.json" download>⬇ results_staged_activation.json</a><a class="dlbtn" href="data/eve-sim-v5-world-model-1.json" download>⬇ results_staged_activation_v53b.json</a><a class="dlbtn" href="data/eve-sim-v5-world-model-2.json" download>⬇ results_world_divers.json</a><a class="dlbtn" href="data/eve-sim-v5-world-model-3.json" download>⬇ results_world_fraud.json</a><a class="dlbtn" href="data/eve-sim-v5-world-model-4.json" download>⬇ results_world_mature.json</a><a class="dlbtn" href="data/eve-sim-v5-world-model-5.json" download>⬇ results_world_seq.json</a><a class="dlbtn" href="data/eve-sim-v5-world-model-6.json" download>⬇ results_world_v51.json</a><a class="dlbtn" href="data/eve-sim-v5-world-model-7.json" download>⬇ results_world_v52.json</a><a class="dlbtn" href="data/eve-sim-v5-world-model-8.json" download>⬇ results_world_wave.json</a></p>
 </div></article>
 <footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>

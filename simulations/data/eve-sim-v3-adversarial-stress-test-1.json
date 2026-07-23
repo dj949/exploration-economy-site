@@ -1,4 +1,5 @@
 {
+  "fixes": "fake-share axis (was multiple-of-honest mislabeled as share); optimizing attacker added; saturation run not extrapolated; annualization fixed",
   "wash_farming": {
     "floor_per_month": 1.77,
     "burst_net": 10.22,
@@ -6,204 +7,416 @@
     "burst_vs_floor": 5.78,
     "sustained_vs_floor": 0.29
   },
-  "fraud_per_unit_sybil_zero_detection_pct": 15.2,
+  "saturation_fake50_det0": {
+    "naive": {
+      "fraud_max": 15.2,
+      "fraud_end": 10.44,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.03
+    },
+    "optimizing": {
+      "fraud_max": 35.65,
+      "fraud_end": 29.14,
+      "topup_max": 0.0,
+      "infl": 0.89,
+      "p10_min": 1.173,
+      "creator_real_end": 0.76
+    }
+  },
   "detection_needed_for_under_2pct": {
-    "sybil10": 0.0,
-    "sybil25": 0.474,
-    "sybil50": 0.737
+    "naive|fake10": 0.0,
+    "naive|fake25": 0.605,
+    "naive|fake50": 0.869,
+    "optimizing|fake10": 0.788,
+    "optimizing|fake25": 0.929,
+    "optimizing|fake50": 0.977
   },
   "sweep": {
-    "sybil0|det99": {
+    "naive|fake0|det99": {
       "fraud_max": 0.0,
       "fraud_end": 0.0,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil2|det99": {
+    "naive|fake2|det99": {
       "fraud_max": 0.0,
       "fraud_end": 0.0,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil5|det99": {
+    "naive|fake5|det99": {
       "fraud_max": 0.01,
       "fraud_end": 0.01,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil10|det99": {
+    "naive|fake10|det99": {
       "fraud_max": 0.02,
       "fraud_end": 0.01,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil25|det99": {
-      "fraud_max": 0.04,
+    "naive|fake25|det99": {
+      "fraud_max": 0.05,
       "fraud_end": 0.03,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil50|det99": {
-      "fraud_max": 0.08,
-      "fraud_end": 0.05,
+    "naive|fake50|det99": {
+      "fraud_max": 0.15,
+      "fraud_end": 0.1,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil0|det95": {
+    "naive|fake0|det95": {
       "fraud_max": 0.0,
       "fraud_end": 0.0,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil2|det95": {
+    "naive|fake2|det95": {
       "fraud_max": 0.02,
       "fraud_end": 0.01,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil5|det95": {
+    "naive|fake5|det95": {
       "fraud_max": 0.04,
       "fraud_end": 0.03,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil10|det95": {
+    "naive|fake10|det95": {
       "fraud_max": 0.08,
-      "fraud_end": 0.05,
+      "fraud_end": 0.06,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil25|det95": {
-      "fraud_max": 0.19,
-      "fraud_end": 0.13,
+    "naive|fake25|det95": {
+      "fraud_max": 0.25,
+      "fraud_end": 0.17,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil50|det95": {
-      "fraud_max": 0.38,
-      "fraud_end": 0.26,
+    "naive|fake50|det95": {
+      "fraud_max": 0.76,
+      "fraud_end": 0.52,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
-      "creator_real_end": 1.26
+      "creator_real_end": 1.25
     },
-    "sybil0|det90": {
+    "naive|fake0|det90": {
       "fraud_max": 0.0,
       "fraud_end": 0.0,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil2|det90": {
+    "naive|fake2|det90": {
       "fraud_max": 0.03,
       "fraud_end": 0.02,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil5|det90": {
+    "naive|fake5|det90": {
       "fraud_max": 0.08,
       "fraud_end": 0.05,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil10|det90": {
-      "fraud_max": 0.15,
-      "fraud_end": 0.1,
+    "naive|fake10|det90": {
+      "fraud_max": 0.17,
+      "fraud_end": 0.12,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil25|det90": {
-      "fraud_max": 0.38,
-      "fraud_end": 0.26,
+    "naive|fake25|det90": {
+      "fraud_max": 0.51,
+      "fraud_end": 0.35,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil50|det90": {
-      "fraud_max": 0.76,
-      "fraud_end": 0.52,
+    "naive|fake50|det90": {
+      "fraud_max": 1.52,
+      "fraud_end": 1.04,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
-      "creator_real_end": 1.25
+      "creator_real_end": 1.24
     },
-    "sybil0|det50": {
+    "naive|fake0|det50": {
       "fraud_max": 0.0,
       "fraud_end": 0.0,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil2|det50": {
-      "fraud_max": 0.15,
-      "fraud_end": 0.1,
+    "naive|fake2|det50": {
+      "fraud_max": 0.16,
+      "fraud_end": 0.11,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil5|det50": {
-      "fraud_max": 0.38,
-      "fraud_end": 0.26,
+    "naive|fake5|det50": {
+      "fraud_max": 0.4,
+      "fraud_end": 0.27,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.26
     },
-    "sybil10|det50": {
-      "fraud_max": 0.76,
-      "fraud_end": 0.52,
+    "naive|fake10|det50": {
+      "fraud_max": 0.84,
+      "fraud_end": 0.58,
       "topup_max": 0.0,
-      "infl": 0.02,
+      "infl": 0.03,
       "p10_min": 1.176,
       "creator_real_end": 1.25
     },
-    "sybil25|det50": {
-      "fraud_max": 1.9,
-      "fraud_end": 1.3,
+    "naive|fake25|det50": {
+      "fraud_max": 2.53,
+      "fraud_end": 1.74,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.22
+    },
+    "naive|fake50|det50": {
+      "fraud_max": 7.6,
+      "fraud_end": 5.22,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.15
+    },
+    "optimizing|fake0|det99": {
+      "fraud_max": 0.0,
+      "fraud_end": 0.0,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake2|det99": {
+      "fraud_max": 0.02,
+      "fraud_end": 0.01,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake5|det99": {
+      "fraud_max": 0.05,
+      "fraud_end": 0.03,
       "topup_max": 0.0,
       "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.27
+    },
+    "optimizing|fake10|det99": {
+      "fraud_max": 0.1,
+      "fraud_end": 0.06,
+      "topup_max": 0.0,
+      "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.27
+    },
+    "optimizing|fake25|det99": {
+      "fraud_max": 0.29,
+      "fraud_end": 0.19,
+      "topup_max": 0.0,
+      "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake50|det99": {
+      "fraud_max": 0.87,
+      "fraud_end": 0.56,
+      "topup_max": 0.0,
+      "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake0|det95": {
+      "fraud_max": 0.0,
+      "fraud_end": 0.0,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake2|det95": {
+      "fraud_max": 0.09,
+      "fraud_end": 0.06,
+      "topup_max": 0.0,
+      "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.27
+    },
+    "optimizing|fake5|det95": {
+      "fraud_max": 0.23,
+      "fraud_end": 0.15,
+      "topup_max": 0.0,
+      "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.27
+    },
+    "optimizing|fake10|det95": {
+      "fraud_max": 0.48,
+      "fraud_end": 0.31,
+      "topup_max": 0.0,
+      "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake25|det95": {
+      "fraud_max": 1.43,
+      "fraud_end": 0.93,
+      "topup_max": 0.0,
+      "infl": 0.04,
+      "p10_min": 1.176,
+      "creator_real_end": 1.25
+    },
+    "optimizing|fake50|det95": {
+      "fraud_max": 4.09,
+      "fraud_end": 2.7,
+      "topup_max": 0.0,
+      "infl": 0.09,
       "p10_min": 1.176,
       "creator_real_end": 1.23
     },
-    "sybil50|det50": {
-      "fraud_max": 3.8,
-      "fraud_end": 2.61,
+    "optimizing|fake0|det90": {
+      "fraud_max": 0.0,
+      "fraud_end": 0.0,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake2|det90": {
+      "fraud_max": 0.18,
+      "fraud_end": 0.12,
       "topup_max": 0.0,
       "infl": 0.02,
       "p10_min": 1.176,
-      "creator_real_end": 1.21
+      "creator_real_end": 1.27
+    },
+    "optimizing|fake5|det90": {
+      "fraud_max": 0.46,
+      "fraud_end": 0.3,
+      "topup_max": 0.0,
+      "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake10|det90": {
+      "fraud_max": 0.96,
+      "fraud_end": 0.62,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake25|det90": {
+      "fraud_max": 2.79,
+      "fraud_end": 1.83,
+      "topup_max": 0.0,
+      "infl": 0.07,
+      "p10_min": 1.176,
+      "creator_real_end": 1.24
+    },
+    "optimizing|fake50|det90": {
+      "fraud_max": 7.66,
+      "fraud_end": 5.18,
+      "topup_max": 0.0,
+      "infl": 0.09,
+      "p10_min": 1.176,
+      "creator_real_end": 1.18
+    },
+    "optimizing|fake0|det50": {
+      "fraud_max": 0.0,
+      "fraud_end": 0.0,
+      "topup_max": 0.0,
+      "infl": 0.03,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake2|det50": {
+      "fraud_max": 0.88,
+      "fraud_end": 0.57,
+      "topup_max": 0.0,
+      "infl": 0.02,
+      "p10_min": 1.176,
+      "creator_real_end": 1.26
+    },
+    "optimizing|fake5|det50": {
+      "fraud_max": 2.23,
+      "fraud_end": 1.45,
+      "topup_max": 0.0,
+      "infl": 0.06,
+      "p10_min": 1.176,
+      "creator_real_end": 1.25
+    },
+    "optimizing|fake10|det50": {
+      "fraud_max": 4.51,
+      "fraud_end": 2.99,
+      "topup_max": 0.0,
+      "infl": 0.09,
+      "p10_min": 1.176,
+      "creator_real_end": 1.22
+    },
+    "optimizing|fake25|det50": {
+      "fraud_max": 11.77,
+      "fraud_end": 8.16,
+      "topup_max": 0.0,
+      "infl": 0.11,
+      "p10_min": 1.176,
+      "creator_real_end": 1.14
+    },
+    "optimizing|fake50|det50": {
+      "fraud_max": 25.35,
+      "fraud_end": 19.24,
+      "topup_max": 0.0,
+      "infl": 0.34,
+      "p10_min": 1.175,
+      "creator_real_end": 0.95
     }
   }
 }

@@ -49,15 +49,18 @@
       "mc_kept": 182471.9,
       "se_kept": 1800.7065925758764,
       "mc_T": 99.93447,
-      "se_T": 0.31230360435576776
+      "se_T": 0.31230360435576776,
+      "vesting_survivals": 18421
      },
      "11": {
       "mc_kept": 186161.5,
       "se_kept": 1837.374945035549,
       "mc_T": 100.04446,
-      "se_T": 0.3157234496296568
+      "se_T": 0.3157234496296568,
+      "vesting_survivals": 18421
      }
     },
+    "mode": "mean_3sigma",
     "within_3sigma": true,
     "seeds_agree": true
    },
@@ -70,15 +73,18 @@
       "mc_kept": 499705.5,
       "se_kept": 1488.597508369176,
       "mc_T": 9.99411,
-      "se_T": 0.02977195016738352
+      "se_T": 0.02977195016738352,
+      "vesting_survivals": 100000
      },
      "11": {
       "mc_kept": 500295.5,
       "se_kept": 1505.2609524274683,
       "mc_T": 10.00591,
-      "se_T": 0.030105219048549365
+      "se_T": 0.030105219048549365,
+      "vesting_survivals": 100000
      }
     },
+    "mode": "mean_3sigma",
     "within_3sigma": true,
     "seeds_agree": true
    },
@@ -91,16 +97,20 @@
       "mc_kept": 0.0,
       "se_kept": 0.0,
       "mc_T": 9.99411,
-      "se_T": 0.02977195016738352
+      "se_T": 0.02977195016738352,
+      "vesting_survivals": 0
      },
      "11": {
       "mc_kept": 0.0,
       "se_kept": 0.0,
       "mc_T": 10.00591,
-      "se_T": 0.030105219048549365
+      "se_T": 0.030105219048549365,
+      "vesting_survivals": 0
      }
     },
-    "within_3sigma": false,
+    "mode": "poisson_count (rare-event repair)",
+    "expected_survivals": 0.00205466766245657,
+    "within_3sigma": true,
     "seeds_agree": true
    },
    "dilute": {
@@ -112,20 +122,23 @@
       "mc_kept": 3543.4818,
       "se_kept": 19.407316275825927,
       "mc_T": 239.26704,
-      "se_T": 0.7499064590289624
+      "se_T": 0.7499064590289624,
+      "vesting_survivals": 49650
      },
      "11": {
       "mc_kept": 3562.3062,
       "se_kept": 19.656040278591462,
       "mc_T": 239.52786,
-      "se_T": 0.7581281639810872
+      "se_T": 0.7581281639810872,
+      "vesting_survivals": 49325
      }
     },
+    "mode": "mean_3sigma",
     "within_3sigma": true,
     "seeds_agree": true
    }
   },
-  "pass": false
+  "pass": true
  },
  "R1": {
   "q_star": 0.006156813069793599,
@@ -193,7 +206,7 @@
   "note": "devices hold signed receipts; resubmission is free choice (A11)"
  },
  "bar_summary": {
-  "R0": false,
+  "R0": true,
   "R1": true,
   "R2": true,
   "R3_bracket": true,
