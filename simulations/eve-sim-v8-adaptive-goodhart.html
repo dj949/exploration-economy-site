@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v8 - Adaptive Goodhart — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v8 - Adaptive Goodhart.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v8 - Adaptive Goodhart</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v8.0 Adaptive Goodhart.md</code>. The July 6 red-team argued that EDEN's anti-addiction discount dies against a smart adversary and proposed fixes. This simulation staged the actual war — with the pass/fail lines written down the day before, so nobody could move the goalposts after seeing the score.</em></p>
+<h2 id="the-setup">The setup</h2>
+<p>EDEN pays full rate for active contribution and 40% for passive scrolling — so addictive content's 3× attention advantage becomes only a slight paycheck edge (1.2×). That was measured against a <em>dumb</em> opponent. This sim gave the opponent a brain: an AI that redesigns its content every month to please the judge, against four versions of the defense.</p>
+<h2 id="what-happened">What happened</h2>
+<p><strong>Round 1 — the public rulebook (today's design).</strong> The attacker read the rule ("interactive = full rate") and simply made its addiction interactive — the pedal-powered slot machine. Time to fully beat the discount: <strong>one month</strong>. Not a contest, a construction. The old "cuts addiction 2.5×" claim, already retired on argument, is now retired on evidence.</p>
+<p><strong>Round 2 — no defense at all.</strong> Even with the discount fully beaten, two things never budged: the poorest tenth's floor (it never depended on the effort score), and the per-hour ceiling — an hour of farmed attention mints exactly what an hour of honest attention mints, never more. Who actually bleeds? Honest creators, whose share of income fell ~30% as the farm ate attention. That's the real wound, and it's what the fixes aim at.</p>
+<p><strong>Round 3 — pay on results, not applause.</strong> Hold back 70% of the money until the content proves it did something real. The attacker's best move — buying fake "results" — costs more than it earns at realistic prices, capping the farm at 1.32×, barely above the old static number. Honest creators keep ~98% of their pay, arriving a median of 3 months later. The fine print that matters: this defense lives or dies on how expensive fake results are. The sim found the exact break-even (≈0.71 per unit) — a number a pilot can measure in the real world.</p>
+<p><strong>Round 4 — the tax-audit design.</strong> Keep the rulebook public, make the <em>spot-checks</em> random and secret, claw back six months of pay plus a bond when a check catches gaming. Result: gaming now nets <strong>0.84×</strong> — <em>less than the old static 1.2×, and less than just being honest.</em> The discount didn't get defended; the arbitrage got inverted. Cost to honest creators: nine hundredths of one percent.</p>
+<p><strong>Round 5 — the road not taken (the Secret Judge).</strong> This is the counterfactual made real: hide the judge, use machine learning, retrain it every quarter against detected attacks — the strongest version of the "just keep the algorithm secret" instinct. The attacker, seeing nothing but its own paychecks, reverse-engineered the hidden judge in <strong>seven months</strong>. Secrecy bought half a year. Then the retraining defender spent ten years clawing the attacker back from 3.0× to only ~2.6× — while the churning secret boundary <strong>taxed honest creators 17% of their income</strong>, because a judge poisoned by mimics learns to distrust exactly the most engaged honest work. Same defense goal as Round 4, roughly <strong>190× the collateral damage</strong>, and it still lost. The demonetization-anxiety economy, rebuilt on purpose, and for nothing.</p>
+<h2 id="the-scoreboard">The scoreboard</h2>
+<table>
+<thead>
+<tr>
+<th>Design</th>
+<th>What the cheater ends up earning</th>
+<th>What honest creators pay</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Public rule, no backup (today)</td>
+<td>3.0× — full recovery, month 1</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Nothing at all</td>
+<td>matches honest pay per hour, never beats it</td>
+<td>−30% income share</td>
+</tr>
+<tr>
+<td>Pay on results</td>
+<td>1.32×</td>
+<td>~2%, mostly as delay</td>
+</tr>
+<tr>
+<td>Public rules + secret spot-checks</td>
+<td><strong>0.84× — cheating pays worse than honesty</strong></td>
+<td><strong>0.09%</strong></td>
+</tr>
+<tr>
+<td>Secret ML judge (road not taken)</td>
+<td>~2.6× after ten years of fighting</td>
+<td><strong>~17%</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-this-means">What this means</h2>
+<p>The July 6 decision — retire the anti-addiction boast, pay on outcomes, police with random audits, keep the rulebook public — wasn't just philosophically tidy. On these numbers it's the <em>only</em> configuration where cheating pays worse than honesty and honest people barely feel the enforcement. And the transparency instinct survives its hardest test: hiding the judge didn't protect the measure, because <strong>you cannot hide a judge who pays the defendant per verdict</strong> — every paycheck is a leak. The glass box isn't a luxury EDEN pays for; it's cheaper than the black box on both sides of the ledger.</p>
+<p><em>Usual honesty: this is a stylized contest with stated dials, not a forecast. The two dials that carry the good news — the cost of faking a result, and the audit budget — are named, swept, and exactly the kind of thing the pilot exists to measure. Run and written by Claude Fable 5, July 7 2026, under bars registered July 6.</em></p>
+<p><em>Companion to <code>RESULTS - v8.1</code>, July 7 2026. The question, as asked: EDEN is transparent — so when an AI starts digging around looking for exploits, can't we see it digging, maybe even see who sent it, and catch abusers early with a defender AI like ADAM? Pass/fail lines were locked before the test was built, including our prediction of the answer — written down in advance so it could be wrong in public.</em></p>
+<h2 id="the-short-answer">The short answer</h2>
+<p>Yes — but not where it feels like it should work. Watching for <em>snooping</em> turns out to be worth almost nothing. Watching the <em>ledger where cheating has to actually happen</em> turns out to be worth everything, and it needs less watching than we dared hope. And the "who is behind it" part is the one piece to let go of: we measured a surveillance-style defender against our privacy-respecting one, and surveillance added zero security at 187 times the cost to honest people.</p>
+<h2 id="why-you-cant-catch-them-searching">Why you can't catch them searching</h2>
+<p>Here's the uncomfortable physics of an open system: because our payment rules are public, a smart attacker never has to touch the live network to design an exploit. It reads the rules, rehearses on its own private copy, and shows up with the attack already finished. There is no "searching" to see. We tested the in-between cases too — what if parts of the rules can't be published? Even with half the rulebook secret, a blind attacker who just over-engineers its content loses only a few percent, so spying on probers still barely matters. (Our probe-watcher did make live probing catastrophically unprofitable — it just turned out nobody needed to probe.) We predicted this outcome in advance, and it held.</p>
+<h2 id="where-your-instinct-wins">Where your instinct wins</h2>
+<p>The new payment design pays serious money only when work proves <em>genuinely useful downstream</em>. So the cheater's real job is to fake usefulness — fake downloads, fake usage, fake outcomes. And here's the thing your question was really pointing at: <strong>fake usage can't be rehearsed in private.</strong> It has to happen on EDEN's own transparent ledger, in the dependency graph, where rings of colluding accounts leave shapes — circles of mutual "use," clusters of young identities, patterns too similar to be organic.</p>
+<p>So we built the smartest wash-ring we could — free to mix strategies, evolve, camouflage, rent aged identities — against a ledger-watching detector that only ever looks at <em>patterns in aggregate</em>, never at individuals. The result was better than our own defense assumed. The ring's cheapest way to manufacture "credible fake usage" turned out to be: <strong>paying real people to really use the asset.</strong> Read that again — on a transparent ledger, the optimal fake <em>is</em> the real thing, purchased at full price. Faking value ends up costing slightly <em>more</em> than the value is worth (1.05× per unit), which means gaming this system pays about 10% <em>worse</em> than honest work before the audit layer even gets involved. Your transparency argument doesn't just help catch cheaters — it converts cheating into a clumsy subsidy for genuine users.</p>
+<h2 id="the-two-numbers-worth-remembering">The two numbers worth remembering</h2>
+<p>The watcher only needs to catch a ring about <strong>15% of the time per month</strong> for the economics to hold — modest, because when it does catch one, six months of payouts get clawed back and the bonds burn. And the detector's rules can be public, but <em>where it's looking</em> cannot: when we published the detection threshold, attackers shaped their rings to sit just beneath it and cheating became profitable again (2.4× honest). Open rules, unpredictable spotlight — same principle we ratified for audits.</p>
+<h2 id="the-honest-caveats">The honest caveats</h2>
+<p>This is a stylized model with stated dials — the price of renting identities, the harshness of clawbacks, the cost of camouflage — and the headline moves if those move; the "pay real users" inversion holds exactly because genuinely-independent-looking use costs market rate. A real pilot still has to price all of it. But the shape of the answer to your question is now measured, in both directions: <strong>don't watch the searchers, watch the ledger; let ADAM read patterns, never people — and at those settings, the transparent network defends itself at almost no cost to the honest.</strong></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v8-adaptive-goodhart-0.png" alt="fig_v81_recon_wash.png">
+<img src="fig/eve-sim-v8-adaptive-goodhart-1.png" alt="fig_v8_adaptive_goodhart.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 7, 2026.</strong> Spec: <code>v8 SPEC - Adaptive Goodhart (registered)</code> (bars G0–G6 fixed July 6, before any engine code). Engine: <code>v8_adaptive_goodhart_sim.py</code>; artifacts: <code>results_v8.json</code>, <code>fig_v8_adaptive_goodhart.png</code>. Seeds 7 + 11 on the stochastic cell (G6); agreement within tolerance on every headline. No bar was moved. This run supplies the <strong>gate 12</strong> numbers and executes the first registered <strong>roads-not-taken counterfactual cell</strong> (G6).</p>
+<h2 id="verdict-table">Verdict table</h2>
+<table>
+<thead>
+<tr>
+<th>Cell</th>
+<th>Bar</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>G0 regression</strong></td>
+<td>Reproduce Behavioral Response reference exactly + static 1.2×</td>
+<td>37.4% / 88.9% / 19.3% / 11.1% — <strong>exact match</strong> to committed JSON; static payout 1.200×</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>G1 adaptive vs transparent rule</strong></td>
+<td>Attacker ≥ 2.0× within 36 months</td>
+<td><strong>3.0× at month 1</strong> — the rule is public, so the attack is a construction, not a search</td>
+<td><strong>CONFIRMED</strong> (static claim dead, as registered)</td>
+</tr>
+<tr>
+<td><strong>G2 ceiling with <code>W_effort</code> neutralized</strong></td>
+<td>p10 ≥ 1.0 every month AND farm per-hour ≤ honest per-hour</td>
+<td>p10 = 1.10 throughout; farm per-hour = honest per-hour (ratio 1.000000000); honest creators' income share <strong>−30%</strong></td>
+<td><strong>PASS</strong> (the floor never depended on the weight — the damage lands on honest creators, not the poor)</td>
+</tr>
+<tr>
+<td><strong>G3 outcome-linked minting</strong></td>
+<td>Attacker &lt; 1.5× AND honest ≥ 0.90× at central dials</td>
+<td>Attacker <strong>1.32×</strong>; honest effective <strong>0.978×</strong>; median full payment at month 3</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>G4 transparent rule + private audit</strong></td>
+<td>Gamed net ≤ 1.0× AND honest loss ≤ 1%</td>
+<td>Gamed net <strong>0.84×</strong> (below the static 1.2× — gaming now pays <em>worse</em> than honesty); honest loss <strong>0.09%</strong>; break-even targeted audit rate 9.26%</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>G5 spread sweep</strong></td>
+<td>Measurement (no bar)</td>
+<td>w_p 0.4→0.85: adaptive prize 1.8→0.45 while static farmer payout 1.2→2.55 — <strong>the dial cuts both ways</strong>, as the verification amendment required scoring</td>
+<td>reported</td>
+</tr>
+<tr>
+<td><strong>G6 Secret Judge (counterfactual)</strong></td>
+<td>(i) attacker ≥ 2.0× within 120 mo; (ii) delay multiple reported; (iii) honest tax ≥ 2× G4's</td>
+<td>(i) <strong>yes — month 7, both seeds</strong>, despite hidden weights and a quarterly-retraining defender; peak ≈ 3.0×, end 2.56/2.57×; (ii) secrecy bought <strong>6 months</strong>; (iii) honest tax <strong>16.8–17.7%</strong> of income with boundary-churn volatility ≈ 0.10 — <strong>~187× G4's honest cost</strong></td>
+<td><strong>ROAD 1 MEASURED-DOMINATED</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gate 12 — the adaptive-Goodhart recovery ratio</strong> (share of the 1.2×→3.0× gap an optimizer recovers, per configuration): naked measure <strong>1.00</strong>; Secret Judge <strong>0.76</strong>; outcome-linked <strong>0.07</strong>; private audit <strong>−0.20</strong> (below static — the audit doesn't just hold the line, it inverts the arbitrage).</p>
+<h2 id="what-the-run-establishes-and-its-defeaters">What the run establishes (and its defeaters)</h2>
+<ol>
+<li><strong>The static anti-addiction claim is dead on contact, as the pass argued.</strong> Against a transparent threshold rule the attack is not even a search problem — month 1, full recovery. The ratified retirement of "attenuates ~2.5×" (<code>FRONTIER HANDOFF</code> A.1) now has its measured justification.</li>
+<li><strong>The keystone comfort holds:</strong> with the effort weight fully neutralized, farming still cannot out-earn honesty per engagement-hour (exact equality, the issuance bound is arithmetic) and p10 never moves — <em>with the honest label that p10 invariance here is governor + pool-share arithmetic in a stylized block, not an emergent discovery.</em> The measured damage channel is honest creators' income share (−30%), which is exactly where A.1's replacement claim points its defenses.</li>
+<li><strong>The two ratified fixes hold at their central dials — with their load-bearing dials named.</strong> Outcome-linking caps the optimizer at 1.32× <em>because</em> faking an outcome costs c_o = 0.8 per unit; the defense fails below <strong>c_o* ≈ 0.71</strong>, and c_o is a pilot-measurable quantity, not a known. The private audit inverts the arbitrage (0.84×) at a 10% targeted audit rate with 0.09% honest cost; break-even is 9.26%, so the audit budget is the dial to watch.</li>
+<li><strong>The road not taken is now measured, not just argued.</strong> A steelmanned Secret Judge — hidden weights, continuous learned score, a defender that retrains quarterly against flagged attacks — delayed the attacker by six months, then spent ten years slowly clawing the payout from 3.0× back to only ~2.56×, while <strong>taxing honest creators 17% of their income</strong> through boundary churn (the retrained judge, poisoned by mimicry, learns to distrust exactly the most interactive honest work). Secrecy bought latency, not safety, at ~187× the honest cost of the transparent-audit design. <code>COUNTERFACTUAL - The Three Roads Not Taken</code> Road 1 stands, measured.</li>
+</ol>
+<h2 id="honest-limits-from-the-spec-still-true-after-the-run">Honest limits (from the spec, still true after the run)</h2>
+<p>One attacker strategy family (evolutionary search on a payout oracle); one classifier family per cell; scalar addictiveness; no user-side behavioral response; the floor block is v3-class stylization, not the open-economy engine. c_o and the audit parameters are illustrative-calibrated dials — the run's contribution is the <em>shape</em> (which defenses are dial-robust and which are dial-fragile), and no single-dial headline should be quoted without its dial. G6's defender is one steelman (30%/quarter flag rate); a stronger defender buys more months at more honest tax — the trade's direction is the finding.</p>
+<p><em>Run executed by Claude Fable 5, July 7 2026, under the July 6 registration. Plain-language companion: <code>PLAIN LANGUAGE - v8.0 Adaptive Goodhart.md</code>.</em></p>
+<p><strong>Run: July 7, 2026.</strong> Spec: <code>v8.1 SPEC - Recon Visibility &amp; Endogenous Outcome-Wash (registered)</code> (bars A0–A2 / B0–B4 fixed earlier the same day, before any engine code — owner question, Devan, July 7). Engine: <code>v81_recon_outcome_wash_sim.py</code>; artifacts: <code>results_v81.json</code>, <code>fig_v81_recon_wash.png</code>. Seeds 7 + 11 on every stochastic cell; agreement exact (the strategy landscape has a dominant vertex both seeds find). <strong>No bar was moved. Both registered expectations held — one of them in a way that sharpens the owner's intuition rather than refuting it.</strong></p>
+<h2 id="verdict-table">Verdict table</h2>
+<table>
+<thead>
+<tr>
+<th>Cell</th>
+<th>Bar (registered)</th>
+<th>Result (seeds 7 / 11)</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A0/B0 regression</strong></td>
+<td>Exact reproduction of committed v8.0 G3/G4 numbers</td>
+<td>G3 central 1.32× / honest 0.9784; G4 gamed net 0.84× / honest loss 0.09% — exact</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>A1 recon-visibility value</strong></td>
+<td>Expected delta &lt; 0.02× at k = 1.0; report largest k where recon detection removes ≥ 0.10×</td>
+<td>k = 1.0: <strong>delta 0.000</strong> (nothing to probe — construction, not search). k = 0.9 / 0.7 / 0.5: delta <strong>0.009 / 0.026 / 0.042</strong> — recon detection makes live probing <em>suicidal</em> (probe net −2.6× once flagged ×3 audit) but the attacker simply reverts to blind overshoot, which costs only 1–4% of payout even at half-unpublishable rules. <strong>No k in the registered range reaches 0.10×</strong></td>
+<td><strong>EXPECTATION HELD</strong> — watching the search adds ~nothing; the attack never needed the network</td>
+</tr>
+<tr>
+<td><strong>A2 attribution honesty</strong></td>
+<td>Measurement</td>
+<td>Localization is <strong>cluster-level only</strong> (aggregate telemetry; no per-person intent score exists in the design); honest false-flag burden <strong>+0.0018%/month</strong> of honest income — the privacy price of the recon defense is ≈ zero <em>because</em> it may only re-aim audits</td>
+<td>reported</td>
+</tr>
+<tr>
+<td><strong>B1 endogenous c_o (the headline)</strong></td>
+<td>Central endogenous c_o ≥ 0.71 (the G3 defense boundary holds without being assumed)</td>
+<td>Best evolved ring at q = 0.75: <strong>c_o = 1.051, both seeds</strong> — and identically at q = 0.6 and 0.9, because the optimum is <strong>100% organic laundering</strong> (S = 0, never detected). Resulting G3 attacker payout: <strong>0.90× — below honest.</strong></td>
+<td><strong>PASS, with room</strong> — transparency puts c_o <em>above</em> 1, not just above 0.71</td>
+</tr>
+<tr>
+<td><strong>B2 conversion</strong></td>
+<td>Measurement: organic-laundering share of best response</td>
+<td><strong>1.00 / 1.00</strong> — the cheapest credible fake outcome is, in its entirety, <em>payment to real users for real use</em> (cost 1.0/unit + 0.05 identity overhead). The inversion is total at these dials: on a transparent graph, faking value converges to (badly targeted) paying for value</td>
+<td>reported</td>
+</tr>
+<tr>
+<td><strong>B3 detection floor</strong></td>
+<td>Measurement: q* below which c_o &lt; 0.71</td>
+<td><strong>q* = 0.15</strong> — even 15%-per-ring-month detection keeps the boundary (at q = 0.05, c_o = 0.39 and the wash wins). The modest requirement rides on the 6-month clawback: detection is rare but ruinous</td>
+<td>reported — the load-bearing number, published with its dial</td>
+</tr>
+<tr>
+<td><strong>B4 counterfactual postures</strong></td>
+<td>(i) private-sample beats (ii) published-threshold on detection; (i) within 10% of (iii) ambient profiling at ≥ 2× lower honest cost</td>
+<td>(i) c_o <strong>1.051</strong>; (ii) <strong>0.284–0.306</strong> — publishing the detector threshold collapses the defense (attacker shapes the ring just under it, washes safely, G3 payout ≈ 2.4×); (iii) <strong>1.051</strong> — a per-person profiler with a +0.10 detection edge buys <em>nothing</em> (the optimum was already priced off wash strategies) at <strong>187× the honest cost</strong> (16.8% G6-machinery tax vs 0.09%)</td>
+<td><strong>PASS — the constitutional posture is also the winning one</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-the-run-establishes-and-its-defeaters">What the run establishes (and its defeaters)</h2>
+<ol>
+<li><strong>The owner's intuition is right — but the transparency that defends is the ledger, not the lobby camera.</strong> Watching for <em>reconnaissance</em> adds ~nothing (A1): against public rules the exploit is constructed offline, and even where parts of the rule are unpublishable, blind overshoot is so cheap that deterring probes removes at most 0.042× of attacker payout. What pays is watching <em>execution</em>: an outcome-wash ring cannot exist anywhere but on the transparent dependency graph, and there, modest detection (q* = 0.15/month) plus identity economics prices fake outcomes above real ones.</li>
+<li><strong>v8.0's most load-bearing assumption is now a result.</strong> G3 assumed c_o = 0.8 and named the failure boundary 0.71 as pilot-measurable. Endogenized, the best adaptive ring lands at <strong>c_o = 1.051 &gt; 1</strong> — meaning the G3 attacker payout falls to 0.90×, <em>below honest</em>, before the audit layer is even counted. The A.1 residual sentence ("outcome signals are gameable at far higher cost — you must manufacture real outcomes") now has a measured mechanism: the cheapest "fake" is 100% payments to real users (B2). Goodhart inverted: on a transparent graph, gaming the outcome measure <em>subsidizes genuine use</em>.</li>
+<li><strong>The detector must be applied privately — measured, again.</strong> Publishing the ring-detector threshold hands the attacker a safe harbor (c_o collapses to ~0.3, wash payout ≈ 2.4×). The ratified A.1 pattern — public rules, private sample — extends to graph detection with a 3.4× c_o gap as its price tag (B4 i vs ii).</li>
+<li><strong>Surveillance buys nothing here.</strong> The ambient per-identity profiler — the "we can see who is behind it" posture taken literally — achieves identical c_o to the aggregate-only detector while taxing honest creators 187× more. The constitutional constraint ("white box over aggregates, never over you") is not a handicap the security pays for; at these dials it is free.</li>
+</ol>
+<h2 id="honest-limits-from-the-spec-still-true-after-the-run">Honest limits (from the spec, still true after the run)</h2>
+<p>Calculator-grade contest model in the v8.0 tradition — shape, not forecast. Family A's smallness of recon value rides the blind-overshoot dilution dial (C_MARGIN = 0.3): a world where imprecise gaming is <em>much</em> costlier would revive probing and, with it, recon detection — stated, not hidden. Family B's dials all stated: strategy costs (0.05/0.15/0.35/1.00), signals (1.0/0.6/0.35/0.0), 20 units/identity-month, 6-month clawback, 3F bond; <strong>q* trades against clawback severity</strong> (softer clawback raises the detection floor), and the organic cost of exactly 1.0/unit is definitional (market rate for real use), which is what drives the B2 inversion — a black-market discount on "real-looking" use below market rate would lower c_o toward that discount. One detector family per role; one attacker search family (evolutionary); the dependency graph is a stylized block, and graph realism could cut either way. Seeds agree exactly because the landscape has one dominant vertex — an easier test than a rugged landscape would be. The aggregate-only constraint's canon language does not yet exist (§7.3/§11 text proposed for ratification alongside these results, per spec). And the standing sentence: <strong>c_o stays on the pilot-measurement list regardless — the sim argues, the pilot prices.</strong></p>
+<p><em>Run executed by Claude Fable 5, July 7 2026, same-day registration honored (spec committed before engine). Plain-language companion: <code>PLAIN LANGUAGE - v8.1 Recon Visibility &amp; Endogenous Outcome-Wash.md</code>. Feeds: White Paper §7.1 residual (now priced), §11 transparency-as-defense (both directions), gate 12 annotation (G3 ratio re-computable with measured c_o), §7.3/§11 constitutional language for aggregate-only detection.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v8-adaptive-goodhart-0.json" download>⬇ results_v8.json</a><a class="dlbtn" href="data/eve-sim-v8-adaptive-goodhart-1.json" download>⬇ results_v81.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

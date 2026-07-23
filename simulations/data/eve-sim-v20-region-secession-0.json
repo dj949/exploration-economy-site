@@ -1,0 +1,59 @@
+{
+ "spec": "v20 SPEC - Region Secession (registered).md",
+ "S0": {
+  "net_transfer_musd": 6.6,
+  "gross_receiving_busd": 6.7566,
+  "pass": true
+ },
+ "S1": {
+  "rich_stranded": 0,
+  "poor_stranded": 0,
+  "rich_leaver_deliv": 1.0,
+  "poor_leaver_deliv": 0.894,
+  "poor_never_joined": 0.894,
+  "note": "leaver delivery equals its never-joined baseline (union only added the marginal transfer); a receiver loses the subsidy but is not pushed BELOW baseline",
+  "pass": true
+ },
+ "S2": {
+  "remain_deliv_min_poor_exit": 1.0,
+  "ccy_dd_poor_exit": 0.0,
+  "pass": true
+ },
+ "S3": {
+  "rich_run_fill_min": 1.0,
+  "poor_run_fill_min": 1.0,
+  "pass": true
+ },
+ "S4": {
+  "giver_exit": {
+   "region": "rich1",
+   "ccy_dd": 0.5333333333333333,
+   "remain_deliv_min": 0.5550128762987301,
+   "monthly_gap_musd": 3006.6,
+   "reserve_months_before_rebalance": 24,
+   "registered_dial_probe": {
+    "note": "registered reserve sizing (12 mo of the seceding region's floor obligation); the committed headline used 12 mo of union gross transfer volume \u2014 deviation disclosed July 11, v4 D10",
+    "registered_reserve_busd": 36.0,
+    "committed_reserve_busd": 81.0792,
+    "reserve_months_before_rebalance": 9,
+    "remain_deliv_min": 0.5550128762987301,
+    "run_fill_min": 1.0
+   }
+  },
+  "drawer_exit": {
+   "region": "poor2",
+   "ccy_dd": 0.0,
+   "remain_deliv_min": 1.0,
+   "monthly_gap_musd": 0.0
+  },
+  "asymmetry_confirmed": true,
+  "pass": true
+ },
+ "bar_summary": {
+  "S0": true,
+  "S1": true,
+  "S2": true,
+  "S3": true,
+  "S4": true
+ }
+}

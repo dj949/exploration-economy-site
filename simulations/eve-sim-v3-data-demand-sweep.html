@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Data Demand Sweep — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Data Demand Sweep.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Data Demand Sweep</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Data Demand Sweep</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>v3's biggest "assumed, not proven" item was the level of institutional data demand — calibrated at ~10% of mint value and admitted to be unknowable before launch. This run sweeps it hard in two directions: what if it launches anywhere from 1% to 25% of mint? And what if data value collapses after launch — by half, by 70%, by 99%?</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>Data demand cannot break the floor's self-funding.</strong> Top-up minting stayed at 0.0% of issuance at every launch level and through every collapse, even a 99% one — because the floor is funded by the 10% routing slice on the <em>human-attention mint</em>, which is large and stable regardless of how big or small the data economy is. And the floor earns its keep cheaply: with it off, a mere 20% data decline already pushes the bottom decile underwater, and at the −70% reference they'd sit at 0.35× essentials for ~9 years; with it on, they hold at 1.10× for a floor cost of 2.1% of issuance (7.6% even at −99%). What <em>would</em> break self-funding is the <strong>pool share</strong> itself: top-up minting begins only once the verification pool share falls below ~6% under the worst case, so the spec'd 10% carries roughly a 1.5× safety margin — and governance shouldn't cut it below ~7–8% without re-running this.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The reassurance comes with a reframing. "Self-funded by routing" precisely means funded by the slice of issuance dominated by human-attention minting — so the floor is robust to data demand but <strong>coupled to the size and stability of the attention mint</strong> instead; a deep adoption failure, not data demand, is what would stress it, and that belongs on the open-questions list. And the cost of a data collapse doesn't vanish — it lands on <strong>creators</strong>, whose real income falls to 0.92× at −70% and 0.67× at −99% while the poor stay held at 1.10×. That burden finding deserves a design response. Usual limits: quantity-theory pricing, no behavioral feedback, no fraud, fixed population, N=25,000, with all numbers governance-tunable defaults meant to be argued with.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>The scariest unknown in v3 — how big the data economy really is — turns out not to matter for the safety net: the floor stays fully self-funded from 1% to 25% launch demand and through a 99% collapse, its true anchors being the attention mint and a pool share that must stay above ~6%; the real cost of a data collapse falls on creators, and that is the finding to act on.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Mint / human-attention mint</strong> — new EVE is created only by verified live human engagement; that attention stream is the money tap the floor's funding rides on. <strong>Routing slice</strong> — the fixed 10% of every newly minted EVE automatically diverted to the pool that pays the floor. <strong>Top-up minting</strong> — printing extra money when that pool falls short; 0.0% means the printer never switched on. <strong>Issuance</strong> — the flow of newly created money; costs are quoted as shares of it. <strong>Bottom decile</strong> — the poorest 10% of people; "held at 1.10×" means they stay 10% above the essentials line. <strong>Real income</strong> — what earnings actually buy after price changes, not the raw number. <strong>Quantity-theory pricing</strong> — the simple rule that more money chasing the same goods means higher prices. <strong>N=25,000</strong> — the runs simulate 25,000 people.</p>
+<p><em>(Dated note, July 18, 2026: "the floor's self-funding" here is the v3-era in-model result, kept unedited above and since retired as a general claim — later, harder tests (v6.x, v13.1) found every real activation needs a real funder; what survives is that data-demand collapse still cannot break a funded floor, and the cost lands on creators, not the poor — that part stands. Also: the data-price side of this question got its own cell in July 2026 — see <code>EVE Sim v37</code> and "the minimum ask.")</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-data-demand-sweep-0.png" alt="fig_sweep1_level.png">
+<img src="fig/eve-sim-v3-data-demand-sweep-1.png" alt="fig_sweep2_depth.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Closes the single biggest "assumed, not proven" item in <code>RESULTS - EVE Sim v3.md</code>: the </em><em>level of institutional data demand</em><em>, calibrated at ~10% of mint value and admitted to be unknowable pre-launch. This run reuses the v3 engine verbatim (it reproduces <code>results_v3.json</code> at the reference point) and sweeps data demand two ways to find where the self-funding floor breaks. Files in this folder.</em></p>
+<hr>
+<h2 id="the-one-line-answer">The one-line answer</h2>
+<p><strong>Data demand does not break the floor's self-funding — at any plausible level or under any plausible collapse.</strong> Top-up minting stays at <strong>0.0%</strong> of issuance across launch levels from 1% to 25% of mint, <em>and</em> across post-launch data-value declines all the way to <strong>99%</strong>. The thing that funds the floor is the 10% routing slice on the <strong>human-attention mint</strong>, which is large and stable regardless of how big or small the data economy is. So the "unknowable 10%" was a smaller risk than it looked.</p>
+<p>What the sweep <em>did</em> surface is more useful: the real cost of a data collapse lands on <strong>creators</strong>, not the poor; and the actual lever that would break self-funding is the <strong>pool share</strong>, not data demand.</p>
+<hr>
+<h2 id="sweep-1-does-the-launch-level-of-data-demand-matter-no">Sweep 1 — does the <em>launch level</em> of data demand matter? (No.)</h2>
+<p>Varying data demand from 1% to 25% of mint, the 10th-percentile outcome is <strong>invariant</strong> and top-up minting is <strong>always zero</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Launch data level</th>
+<th>p10 (÷ essentials)</th>
+<th>Floor cost, baseline</th>
+<th>Floor cost, combined</th>
+<th>Top-up mint</th>
+<th>Median creator real income</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1%</td>
+<td>1.18</td>
+<td>0.05%</td>
+<td>0.22%</td>
+<td>0.0%</td>
+<td>1.42 (baseline)</td>
+</tr>
+<tr>
+<td>5%</td>
+<td>1.18</td>
+<td>0.23%</td>
+<td>1.10%</td>
+<td>0.0%</td>
+<td>1.33</td>
+</tr>
+<tr>
+<td><strong>10% (v3 ref)</strong></td>
+<td><strong>1.18</strong></td>
+<td><strong>0.46%</strong></td>
+<td><strong>2.20%</strong></td>
+<td><strong>0.0%</strong></td>
+<td><strong>1.26</strong></td>
+</tr>
+<tr>
+<td>15%</td>
+<td>1.18</td>
+<td>0.70%</td>
+<td>3.31%</td>
+<td>0.0%</td>
+<td>1.23</td>
+</tr>
+<tr>
+<td>25%</td>
+<td>1.18</td>
+<td>1.19%</td>
+<td>5.54%</td>
+<td>0.0%</td>
+<td>1.18</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why the level is neutralized:</strong> launch price is pegged to the bottom decile's launch income, so both the floor (<code>F = 1.10 × price</code>) and market data income scale <em>together</em> with the data level. The real structure — who clears the floor, how much the pool covers — barely moves. The only monotone effect is on <strong>creator real income</strong>, which is <em>higher</em> when data demand is <em>lower</em> (a lower data level pegs a lower price, so the fixed-EVE creator mint buys more). Floor cost rises gently with the level and only crosses the 5%-of-issuance pilot milestone at a 25% data level <em>under combined stress</em>.</p>
+<h2 id="sweep-2-the-real-axis-a-post-launch-decline-in-data-value">Sweep 2 — the real axis: a <em>post-launch decline</em> in data value</h2>
+<p>This is the dangerous direction (price was pegged at launch to higher data income; if data value then falls, market income drops beneath the now-fixed floor). Holding launch demand at 10% and deepening the year-5–10 decline:</p>
+<table>
+<thead>
+<tr>
+<th>Data-value decline</th>
+<th>p10 <strong>with</strong> floor</th>
+<th>p10 <strong>without</strong> floor</th>
+<th>Floor cost</th>
+<th>Top-up mint</th>
+<th>Creator real income</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0%</td>
+<td>1.18</td>
+<td>1.18</td>
+<td>0.5%</td>
+<td>0.0%</td>
+<td>1.26</td>
+</tr>
+<tr>
+<td>−50%</td>
+<td>1.10</td>
+<td><strong>0.59</strong> (underwater 8.5 yr)</td>
+<td>1.1%</td>
+<td>0.0%</td>
+<td>1.03</td>
+</tr>
+<tr>
+<td><strong>−70% (v3 ref)</strong></td>
+<td><strong>1.10</strong></td>
+<td><strong>0.35</strong></td>
+<td><strong>2.1%</strong></td>
+<td><strong>0.0%</strong></td>
+<td><strong>0.92</strong></td>
+</tr>
+<tr>
+<td>−90%</td>
+<td>1.10</td>
+<td>0.12</td>
+<td>4.7%</td>
+<td>0.0%</td>
+<td>0.77</td>
+</tr>
+<tr>
+<td>−95%</td>
+<td>1.10</td>
+<td>0.06</td>
+<td>6.1%</td>
+<td>0.0%</td>
+<td>0.72</td>
+</tr>
+<tr>
+<td>−99%</td>
+<td>1.10</td>
+<td>0.01</td>
+<td>7.6%</td>
+<td>0.0%</td>
+<td>0.67</td>
+</tr>
+</tbody>
+</table>
+<p>Three things to read off this (and <code>fig_sweep2_depth.png</code>):</p>
+<ol>
+<li><strong>Self-funding never breaks.</strong> Even at a 99% data collapse, the floor is paid entirely from the verification pool — <strong>zero</strong> new minting, inflation flat at ~0%. The floor cost crosses the 5%-of-issuance pilot milestone only at a <strong>~95% decline</strong>.</li>
+<li><strong>The floor is doing real work — it's just cheap.</strong> With the floor <em>off</em>, a mere <strong>20% decline</strong> already pushes the p10 underwater; at −70% the bottom decile sits at 0.35× essentials for ~9 years. The floor converts that collapse into a flat 1.10× line at a couple percent of issuance.</li>
+<li><strong>The cost lands on creators, not the poor.</strong> As data value falls, the poor are held at 1.10× by the floor; <strong>creator real income</strong> absorbs the hit (0.92 at −70%, down to 0.67 at −99%), because a shrinking data economy and a growing floor draw leave a smaller validator-pool remainder for creators. This extends v3's noted "soft spot" — under commoditization, the burden is structurally shifted onto creators.</li>
+</ol>
+<h2 id="sweep-3-so-what-would-break-self-funding-the-pool-share">Sweep 3 — so what <em>would</em> break self-funding? The pool share.</h2>
+<p>Since data demand can't break it, the binding lever is the <strong>verification pool share</strong> itself. Under the worst case (95% decline + combined stress, floor cost ~6.5% of issuance), shrinking the pool share:</p>
+<table>
+<thead>
+<tr>
+<th>Verification pool share</th>
+<th>Top-up mint required</th>
+<th>Self-funded?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10% (spec)</td>
+<td>0.0%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>8%</td>
+<td>0.0%</td>
+<td>yes</td>
+</tr>
+<tr>
+<td><strong>6%</strong></td>
+<td><strong>0.3%</strong></td>
+<td><strong>breaks here</strong></td>
+</tr>
+<tr>
+<td>4%</td>
+<td>2.3%</td>
+<td>no</td>
+</tr>
+<tr>
+<td>2%</td>
+<td>4.3%</td>
+<td>no</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Top-up minting begins only once the pool share falls below ~6%</strong> — i.e., the spec'd 10% slice carries roughly a <strong>1.5× safety margin</strong> even against a near-total data collapse layered on combined stress. (Below the break point, the floor is still delivered — it just gets there by minting, which the governor then has to lean against; inflation ticks up to ~0.04%.)</p>
+<hr>
+<h2 id="what-this-updates-in-the-v3-story">What this updates in the v3 story</h2>
+<ul>
+<li><strong>Downgrade one risk.</strong> The "level of data demand is unknowable" caveat in the v3 results is, on this model, <strong>not a fragility</strong>. The floor's fundability is anchored to the human-attention mint, not to the data economy's size. Worth saying plainly in the white paper rather than leaving it as an open worry.</li>
+<li><strong>Reframe the floor's funding honestly.</strong> "Self-funded by routing" precisely means <em>funded by the 10% slice of all issuance, which is dominated by human-attention minting.</em> The data economy barely contributes to the pool — so the floor is robust to data demand but <strong>coupled to the size and stability of the attention mint</strong> instead. If attention minting itself ever shrinks (deep adoption failure), that — not data demand — is what would stress the floor. That belongs on the open-questions list.</li>
+<li><strong>Name the true breaking lever.</strong> Self-funding breaks if the verification pool share drops below ~6% under worst-case demand. 10% is a defensible default with margin; don't let governance cut it below ~7–8% without re-running this.</li>
+<li><strong>The creator-burden finding deserves a design response.</strong> Deep commoditization is paid for by creators, not the poor. If that's not the intended distribution of pain, a mechanism that shares the floor's stress more broadly (e.g., a small slice of the floor draw from the dependency/maintainer pools, or a temporary governor easing) is worth modeling.</li>
+</ul>
+<h2 id="caveats">Caveats</h2>
+<p>Same structural limits as v1–v3 (quantity-theory pricing, no behavioral feedback, no fraud, fixed population, single 15-year horizon). Run at N=25,000 (vs v3's 100,000) for sweep speed — percentile estimates are stable, and the reference points reproduce v3 (data=10% combined → 2.2% floor cost; −70% decline → 2.06% ≈ v3's 2.1%). The "post-launch decline" is modeled as the same year-5–10 ramp v3 used, just deepened. All numbers are governance-tunable defaults meant to be argued with.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>data_demand_sweep.py</code> — the three sweeps on the ported v3 engine</li>
+<li><code>fig_sweep1_level.png</code> — launch level: floor cost / top-up / creator income / p10</li>
+<li><code>fig_sweep2_depth.png</code> — the real breaking point: post-launch data-value decline</li>
+<li><code>results_data_demand_sweep.json</code> — all rows + located thresholds</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-data-demand-sweep-0.json" download>⬇ results_data_demand_sweep.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

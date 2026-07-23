@@ -1,0 +1,100 @@
+{
+ "spec": "v28 SPEC - Shadow Banking (registered).md",
+ "params": {
+  "M_gov": 1.0,
+  "eve_safety_value": 0.06,
+  "shadow_counterparty_risk": 0.1,
+  "detect_tp": 0.92,
+  "detect_fp": 0.03,
+  "trust_radius_frac": 0.02,
+  "offledger_backing": 0.5
+ },
+ "SB1": {
+  "multiplier_by_reserve_ratio": {
+   "0.03": 33.333333333333336,
+   "0.1": 10.0,
+   "0.2": 5.0
+  },
+  "effective_money_if_full_adoption": {
+   "0.03": 33.333333333333336,
+   "0.1": 10.0,
+   "0.2": 5.0
+  },
+  "threat_real_absent_defenses": true,
+  "pass": true
+ },
+ "SB3": {
+  "adoption_by_shadow_yield": {
+   "0.0": 0.01798620996209156,
+   "0.03": 0.03732688734412946,
+   "0.08": 0.11920292202211755
+  },
+  "adoption_central": 0.03732688734412946,
+  "pass": true
+ },
+ "SB2": {
+  "detect_true_positive": 0.92,
+  "detect_false_positive": 0.03,
+  "detection_assumed_not_measured": true,
+  "computed": false,
+  "note": "detect_tp=0.92 / detect_fp=0.03 are assumed input dials, NOT measured or computed from any velocity/hub circulation graph (the engine has no such model). The registered >=90%-TP / low-FP detection clause is therefore an assumption, not a result. Downgraded from a self-echoing PASS to a disclosed non-result; `pass` is null because SB2 has no genuinely-computed clause. Note: SB4's undetected fraction (1-detect_tp) inherits this same assumption (disclosed in RESULTS Honest limits).",
+  "pass": null
+ },
+ "SB4": {
+  "onledger_shadow_share_of_broad_money": 0.026171977597049725,
+  "adoption": 0.03732688734412946,
+  "undetected_frac": 0.07999999999999996,
+  "pass": true
+ },
+ "SB5": {
+  "offledger_residual_share": 0.01,
+  "trust_radius_frac": 0.02,
+  "residual_over_trust_radius": 0.5,
+  "trust_radius_limited": true,
+  "non_systemic": true,
+  "open_risk": "a large, coordinated off-ledger issuer at scale is the real open threat \u2014 but it faces the adoption problem (SB3: why hold a risky private note when EVE is floor-backed?) and, if it grows on-ledger for reach, detection (SB2).",
+  "pass": true
+ },
+ "SB0": {
+  "invariant": "effective_money == EVE_base + adopted_shadow_notes (money-supply conservation)",
+  "components_by_reserve_ratio": {
+   "0.03": {
+    "eve_base": 1.0,
+    "shadow_notes_issued": 32.333333333333336,
+    "effective_money_component_sum": 33.333333333333336,
+    "effective_money_multiplier_path": 33.333333333333336,
+    "residual": 0.0
+   },
+   "0.1": {
+    "eve_base": 1.0,
+    "shadow_notes_issued": 9.0,
+    "effective_money_component_sum": 10.0,
+    "effective_money_multiplier_path": 10.0,
+    "residual": 0.0
+   },
+   "0.2": {
+    "eve_base": 1.0,
+    "shadow_notes_issued": 4.0,
+    "effective_money_component_sum": 5.0,
+    "effective_money_multiplier_path": 5.0,
+    "residual": 0.0
+   }
+  },
+  "max_abs_residual": 0.0,
+  "conservation_holds": true,
+  "identity_by_construction": true,
+  "grade": "identity/self-consistency check, not an independent computation (contrast v25 N0's simulated cascade)",
+  "deterministic": true,
+  "rng_used": false,
+  "seeds_note": "engine is closed-form and deterministic; it consumes no RNG, so the registered 'seeds agree' sub-clause is not evidence of anything and is NOT claimed as a pass. Declared seeds [7,11] were decorative (never consumed) and have been removed. Run-to-run identity follows from determinism, not seed agreement.",
+  "pass": true
+ },
+ "bar_summary": {
+  "SB0": true,
+  "SB1": true,
+  "SB2": null,
+  "SB3": true,
+  "SB4": true,
+  "SB5": true
+ }
+}

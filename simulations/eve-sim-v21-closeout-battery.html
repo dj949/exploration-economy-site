@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v21 - Closeout Battery — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v21 - Closeout Battery.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v21 - Closeout Battery</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v21.0 Closeout Battery</code>. Written July 11, 2026 — this companion was promised by the registered SPEC but had been left as an embedded section in RESULTS; it is now the standing standalone file, written from the committed record including the July 10–11 verification notes.</em></p>
+<h2 id="what-this-run-was-for">What this run was for</h2>
+<p>The July 9 sprint produced four new results (v17–v20), and each one honestly named its own weakest point on the way out. This battery's job was to attack those four residues <em>before they hardened into comfort</em> — the house discipline of red-teaming your own findings while they're fresh.</p>
+<h2 id="the-four-attacks-and-how-they-landed">The four attacks, and how they landed</h2>
+<p><strong>1. "What if someone redefines <em>essentials</em> instead of adding to them?" — no more profitable, and that's the good kind of failure.</strong> v17 worried that quietly redefining a category ("adequate nutrition") might be a deeper attack than adding a product to the basket. Priced here: it nets the same throttled ~$13M/yr against the same $125M cost of passing both voting houses — a losing trade by 1.6×, exactly like v17's. This <em>failed</em> its own registered bar (we expected redefinition to be worse, and said so in advance), and the reason is the same speed limit capping both attacks. The actionable rule it leaves behind: governance must treat "definitional clarifications" as rate-capped changes — if they can sneak through uncapped, this finding flips.</p>
+<p><strong>2. "What does the two-pronged price-gauge attack really cost?" — about $410 million for a 1% dent.</strong> The oracle cross-check (v18) left one honest gap: an attacker who fakes the published index <em>and</em> suppresses the independent cross-check together. That double capture costs ~4× the old single-channel attack, for a bounded 1% delivery dip. Expensive, visible, and bounded — the defense does its job by making the remaining hole not worth the drill.</p>
+<p><strong>3. "The floor survives any exodus — but does the <em>machine</em>?" — only above ~40% of designed population.</strong> The bank-run test (v19) proved delivery-per-person survives depopulation; this run added the missing piece: fixed costs. Validators and the price oracle are paid from a protocol share that shrinks with population, while some infrastructure costs don't shrink. Below roughly <strong>40% retained population</strong>, the floor still computes but the system can't pay its own machinery. That's a different kind of death than a bank run — and it became a gate candidate: a minimum-viable-scale trigger with a graceful wind-down, ratified rather than discovered in a crisis.</p>
+<p><strong>4. "Can the union actually re-balance after a rich region leaves?" — it can cover the gap, but not without breaking the consent limit that binds, so this one now fails honestly.</strong> A path exists inside the reserve window and covers the full funding gap, but no split of the burden gets the remaining payers under the ~6% political-tolerance bar — either they pay more than politics tolerates, or the poorer regions absorb a subsidy cut. Scored against that registered 6% bar (not the looser 25% "measured" reading the original check leaned on), the test <strong>fails</strong> — and that failure is the finding. The rule it forces is unchanged: write the split into the membership contract <em>before</em> anyone joins. <em>(Gate-tightening July 11, Backlog #4b: we also stopped crediting a "closes within 24 months" check that had no month-by-month simulation behind it — it is now marked not-computed. Follow-up: <code>EVE Sim v32</code> then priced the split properly — bump-led responses are dead at +80% vs the 6% bar; the workable pre-commitment is a 6%-capped bump plus a phased subsidy taper costing the drawers ~4½ points of delivery, with the reserve size setting an 18-vs-48-month phase-in budget.)</em></p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Calculator-grade throughout: the <em>structures</em> (speed limit equalizes both capture routes; the double attack costs the sum of its two channels; a fixed-cost floor exists; re-balancing reignites consent) are robust, but the exact numbers (40%, 4.1×, the split percentages) are dial-dependent illustrations. The July 11 integrity note (that some of this run's <em>passing</em> checks had been scored by shortcut — hardcoded confirmations rather than computed ones, itemized in <code>VERIFICATION v4</code> D11) has now been <strong>acted on</strong>: the gate-tightening pass (Backlog #4b) recoded attacks #2 and #3 to compute their registered clauses (both still hold), and recoded #4 to score against the consent bar that actually binds — which flipped it to an honest fail. Attack #1 was computed all along and stands.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>We attacked our own four newest findings: redefining essentials pays no better than rigging them, faking the price gauge both ways costs $410M for a ~1% dent, the floor outlives any exodus but the machine needs ~40% of its people, and a payer exit can cover the gap but not under the consent limit that binds — two holds and two findings (one reassuring, one a real warning), all computed and on the record.</strong></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v21-closeout-battery-0.png" alt="fig_v21_closeout.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Spec: <code>v21 SPEC - Closeout Battery (registered).md</code> — bars K1–K4 fixed before code. Engine: <code>closeout_battery.py</code> (deterministic); committed: <code>results_v21.json</code>, <code>fig_v21_closeout.png</code>. Red-teams the four honest residues surfaced by this session's own v17–v20. Every number traces to <code>results_v21.json</code>.</strong></p>
+<p><strong>Verdict in one line: two of the four residues close cleanly (K2 — the cross-check multiplies the oracle attack ~4× for a bounded, now-computed ~1% delivery dip; K3 — the design is delivery-run-proof but has a fixed-cost floor on viable scale at ~40% retained population, closed form confirmed by the grid scan) — and two fail their bars honestly as findings: K1 (redefining "adequate nutrition" is no more profitable than adding a category, both ~1.6× losing — the reassuring rate-cap result v17 also showed) and K4 (a payer-exit re-balancing path exists and covers the full gap under the 25% <em>measured</em> consent anchor, but NO path clears the stricter registered 6% <em>political-tolerance</em> anchor, and the registered "closes within 24 months" clause has no trajectory behind it — so under the un-loosened bar K4 now fails, which sharpens rather than undermines the v20 residue). Gate-tightening for K2/K3/K4 was executed July 11 (Backlog #4b); see the footer change log.</strong></p>
+<h2 id="bar-summary-k2k3-pass-k1-k4-fail-as-findings">Bar summary (K2/K3 pass; K1 &amp; K4 FAIL as findings)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K1 definition-capture ROI</td>
+<td>cost/benefit ≥3× and ROI&lt;0; expect bigger prize than v17</td>
+<td><strong>1.6×, ROI −$8M/yr</strong>; <em>not</em> bigger than v17</td>
+<td><strong>FAIL (finding — reassuring, see F1)</strong></td>
+</tr>
+<tr>
+<td>K2 2-of-2 oracle cost</td>
+<td>≥ $409.5M (published $99.5M + lane $310M); dip ≤ cushion</td>
+<td><strong>$410M = 4.1× single channel</strong> (≥-clause holds by construction — no combined-attack discount); <strong>computed</strong> dip ~1.0% ≤ 10%</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>K3 fixed-cost floor</td>
+<td>identify f* where fixed infra &gt; revenue; per-capita holds above</td>
+<td><strong>f* = 40% retained pop</strong> (closed form, grid-scan-confirmed; first insolvent grid point 35%); per-capita ≥1.0 above (v19 run-proof anchor, computed f-invariant)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>K4 payer-exit re-balance</td>
+<td>path closes gap in ≤24mo AND net contribution ≤ consent bar (report vs both 6% political &amp; 25% measured)</td>
+<td>path covers the <strong>full gap</strong>; clears <strong>25% measured</strong> at ≥50% taper; <strong>NO path under 6% political</strong> (best case 16.6%); <strong>24-mo timing = non-result</strong> (no trajectory)</td>
+<td><strong>FAIL (finding — the consent sting is the verdict, F4)</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — Definition-capture is no worse than composition-capture, because the rate cap throttles both (K1 FAIL, reassuring).</strong> v17 flagged that redefining a functional category ("adequate nutrition") could be a deeper attack than adding one, because it steers the <em>whole</em> category's spend. Priced here, it isn't worse: the EBI Methodology's ≤10%/yr demand-shift rate cap bounds how fast <em>any</em> change — weight or definition — can divert demand, so definition-capture nets the same ~$13M/yr throttled prize against the same $125M two-house cost (1.6× loss, ROI −$8M/yr). K1 fails the registered 3× bar exactly as v17's C2 did — the same thin-margin story — and the registered expectation that definitions would be <em>more</em> attractive was wrong in public: <strong>the rate cap is the equalizer.</strong> The residual concern (v17's defeater) narrows to speed: a definition change that evades the rate cap (argued as "clarification, not change") would reopen this — so the governance rule must treat definitional edits as rate-capped changes, which is the actionable finding.</p>
+<p><strong>F2 — The cross-check multiplies the oracle attack ~4× (K2 PASS).</strong> v18's honest residue was that a 2-of-2 attack (inflate the published index <em>and</em> suppress the lane) can dent delivery ~1%. K2 prices what that costs the attacker: $99.5M (published 2-of-3) <strong>+</strong> $310M (the lane, the dearest class) = <strong>$410M</strong>, 4.1× the single-channel drain the cross-check closed. So the cross-check converts "capture one channel, drain the reserve free" into "capture the two most independent, most expensive channels together, for a bounded 1% delivery dip." The residue is real but priced at 4× the attack cost — the mechanism does its job. <em>(Gate-tightening #4b: the registered "≥ $409.5M" clause is met by construction — the 2-of-2 cost just is the sum of the two component captures, with no combined-attack discount — so the substantive, non-tautological quantity is the disclosed </em><em>4.1× multiple</em><em> over the single-channel drain; and the delivery dip is now </em><em>computed</em><em> from the provisioning cushion and the attack suppression via the multiplicative delivery model, 1−(1.10)(0.90) ≈ 1.0%, replacing the hardcoded 0.01 that had been imported from v18 prose. The cruder additive form, max(0, suppression−cushion) = 0, is kept only as a diagnostic — it drops the cross-term and understates.)</em></p>
+<p><strong>F3 — Delivery is run-proof, but the <em>system</em> has a fixed-cost floor on scale (K3 PASS, the honest limit made concrete).</strong> v19 proved per-capita floor delivery survives any exodus; its unmodeled limit was fixed infrastructure. K3 adds it: with fixed infra ~2% of full-population mint and validators paid from the 5% protocol share, revenue (which scales with population) drops below fixed cost at <strong>f* = 40% retained population</strong>. Above 40%, per-capita delivery holds <em>and</em> the system is solvent; below 40%, per-capita delivery still computes for the remainers but the <em>protocol</em> can't fund its validators/oracle — a fixed-cost failure, categorically different from a bank run. <strong>The design is delivery-robust to any depopulation but viable-scale-bounded</strong> — it needs a critical mass (~40% of design population here) to fund its own machinery. A real gate candidate: a minimum-viable-scale trigger with graceful wind-down below it. <em>(Gate-tightening #4b: f*=40% is the closed form, now </em><em>confirmed</em><em> by the grid scan's own insolvency boundary — first insolvent grid point at 35%, last solvent at 40% — which the prior code had discarded; the "per-capita ≥ 1.0 above f*" clause is now computed as an all() over the actual scan rows rather than hardcoded True, with the per-capita </em><em>level</em><em> (1.0) disclosed as a v19 run-proof anchor that this reduced engine does not re-simulate from primitives; and "the failure below f* is fixed-cost, not per-capita" is computed from the model's f-invariance of per-capita delivery against the population-independent fixed cost.)</em></p>
+<p><strong>F4 — The payer-exit re-balance covers the gap but fails the registered consent bar (K4 FAIL, and the FAIL <em>is</em> the finding).</strong> v20 found a net-payer secession opens a $3B/mo gap with a 24-month runway and owed a re-balancing rule. K4 tests it: closing the gap by slice-bump alone pushes the remaining payers to <strong>30% net contribution</strong> (over the 25% measured consent bar); it takes shifting <strong>≥50% of the burden onto drawers (subsidy taper)</strong> to get under 25% — and <strong>no split at all</strong> gets under the 6% <em>political-tolerance</em> bar (best case, full taper, is 16.6%). A re-balancing path therefore <em>exists and covers the full gap magnitude</em>, and clears the <strong>measured</strong> anchor — but the design can't dodge the choice: either payers contribute above political tolerance, or drawers absorb a subsidy cut — the v5.4 consent problem returning in acute form. The rule stands: <strong>pre-commit the taper/slice split in the sponsor accession contract</strong>, so the painful choice is made before the exit, not during it. <em>(Gate-tightening #4b: the previous PASS was gated only on the lenient 25% measured anchor — the reading that passes. Scored against the un-loosened registered bar, which reports against </em><em>both</em><em> anchors, no re-balancing path clears the 6% political-tolerance anchor, so K4 is now an honest </em><em>FAIL</em><em>. The registered "closes within 24 months" clause is downgraded to a disclosed </em><em>non-result</em><em>: this reduced form has no month-by-month trajectory — the algebra closes the full gap instantaneously and "24 months" is the reserve runway, not a simulated phase-in. This does not undermine the mechanism — a path exists under the measured anchor and covers the gap — it sharpens the v20 residue: consent under political tolerance is the binding constraint, and it must be pre-committed, not scrambled for during an exit.)</em></p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Calculator-grade / reduced-form throughout, with stated dials (fixed-infra fraction, giver counts, consent anchors) — the <em>structural</em> findings (rate cap equalizes definition/composition capture; cross-check multiplies cost by the two channel prices; a fixed-cost floor exists; re-balance reignites consent) are robust; the exact f*=40%, 4.1×, and taper-split numbers are dial-dependent illustrations. K1's definition-capture model assumes definitional edits are rate-capped (if governance lets them through as "clarifications," the finding flips — that IS the actionable warning). K3's f* depends entirely on the fixed-infra fraction, which the proving-cost envelope suggests is small but which no field data yet pins. All four inherit the identity/consent keystones. These address the <em>modeled</em> residues — closing K2 and K3, and converting K1 and K4 into explicit findings; the field hinges (WTP, live identity, live oracle red-team, out-of-family review) are untouched, as always.</p>
+<h2 id="plain-language">Plain language</h2>
+<p>We spent this final pass attacking our own four newest findings. Two held up and two turned into findings — one reassuring, one a real warning. <strong>Redefining "essentials" to favor your product</strong> turns out no more profitable than the (already-unprofitable) trick of adding a product — because the same speed limit that caps one caps the other. <strong>Faking the price gauge two ways at once</strong> (the one gap in the earlier fix) costs an attacker about $410 million — four times the old single-channel attack — for a mere ~1% dent (now computed from the model, not carried over as a number). <strong>A mass exodus</strong> still can't starve the people who stay (the safety net shrinks with the crowd), but we found the real limit: below about 40% of its designed population, the <em>system</em> can't pay for its own validators and price-gauge — the floor works but the machine around it doesn't, so EDEN needs a minimum viable size with a graceful shutdown plan below it. And <strong>a rich region walking out</strong> can be patched enough to cover the funding gap within the two-year reserve — but <em>not</em> without breaking the consent limits people actually tolerate: no version of the fix keeps the remaining rich under the ~6% contribution that politics bears (the best case still leaves someone worse off). Scored honestly against that political limit, this test now <strong>fails</strong> — which is the point: the split must be written into the membership contract before anyone joins, not scrambled for during a crisis. (We also stopped crediting a "closes within 24 months" check the model never actually simulated.)</p>
+<p><em>Run and written July 9, 2026, verification session (Fable). K1 reported as a FAIL/finding, bars unmoved. Final Fable simulation pass — closes the v17–v20 residues.</em></p>
+<p><em>Gate-tightening EXECUTED July 11, 2026 (Backlog #4b, Opus 4.8), against <code>VERIFICATION v4</code> finding D11. The flagged K2/K3/K4 gates were recoded to compute their registered clauses from real engine state — or to downgrade a false PASS to a disclosed non-result. Simulation dynamics and all core numeric results are unchanged; only gate scoring and added diagnostic keys changed, verified by an isolated double-run (run-to-run identical) plus a flatten-diff against the pre-change JSON showing only the intended leaves. Itemized:</em></p>
+<ul>
+<li><em>K2 — the "2-of-2 cost ≥ $409.5M" clause (D11: "compares a sum to itself") is now scored as the attack cost built from its two independent component captures (O1 $99.5M + O4 $310M) vs. the registered fixed floor; it holds </em><em>by construction</em><em> (no combined-attack discount), so the substantive quantity is the disclosed </em><em>4.1× multiple</em><em> over the single-channel drain. The delivery-dip clause now </em><em>computes</em><em> the dip from cushion × suppression (multiplicative delivery model, ≈1.0%) instead of the hardcoded 0.01 imported from v18 prose; the additive dead-code form (= 0.0) is retained only as a diagnostic. </em><em>Still PASS.</em>**</li>
+<li><em>K3 — the grid scan's </em><em>own</em><em> insolvency boundary is now retained and used to </em><em>confirm</em><em> the closed-form f* = 40% (D11: it "was discarded"); the "per-capita ≥ 1.0 above f*" clause is computed as an all() over the scan rows (was hardcoded True), with the per-capita </em><em>level</em><em> (1.0) disclosed as a </em><em>v19 anchor</em><em> not re-simulated here; the "fixed-cost, not per-capita" distinction is computed from the model's f-invariance. </em><em>Still PASS.</em>**</li>
+<li><em>K4 — the registered "closes within 24 months" clause is </em><em>downgraded to a disclosed non-result</em><em> (the reduced form has no month-by-month trajectory; it had been hardcoded True and unused). The consent test, previously gated only on the lenient 25% measured anchor, is now scored against </em><em>both</em><em> registered anchors; because </em><em>no</em><em> re-balancing path clears the stricter registered 6% political-tolerance bar, K4 </em><em>flips PASS → FAIL</em><em> as an honest finding (the gap-covering path under the measured anchor is preserved and reported — the mechanism is intact; the political-tolerance consent bound is the binding constraint). </em><em>Now FAIL (finding).</em>**</li>
+<li><em>K1 (an honest computed FAIL) and the figure inputs are unchanged; there is no K0. Backups of the pre-change engine and JSON are retained under <code>outputs/backups/v21</code>.</em></li>
+</ul>
+<p><em>Verification v5 disclosure, July 12, 2026 (v5 action 2, D2): K4's "covers the full gap" sub-clause is </em><em>true by construction</em><em> — the slice and taper contributions are defined as complementary fractions of the gap (<code>from_slice = gap·(1−ts)</code>, <code>from_taper = gap·ts</code>), so their sum equals the gap identically for every split; this is the same sum-vs-itself class the #4b pass fixed in K2, and it survived undisclosed here. It is now flagged in-code and in-JSON (<code>K4.gap_coverage_by_construction: true</code>) and kept only as split-accounting sanity. </em><em>K4's FAIL verdict is unaffected</em><em> — it rests on the genuinely computed consent clause (no path under the 6% political bar). Where this document says the path "covers the full gap," read: the split is exhaustive by definition; whether re-balancing </em>closes<em> the gap in time was already a disclosed non-result (no trajectory in this reduced form) — the real coverage evidence lives in <code>v32</code>'s committed RB2/RB3 paths.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v21-closeout-battery-0.json" download>⬇ results_v21.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

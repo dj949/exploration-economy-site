@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Today Comparison — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Today Comparison.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Today Comparison</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Today vs EDEN (v3 comparison)</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>The EVE sims judge EDEN by one pre-registered criterion: if the 10th-percentile person's income falls below the cost of essentials for 3 or more consecutive months, the design fails. Fair's fair — how does <em>today's</em> economy do, judged by the exact same test in the exact same model? The v3 EDEN engine was ported verbatim and a status-quo arm added at the same level of abstraction, in three honest variants, because modeling "today" invites rigging.</p>
+<h2 id="the-backstory">The backstory</h2>
+<p>The three EVE sims are the same experiment on progressively more honest versions of EDEN, and the arc matters: v1's bare concept <em>fails</em> under pessimistic data demand (the bottom decile is underwater from ~month 16 — "a design that needs luck needs a patch"); v2's patches pass, but the floor had to be funded with printed money (0–3.9% of issuance); v3 runs the actual algorithm on a harder world and passes all ten scenario × demand combinations with the floor self-funded and ~0% inflation. And the honest frame for all of it: these simulations establish that the mechanism is internally coherent and survives a defined stress suite under explicit assumptions — they do not establish that EDEN will work in the world.</p>
+<h2 id="what-we-found">What we found</h2>
+<p>EDEN v3 passes all five scenarios (with a known 1-month dip to 0.99 under combined stress, inside the criterion). The honest surprise: handed the same fair start (1.18× essentials), today's dynamics mostly hold too — today-at-parity passes all five under moderate stress. But today has no structural floor, so under a severe (12%) combined shock it breaches the essentials line for 16 months, where EDEN holds 1.10× regardless of shock depth. And the real world doesn't grant that start: market wages put the 10th percentile near 0.55× a living-wage basket (roughly $13–15/hr against an MIT living wage of ~$25/hr), and even the safety net — leaky, lagged, pro-cyclical — reaches only ~0.85×, dropping to ~0.61× under combined austerity stress. So today fails the criterion from month 1 — not because of its dynamics, but because of where the bottom decile starts and how partial the net is. The decisive difference is not the engine — it's the floor and the starting distribution; the genuinely earned v3 result is that EDEN's floor is cheap and self-funded (~0–2.2% of issuance, zero new minting).</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Three checks keep this from being a rigged win. The criterion favors any system with a guaranteed floor — this is less a horse race than a statement of which system bothered to build one; the defensible claim is that EDEN's floor is structural, indexed, and cheap, while today's is statutory, lagged, and politically contingent. EDEN's raw engine is <em>more</em> unequal than today's, not less — v1 found the top 10% of creators capture ~84% of minting before correction, versus a top-10% wage share around 45% today; EDEN only becomes more equal because of the routing, effort-weighting, and floor, so "EDEN is automatically fairer" is false and shouldn't be claimed. And the essentials-basket definition drives the verdict — against a leaner bare-survival basket many more people clear 1.0; EDEN sidesteps that fight by indexing its floor to whatever the basket is. The status-quo arm is a stylized, illustrative calibration meant to be argued with — not a forecast.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Judged by the same pre-registered test, EDEN passes because it built a structural, indexed, shock-proof floor that v3 shows costs almost nothing (~0–2.2% of issuance, zero printing) — though see the dated note at the end: later, harder tests changed the funding picture — while today's economy — which mostly holds when handed a fair 1.18× start until a severe shock sinks it for 16 months — fails from month 1 in reality because its bottom decile starts at ~0.55× essentials and its safety net reaches only ~0.85×; the honest pitch is not "our engine wins" but "we made the floor structural, indexed, and cheap."</strong></p>
+<p><em>(Dated note, July 18, 2026: this file describes its simulation-era result faithfully and is kept unedited above — but read "self-funded / costs almost nothing" as an in-model result from this early chassis, since retired as a general claim. The harder open-economy and rebuild tests (v6.x, v13.1) found no scenario where the floor fully pays for itself; every real activation needs a real funder, and the durable result is that a funded floor is cheaper than traditional welfare delivery. The current framing lives in the reframed public docs and the Decision Record.)</em></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Pre-registered</strong> — the pass/fail bar was written down before running, so results can't be graded on a curve. <strong>10th percentile / bottom decile</strong> — the person poorer than 90% of people / the poorest tenth as a group; the whole test watches them. <strong>Structural vs statutory</strong> — built into the machine's own plumbing versus created by ordinary law, which budgets and politics can lag, trim, or repeal. <strong>Indexed</strong> — automatically re-pegged to current prices, so inflation can't quietly shrink it. <strong>Pro-cyclical</strong> — moving with the economic cycle: today's safety net weakens exactly when times get bad — the opposite of what a floor should do. <strong>Austerity</strong> — government belt-tightening (benefit cuts and freezes), layered on here as stress. <strong>Issuance / minting</strong> — newly created money / the act of creating it; "zero new minting" means the floor was covered without printing. <strong>Routing</strong> — the automatic fixed split of every newly minted EVE (creator, upstream works, pool, protocol) — the plumbing that funds the floor. <strong>Effort-weighting</strong> — paying active engagement more than passive consumption. <strong>At parity</strong> — handed the same starting position (1.18× essentials), so only the dynamics compete. <strong>Chassis</strong> — the existing, tested engine a run is built on (a proven car frame); "this early chassis" in the note means the v3-era model these results came from. <strong>Stylized</strong> — deliberately simplified and illustrative, meant to be argued with — not a forecast.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-today-comparison-0.png" alt="figA_today_vs_eden_combined.png">
+<img src="fig/eve-sim-v3-today-comparison-1.png" alt="figB_today_parity_scenarios.png">
+<img src="fig/eve-sim-v3-today-comparison-2.png" alt="figC_starting_position.png">
+<p class="eyebrow">Technical results</p>
+<p><em>A companion brief to <code>Simulations/EVE Sim v1–v3</code>, written June 2026. It answers six questions: what these simulations are, what v3 specifically tested, whether this is a "standard" economic model, how today's economy performs in the same harness, what the v3 results actually mean, and what to do next. The new status-quo comparison run lives in this folder (<code>today_vs_eden_sim.py</code>, three figures, <code>results_today_vs_eden.json</code>).</em></p>
+<hr>
+<h2 id="1-what-the-three-simulations-are">1. What the three simulations are</h2>
+<p>All three are the <strong>same experiment</strong> run on progressively more honest versions of EDEN. The experiment is a 15-year, 100,000-person microsimulation (monthly steps) that asks one pre-registered question, agreed <em>before</em> each run so the goalposts can't move:</p>
+<blockquote>
+<p><strong>Failure criterion:</strong> if the 10th-percentile participant's monthly income falls below the cost of an essentials basket for <strong>3 or more consecutive months</strong> in any plausible scenario, the design fails.</p>
+</blockquote>
+<p>Each run sweeps a stress suite — baseline, a year-8 drought/demand shock, data-value commoditization, an automation tailwind, and a "combined" kitchen-sink — and uses <strong>ablation</strong>: components are removed one at a time to see exactly what breaks. Prices are formed by a quantity-theory rule (price moves with money stock ÷ real supply). Every parameter sits at the top of the script and is, in your own words, "meant to be argued with, not believed."</p>
+<p>The arc across versions is the real story:</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>What it modeled</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>v1 — bare concept</strong></td>
+<td>Owner-only minting, death burn as the only sink, data income for non-creators, generous assumptions (no fraud, uniform data income).</td>
+<td><strong>Fails</strong> under pessimistic ("finite") data demand — the bottom decile is underwater from ~month 16. Survives <em>only</em> if data demand happens to track prices, and fails commoditization regardless. Conclusion: survival depended on monetary parameters nobody controls. "A design that needs luck needs a patch."</td>
+</tr>
+<tr>
+<td><strong>v2 — generic patches</strong></td>
+<td>Added a <strong>mint-rate governor</strong> (the rate <code>c_t</code> becomes a slow protocol variable, so "1 hour = 1 EVE" becomes "1 hour = <code>c_t</code> EVE"), an <strong>earnability floor</strong>, and <strong>effort-weighting</strong>.</td>
+<td><strong>Passes</strong> all five scenarios under pessimistic demand, ~0.1%/yr inflation, creators get <em>richer</em> in real terms. But the floor had to be <strong>funded with printed money</strong> (0–3.9% of issuance), and the governor abstraction was too generous.</td>
+</tr>
+<tr>
+<td><strong>v3 — the actual algorithm</strong></td>
+<td>The real proposed algorithm (EVE Algorithm v1.0), on a <strong>harder world</strong>.</td>
+<td><strong>Passes all ten</strong> scenario × demand combinations, with the floor <strong>self-funded by the routing</strong> (zero new minting), ~0% inflation.</td>
+</tr>
+</tbody>
+</table>
+<p>The honest takeaway from the arc: EDEN's bare concept does <strong>not</strong> survive its own stress test. It becomes robust only once specific, formulaic corrective mechanisms are added — and v3 is the first run to test those mechanisms <em>as actually specified</em> rather than as rough stand-ins.</p>
+<hr>
+<h2 id="2-what-v3-specifically-tested-the-specific-algorithm-for-eve-generation">2. What v3 specifically tested — "the specific algorithm for EVE generation"</h2>
+<p>v3 is the first simulation to implement the <strong>EVE Algorithm v1.0</strong> spec (<code>01 Canon/EVE Algorithm v1.0</code>) instead of v1/v2 approximations. The generation rule it models is:</p>
+<pre><code>MINT = c_t × B × T × W_effort × W_repeat × W_age × W_daily
+</code></pre>
+<p>paid to an asset's ownership stack when a <strong>verified human</strong> engages it. The design choices that make v3 different — and that drive the results — are:</p>
+<ul>
+<li><strong>Only human attention mints; machines <em>pay</em>.</strong> Institutions/AIs that use data transfer <em>existing</em> EVE to data owners (a price, indexed to the essentials basket), rather than minting new EVE. This was the single biggest open question in your notes ("decision #1"), and it does two things at once: it keeps total issuance bounded by human time (your sybil-resistance and supply-predictability anchor), and it makes ordinary people's data income <strong>real-denominated</strong> — it automatically tracks the price level. That second property is what structurally solves v1/v2's worst failure.</li>
+<li><strong>Pay-the-stack routing 60/15/10/10/5</strong> (creator / maintainers / dependency graph / verification / protocol). The <strong>10% verification pool funds the earnability floor first</strong>; the <strong>5% protocol slice burns its surplus</strong> as a small continuous sink.</li>
+<li><strong>Daily taper</strong> (hours 0–8 mint at 1.0, 8–12 at 0.5, 12–16 at 0.25, &gt;16 at 0) and <strong>effort weights</strong> (passive consumption mints at 0.4×) — anti-grind, anti-addiction, formulaic.</li>
+<li><strong>The governor</strong>: <code>c_t</code> adjusts ≤1%/month, one-way-biased, to keep net issuance tracking essentials supply growth — monetary stability with no committee.</li>
+<li><strong>The earnability floor</strong>: any verified human can earn up to <strong>1.10× the essentials basket</strong> via Verified Contribution Tasks, funded from routing.</li>
+<li><strong>Legacy choice</strong>: ~50% of dying wallets are bequeathed rather than burned, which <em>halves</em> the death-burn sink (a deliberately harder test of monetary stability).</li>
+</ul>
+<p>And it ran all of this on a <strong>harder world than v2</strong>: per-person data income is now <strong>heterogeneous</strong> (lognormal — the bottom decile earns ~17% of the mean, roughly 6× poorer than v1/v2's generous uniform assumption).</p>
+<hr>
+<h2 id="3-is-this-a-common-economic-model-people-run-to-prove-ideas">3. Is this a "common economic model" people run to prove ideas?</h2>
+<p>Partly. It is a <strong>bespoke model</strong>, not something off a shelf — but it is built from recognized, legitimate traditions:</p>
+<ul>
+<li><strong>Agent-based computational economics (ACE)</strong> — heterogeneous agents interacting over time, e.g. Epstein &amp; Axtell's <em>Sugarscape</em> and the Santa Fe artificial stock market. This is the closest family.</li>
+<li><strong>Heterogeneous-agent macro</strong> — Bewley–Aiyagari–Krusell–Smith and modern HANK (Heterogeneous-Agent New Keynesian) models, whose whole point is that the <em>distribution</em> matters, not a single "representative agent." Your focus on the 10th percentile is squarely in this spirit.</li>
+<li><strong>The quantity theory of money</strong> (price ∝ money ÷ output) — textbook monetarism, used for the price equation.</li>
+<li><strong>Stress testing / scenario analysis</strong> — exactly how central banks evaluate banks (CCAR/DFAST): define adverse scenarios, see what breaks.</li>
+<li><strong>Pre-registration and ablation</strong> — borrowed from clinical trials and machine learning. Agreeing the failure criterion before running, and removing one component at a time, are genuine methodological strengths most advocacy models lack.</li>
+</ul>
+<p>What it is <strong>not</strong>: it is not a general-equilibrium model. There is no labor market, no production function, no behavioral feedback (people don't change how much they engage when prices or effort-weights change), velocity is fixed, there are no savings buffers, no adoption dynamics, and it's a single 15-year horizon.</p>
+<p>So how should you describe what these sims "prove"? In economics, agent-based simulations demonstrate the <strong>possibility and robustness of a mechanism</strong> — "under these stated assumptions, this dynamic can occur / survives these stresses." They do <strong>not</strong> prove real-world outcomes; that's the job of empirical work and pilots. Stated precisely: the sims establish that <strong>EDEN's mechanism is internally coherent and survives a defined stress suite under explicit assumptions.</strong> They do <em>not</em> establish that EDEN will work in the world — identity, fraud, oracle integrity, adoption, and regulation are outside the model by construction. That is the honest and defensible claim, and it's exactly how your RESULTS files already frame it.</p>
+<hr>
+<h2 id="4-how-todays-system-does-in-the-same-model-and-vs-eden">4. How today's system does in the same model — and vs EDEN</h2>
+<p>I ported the v3 EDEN engine <strong>verbatim</strong> (its numbers reproduce <code>results_v3.json</code>) and added a <strong>status-quo arm</strong> at the same level of abstraction, judged by the same criterion. Because modeling "today" invites rigging, I ran three honest variants and a sensitivity. Calibration is stylized but sourced (EPI on wages; MIT Living Wage on the essentials gap — see Sources):</p>
+<ul>
+<li><strong>Today @ parity</strong> — start the 10th percentile at EDEN's launch margin (1.18× essentials) and apply today's dynamics (≈flat bottom-decile real wages, essentials outpacing wages, shocks not buffered, no structural floor). This is the <strong>controlled test</strong>: it isolates dynamics from the starting distribution.</li>
+<li><strong>Today, market-only</strong> — start the p10 where the US wage distribution actually puts it: a 10th-percentile wage of roughly $13–15/hr against an MIT single-adult living wage of ~$25/hr ⇒ <strong>~0.55×</strong> essentials, pre-transfer.</li>
+<li><strong>Today + safety net</strong> — market plus a <strong>leaky, lagged, pro-cyclical</strong> means-tested top-up that reaches ~0.85× in calm times and is cut under fiscal stress.</li>
+</ul>
+<h3 id="verdicts-same-criterion-p10-below-essentials-for-3-months-fail">Verdicts (same criterion, p10 below essentials for 3+ months = fail)</h3>
+<table>
+<thead>
+<tr>
+<th>System / variant</th>
+<th>Baseline</th>
+<th>Shock</th>
+<th>Erosion¹</th>
+<th>Automation</th>
+<th>Combined</th>
+<th>p10 start</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EDEN v3 (full algorithm)</strong></td>
+<td>PASS</td>
+<td>PASS</td>
+<td>PASS</td>
+<td>PASS</td>
+<td>PASS²</td>
+<td>1.18</td>
+</tr>
+<tr>
+<td>Today @ <strong>parity</strong> (controlled)</td>
+<td>PASS</td>
+<td>PASS</td>
+<td>PASS</td>
+<td>PASS</td>
+<td>PASS</td>
+<td>1.18</td>
+</tr>
+<tr>
+<td>Today @ parity, <strong>severe shock</strong> (12%)</td>
+<td>—</td>
+<td>PASS</td>
+<td>—</td>
+<td>—</td>
+<td><strong>FAIL</strong> (16 mo)</td>
+<td>1.18</td>
+</tr>
+<tr>
+<td>Today, <strong>market wages only</strong></td>
+<td>FAIL</td>
+<td>FAIL</td>
+<td>FAIL</td>
+<td>FAIL</td>
+<td>FAIL</td>
+<td>0.55</td>
+</tr>
+<tr>
+<td>Today <strong>+ safety net</strong></td>
+<td>FAIL</td>
+<td>FAIL</td>
+<td>FAIL</td>
+<td>FAIL</td>
+<td>FAIL</td>
+<td>0.85</td>
+</tr>
+</tbody>
+</table>
+<p>¹ "Erosion" = the bottom decile's income source losing value (low-skill labor demand collapsing to automation/offshoring) — the direct analog of EDEN's data-commoditization. ² EDEN combined shows the known 1-month dip to 0.99 from the floor's indexation lag; within the criterion.</p>
+<h3 id="what-this-actually-shows">What this actually shows</h3>
+<p><strong>The decisive difference is not the engine — it's the floor and the starting distribution.</strong> Three findings, in order of importance:</p>
+<ol>
+<li>
+<p><strong>EDEN passes by construction.</strong> Its earnability floor guarantees the p10 ≥ 1.10× essentials; the p10 never drops below 1.10 except the documented 1-month indexation dip. That's not an emergent triumph of a clever engine — it's what a guaranteed, indexed floor <em>does</em>. The non-trivial, genuinely earned result from v3 is that this floor is <strong>cheap and self-funded</strong> (~0–2.2% of issuance, <strong>zero</strong> new minting) — not that EDEN's engine out-races the status quo.</p>
+</li>
+<li>
+<p><strong>Handed a fair start, today's dynamics mostly hold.</strong> This is the honest surprise: at a 1.18× start, today's economy passes all five scenarios under <em>moderate</em> stress. It is <strong>not</strong> true that today's mechanics inevitably sink the bottom decile. But today has <strong>no structural floor</strong>, so under a <em>severe</em> combined shock the p10 breaches the essentials line for 16 months — whereas EDEN holds 1.10× regardless of shock depth. That is the clean structural contrast: today depends on the shock staying mild; EDEN doesn't.</p>
+</li>
+<li>
+<p><strong>The real-world gap is the starting position.</strong> Today's p10 doesn't start at 1.18×. Market wages put it near <strong>0.55×</strong> a single-adult living-wage basket; even a leaky safety net only reaches <strong>~0.85×</strong>, dropping to ~0.61× under combined austerity stress. So today "fails" this criterion from month 1 — not because of dynamics, but because the bottom decile begins below the essentials line and the safety net is partial, lagged, and pro-cyclical. (See <code>figC_starting_position.png</code> — three flat lines: EDEN at 1.18, the net at 0.85, the market at 0.55.)</p>
+</li>
+</ol>
+<h3 id="two-honesty-checks-that-keep-this-from-being-a-rigged-win">Two honesty checks that keep this from being a rigged win</h3>
+<ul>
+<li><strong>The criterion favors any system with a guaranteed floor.</strong> "Does everyone always clear essentials?" is a question EDEN answers <em>by design</em> and today does not. So this is less a horse race than a statement of which system bothered to build a floor. The fair, defensible claim is narrow: <em>EDEN makes the floor structural, indexed, and (per v3) cheap; today's is statutory, lagged, and politically contingent.</em></li>
+<li><strong>EDEN's raw engine is <em>more</em> unequal than today's, not less.</strong> Your own v1 found the top 10% of creators capture ~84% of minting before correction (vs a top-10% wage share around 45% today). EDEN only becomes more equal <em>because of</em> the routing, effort-weighting, and floor — the very mechanisms these sims exist to test. "EDEN is automatically fairer" is false and shouldn't be claimed; "EDEN's corrective mechanisms measurably out-perform today's, at low cost" is true and is what to claim.</li>
+<li><strong>The "essentials basket" definition drives the verdict.</strong> Against the fuller MIT living-wage basket (which includes broadband, civic, modest margin), today's net reaches ~0.85×; against a leaner bare-survival basket, many more clear 1.0. EDEN sidesteps this fight by indexing its floor to <em>whatever</em> the basket is — a real design advantage, but worth stating plainly rather than hiding inside a number.</li>
+</ul>
+<hr>
+<h2 id="5-what-the-v3-results-mean-exactly">5. What the v3 results mean, exactly</h2>
+<p>Restating the five findings from <code>RESULTS - EVE Sim v3.md</code> in plain terms:</p>
+<ol>
+<li><strong>Machine-pay structurally solved v2's biggest failure.</strong> Because institutions need data in <em>real</em> terms, paying for it makes data income track the price level automatically. The price-indexation that v2 had to <em>assume</em> is now a <em>property of the mechanism</em>. Evidence: even the bare design now holds the p10 above water at baseline — something it never did in v1/v2.</li>
+<li><strong>Bare still isn't viable — but now the victim is creators, not the poor.</strong> Without the governor, inflation runs 9.6%/yr and the median creator's real income falls to <strong>0.54×</strong> over 15 years; with the governor, it's <strong>1.27×</strong> at ~0% inflation. The governor's real constituency turns out to be creators.</li>
+<li><strong>The floor was never minted.</strong> Across every scenario, the 10% verification pool fully covered the floor — top-up minting was <strong>0.0%</strong>, total floor cost peaked at <strong>2.2%</strong> of issuance. In v2 the floor needed printed money; in v1.0 the routing finances its own safety net.</li>
+<li><strong>Clean division of labor.</strong> Machine-pay handles indexation; the governor handles price stability (protecting creators); the floor handles the distribution tail. Remove any one and a specific, identifiable failure returns (e.g., no floor ⇒ commoditization sinks the p10 at month 74).</li>
+<li><strong>The harder, heterogeneous world didn't break it.</strong> With the bottom decile at ~17% of mean data income, the full algorithm still passed, the floor quietly catching the tail at ~0.3–0.5% of issuance in normal times.</li>
+</ol>
+<p><strong>The one soft spot:</strong> under commoditization, the median creator's real income still erodes ~9–11% (the shrinking validator-pool remainder). Mild, but real.</p>
+<p><strong>What v3 does <em>not</em> prove</strong> — and this is the most important paragraph for you. The result rests on assumptions no simulation can settle: the <strong>level</strong> of institutional data demand (calibrated at ~10% of mint value — an admitted guess), an <strong>honest EBI oracle</strong>, <strong>perfect identity enforcement</strong>, and <strong>no fraud</strong>. These are pilot questions, not simulation questions. v3 means <em>the algorithm as written is internally coherent and survives its own stress suite on harder assumptions, with its safety net paid for by its own routing rather than by printing money.</em> It does not mean EDEN will work in the world.</p>
+<hr>
+<h2 id="6-suggested-next-steps">6. Suggested next steps</h2>
+<p><strong>A. Make the decisions the spec is waiting on (highest leverage).</strong> v3 quietly <em>assumed</em> the resolutions to your two biggest open questions: it adopted <strong>machine-pay (not machine-mint)</strong> and it turned on the <strong>governor + floor + effort-weight</strong>. Your Consolidated Spec still lists both as unresolved/"pending your adoption decision." Ratify them in <code>01 Canon</code> (or write down why not). Nothing downstream — the white paper's monetary section especially — can be finalized until you do.</p>
+<p><strong>B. Close the known simulation gaps before any robustness claim goes public.</strong> In rough priority:
+1. <strong>Fix the floor's indexation</strong> to a 7-day rolling EBI and confirm the 1-month combined-stress dip disappears. Cheap, removes the only criterion-adjacent wobble.
+2. <strong>Sweep the one assumption that drives everything — the <em>level</em> of data demand.</strong> It's set at ~10% of mint and admitted to be unknowable pre-launch. Find the breaking point: at what demand level does the floor start needing real minting? This is the single most important untested sensitivity in the whole project.
+3. <strong>Add what all three sims omit and which make the poor worse:</strong> fraud/sybil leakage, adoption-phase dynamics (the thin-network launch decade, when data demand is small), and behavioral feedback (engagement responding to effort-weights and prices). These are exactly where a sharp critic (your "Simmy") will push first.
+4. <strong>Red-team the EBI oracle</strong> — model manipulation of the basket index, since the spec itself flags it as the softest attack surface.</p>
+<p><strong>C. Rewrite the pitch around what the sims actually support.</strong> Lead with <em>"we built a structural, indexed, shock-proof floor and showed in simulation that it's cheap and self-funded"</em> — not <em>"our engine beats the status quo."</em> Pre-empt the concentration critique by showing the routing/effort-weight evidence up front. The today-vs-EDEN comparison in this folder gives you the honest framing to do that.</p>
+<p><strong>D. Write the white paper's Monetary Mechanics section from the tested spec</strong> (your own stated next step), with the four real-world risks listed openly as the remaining work.</p>
+<p><strong>E. Design the pilot.</strong> The simulation has done its job. The next evidence is empirical — and your v1.0 proposal already names the falsifiable milestones: a 10k-person pilot, an EBI oracle red-team with prize money, fraud below 2% of minting, floor cost under 5% through one genuine demand shock, and at least one cohort of ordinary (non-creator) participants earning ≥ essentials for 12 consecutive months, on-chain and auditable. Hit those and EDEN stops being a stress-tested design and becomes an operating economy.</p>
+<hr>
+<h2 id="files-in-this-folder">Files in this folder</h2>
+<ul>
+<li><code>today_vs_eden_sim.py</code> — the comparison model (EDEN v3 engine ported verbatim + status-quo arm)</li>
+<li><code>figA_today_vs_eden_combined.png</code> — the headline: EDEN vs three "today" variants under combined stress</li>
+<li><code>figB_today_parity_scenarios.png</code> — the controlled test: today handed EDEN's 1.18× start, all scenarios</li>
+<li><code>figC_starting_position.png</code> — the real gap: starting position, not dynamics</li>
+<li><code>results_today_vs_eden.json</code> — all verdicts and parameters</li>
+</ul>
+<h2 id="limitations-of-the-comparison-carried-forward-and-added">Limitations of the comparison (carried forward and added)</h2>
+<p>Same structural limits as v1–v3 (quantity-theory pricing, no savings, no behavioral feedback, single horizon). Added for the status-quo arm: "today" is modeled as a stylized real-income trajectory for the p10, not a full macro model — no employment dynamics, no mobility across the distribution, no regional variation, and the lognormal wage spread understates the real top tail. The status-quo numbers are illustrative calibrations meant to be argued with, in the same spirit as the EDEN parameters — not forecasts.</p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-today-comparison-0.json" download>⬇ results_today_vs_eden.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

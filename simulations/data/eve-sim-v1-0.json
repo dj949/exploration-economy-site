@@ -1,0 +1,145 @@
+{
+  "parameters": {
+    "N": 100000,
+    "T": 180,
+    "hours_mean": 4.5,
+    "hours_sd": 2.0,
+    "hours_min": 0.5,
+    "hours_max": 10.0,
+    "engagement_growth_yr": 0.03,
+    "creator_frac": 0.3,
+    "pareto_alpha": 1.1,
+    "addictive_frac": 0.1,
+    "addictive_mult": 3.0,
+    "royalty": 0.15,
+    "sharer_frac": 0.95,
+    "beta": 0.1,
+    "money_stock_months": 60,
+    "death_rate_yr": 0.012,
+    "supply_growth_yr": 0.02,
+    "passthrough": 1.0,
+    "start_buffer": 0.85
+  },
+  "verdicts": {
+    "finite|baseline": {
+      "longest_underwater": 165,
+      "first_fail_month": 16,
+      "fails_strict": true
+    },
+    "finite|shock": {
+      "longest_underwater": 165,
+      "first_fail_month": 16,
+      "fails_strict": true
+    },
+    "finite|commoditization": {
+      "longest_underwater": 165,
+      "first_fail_month": 16,
+      "fails_strict": true
+    },
+    "finite|automation": {
+      "longest_underwater": 161,
+      "first_fail_month": 20,
+      "fails_strict": true
+    },
+    "scaling|baseline": {
+      "longest_underwater": 0,
+      "first_fail_month": null,
+      "fails_strict": false
+    },
+    "scaling|shock": {
+      "longest_underwater": 0,
+      "first_fail_month": null,
+      "fails_strict": false
+    },
+    "scaling|commoditization": {
+      "longest_underwater": 107,
+      "first_fail_month": 74,
+      "fails_strict": true
+    },
+    "scaling|automation": {
+      "longest_underwater": 0,
+      "first_fail_month": null,
+      "fails_strict": false
+    },
+    "finite|baseline|governor": {
+      "longest_underwater": 0,
+      "first_fail_month": null,
+      "fails_strict": false
+    },
+    "scaling|baseline|governor": {
+      "longest_underwater": 0,
+      "first_fail_month": null,
+      "fails_strict": false
+    }
+  },
+  "beta_sweep": {
+    "0.03": {
+      "longest": 165,
+      "first": 16
+    },
+    "0.05": {
+      "longest": 165,
+      "first": 16
+    },
+    "0.1": {
+      "longest": 165,
+      "first": 16
+    },
+    "0.2": {
+      "longest": 165,
+      "first": 16
+    },
+    "0.4": {
+      "longest": 165,
+      "first": 16
+    }
+  },
+  "sensitivity": {
+    "M0=24mo, phi=0.5": {
+      "longest": 168,
+      "first": 13
+    },
+    "M0=24mo, phi=1.0": {
+      "longest": 176,
+      "first": 5
+    },
+    "M0=60mo, phi=0.5": {
+      "longest": 0,
+      "first": null
+    },
+    "M0=60mo, phi=1.0": {
+      "longest": 165,
+      "first": 16
+    },
+    "M0=120mo, phi=0.5": {
+      "longest": 0,
+      "first": null
+    },
+    "M0=120mo, phi=1.0": {
+      "longest": 102,
+      "first": 79
+    }
+  },
+  "concentration": {
+    "no_royalty": {
+      "top1": 0.6214132061734245,
+      "top10": 0.8438649562222088,
+      "addictive_share": 0.17354484612205923
+    },
+    "royalty_15": {
+      "top1": 0.5382617784968533,
+      "top10": 0.7607480857939799,
+      "addictive_share": 0.16260493252955974
+    },
+    "royalty_30": {
+      "top1": 0.4551311028764977,
+      "top10": 0.6778048363690518,
+      "addictive_share": 0.1516650189370602
+    },
+    "royalty15_effort03": {
+      "top1": 0.5503182724801831,
+      "top10": 0.7635974211402176,
+      "addictive_share": 0.06546517522448386
+    }
+  }
+}

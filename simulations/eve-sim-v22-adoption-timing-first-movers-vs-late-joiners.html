@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v22 - Adoption Timing (First Movers vs Late Joiners) — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v22 - Adoption Timing (First Movers vs Late Joiners).">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v22 - Adoption Timing (First Movers vs Late Joiners)</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v22.0 Adoption Timing.md</code>. Same numbers, no jargon. You asked three questions on July 9; here's what the model says to each.</em></p>
+<h2 id="the-setup">The setup</h2>
+<p>We let the world join EDEN in waves — pioneers in years 0–3, early adopters in 3–8, the big majority in 8–15, laggards in 15–30, and a 15% slice that never joins. Four kinds of players adopt on those schedules: research institutions, governments, businesses, and wealthy families. Then we watch fifty years and ask who ends up with what. The rules were written down and locked <em>before</em> the simulation ran, including what would count as failure — and, per your decision, "early adopters keep permanent power" was pre-registered as a failure, not a win.</p>
+<h2 id="question-1-does-science-inside-eden-out-discover-science-outside">Question 1: Does science inside EDEN out-discover science outside?</h2>
+<p><strong>Yes — almost double per institution by year 20, and we can prove <em>why</em>.</strong> Your thesis was specific: inside EDEN, an experiment that <em>fails</em> still produces something valuable — data that earns a little money every time someone reuses it, and a warning sign that stops others from walking into the same dead end. Outside, a failed experiment is a sunk cost that mostly goes unpublished, so other labs quietly repeat it.</p>
+<p>The model lets us switch those two mechanisms off individually, like pulling fuses. Pull "failures earn money": most of the advantage disappears. Pull "failures are visible": same. Pull both: the advantage collapses to roughly nothing. That's the strongest kind of result a simulation can give — the advantage isn't a side effect of something else; <strong>it is your symbiotic cycle, doing the work you said it would do.</strong> About half comes from failures being paid, half from failures being seen.</p>
+<p>The momentum story checks out too, with a July 10 correction to the numbers: at year 15, adopted institutions fund <strong>74% of their <em>current</em> experiment spending</strong> from their own data income instead of chasing grants (the "82% by year 15" we first reported was actually the fifty-year total; counting every dollar since day one, the year-15 running total is 28% — the flow crosses majority self-funding well before the lifetime books do, which <em>is</em> the momentum story). Their funding swings are about half as violent, and they run flat-out at lab capacity — while outside institutions lose 19 cents of every grant dollar to debt service. Self-funding a little really does replace starting with a drag.</p>
+<p>One caution we owe you: "1.9×" depends on dials we had to guess (how big data markets get, how starved outside labs are). What we'd defend anywhere is the <em>decomposition</em> — the advantage lives and dies with the two mechanisms you named. It even survives giving the outside world 50% more funding.</p>
+<h2 id="question-2-do-early-adopting-governments-run-more-efficiently">Question 2: Do early-adopting governments run more efficiently?</h2>
+<p><strong>Yes, immediately — but here's the nuance worth knowing.</strong> A government that plugs into EDEN's rails delivers the same guarantee about 26% cheaper (that's the v6.4 result, reproduced here), and it gets that discount within about two years of joining <em>no matter when it joins</em>. Efficiency isn't a reward for seniority; the rails work the same for everyone. A laggard government catches up on the <em>rate</em> almost instantly.</p>
+<p>What the laggard never gets back is <strong>the pile</strong>: every year of waiting is a year of savings not banked and not reinvested. By year 50, early adopters have accumulated 1.74× the savings per citizen and hold a visibly better service quality index. So the honest pitch to a hesitant government is not "join now or be locked out forever" — it's "the discount starts when you start, and every year you wait is simply gone."</p>
+<h2 id="question-3-do-early-adopters-shape-society-the-most">Question 3: Do early adopters shape society the most?</h2>
+<p><strong>They shape the early decades — and the design does take the megaphone back, but about two years slower than we promised it would (a July 10 re-score turned this from a pass into an honest miss).</strong> This was the two-sided test you chose: early adoption has to <em>pay</em> (or nobody would ever move first), but it must not <em>entrench</em> (or EDEN rebuilds the aristocracy it exists to prevent). The reward side passed; the no-throne side works in every direction but <strong>misses its registered deadline</strong>:</p>
+<p><strong>The reward side.</strong> Pioneers peak at about 1.35× the average person's influence around year 13. Early money is real too: wealthy families that convert early buy about a 1.2× influence premium through sheer spending flow. Being early is worth something — enough that when we let adoption spread by imitation instead of a script, it spreads <em>faster</em> than our scripted waves. The incentive recruits itself.</p>
+<p><strong>The no-throne side.</strong> Every channel of that early influence dilutes in the right direction — but not quite on the promised schedule. The rule we registered said: within <strong>10 years</strong> of joining, the big majority cohort must reach at least 80% of a pioneer's per-person influence. When we first reported "90% — pass," we had accidentally measured at the <em>20</em>-year mark. Measured correctly at 10 years, the majority sits at <strong>78% — a fail, by the rule's own terms.</strong> They reach the 80% line about <strong>two years later</strong> than promised (and hit the originally-reported 90% at year 20). Everything else on this side holds: sortition treats a new joiner identically to a veteran on day one; reputation decays unless you keep contributing; money can spend but cannot compound — the wealthy family's premium melts from 1.2× to <strong>0.8× — below the average member — by year 50</strong>; and the pioneer cohort ends holding 12.0% of total influence on 11.8% of the population, proportional and still declining. Businesses got the same treatment: early transparent firms enjoy a head start only until reviews reveal everyone's true quality, so that vector's early premium was the one that <em>failed</em> the incentive bar. The design refuses to sell moats — it just dissolves the early megaphone in ~12 years instead of the promised 10. The fix decision (speed up the decay dials ~20%, or re-register the promise at 12 years) is now in your ratification queue.</p>
+<p><strong>And the only group that keeps losing ground is the one that never joins.</strong> Late joiners catch up; never-joiners watch the income, knowledge, and service-quality gaps widen every decade — bounded (they still get spillover from published science), but growing.</p>
+<h2 id="the-one-line-answers">The one-line answers</h2>
+<p>Science: <strong>early institutions win, and it's provably your failure-data cycle doing it.</strong> Governments: <strong>the discount is instant at any join date; the waited years are the permanent cost.</strong> Influence: <strong>first movers get momentum, paid in full — and the system dilutes it back to proportional, but two years behind the 10-year promise it registered (an honest fail, now a design decision in your queue).</strong></p>
+<h2 id="what-this-doesnt-settle">What this doesn't settle</h2>
+<p>The usual honesty: this is the design's internal logic under staggered adoption, with mechanisms we've validated in earlier runs plugged in as assumptions. It doesn't model an outside world that fights back, and it zeroes one uncomfortable channel we should test next — wealthy sponsors steering <em>what gets researched</em> even when the credit goes to the researchers. Above all, everything about paid data hangs on the same hinge as always: <strong>H1 — will real institutions actually pay?</strong> That's a field question, and no simulation retires it.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v22-adoption-timing-first-movers-vs-late-joiners-0.png" alt="fig_v22_adoption_timing.png">
+<img src="fig/eve-sim-v22-adoption-timing-first-movers-vs-late-joiners-1.png" alt="fig_v22_science_symbiosis.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026.</strong> SPEC registered before first execution; bars T0–T7 unchanged. Code: <code>adoption_timing_sim.py</code>; raw outputs: <code>results_v22.json</code>; figures: <code>fig_v22_*.png</code>. Seeds 7 + 11. Plain-language companion: <code>PLAIN LANGUAGE - v22.0 First Movers.md</code>. REPRODUCES: engine re-run is byte-identical (JSON + PNGs). Owner questions (Devan, in session): the science symbiosis, government early-vs-late efficiency, and early-adopter influence — the last registered <strong>two-sided</strong> by owner decision.</p>
+<h2 id="scoreboard">Scoreboard</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered test</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T0 Sanity &amp; calibration</td>
+<td>closures exact; seeds within 5%; v6.4 saving 26.1%±3pp</td>
+<td>closures 0; worst seed gap 1.7%; saving <strong>26.05%</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>T1 Early adoption pays</td>
+<td>pioneer ≥1.25× majority per capita at yr20, ≥3 of 4 vectors</td>
+<td>science <strong>1.50×</strong> · gov <strong>2.06×</strong> · influence <strong>2.71×</strong> · firm <strong>1.15×</strong> ✗ → 3 of 4</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>T2 Science symbiosis causal</td>
+<td>adopted/outside ≥1.5× at yr20 AND A+B ablation ≤1.15×</td>
+<td><strong>1.92×</strong> (s11 1.89×); A 1.37 / B 1.42 / <strong>A+B 1.14</strong> (s11 1.11)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>T3 Momentum vs drag</td>
+<td>self-funded ≥50% by yr15; whiplash ≤0.5× outside</td>
+<td><em>(re-scored July 10, v4 D4)</em> yr-15 <strong>flow share 74%</strong> (yr-15 cumulative 28%; end-of-run cumulative 82% — the number originally shown here, mislabeled as yr-15) ; detrended CV <strong>0.35 vs 0.71</strong> (0.49×, thin); outside debt service <strong>19%</strong> of grant income</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>T4 Gov level-vs-path</td>
+<td>early ≤0.85× cost/pt at yr15; late closes 90% of rate gap ≤96mo</td>
+<td>ratio <strong>0.74</strong>; catch-up <strong>22.6 mo</strong> (ramp-driven, see F4); savings stock gap <strong>1.74×</strong>, permanent</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>T5 Influence two-sided</td>
+<td>(a) premium ≥1.25× (b) catch-up ≥80% <strong>within 10 yr of joining</strong> (c) no entrenchment (d) wealthy ≤1.5× &amp; declining</td>
+<td><em>(re-scored July 10, v4 D4)</em> (a) <strong>1.34×</strong> (s11 1.36) · (b) <strong>0.78 at the registered 10-yr window — FAIL</strong> (lenient last-joiner+10yr: 0.83; 80% first reached ~11.7 yr after mid-join, month 278; the originally-reported "90%" was a mis-indexed 20-yr readout) · (c) agg share <strong>1.02×</strong> pop share, declining · (d) <strong>1.20× → 0.80×</strong>, declining</td>
+<td><strong>FAIL (leg b — finding F5)</strong></td>
+</tr>
+<tr>
+<td>T6 Cost of never</td>
+<td>income/knowledge/quality gaps monotone after yr20</td>
+<td>all three monotone; income <em>ratio</em> plateaus ~<strong>1.43×</strong> (nuance)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>T7 Self-propagation</td>
+<td>endogenous adoption 60–95% by yr30; ordering preserved</td>
+<td><strong>85%</strong> (both seeds; 60% already by yr10); pioneer ordering holds (science 1.74×, influence 2.81×)</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Seven of eight after the July 10 re-score (originally reported eight of eight): <strong>T5 fails its registered catch-up leg</strong> — the original run scored leg (b) at a mis-indexed 20-year window; at the registered 10-year window the majority cohort sits at 0.78 against the 0.80 bar. Per the SPEC's own terms a (b) failure is a design-FAIL, and it is filed as finding F5 below. The content is in the decompositions and the honest misses, not the green column.</p>
+<h2 id="finding-1-early-adoption-pays-as-a-flow-head-start-and-one-vector-refuses-to-pay-firms-t1">Finding 1 — Early adoption pays as a <em>flow head start</em>, and one vector refuses to pay: firms (T1)</h2>
+<p>Pioneer institutions, governments, and cohort influence all clear the 1.25× premium comfortably. The <strong>firm vector fails it (1.15×)</strong>: early transparent firms enjoy a demand bonus only until reviews reveal everyone's true quality — the unburiable-review mechanism that protects consumers also <em>erodes the pioneer's edge</em>, and late-adopting firms of equal quality reach parity (share-per-quality ratio 1.00 within 10 years of entry, even in the lock-in worst case). Instructive asymmetry: EDEN rewards early <em>contribution</em> (science, delivery, participation) but not early <em>positioning</em> in a market it deliberately keeps contestable. If recruiting firms early matters strategically, the pitch is the transitional premium plus data income — not a durable moat, because the design forbids one.</p>
+<h2 id="finding-2-the-symbiotic-science-cycle-is-real-causal-and-roughly-half-and-half-t2">Finding 2 — The symbiotic science cycle is real, causal, and roughly half-and-half (T2)</h2>
+<p>Adopted institutions out-discover outside ones <strong>1.92× per institution by year 20</strong>. The registered ablations decompose the owner's thesis into its two mechanisms: kill the <em>payment</em> for failure data (A) and the advantage falls to 1.37×; kill the <em>visibility</em> of failures (B) and it falls to 1.42×; kill both and it collapses to <strong>1.14×</strong> — inside the ≤1.15 bar, with seed 11 corroborating at 1.11. So the thesis is load-bearing, not decorative: <strong>most of the advantage is exactly "failures are also assets"</strong> — paid once via machine-pay reuse, and paid again as dead ends nobody re-tests. The residual 1.14 is success-data income plus funding smoothness. Two robustness notes: the advantage survives a 1.5×-better-funded outside (1.45×), and holds across every registered sweep (1.54×–2.84×; worst case is failure-value-weight 0.10 — the thesis needs failures to be worth <em>something</em>, ~a tenth of a success suffices). Magnitude caution per house rules: 1.92× is dial-driven ([X] capacity, grant scarcity); <strong>quote the decomposition, not the multiple.</strong></p>
+<h2 id="finding-3-momentum-vs-the-drag-of-debt-t3">Finding 3 — Momentum vs the drag of debt (T3)</h2>
+<p><em>(Numbers re-scored July 10, v4 D4 — the original text reported the end-of-run cumulative as a year-15 figure.)</em> At year 15, adopted institutions fund <strong>74% of current experiment spend from their own data revenue</strong> (12-month flow share, months 168–179); the <em>cumulative</em> share to year 15 is 28% — the early grant-funded years still dominate the running total, which is exactly the momentum story: the flow crosses self-funding majority well before the stock does, and ends the run at 82% cumulative. Their funding whiplash (detrended CV around a 25-month trend) is 0.35 vs 0.71 outside — <em>at the 0.49× edge of the registered 0.5× bar, so treat "half the whiplash" as the honest claim, not "smooth."</em> Outside institutions pay <strong>19% of cumulative grant income as debt service</strong> — the owner's "starting with a drag" made visible. The model's own behavior reproduces the thesis phrase: experiments self-fund a little, momentum compounds, and the compounding is capped only by lab capacity (the [X] dial that bounds Finding 2's magnitude).</p>
+<h2 id="finding-4-government-efficiency-is-a-level-not-a-path-but-the-years-you-waited-are-gone-t4">Finding 4 — Government efficiency is a level, not a path — but the years you waited are gone (T4)</h2>
+<p>The rails saving reproduces v6.4 (26.05% per delivered point) and arrives on the integration ramp: late adopters close 90% of the rate gap in <strong>22.6 months</strong> — mechanically, because nothing in the design ties efficiency to tenure (the 24-month ramp dial sets this; the bar verifies <em>no lock-out exists</em>, not a discovered speed). What never comes back is the stock: early-adopting governments bank <strong>1.74× the per-capita cumulative savings</strong> by year 50 and hold a persistent service-quality lead (recycled-savings index gap 0.135). The clean sentence for the white paper: <strong>adopting late costs exactly the years of savings you didn't collect — no more (no lock-out), and no less (no catching up on the past).</strong></p>
+<h2 id="finding-5-influence-early-adopters-are-rewarded-then-diluted-but-dilution-runs-2-years-behind-the-registered-clock-t5-fail-re-scored-july-10">Finding 5 — Influence: early adopters are rewarded, then diluted — but dilution runs ~2 years behind the registered clock (T5 FAIL, re-scored July 10)</h2>
+<p><strong>Re-scored July 10 (Verification v4, D4): the catch-up leg fails as registered.</strong> The original run reported "90% within 10 years of joining," but that readout was mis-indexed to mid-join + <strong>20</strong> years; at the registered 10-year window the majority cohort holds <strong>0.78 of pioneer per-capita influence (seed 11: 0.76) — under the 0.80 bar.</strong> The SPEC is explicit that a (b) failure is a design-FAIL, so this is filed as one, bar unmoved. The shape of the miss matters: on the most lenient registered reading (10 years after the <em>last</em> majority joiner) the ratio is <strong>0.83</strong> (passes); the cohort first crosses 0.80 about <strong>11.7 years</strong> after mid-join (month 278); and by 20 years it reaches the originally-reported 0.90. So staggered-entry dilution <em>works</em> — every decay channel pulls the right direction — but roughly <strong>two years slower than the canon bar demands</strong>. The honest design question this opens (for the ratification queue, not for this run to settle): either the W_age/reputation decay dials need ~20% acceleration to meet the 10-year promise, or the canon's 10-year catch-up promise needs re-registering at ~12 years. The other three legs stand as originally reported: pioneers peak at <strong>~1.35× per-capita influence around year 13</strong> and decay to <strong>~1.03× by year 50</strong>; the pioneer cohort's aggregate influence share ends at <strong>12.0% against an 11.8% population share</strong> (1.02×, declining through decades 4–5). Wealthy families: converting early buys a real routing premium — <strong>1.20× composite at year 20</strong> — that <strong>melts to 0.80× by year 50</strong> as the non-yielding stock depletes (their spend ends at 0.4% of flow; their converted wealth ends at 8.9% of what outside compounding would have produced — that is consumption and floor-funding, not confiscation). Robust to doubling the wealth calibration (final 1.20×, still ≤1.5 and declining) and to equal-reweighting the influence composite (all four verdict legs unchanged). Mechanism, stated plainly: <strong>sortition equalizes governance on day one of joining; W_age decay and market growth dilute early standards; reputation decays to flow; and money can spend but cannot compound or purchase the other three channels.</strong> Early adopters shape the <em>early</em> years — the design then takes the lock-in away, on schedule.</p>
+<h2 id="finding-6-the-durable-penalty-is-staying-out-not-joining-late-t6">Finding 6 — The durable penalty is staying out, not joining late (T6)</h2>
+<p>Every catch-up result above has a mirror image: the never-cohort's gaps <strong>grow monotonically</strong> — real-income difference 0.45 → 0.70 (in units of outside median income), knowledge-stock difference and service-quality difference likewise. The honest nuance: the income <em>ratio</em> plateaus near <strong>1.43×</strong> once adoption saturates and the knowledge-stock ratio approaches its spillover-bound asymptote — outsiders keep receiving the 25% publication spillover, so they are left behind at a bounded <em>rate</em>, not immiserated. Joining late is recoverable (Findings 4–5); not joining is the one position that compounds against you.</p>
+<h2 id="finding-7-the-incentive-self-propagates-faster-than-the-script-t7">Finding 7 — The incentive self-propagates faster than the script (T7)</h2>
+<p>With waves off and imitation on, adoption crawls while payoffs are invisible, then S-curves: <strong>60% by year 10, 85% (the never-cap) by year 15–30</strong> — <em>faster</em> than the scripted waves, with pioneer payoff ordering intact (science 1.74×, influence integral 2.81×). Read with T5: the design threads the needle the owner asked about — early adoption pays enough to recruit itself, without the payment hardening into position.</p>
+<h2 id="build-notes-disclosure">Build notes (disclosure)</h2>
+<p>Four wiring/calibration issues were found and fixed between first execution and the final run; <strong>no bar thresholds changed</strong>. For the record, first-execution values and causes: (1) T0 seed gap 7.5% on the T2 headline — sampling noise at n_inst=1000; raised to 4,000 (variance control). (2) T3 raw CV (0.97 vs 1.35) conflated data-revenue <em>growth</em> with whiplash; replaced with the detrended estimator, which implements the registered intent ("grant-cycle whiplash vs data-revenue smoothness"). (3) T6 income ratio dipped −0.003 late because the floor was mis-specified as a constant; indexed to the essentials basket per canon. (4) The wealthy premium first printed 86× — a <strong>units bug</strong> (200 families held ~2 years of world income); calibrated to total family wealth = 10% of private wealth at 5× world annual income [X], with ×0.5/×2 robustness runs added. The T5(d) PASS is conditional on that calibration being sane; the <em>declining shape</em> is not (it holds at every tested scale).</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Purpose-built cohort cell, not the v6.8 engine: validated anchors (v6.4 rails, v7 machine-pay logic, Multigen inheritance) enter as calibrated components, so this run answers <em>timing</em> conditional on those results. Scripted waves are a causal instrument, not a forecast. The influence composite is a construct — verdicts survive reweighting, but a channel set to zero can't vote: <strong>the sponsorship-agenda channel (wealth steering research topics even when credit accrues to doers) is zeroed by canon reading and is the obvious successor cell</strong>. The outside world neither retaliates nor bans data exports. T4's catch-up speed is the ramp dial restated. All magnitudes are [X]-driven; decompositions, orderings, and shapes are the results. And everything downstream of "institutions pay for data" hangs on <strong>H1, the WTP field experiment</strong> — the program's standing hinge; this run sharpens what early adoption is worth <em>if</em> H1 lands.</p>
+<h2 id="bottom-line">Bottom line</h2>
+<p><strong>Two of the three owner questions come back yes; the third comes back "yes, but two years late" (re-scored July 10).</strong> Early science institutions out-discover the outside world, and the ablations prove it's the owner's mechanism doing the work: failures-as-paid-assets plus failures-as-public-knowledge account for the bulk of a 1.9× discovery advantage that survives a 1.5×-funded outside. Early governments run 26% cheaper from roughly month 24 and bank savings late joiners never recoup — though late joiners match the <em>rate</em> within two years, because rails don't care when you showed up. And early adopters do shape the early decades — a ~1.35× influence peak, a 1.2× premium for early money — with every dilution channel pulling the right way: by year 50 pioneers hold influence proportional to their headcount and wealthy families sit <em>below</em> the adopted mean. But at the registered 10-year checkpoint the majority cohort holds 0.78 of pioneer influence against the promised 0.80 — <strong>the dilution machinery is real and monotone, and it misses the canon's clock by about two years (T5 design-FAIL, F5)</strong>. First movers get momentum, nobody gets a throne — the throne just takes ~12 years to fully dissolve, not the promised 10.</p>
+<p><em>Run and written by the July 9, 2026 session (self-labeled Fable; per the owner's record this sitting ran as Opus 4.8 — see INDEX provenance note). Spec registered before code; failures-are-findings house rules; REPRODUCES under re-run byte-identity.</em></p>
+<p><em>Postscript, July 10, 2026 (Verification v4 action 4, executed by the Fable 5 verification session): T5(b) re-scored at its registered 10-year window (the original readout was mis-indexed to 20 years) — 0.78 vs the 0.80 bar, T5 now FAIL (F5), bar unmoved; T3 re-scored on year-15 readings (flow 74% PASS, cumulative 28%; the original "82% by year 15" was the end-of-run cumulative). Engine carries the correction notes; re-run reproduces byte-identically; all pre-existing JSON leaves outside the T3/T5 blocks verified unchanged. One further registered-scope note for the record: T1's fourth vector was registered as "wealthy families" but scored as an "influence" composite — the wealthy-family channel is covered under T5(d); flagged rather than re-coded.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v22-adoption-timing-first-movers-vs-late-joiners-0.json" download>⬇ results_v22.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

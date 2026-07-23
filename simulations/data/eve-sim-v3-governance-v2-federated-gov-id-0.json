@@ -1,0 +1,36 @@
+{
+  "override_quorum_gap_min_minority_pct": {
+    "turnout5pct": {
+      "no_quorum": 10.0,
+      "quorum50": 45.0
+    },
+    "turnout10pct": {
+      "no_quorum": 20.0,
+      "quorum50": 40.0
+    },
+    "turnout20pct": {
+      "no_quorum": 40.0,
+      "quorum50": 40.0
+    }
+  },
+  "delegation_apathy": {
+    "attacker_1p1v_share_no_delegation_pct": 40.0,
+    "attacker_1p1v_share_with_70pct_delegation_pct": 10.5
+  },
+  "identity_scheme_sybil_cost_x_population": {
+    "attestation only (~85%)": 13.3,
+    "biometric only (~92%)": 25.0,
+    "GOVERNMENT ID + biometric (~99%)": 200.0,
+    "gov ID + biometric, hardened (~99.5%)": 400.0
+  },
+  "captured_government": {
+    "governments_needed_to_forge_global_2_3": 21,
+    "share_of_world_population_needed_pct": 67,
+    "largest_single_government_pct": 16.7,
+    "single_government_contained": "yes \u2014 confined to its jurisdiction by subsidiarity"
+  },
+  "subsidiarity": {
+    "single_global_vote_targets": 1,
+    "federated_local_targets": "one per locality (capturing k of M localities controls only k/M of LOCAL decisions; global decisions still need the 2/3 escalation cascade)"
+  }
+}

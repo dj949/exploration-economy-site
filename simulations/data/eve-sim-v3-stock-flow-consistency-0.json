@@ -1,0 +1,11 @@
+{
+  "max_relative_residual": 2.0498815756161585e-16,
+  "consistent": true,
+  "minted_cum": 226239409.35691082,
+  "burned_cum": 25134268.30927299,
+  "M_final": 261105141.04763767,
+  "H_final": 253717958.76693034,
+  "Inst_final": 7387182.280707321,
+  "V_final": 0.0,
+  "Prot_final": 0.0
+}

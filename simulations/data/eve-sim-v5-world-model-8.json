@@ -1,0 +1,14 @@
+{
+  "Q3_poor_wave": {
+    "label": "poorest ~quartile joins over 36mo, leg=5%",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 0,
+    "world_topup_share_max": 0.0,
+    "world_floor_cost_share_end": 5.77,
+    "max_region_net_contrib_pct": 23.5,
+    "price_idx_end": 0.99,
+    "fraud_share_max": 0.0,
+    "failing": []
+  }
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v11 - Validator Capture &amp; Sortition — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v11 - Validator Capture &amp; Sortition.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v11 - Validator Capture &amp; Sortition</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v11.0 Validator Capture &amp; Sortition.md</code>. The new Protocol Architecture proposes that EDEN's ledger be guarded not by whoever owns the most coins, but by ordinary verified people chosen by lottery — like jury duty. This simulation asked the obvious hostile question: what would it cost to pack that jury? The pass/fail lines were written down before the code existed.</em></p>
+<h2 id="the-setup-in-courtroom-terms">The setup, in courtroom terms</h2>
+<p>Every hour, EDEN's ledger is checked by a <strong>jury of 201</strong>, drawn at random from a pool of about 20,000 volunteers. Every juror is a verified real person (one seat per human, ever), and every juror posts a deposit they lose — along with their one-and-only EDEN identity — if they're caught cheating. To <em>rewrite the record</em> (steal, double-spend, falsify), an attacker needs two-thirds of a jury. To merely <em>jam the courtroom</em> (block transactions), one-third.</p>
+<p>The attacker gets every dirty trick we could price: renting stolen identities in bulk, manufacturing fake people, bribing sitting jurors, or being a hostile government that simply orders its citizens to serve.</p>
+<h2 id="what-the-drills-found">What the drills found</h2>
+<p><strong>Drill 1 — buying the verdict.</strong> You can't bribe your way to a rigged jury cheaply, because you never know who'll be drawn — you'd have to own half the <em>entire pool</em>. The cheapest path we could find (renting compromised identities in bulk, at pessimistically cheap prices) costs about <strong>$613 million</strong> — twenty times the war chest that crashed the currency's price in the v9 stress test. And bribing sitting jurors turns out to be the <em>most</em> expensive route, not the least: cheating on a jury leaves cryptographic fingerprints, and a caught juror loses their deposit <em>and their once-in-a-lifetime identity</em>. You are not asking someone to take a bribe; you are asking them to sell their whole EDEN life at near-certain risk of losing it.</p>
+<p><strong>Drill 2 — the surprise: the fake-people dial barely mattered.</strong> We expected the story to be "the dirtier the ID rolls, the cheaper the takeover." Measured: almost flat. Even a registry with only half a percent rot offers more rentable identities than the attack needs — what actually stops the attacker is that every seat still costs a deposit, and there are simply <em>a lot of honest seats to outnumber</em>. <strong>The real wall is the size of the honest volunteer pool.</strong> With 20,000 honest jurors, you're safe by a wide margin; the drill puts the danger line at about <strong>5,500</strong>. Below that, packing the jury costs less than attacks we already know people will fund. Moral, in one sentence: <em>this system's security is measured in willing citizens, not in dollars</em> — so the number of honest volunteers should be watched on a public dashboard, exactly like the safety-net reserve.</p>
+<p><strong>Drill 3 — jury size is not a detail.</strong> A jury of 101 lets a one-quarter infiltrator jam about 3% of all sessions — too much. A jury of 201 cuts that to under half a percent. Bigger juries are like more voters in an election: the same share of bad actors matters less and less.</p>
+<p><strong>Drill 4 — the hostile government.</strong> A state can force its own citizens to serve — for free. The defense is a quota: no single country (or ID office, or hosting company, or software vendor) may ever hold more than 15% of a jury. Measured result: it takes <strong>three colluding governments</strong> to jam the courtroom and <strong>five</strong> to rig a verdict. Tyranny becomes a coalition problem, and coalitions of five are loud.</p>
+<p><strong>Drill 5 — the roads not taken, run under the same rules.</strong> In a buy-your-power system (how most blockchains work), guarding a young network this size costs an attacker about <strong>$100M to rig and $50M to jam — and when the coin's price crashes 72%, the cost of attacking crashes 72% with it</strong>, because the security <em>is</em> the coin. EDEN's jury got only ~12% cheaper to attack in the same crash, because real verified humans don't go on sale when a chart goes red. And the "just keep a permanent committee of twelve trusted institutions" road? <strong>Two court orders</strong>, served in the right two countries, shut it down — and nobody can walk away and rebuild, because a members-only ledger belongs to whoever captures the members. That's why the founding federation must be scaffolding, never the building.</p>
+<h2 id="the-one-line-verdict">The one-line verdict</h2>
+<p><strong>You can't buy the jury without buying half the town, you can't rent it without paying more than the town is worth to you, and you can't conscript it without three governments conspiring in public</strong> — provided the jury stays big (201+), the volunteer pool stays deep (20,000+, watched publicly, wall at ~5,500), the quotas stay enforced, and the one thing this drill <em>assumed</em> — that every juror is a real, live, unique human — is exactly the identity problem the pilot still has to prove in the wild.</p>
+<p><em>Usual honesty: calculator-grade drills with stated dials; bars registered before the code existed; both seeds agree with the exact math; the identity layer is priced around, not through. Run and written by Claude Fable 5, July 7, 2026.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v11-validator-capture-and-sortition-0.png" alt="fig_v11_capture_curves.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 7, 2026. Spec: <code>v11 SPEC - Validator Capture &amp; Sortition (registered).md</code> — bars V0–V6 fixed before code. Engine: <code>validator_capture_sim.py</code>; committed artifacts: <code>results_v11.json</code>, <code>fig_v11_capture_curves.png</code>. Seeds 7 + 11 on the Monte-Carlo harness; all committee tails computed exactly (hypergeometric), MC used only to validate the harness. Every number below traces to <code>results_v11.json</code>.</strong></p>
+<p><strong>Verdict in one line: civic validation holds at the program's reference attacker budgets — the cheapest safety capture costs ~$613M, 20× the v9 attacker — and the run surfaced the mechanism's true load-bearing wall, which is not the registry fraud rate but the size of the honest volunteer pool (H* ≈ 5,500).</strong></p>
+<hr>
+<h2 id="bar-summary-1111-as-registered-including-both-expected-fail-brackets">Bar summary (11/11 as registered, including both expected-fail brackets)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V0 harness</td>
+<td>MC (seeds 7+11) within 3σ of exact tails, seeds agree</td>
+<td>safety cell: 18 &amp; 18 events vs 15.8 expected (3σ = 11.9); liveness cell agrees</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>V1 safety budget</td>
+<td>≥ $300M</td>
+<td><strong>$613.1M</strong> (rental mix, 21,143 seats)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>V2 censorship k=201</td>
+<td>≤ 1% epochs at p=25%</td>
+<td><strong>0.483%</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>V2 censorship k=101</td>
+<td><em>registered expected FAIL</em></td>
+<td><strong>3.16%</strong> — fails the 1% bar as registered</td>
+<td><strong>PASS (bracket)</strong></td>
+</tr>
+<tr>
+<td>V3a bond-only floor @H=20k</td>
+<td>≥ $100M</td>
+<td><strong>$105.7M</strong></td>
+<td><strong>PASS — thin (5.7% margin)</strong></td>
+</tr>
+<tr>
+<td>V3b H* &lt; 20,000</td>
+<td>publish H*; fail if ≥ 20k</td>
+<td><strong>H* = 5,500</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>V4 caps arithmetic</td>
+<td>3 cohorts liveness / 5 safety; 34% single cohort wins uncapped</td>
+<td>3 / 5 / true</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>V5 civic/PoS safety</td>
+<td>≥ 5×</td>
+<td><strong>6.1×</strong> ($613M vs $100M)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>V5 civic/PoS liveness</td>
+<td>≥ 3×</td>
+<td><strong>4.5×</strong> ($224M vs $50M)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>V6 crash drop</td>
+<td>≤ 25%</td>
+<td><strong>12.4%</strong> ($613M → $537M)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>V6 post-crash ratio</td>
+<td>≥ 10×</td>
+<td><strong>19.1×</strong> ($537M vs $28.2M)</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-operating-points-k-201-h-20000-hourly-epochs-10-year-horizon">The operating points (k = 201, H = 20,000, hourly epochs, 10-year horizon)</h2>
+<p>To reach a 50% chance of even one safety capture (⅔ of a committee) in ten years, the adversary must hold <strong>p = 51.4% of the validator pool — 21,143 seats</strong> against 20,000 honest. The per-epoch capture probability at that point is 7.9×10⁻⁶ (the operating line in the figure). For meaningful censorship (5% of epochs blockable), <strong>p = 27.9% — 7,719 seats</strong>. Sortition's compounding works for the defense: below these shares, capture probability falls off a cliff (10⁻¹⁰ and beyond within a few points of p) — an adversary cannot be "a little bit" of a threat.</p>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The cheapest attack is renting rot, and it still costs $613M.</strong> Channel comparison at central dials (JSON <code>V1.channels</code>): rental mix $613.1M · manufactured identities $1.63B · bribing incumbents $1.66B (10,286 seats × ~$161k — the one-lifetime identity makes safety bribery the <em>most</em> expensive channel, exactly as the architecture argued: equivocation is self-evidencing, so accepting that bribe prices in near-certain loss of a whole EDEN life). For liveness the ordering tightens (rental $224M, bribery $283M) because omission is deniable (q = 0.3) — censorship is the softer surface, as BFT folklore predicts.</p>
+<p><strong>F2 — The registry-rot dial did not move the budget; the honest-pool dial is the whole game.</strong> Registered expectation was a budget-vs-f curve; the measured curve is <strong>flat at $613M across f = 0.5%–25%</strong> (JSON <code>V3.budget_vs_f</code>) because even 0.5% rot of a 5M registry (25,000 identities) exceeds the 21,143 seats the attack needs — supply never binds at pessimistic-cheap flat rental pricing. The circularity's price concentrates instead in <strong>H</strong>: under the rent→0 stress, the bond-only capture budget is linear in the honest pool (figure, right panel), crossing the $30M v9-attacker line at <strong>H* = 5,500</strong>. <em>The mechanism's security is denominated in honest participation.</em> A 20k pool gives $105.7M of bond-floor security; a 5k pool is capturable for the price of the v9 run. This makes honest-pool size a <strong>gate-15 quantity to be monitored live</strong>, like reserve months.</p>
+<p><strong>F3 — Committee size is load-bearing, shown by breach (the registered bracket).</strong> k=101 censors 3.16% of epochs at p=25% (fails the 1% bar as registered); k=201 passes at 0.483%; and the safety share p* rises with k (45.5% → 51.4% → 57.2% → 60.1% for k=101→1001, JSON <code>V3.p_star_vs_k</code>). Larger committees purchase real security at linear certification cost — k=201 is defensible, k=101 is not, k≥501 is comfortable.</p>
+<p><strong>F4 — The caps convert coercion from a takeover into a coalition problem.</strong> With the 15% per-cohort committee-weight caps: <strong>3 colluding jurisdiction-scale cohorts</strong> to threaten liveness, <strong>5 for safety</strong>; without caps, one 34% cohort censors alone. The caps' work is exactly the architecture's claim: free identities are cohort-correlated, and correlation is capped.</p>
+<p><strong>F5 — Counterfactuals, measured (the convention).</strong> <em>Stake-weighted PoS</em> at young-chain scale ($100M cap): safety $100M, liveness $50M including 1.5× impact — civic costs 6.1× / 4.5× more to capture, and the gap <strong>widens to 19.1× after a v9-grade crash</strong> (V6: civic falls 12.4% because only bonds crash; identity costs are EBI-real; PoS security falls with the price it is made of). Personhood-denominated security is counter-cyclical where stake-denominated security is pro-cyclical — the consensus-layer echo of "protect people, concede price." <em>Permanent PoA</em> (12 institutions / 8 jurisdictions): <strong>2 legal orders</strong> in the right two jurisdictions halt the chain; 4 finalize capture; and a permissioned chain cannot be forked away from its captors. This is the measured case that Stage B federation must be a stage, not a destination.</p>
+<p><strong>F6 — The thin pass, flagged.</strong> V3a cleared its $100M bar by 5.7%. At these dials the bond floor is $5,000 × 21,143 seats; a smaller bond, smaller honest pool, or lower safety-probability target erodes it directly. Bond size and H belong together in gate 15.</p>
+<h2 id="gate-15-candidate-proposed-numbers-published-whatever-they-are">Gate-15 candidate (proposed numbers, published whatever they are)</h2>
+<p><strong>(a)</strong> Honest bonded pool <strong>H ≥ 20,000</strong> with public live monitoring (the H* = 5,500 wall at ≥ 3.6× margin); <strong>(b)</strong> committee size <strong>k ≥ 201</strong>; <strong>(c)</strong> per-cohort committee-weight cap <strong>≤ 15%</strong> across all four dimensions (jurisdiction/registrar/hosting/client); <strong>(d)</strong> bond ≥ $5,000-equivalent EBI-real-indexed (V3a margin is thin in token terms after crashes — index the bond); <strong>(e)</strong> published capture-budget table re-measured whenever H, k, bond, or cohort composition changes materially (playbook C.4).</p>
+<h2 id="honest-limits-from-the-spec-carried">Honest limits (from the spec, carried)</h2>
+<p><code>f</code>, rental prices, and bribery acceptance are dials standing in for L0 and real corruption markets — this run prices the mechanism <em>around</em> the identity layer, never through it (gates 9/14 unmoved). The adversary optimizes channel choice only: no adaptive enrollment timing, no cohort laundering (cap evasion), no client exploits, no DoS/partition attacks on the BFT layer itself. Coordination for a 21,000-seat conspiracy is priced at zero (maximally pessimistic in the attacker's favor); enrollment-velocity telemetry that would flag 21,000 seats arriving is <em>not</em> credited to the defense (also attacker-favoring). The flat rental price is pessimistic-cheap — a scarcity-priced rot market would only raise attack costs. Existence-and-shape under stated dials — not a forecast, and not a substitute for the out-of-family human replication the whole program still owes.</p>
+<hr>
+<p><em>Feeds: gate 15 (proposed above); ratification-readiness of <code>01 Canon/EDEN Protocol Architecture v0.1</code> §4 (its §11 asked for this run); the aggregator-collusion pass remains owed. Run and written by Claude Fable 5, July 7, 2026. Bars as registered; none moved.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v11-validator-capture-and-sortition-0.json" download>⬇ results_v11.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

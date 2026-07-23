@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Governance v2 (Federated + Gov ID) — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Governance v2 (Federated + Gov ID).">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Governance v2 (Federated + Gov ID)</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Governance v2 (Federated + Gov ID)</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>The first governance model assumed a single global vote — one thing to seize. This second model encodes the richer design: decisions local by default with an escalating 2/3 override cascade, delegation for everyday votes (but not overrides), and identity anchored in government legal ID plus EDEN biometrics. Does the richer design hold up better, and what new risks does it buy?</p>
+<h2 id="what-we-found">What we found</h2>
+<p>Four results, each on its own axis. <strong>Subsidiarity removes the single global lever:</strong> capturing some localities controls only those local decisions, and global change still means clearing the cascade — the attack surface goes from "one vote captures everything" to "capture each community, one at a time." <strong>Delegation solves ordinary apathy:</strong> at a weak 15% turnout with 10% of identities undetected fakes, an attacker holds 40% of the person-vote house with no delegation (past the 1/3 veto line) but only 10.5% when 70% of citizens delegate — and the pooling risk delegation creates is exactly why it stays forbidden on the high-stakes overrides. <strong>The key finding is the override quorum gap:</strong> "2/3 of active voters" with no turnout floor gets <em>easier</em> under apathy — at 5% turnout a 10% faction of the population can overturn a local decision, while adding a 50% turnout quorum raises that bar to ~45% (above ~17% turnout the quorum adds little; its whole job is stopping apathy-exploitation). Recommendation: require 2/3 of active votes <em>and</em> a turnout quorum, rising with each ring. <strong>And government-anchored identity makes sybil capture infeasible:</strong> the fakes needed to capture a ring go from 13× the honest population (attestation-only, ~85% detection) to 200× with government ID plus biometrics (~99%), 400× hardened (~99.5%) — before stake-tied-to-residency raises it further.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Government identity adds a government-trust dependency, and the run is explicit about it. A captured government forging IDs is contained by federation: it mainly corrupts its own local votes, and forging a global 2/3 would take governments summing to two-thirds of world population (≈21 of ~50 jurisdictions; the largest single one, ~17%, falls far short). A government <em>denying</em> IDs is a chokepoint risk — hence the requirement of multiple independent attestors plus a non-government fallback path. Privacy requires the zero-knowledge personhood the white paper already specifies (prove "one unique, attested human" without revealing which). And the model is analytic with illustrative parameters: no vote-buying, no off-chain coordination, no simulated cascade dynamics over time, no model of who classifies a decision's scope — and detection quality remains exogenous, because actually building and securing the identity layer is the real-world work.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Local-by-default governance, delegation for the everyday, a turnout quorum on overrides, and identity anchored in government ID plus biometrics move capture from expensive to practically impossible (fake 200–400× the entire population) — at the price of a government-trust dependency that federation, multiple attestors, a fallback path, and zero-knowledge privacy have to contain.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Subsidiarity</strong> — decisions made at the most local level that can handle them; the design's point is that there is no single global lever to seize. <strong>Override cascade</strong> — the escalation ladder: a wider community can overrule a narrower one only by clearing the 2/3 bar, ring by ring. <strong>Quorum</strong> — the minimum turnout for a vote to count; without one, "2/3 of whoever shows up" gets easier the fewer show up. <strong>Sybil</strong> — one person pretending to be many accounts; sybil capture means winning votes with fake people. <strong>Attestation / attestor</strong> — a signed, checkable claim that something is true (here, "this is one real, unique person") and the party who signs it. <strong>Federation / federated</strong> — split into semi-independent regional units, so a corrupted government mainly poisons its own local votes. <strong>Stake</strong> — a posted deposit that can be lost, tying a voter's skin to the game (here, tied to residency). <strong>Exogenous</strong> — fed in from outside rather than produced by the model: detection quality is assumed, because building the identity layer is real-world work. <strong>Analytic</strong> — worked out with formulas rather than simulated over time.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-governance-v2-federated-gov-id-0.png" alt="fig_governance_v2.png">
+<p class="eyebrow">Technical results</p>
+<p><em>A second governance model encoding Devan's richer design: subsidiarity (local-by-default with an escalating override cascade), delegation/liquid democracy, a government-backed identity layer, and the turnout-quorum fix. Supersedes the single-global-vote v1 model, which is now just the top ring of the cascade. Files in this folder.</em></p>
+<hr>
+<h2 id="modeling-assumptions-correct-me-if-any-are-off">Modeling assumptions (correct me if any are off)</h2>
+<ul>
+<li><strong>Subsidiarity:</strong> decisions are local by default; a decision escalates only when it spills beyond the locality, and each larger ring can override the smaller one <strong>only at a 2/3 supermajority</strong>, with a still-larger ring able to re-override at 2/3, up to the world.</li>
+<li><strong>Delegation</strong> is allowed for ordinary/local votes (raising effective turnout) but <strong>forbidden for the escalating overrides</strong> (to prevent delegate collusion) — overrides require active votes.</li>
+<li><strong>Identity</strong> = a government legal-ID layer (SSN / national ID) <strong>plus</strong> EDEN biometric uniqueness (two-factor). This is modeled as a high sybil-<strong>detection</strong> rate.</li>
+<li>Votes are tied to local stake (residency/ownership), and the world has many independent government attestors (~50 jurisdictions, top-heavy by population).</li>
+</ul>
+<h2 id="1-subsidiarity-removes-the-single-global-lever">1. Subsidiarity removes the single global lever</h2>
+<p>The v1 model assumed one global electorate — one thing to seize. Under subsidiarity there is no global prize for most of governance: capturing <code>k</code> of <code>M</code> localities controls only <code>k/M</code> of <strong>local</strong> decisions, and global decisions still require clearing the 2/3 escalation cascade. The attack surface goes from "one vote to capture everything" to "capture each community you care about, one at a time." That is a structural anti-capture gain, and it matches the established logic of federalism (match a decision's scope to whom it affects).</p>
+<h2 id="2-delegation-solves-ordinary-apathy">2. Delegation solves ordinary apathy</h2>
+<p>For everyday votes, letting non-voters delegate to a block raises the effective electorate. With a weak 15% natural turnout and 10% of identities undetected-fake, the attacker's share of the one-person-one-vote house is:</p>
+<ul>
+<li><strong>40%</strong> with no delegation (dangerous — past the 1/3 veto threshold), vs</li>
+<li><strong>10.5%</strong> when 70% of citizens delegate their vote.</li>
+</ul>
+<p>Delegation directly closes the apathy soft spot the v1 brief flagged — for ordinary governance. The residual risk it introduces (power pooling in popular delegate-blocks, a bribery/coercion target) is exactly why <strong>forbidding delegation on the high-stakes overrides</strong> is the right call.</p>
+<h2 id="3-the-override-quorum-gap-the-key-finding">3. The override quorum gap — the key finding</h2>
+<p>Devan's goal is that overriding a local decision should be <strong>hard</strong>. But "2/3 of <em>active</em> voters" with no turnout floor makes it <em>easier</em> under apathy, because two-thirds of a small active electorate is a small slice of the population. The smallest minority that can force an override:</p>
+<table>
+<thead>
+<tr>
+<th>Honest voluntary turnout</th>
+<th style="text-align: right;">"2/3 of active" (no quorum)</th>
+<th style="text-align: right;">2/3 of active <strong>+ 50% turnout quorum</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5%</td>
+<td style="text-align: right;"><strong>10%</strong> of the population</td>
+<td style="text-align: right;">45%</td>
+</tr>
+<tr>
+<td>10%</td>
+<td style="text-align: right;"><strong>20%</strong></td>
+<td style="text-align: right;">40%</td>
+</tr>
+<tr>
+<td>20%</td>
+<td style="text-align: right;">40%</td>
+<td style="text-align: right;">40%</td>
+</tr>
+</tbody>
+</table>
+<p>Without a quorum, at 5% turnout a <strong>10% faction</strong> can overturn a local decision; the quorum raises that bar to ~45%. Above ~17% turnout the 2/3 rule is already strong and the quorum adds little — so the quorum's whole job is to <strong>stop apathy-exploitation</strong>, exactly when it's needed. <strong>Recommendation:</strong> require "2/3 of active votes <strong>and</strong> a turnout quorum," and let the quorum (or the supermajority) <strong>rise with each ring</strong> — so overriding a wider community's self-determination demands proportionally broader participation. That operationalizes "difficult to overturn, especially when it impacts more than the small community."</p>
+<h2 id="4-government-backed-identity-makes-sybil-capture-infeasible">4. Government-backed identity makes sybil capture infeasible</h2>
+<p>Anchoring identity in the existing government layer (legal ID) <strong>and</strong> EDEN biometrics pushes sybil detection to the high regime, and the cost of capturing a one-person-one-vote ring explodes with it. Fakes an attacker must field, <strong>as a multiple of the entire honest population</strong>, to capture a ring (2/3):</p>
+<table>
+<thead>
+<tr>
+<th>Identity scheme</th>
+<th style="text-align: right;">Detection</th>
+<th style="text-align: right;">Fakes needed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Attestation only</td>
+<td style="text-align: right;">~85%</td>
+<td style="text-align: right;">13×</td>
+</tr>
+<tr>
+<td>Biometric only</td>
+<td style="text-align: right;">~92%</td>
+<td style="text-align: right;">25×</td>
+</tr>
+<tr>
+<td><strong>Government ID + biometric</strong></td>
+<td style="text-align: right;">~99%</td>
+<td style="text-align: right;"><strong>200×</strong></td>
+</tr>
+<tr>
+<td>Government ID + biometric, hardened</td>
+<td style="text-align: right;">~99.5%</td>
+<td style="text-align: right;"><strong>400×</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Government two-factor identity moves capture from "expensive" to <strong>"fake 200–400× the entire population"</strong> — i.e., infeasible — and that's <em>before</em> the stake-tied-to-residency requirement raises it further. This is the cleanest realistic path to solving the project's hardest unsolved problem (proof-of-unique-personhood): <strong>leverage the legal-identity integrity that already exists, and enhance it with biometrics for in-ecosystem uniqueness.</strong> It also gives governments a concrete role and reason to adopt EDEN — they become the trusted identity layer of a transparent economy, rather than being bypassed by it.</p>
+<h2 id="5-the-tradeoff-and-why-federation-contains-it">5. The tradeoff — and why federation contains it</h2>
+<p>Government identity adds a <strong>government-trust dependency</strong>. The honest risks, and the design answers:</p>
+<ul>
+<li><strong>A captured/coerced government forging fake IDs (state-level sybils).</strong> Contained by federation: a captured government can only forge identities in <em>its</em> jurisdiction — which, by subsidiarity, mainly affects <em>its own</em> local votes. To forge a <strong>global</strong> 2/3 vote, an attacker would have to capture governments summing to <strong>2/3 of world population (≈21 of ~50 jurisdictions)</strong>. The largest single government (~17% of world population here) falls far short. No single government can capture the system.</li>
+<li><strong>A government denying IDs (disenfranchisement).</strong> A government could exclude its people from EDEN. <strong>Requirement:</strong> multiple independent attestors plus a non-government fallback identity path, so no single government is a chokepoint for <em>access</em>.</li>
+<li><strong>Privacy.</strong> Linking a national ID to on-chain activity is unacceptable; the resolution is the same zero-knowledge personhood the white paper already specifies — prove "one unique, government-attested, biometrically-distinct human" without revealing <em>which</em> human on the ledger.</li>
+</ul>
+<h2 id="net-effect-on-the-governance-conclusions">Net effect on the governance conclusions</h2>
+<p>The richer design is materially more capture-resistant than the single global vote v1 modeled, on three independent axes: <strong>subsidiarity</strong> shrinks the target, <strong>delegation</strong> solves ordinary apathy, and <strong>government-anchored identity</strong> makes sybil capture infeasible while giving governments a reason to adopt. The one genuinely new thing to <em>add</em> is the <strong>turnout quorum on overrides</strong> (rising by ring); the one thing to <em>guard</em> is the government-trust dependency, which federation + multi-attestor + ZK privacy + a fallback path contain. The through-line of the whole modeling program holds and is now strongest here: <strong>identity integrity is the crux for governance — and a government-plus-biometric layer is a credible way to actually get it.</strong></p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Mostly analytic/closed-form, like v1. Turnout, delegation rates, sybil-detection, and government-population shares are illustrative parameters, not estimates. It doesn't model vote-buying/bribery of honest voters, off-chain coordination, the dynamics of the escalation cascade over time (oscillation/contention between rings — damped by the 2/3 bars and timelock, but not simulated), or the <em>classification</em> of a decision's scope (who decides when something escalates — itself a governance act that should be formula-driven). Detection quality remains exogenous — the government+biometric layer is <em>how</em> you reach high detection, but building and securing it (and its ZK privacy) is the real-world work. Audience: governance designers, crypto reviewers, and prospective government partners.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>governance_v2_sim.py</code> — the federated/delegated/gov-ID model and all thresholds</li>
+<li><code>fig_governance_v2.png</code> — the override quorum gap; sybil cost by identity scheme</li>
+<li><code>results_governance_v2.json</code> — all figures</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-governance-v2-federated-gov-id-0.json" download>⬇ results_governance_v2.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

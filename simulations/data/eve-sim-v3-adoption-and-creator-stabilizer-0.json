@@ -1,0 +1,70 @@
+{
+  "table": {
+    "external|fast (50% @ yr2)": {
+      "peak_floor_pct": 22.5,
+      "peak_subsidy_pct": 13.3,
+      "yr_selffunded": 1.25,
+      "infl_10yr": -0.22,
+      "p10_min": 1.1,
+      "p10_yr15": 1.181
+    },
+    "external|medium (50% @ yr3.5)": {
+      "peak_floor_pct": 24.3,
+      "peak_subsidy_pct": 15.5,
+      "yr_selffunded": 2.42,
+      "infl_10yr": -0.4,
+      "p10_min": 1.1,
+      "p10_yr15": 1.181
+    },
+    "external|slow (50% @ yr5)": {
+      "peak_floor_pct": 24.5,
+      "peak_subsidy_pct": 15.8,
+      "yr_selffunded": 3.42,
+      "infl_10yr": -0.6,
+      "p10_min": 1.1,
+      "p10_yr15": 1.181
+    },
+    "mint|fast (50% @ yr2)": {
+      "peak_floor_pct": 22.5,
+      "peak_subsidy_pct": 13.3,
+      "yr_selffunded": 1.25,
+      "infl_10yr": -0.21,
+      "p10_min": 1.1,
+      "p10_yr15": 1.181
+    },
+    "mint|medium (50% @ yr3.5)": {
+      "peak_floor_pct": 24.3,
+      "peak_subsidy_pct": 15.5,
+      "yr_selffunded": 2.42,
+      "infl_10yr": -0.38,
+      "p10_min": 1.1,
+      "p10_yr15": 1.181
+    },
+    "mint|slow (50% @ yr5)": {
+      "peak_floor_pct": 24.5,
+      "peak_subsidy_pct": 15.8,
+      "yr_selffunded": 3.42,
+      "infl_10yr": -0.57,
+      "p10_min": 1.1,
+      "p10_yr15": 1.181
+    }
+  },
+  "mint_inflation_vs_launch_money_stock": {
+    "6": {
+      "infl_10yr": -0.05,
+      "p10_min": 1.099
+    },
+    "12": {
+      "infl_10yr": -0.23,
+      "p10_min": 1.1
+    },
+    "24": {
+      "infl_10yr": -0.33,
+      "p10_min": 1.1
+    },
+    "60": {
+      "infl_10yr": -0.38,
+      "p10_min": 1.1
+    }
+  }
+}

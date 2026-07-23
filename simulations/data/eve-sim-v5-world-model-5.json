@@ -1,0 +1,44 @@
+{
+  "Q5_rich_first": {
+    "label": "adoption=rich_first",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 0,
+    "world_topup_share_max": 0.0,
+    "world_floor_cost_share_end": 0.2,
+    "max_region_net_contrib_pct": 33.6,
+    "price_idx_end": 0.952,
+    "fraud_share_max": 0.0,
+    "failing": [],
+    "subsidy_share_mean_first5yr": 0.0,
+    "subsidy_months_gt_1pct": 0
+  },
+  "Q5_poor_first": {
+    "label": "adoption=poor_first",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 0,
+    "world_topup_share_max": 4.5,
+    "world_floor_cost_share_end": 0.18,
+    "max_region_net_contrib_pct": 19.5,
+    "price_idx_end": 0.938,
+    "fraud_share_max": 0.0,
+    "failing": [],
+    "subsidy_share_mean_first5yr": 0.15,
+    "subsidy_months_gt_1pct": 2
+  },
+  "Q5_organic": {
+    "label": "adoption=organic",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 0,
+    "world_topup_share_max": 0.0,
+    "world_floor_cost_share_end": 0.18,
+    "max_region_net_contrib_pct": 30.9,
+    "price_idx_end": 0.952,
+    "fraud_share_max": 0.0,
+    "failing": [],
+    "subsidy_share_mean_first5yr": 0.0,
+    "subsidy_months_gt_1pct": 0
+  }
+}

@@ -1,0 +1,208 @@
+{
+ "spec": "v24 SPEC - Carry-Cost Design (registered).md",
+ "ess_basket_mo": 600.0,
+ "per_config": {
+  "A0_none": {
+   "low": {
+    "circulation_index": 0.10289392540201198,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.0,
+    "top10_effective_rate": 0.0,
+    "top10_burden_share": 0.0,
+    "total_collected_usd": 0.0
+   },
+   "mid": {
+    "circulation_index": 0.10289392540201198,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.0,
+    "top10_effective_rate": 0.0,
+    "top10_burden_share": 0.0,
+    "total_collected_usd": 0.0
+   },
+   "high": {
+    "circulation_index": 0.10289392540201198,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.0,
+    "top10_effective_rate": 0.0,
+    "top10_burden_share": 0.0,
+    "total_collected_usd": 0.0
+   }
+  },
+  "A1_flat": {
+   "low": {
+    "circulation_index": 0.18826485575638152,
+    "median_burden_pct_wealth": 0.02813372732517581,
+    "median_burden_usd": 67.31436179752004,
+    "frac_paying_over_0p5pct": 0.674865,
+    "top10_effective_rate": 0.05000000000000001,
+    "top10_burden_share": 0.6788245623395558,
+    "total_collected_usd": 38360740.007486
+   },
+   "mid": {
+    "circulation_index": 0.3013330866049727,
+    "median_burden_pct_wealth": 0.02813372732517581,
+    "median_burden_usd": 67.31436179752004,
+    "frac_paying_over_0p5pct": 0.674865,
+    "top10_effective_rate": 0.05000000000000001,
+    "top10_burden_share": 0.6788245623395558,
+    "total_collected_usd": 38360740.007486
+   },
+   "high": {
+    "circulation_index": 0.4558776607418714,
+    "median_burden_pct_wealth": 0.02813372732517581,
+    "median_burden_usd": 67.31436179752004,
+    "frac_paying_over_0p5pct": 0.674865,
+    "top10_effective_rate": 0.05000000000000001,
+    "top10_burden_share": 0.6788245623395558,
+    "total_collected_usd": 38360740.007486
+   }
+  },
+  "A2_progressive": {
+   "low": {
+    "circulation_index": 0.16351643267226085,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.27664,
+    "top10_effective_rate": 0.047830269820037366,
+    "top10_burden_share": 0.9147341998918326,
+    "total_collected_usd": 27233715.380861014
+   },
+   "mid": {
+    "circulation_index": 0.24398572620848513,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.27664,
+    "top10_effective_rate": 0.047830269820037366,
+    "top10_burden_share": 0.9147341998918326,
+    "total_collected_usd": 27233715.380861014
+   },
+   "high": {
+    "circulation_index": 0.3548963328562601,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.27664,
+    "top10_effective_rate": 0.047830269820037366,
+    "top10_burden_share": 0.9147341998918326,
+    "total_collected_usd": 27233715.380861014
+   }
+  },
+  "A3_exemption": {
+   "low": {
+    "circulation_index": 0.16146338749766692,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.22664499999999999,
+    "top10_effective_rate": 0.044095102779010964,
+    "top10_burden_share": 0.8794075540619333,
+    "total_collected_usd": 26114686.409481205
+   },
+   "mid": {
+    "circulation_index": 0.24058869834701363,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.22664499999999999,
+    "top10_effective_rate": 0.044095102779010964,
+    "top10_burden_share": 0.8794075540619333,
+    "total_collected_usd": 26114686.409481205
+   },
+   "high": {
+    "circulation_index": 0.35229985705121514,
+    "median_burden_pct_wealth": 0.0,
+    "median_burden_usd": 0.0,
+    "frac_paying_over_0p5pct": 0.22664499999999999,
+    "top10_effective_rate": 0.044095102779010964,
+    "top10_burden_share": 0.8794075540619333,
+    "total_collected_usd": 26114686.409481205
+   }
+  },
+  "A4_inflation_only": {
+   "low": {
+    "circulation_index": 0.14126854043371379,
+    "median_burden_pct_wealth": 0.02,
+    "median_burden_usd": 47.83061435366252,
+    "frac_paying_over_0p5pct": 1.0,
+    "top10_effective_rate": 0.020403177472212826,
+    "top10_burden_share": 0.6212543561863644,
+    "total_collected_usd": 17104127.161134444
+   },
+   "mid": {
+    "circulation_index": 0.195586706170004,
+    "median_burden_pct_wealth": 0.02,
+    "median_burden_usd": 47.83061435366252,
+    "frac_paying_over_0p5pct": 1.0,
+    "top10_effective_rate": 0.020403177472212826,
+    "top10_burden_share": 0.6212543561863644,
+    "total_collected_usd": 17104127.161134444
+   },
+   "high": {
+    "circulation_index": 0.2782792022962968,
+    "median_burden_pct_wealth": 0.02,
+    "median_burden_usd": 47.83061435366252,
+    "frac_paying_over_0p5pct": 1.0,
+    "top10_effective_rate": 0.020403177472212826,
+    "top10_burden_share": 0.6212543561863644,
+    "total_collected_usd": 17104127.161134444
+   }
+  },
+  "A5_autolock": {
+   "low": {
+    "circulation_index": 0.11441824173351256,
+    "median_burden_pct_wealth": 0.007675311179422942,
+    "median_burden_usd": 67.31436179752004,
+    "frac_paying_over_0p5pct": 0.570715,
+    "top10_effective_rate": 0.001728210225380277,
+    "top10_burden_share": 0.17855685415408862,
+    "total_collected_usd": 5040413.714553904
+   },
+   "mid": {
+    "circulation_index": 0.1307726322514992,
+    "median_burden_pct_wealth": 0.007675311179422942,
+    "median_burden_usd": 67.31436179752004,
+    "frac_paying_over_0p5pct": 0.570715,
+    "top10_effective_rate": 0.001728210225380277,
+    "top10_burden_share": 0.17855685415408862,
+    "total_collected_usd": 5040413.714553904
+   },
+   "high": {
+    "circulation_index": 0.15581815686705708,
+    "median_burden_pct_wealth": 0.007675311179422942,
+    "median_burden_usd": 67.31436179752004,
+    "frac_paying_over_0p5pct": 0.570715,
+    "top10_effective_rate": 0.001728210225380277,
+    "top10_burden_share": 0.17855685415408862,
+    "total_collected_usd": 5040413.714553904
+   }
+  }
+ },
+ "bar_summary": {
+  "M1_circulation": {
+   "A1_flat": true,
+   "A2_progressive": true,
+   "A3_exemption": true,
+   "A4_inflation_only": true,
+   "A5_autolock": false
+  },
+  "M2_ordinary_spared": {
+   "A1_flat": false,
+   "A2_progressive": true,
+   "A3_exemption": true,
+   "A4_inflation_only": false,
+   "A5_autolock": false
+  },
+  "M3_hoard_deterrence": {
+   "A1_flat": true,
+   "A2_progressive": true,
+   "A3_exemption": true,
+   "A4_inflation_only": false,
+   "A5_autolock": false
+  },
+  "M4_dominating_gentle_config": [
+   "A2_progressive",
+   "A3_exemption"
+  ],
+  "M4_pass": true
+ }
+}

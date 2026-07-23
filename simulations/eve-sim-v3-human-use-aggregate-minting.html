@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Human-Use Aggregate Minting — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Human-Use Aggregate Minting.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Human-Use Aggregate Minting</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Human-Use Aggregate Minting</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>When a human researches in EDEN, their engaged time mints a bounded pot of EVE that is split among the data the answer actually drew on — a small discovery pool (10%) shared by everything retrieved, a large grounding pool (90%) split by how load-bearing each source was. Human use is free to the searcher, the mint goes to the sources, and the total is capped by human attention, so it can't run away. Does the mechanism stay sane — and can data alone be a living? (All numbers illustrative; essentials set at 200 EVE/month, floor at 220.)</p>
+<h2 id="what-we-found">What we found</h2>
+<p>It stays sane, and the honest income answer is "supplement, not salary — by design." One 90-minute deep session mints 1.50 EVE across 3,000 retrieved candidates and 200 actually-grounded sources: the top source earns 0.230 EVE, a median grounded source 0.0023, a merely-retrieved one 0.00005. Covering a month's floor from this channel alone means being the <em>top</em> source in ~960 deep sessions a month (~32 a day), or a median source in ~94,000. Across a 20,000-person population, median data income runs from 21 EVE/month (11% of essentials, no AI demand) to 148 EVE/month (74%, high AI demand) — AI paying to mine data at scale is the engine that makes universal data income possible. Raw data income is very unequal (Gini 0.66), but the floor collapses that to 0.04–0.45, and the more AI demand lifts people on its own, the less compression the floor has to do. The tiered usage-decay delivers the anti-concentration property by construction: a billion uses of one data point earns ~14 EVE (logarithmic compression), a trillion ~10,004 (the flat floor rate); and an early sharer's 300,000-use head start shrinks ~400× (1.20 EVE down to 0.003) while never going negative — early contributors stay permanently ahead, but the gap stops compounding. The Matthew effect, defused at the mechanism level.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>"61–96% below the floor on data alone" is <strong>not</strong> a poverty rate: this sim isolates the data channel only, real participants also earn from everything else they make (content, tools, services, creative work), and the floor at 1.10× essentials sits under all channels combined. Everything here is illustrative and steady-state — AI demand is a scenario multiple, not a forecast, and the usage-concentration exponent (α = 1.3), research-hours distribution, essentials level, 10/90 split, and Zipf grounding weights are assumptions, not measurements. One design note: because the floor rate is flat, truly ubiquitous data is never capped — probably fine, but let the floor decay or cap it if you want hard compression. And the single number that decides whether data income is a rounding error or most of a living — real AI willingness-to-pay — is a pilot question (Stage 4 of the Validation &amp; Testing Plan).</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Minting a bounded, attention-anchored pot per research session and splitting it by grounded contribution works and stays sane — but data by itself is a broad, shallow supplement (a median of 11% of essentials with no AI demand, 74% with high), AI demand is the lever that scales it, and the floor across all income channels remains the actual survival guarantee.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Minting</strong> — creating brand-new EVE; here a research session's verified, engaged human time creates a small, capped pot. <strong>Grounded vs retrieved</strong> — retrieved sources were merely fetched as candidates; grounded ones actually carried weight in the answer, and they split the 90% pool. <strong>Median</strong> — the middle case: half earn more, half less. <strong>Gini</strong> — a 0-to-1 lopsidedness score: 0 means everyone equal, 1 means one person takes everything; raw data income sits at a very unequal 0.66, which the floor pulls down to 0.04–0.45. <strong>Logarithmic compression</strong> — growth that slows to a crawl as numbers explode: a billion uses pays ~14 EVE, a trillion only ~10,004 — each extra zero adds less. <strong>Zipf</strong> — the standard "a few giants, a long tail of minnows" pattern, used here for how much each source contributes. <strong>α (alpha) = 1.3</strong> — the assumed dial for how concentrated usage is; higher would hand the big sources proportionally more. <strong>Matthew effect</strong> — "to those who have, more will be given": early winners compounding into permanent runaway leaders — defused here by the usage-decay. <strong>Steady-state</strong> — the settled long-run picture, not the launch scramble. <strong>Floor</strong> — the guarantee of earning essentials (at 1.10×), sitting under all income channels combined; data income is a supplement on top of it.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-human-use-aggregate-minting-0.png" alt="fig_human_use.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Tests the model we converged on for minting EVE from </em><em>human</em><em> use of data: </em><em>mint a time-bounded total, then split it by grounded contribution.</em><em> It also includes the AI machine-pay channel (as a demand scenario) and the per-data-point usage-decay curve. Anchor: 1 EVE ≈ one engaged human hour at genesis; the Governor normalizes nominal levels over time, so everything is reported </em><em>relative to a local essentials basket</em><em> (set illustratively at 200 EVE/month, floor = 220). All numbers are illustrative. Files in this folder: <code>human_use_minting_sim.py</code>, <code>results_human_use.json</code>, <code>fig_human_use.png</code>.</em></p>
+<hr>
+<h2 id="the-model-in-one-line">The model in one line</h2>
+<p>A human research session is just another asset the person engages, so it <strong>mints <code>engaged_time × B × W_effort</code></strong> — and that bounded pot is <strong>split among the data points the answer drew on</strong>: a small <em>discovery pool</em> (10%) shared by everything retrieved, and a large <em>grounding pool</em> (90%) split by how load-bearing each source was. Human use is <strong>free to the searcher</strong>, the mint goes to the <strong>sources</strong>, and it's bounded by human attention (so it can't run away). AI use is <strong>machine-pay</strong> — a transfer priced on the decay curve — modelled here as a demand multiple of the human pool.</p>
+<h2 id="part-1-one-90-minute-research-session">Part 1 — one 90-minute research session</h2>
+<p>A 90-minute deep session (active engagement) mints <strong>1.50 EVE total</strong>, split across 3,000 retrieved candidates and 200 actually-grounded sources:</p>
+<table>
+<thead>
+<tr>
+<th>Source role</th>
+<th>Earns from this one session</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Top grounded source</td>
+<td><strong>0.230 EVE</strong></td>
+</tr>
+<tr>
+<td>Median grounded source</td>
+<td><strong>0.0023 EVE</strong></td>
+</tr>
+<tr>
+<td>Retrieved-only (in the candidate pool)</td>
+<td><strong>0.00005 EVE</strong></td>
+</tr>
+</tbody>
+</table>
+<p>To earn a full month's floor (220 EVE) purely from this channel, your data would need to be the <strong>top source in ~960 deep sessions/month (~32/day)</strong>, or a <em>median</em> grounded source in <strong>~94,000 sessions</strong>. This is the "broad-shallow" reality made concrete: a single source in a single query earns a sliver of a cent's worth of EVE; meaningful income requires your data to be <strong>either very frequently load-bearing, or spread across a huge number of queries</strong> (i.e., many data points each grounded somewhere).</p>
+<h2 id="part-2-population-20000-people-who-both-produce-data-and-research">Part 2 — population (20,000 people who both produce data and research)</h2>
+<p>Everyone researches (minting to others) and owns data (earning when others use it). Income is <strong>decoupled from your own research</strong> — you earn when <em>others</em> use <em>your</em> data, weighted by quantity × quality, with a mild concentration on the most-used data. The headline, by AI-demand scenario:</p>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Median data income</th>
+<th>…as % of essentials</th>
+<th>% below floor on data <strong>alone</strong></th>
+<th>Inequality (Gini) pre→post-floor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No AI</td>
+<td>21 EVE/mo</td>
+<td>11%</td>
+<td>96%</td>
+<td>0.66 → 0.04</td>
+</tr>
+<tr>
+<td>Low AI</td>
+<td>32</td>
+<td>16%</td>
+<td>92%</td>
+<td>0.66 → 0.08</td>
+</tr>
+<tr>
+<td>Medium AI</td>
+<td>64</td>
+<td>32%</td>
+<td>82%</td>
+<td>0.66 → 0.22</td>
+</tr>
+<tr>
+<td>High AI</td>
+<td>148</td>
+<td>74%</td>
+<td>61%</td>
+<td>0.66 → 0.45</td>
+</tr>
+</tbody>
+</table>
+<p>Three things fall out of this, and they matter:</p>
+<ol>
+<li><strong>AI demand is the engine.</strong> Median data income climbs from 11% to 74% of essentials as AI demand grows. The same vast, shallow human data is worth little when only humans browse it and meaningful when AI is paying to mine it at scale — so AI isn't only the payer, it's the demand that makes universal data income possible.</li>
+<li><strong>Data income is a <em>supplement</em>, not a salary — by design.</strong> Even in the High-AI scenario, the median person covers ~3/4 of essentials from data <em>alone</em>. <strong>Important caveat:</strong> this sim isolates the <strong>data channel only.</strong> Real participants also earn from everything else they make (content, tools, services, creative work). So "61–96% below floor on data alone" is <strong>not</strong> a poverty rate — it's "data by itself isn't a full living," which is exactly the broad-shallow point. The floor (1.10× essentials) is the survival backstop underneath all channels combined.</li>
+<li><strong>The floor crushes inequality.</strong> Raw data income is very unequal (Gini 0.66, because data production and usefulness are skewed), but after the floor the Gini collapses (to 0.04–0.45). The more AI demand lifts people above the floor on their own, the less compression the floor has to do — which is the healthy direction.</li>
+</ol>
+<h2 id="part-3-the-per-point-usage-decay-your-tiered-design">Part 3 — the per-point usage decay (your tiered design)</h2>
+<p>Per-point earnings, used <code>n</code> times (rate 1e-4 → 1e-5 → 1e-6 → 1e-7, each tier minting 1 EVE, then a 1e-8 floor):</p>
+<table>
+<thead>
+<tr>
+<th>Cumulative uses</th>
+<th>Cumulative EVE earned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10,000</td>
+<td>1.00</td>
+</tr>
+<tr>
+<td>1,000,000</td>
+<td>2.89</td>
+</tr>
+<tr>
+<td>1,000,000,000</td>
+<td>13.89</td>
+</tr>
+<tr>
+<td>1,000,000,000,000</td>
+<td>~10,004</td>
+</tr>
+</tbody>
+</table>
+<p>The earnings grow <strong>logarithmically through the decay tiers</strong> (a billion uses → ~14 EVE — strong compression, the anti-concentration property you wanted), then <strong>linearly at the floor rate</strong> for ultra-ubiquitous data (a <em>trillion</em> uses → ~10,000 EVE). Worth a design note: because the floor rate is flat, genuinely ubiquitous data is <em>not</em> capped — probably fine (truly universal data earning real money seems right), but if you want hard compression you'd let the floor decay too or cap it.</p>
+<p><strong>The early-vs-late fairness property holds and is striking:</strong> give an early sharer a 300,000-use head start over an identical later point, and the early one's lead <strong>shrinks from 1.20 EVE (at 10⁴ total uses) to 0.003 EVE (at 10⁸ uses)</strong> — a ~400× narrowing — while <em>never going negative</em>. Early contributors stay permanently ahead; the gap stops compounding and quietly closes, exactly as you intended. It's the Matthew effect defused at the mechanism level.</p>
+<h2 id="what-the-mock-up-establishes">What the mock-up establishes</h2>
+<p>The "time-bounded mint, split by grounded contribution" model <strong>works and stays sane</strong>: a session mints a bounded amount anchored to human attention (non-inflationary, self-limiting), the split is tractable because retrieval/grounding is explicitly traceable, and the per-point decay delivers the anti-concentration fairness by construction. The economics confirm the honest framing we'd been circling: <strong>data is a broad, shallow, demand-gated supplement; AI demand is what scales it; and the floor — across all income channels, not just data — is the actual survival guarantee.</strong> Nothing here breaks; the open question it sharpens is empirical: <em>how big is real AI data-demand?</em> — because that single lever moves median data income from a rounding error to most of a living.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Illustrative and steady-state. Income is modelled <strong>data-channel-only</strong> (real people have other earnings), so floor-clearance here understates true income. AI demand is a <strong>scenario multiple</strong>, not a forecast, and is distributed by the same usage shares as human demand (a real model would let the fresh-premium favor new data and let demand concentrate differently). The usage-concentration exponent (α = 1.3), the research-hours distribution, essentials level, and the discovery/grounding split (10/90) are all assumptions, not measurements. The grounding weights are assumed Zipf. As with every sim here, this is an existence-and-sanity demonstration, not a prediction — the real number that decides whether data is a rounding error or a real income (AI willingness-to-pay) is a pilot question (Stage 4 of the <code>Validation &amp; Testing Plan</code>).</p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-human-use-aggregate-minting-0.json" download>⬇ results_human_use.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

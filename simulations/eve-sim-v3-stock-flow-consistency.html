@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Stock-Flow Consistency — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Stock-Flow Consistency.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Stock-Flow Consistency</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Stock-Flow Consistency</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>The agent-based runs priced money with a quantity-theory rule but never proved the money <em>accounting</em> is consistent. Monetary economists check any currency design the same way (the Godley &amp; Lavoie stock-flow-consistent method): every flow must be simultaneously one party's outflow and another's inflow, every sector's net flow must equal the change in what it holds, and the total money stock may change only through identified creation and destruction. Many token designs quietly fail this — money appears from rounding, fees vanish, "rewards" aren't sourced from anywhere. Does EVE's?</p>
+<h2 id="what-we-found">What we found</h2>
+<p>EVE's accounting is stock-flow consistent to machine precision: the maximum relative residual is 1.55 × 10⁻¹⁶ across all 180 periods and all identities. Four identities were verified every period. Every transaction balances — each row of the transactions-flow matrix sums to zero. Every sector balances — and the Validators (verification pool) and Protocol sectors are pass-throughs, ending every period at exactly 0 having routed everything they received. The money identity holds exactly: the change in total EVE equals minted plus floor top-up, minus protocol burn, minus death burn — verified to 10⁻¹⁶. And transfers are stock-neutral: machine-pay and bridge off-ramps move EVE between households and institutions but never change the total money stock; only minting and burning do.</p>
+<p>Three things this confirms about the design. EVE is sound base money, not debt — unlike fiat, where money is a bank liability, EVE has no matching liability, and the books still close. The data economy can grow without inflating the currency — because machine-pay is a transfer, institutions can pay people more and more for data with zero effect on the money stock, the exact property the white paper claims, now proven at the accounting level. And the routing leaks nothing: 60 + 15 + 10 + 10 + 5 = 100, with every slice accounted to a sector or a burn each period.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>This proves <em>accounting</em> consistency, not behavioral or price realism — that's the agent-based sims' job, and fraud is the adversarial model's job. It covers the EVE ledger only (fiat on the other side of the bridges is out of scope), assumes the routing and flows as specified, and does not model defaults or theft. One variant worth noting: the creator-stability reserve (banking the protocol slice instead of burning it, then releasing it to creators) is also stock-flow consistent — banked EVE simply stays in the money stock and later moves as a transfer.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Every unit of EVE that exists traces to a mint and every unit that disappears traces to a burn — verified to machine precision, a maximum residual of 1.55 × 10⁻¹⁶ across all 180 periods — so the books close with no monetary black holes; what this proves is the accounting, not the behavior, the prices, or the fraud-resistance.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Money stock</strong> — all EVE in existence at a given moment. <strong>Minting / burn</strong> — creating new money / permanently destroying it; the claim proven is that the total changes <em>only</em> through these. <strong>Accounting identity</strong> — an equation that must hold by definition, like "every purchase is also a sale"; four of them were checked every period. <strong>Transactions-flow matrix</strong> — the master spreadsheet where every flow appears twice — once as someone's outflow, once as someone's inflow — and every row must sum to zero. <strong>Residual 1.55 × 10⁻¹⁶</strong> — the leftover imbalance: rounding error at the very edge of computer arithmetic, i.e., zero. <strong>Sector</strong> — one group's combined books (households, institutions, validators, protocol). <strong>Validators (verification pool)</strong> — the deposit-backed participants who check and record activity; as a sector they are a pure pass-through, ending every period at exactly zero. <strong>Quantity-theory rule</strong> — the simple pricing shortcut (more money chasing the same goods means higher prices) used by the behavioral sims, not re-litigated here. <strong>Base money vs liability</strong> — base money is the thing itself, owed by no one; a liability is an IOU — bank-created dollars are a bank's IOU to you, while EVE has no debt behind it. <strong>Bridge / off-ramp</strong> — the crossing where EVE is exchanged for outside money; modeled only as a transfer, since the far side is out of scope. <strong>Top-up</strong> — extra minting to cover the floor when its funding slice falls short — one of the identified creation channels in the money identity.</p>
+<p class="eyebrow">Technical results</p>
+<p><em>Closes a gap the agent-based runs left open: they priced money with a quantity-theory rule but never proved the money </em><em>accounting</em><em> is consistent. This is the check monetary economists expect of any currency design, and it's cheap and decisive. Files in this folder.</em></p>
+<hr>
+<h2 id="what-this-proves-in-one-line">What this proves, in one line</h2>
+<p>EVE's accounting is <strong>stock-flow consistent to machine precision</strong> (maximum relative residual <strong>1.55 × 10⁻¹⁶</strong> across all 180 periods and all identities): every unit of EVE that exists can be traced to minting, every unit that disappears to a burn, and nothing is created or destroyed by any other path. There are no monetary "black holes."</p>
+<h2 id="why-this-matters">Why this matters</h2>
+<p>Following Godley &amp; Lavoie's stock-flow-consistent (SFC) method, a monetary system is consistent only if <strong>every flow is simultaneously one party's outflow and another's inflow</strong>, <strong>every sector's net flow equals the change in what it holds</strong>, and <strong>the total money stock changes only through identified creation and destruction</strong>. Many token designs quietly violate this — money appears from rounding, fees vanish, or "rewards" aren't sourced from anywhere. EDEN's does not, and now that's demonstrated rather than asserted.</p>
+<h2 id="the-four-identities-all-verified-every-period">The four identities, all verified every period</h2>
+<ol>
+<li><strong>Every transaction balances.</strong> Each row of the transactions-flow matrix sums to zero — the EVE one sector receives is exactly what another sector (or the money-creation account) provides.</li>
+<li><strong>Every sector balances.</strong> Each sector's net inflow equals the change in its EVE holdings. The Validators (verification pool) and Protocol sectors are <strong>pass-throughs</strong> — they end every period at exactly 0, having routed everything they received.</li>
+<li><strong>The money identity holds exactly:</strong> Δ(total EVE) = minted + floor top-up − protocol burn − death burn. Verified to 10⁻¹⁶.</li>
+<li><strong>Transfers are stock-neutral.</strong> Machine-pay (institutions buying data) and bridge off-ramps move EVE between households and institutions but <strong>never change the total money stock</strong> — only minting and burning do.</li>
+</ol>
+<h2 id="the-transactions-flow-matrix-representative-month">The transactions-flow matrix (representative month)</h2>
+<p>Every column is a sector that holds EVE; every row is a flow; "± Money" is creation (+) or destruction (−). Each row sums to zero across the sectors and the money column.</p>
+<table>
+<thead>
+<tr>
+<th>Transaction</th>
+<th style="text-align: right;">Households</th>
+<th style="text-align: right;">Validators</th>
+<th style="text-align: right;">Protocol</th>
+<th style="text-align: right;">Institutions</th>
+<th style="text-align: right;">± Money</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mint → households (creator/maint/dep)</td>
+<td style="text-align: right;">+985,383</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">+985,383</td>
+</tr>
+<tr>
+<td>Mint → verification pool</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">+115,927</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">+115,927</td>
+</tr>
+<tr>
+<td>Mint → protocol</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">+57,964</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">+57,964</td>
+</tr>
+<tr>
+<td>Floor paid from pool</td>
+<td style="text-align: right;">+25,504</td>
+<td style="text-align: right;">−25,504</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Floor top-up (minted)</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Validator remainder → households</td>
+<td style="text-align: right;">+90,423</td>
+<td style="text-align: right;">−90,423</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Machine-pay (data)</td>
+<td style="text-align: right;">+115,927</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">−115,927</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Bridge off-ramp (sell EVE)</td>
+<td style="text-align: right;">−115,927</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">+115,927</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Protocol burn</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">−57,964</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">−57,964</td>
+</tr>
+<tr>
+<td>Death burn</td>
+<td style="text-align: right;">−59,352</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">−59,352</td>
+</tr>
+</tbody>
+</table>
+<p>Reading it: minting is the only source of new EVE and it lands entirely in the 60/15/10/10/5 routing; the verification pool (115,927) is fully paid out as floor (25,504) plus remainder (90,423), so Validators net zero; the protocol slice is minted and then burned, so Protocol nets zero; machine-pay and the off-ramp are equal and opposite, so the data economy moves EVE around without inflating it; and money leaves existence only through the protocol and death burns.</p>
+<h2 id="what-it-confirms-about-the-design">What it confirms about the design</h2>
+<ul>
+<li><strong>EVE is sound base money, not debt.</strong> Unlike fiat (where money is a bank liability), EVE has no matching liability — it is created by minting and extinguished by burning, and the books still close. The SFC check confirms this is internally coherent.</li>
+<li><strong>The data economy can grow without inflating the currency.</strong> Because machine-pay is a transfer, institutions can pay people more and more for data with zero effect on the money stock — exactly the property the white paper claims, now proven at the accounting level.</li>
+<li><strong>The routing leaks nothing.</strong> 60 + 15 + 10 + 10 + 5 = 100, and every slice is accounted to a sector or a burn each period.</li>
+</ul>
+<h2 id="honest-limits">Honest limits</h2>
+<p>This proves <strong>accounting</strong> consistency, not behavioral or price realism — that's the agent-based sims' job, and fraud is the adversarial model's job. It covers the <strong>EVE ledger only</strong> (fiat on the other side of the bridges is out of scope). It assumes the routing and flows as specified; it does not model defaults or theft. One variant worth noting: the <strong>creator-stability reserve</strong> (banking the protocol slice instead of burning it, then releasing it to creators) is also stock-flow consistent — banked EVE simply remains in the money stock and is later moved as a transfer, so identities 1–4 still hold. Audience: this is the check <strong>monetary economists</strong> will look for first.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>sfc_sim.py</code> — the SFC model and the four identity checks</li>
+<li><code>results_sfc.json</code> — residuals and final balances</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-stock-flow-consistency-0.json" download>⬇ results_sfc.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

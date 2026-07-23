@@ -4,42 +4,44 @@
 <script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The White Paper — EDEN, the formal version</title>
+<title>The EDEN White Paper — the formal version (v1.9 draft)</title>
 <meta name="description" content="The full economic design: how money is minted, routed, governed, and defended — every result graded, every open question labeled. A draft, and labeled as one.">
 <style>
-  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
   *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
-  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.7;font-size:17.5px}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
   .sans{font-family:'Helvetica Neue',Arial,sans-serif}
-  .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
   a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
   nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
   nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
   .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
   nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
-  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:80px 0 60px;text-align:center}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
   .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-  h1{font-size:clamp(30px,5vw,46px);line-height:1.14;color:var(--deep);max-width:20ch;margin:0 auto}
-  header .sub{max-width:54ch;margin:22px auto 0;font-size:18px;color:var(--soft)}
-  article{padding:60px 0 72px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
   article p{margin-bottom:20px}
   article b{color:var(--deep)}
-  .status{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:24px 26px;margin:34px 0}
-  .status p{margin-bottom:0;font-size:15.5px;color:var(--soft)}
-  .status b{color:var(--deep)}
-  .paths{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:36px}
-  .p{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:24px 22px}
-  .p .tag{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
-  .p h3{font-size:17px;color:var(--deep);margin-bottom:8px}
-  .p p{font-size:14.5px;color:var(--soft);margin:0 0 12px}
-  .p a{font-weight:700;font-size:14.5px}
-  .gate{background:var(--dim);border:1px solid var(--rule);border-radius:5px;padding:30px 28px;text-align:center;margin-top:44px}
-  .gate h2{font-size:22px;color:var(--deep);margin:0 0 10px}
-  .gate p{color:var(--soft);font-size:15.5px;max-width:50ch;margin:0 auto 20px}
-  .sub-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-  .sub-form input{padding:13px 16px;border:1.5px solid var(--rule);border-radius:3px;font-size:15px;min-width:240px;background:var(--card);color:var(--ink);font-family:inherit}
-  .btn{display:inline-block;padding:13px 24px;border-radius:3px;font-size:15px;border:none;cursor:pointer}
-  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
   footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
   footer .wrap{max-width:1020px}
   footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
@@ -63,89 +65,422 @@
   [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
   [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
 </style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
 </head>
 <body>
-
-<nav>
-  <div class="wrap">
-    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
-    <a class="back sans" href="/">← Back to the map</a>
-  </div>
-</nav>
-
-<header>
-  <div class="wrap">
-    <div class="kicker sans">THE FORMAL VERSION</div>
-    <h1>The EDEN White Paper</h1>
-    <p class="sub">The full design: how money is minted, routed, governed, and defended — with every result graded and every open question labeled.</p>
-  </div>
-</header>
-
-<article>
-  <div class="wrap">
-    <p>Everything the rest of this site says in plain language, said precisely: the minting rule, the governor, the routing of payments through dependency chains, the identity and fraud stack, the governance houses, the price index, and the safety-net blueprint — each with the simulation evidence behind it and the honest grade it earned.</p>
-
-    <div class="status">
-      <p><b>Honest status: it's a draft, and its title page says so.</b> The current consolidation reflects the open-economy era of testing — real prices, real market anchors, sponsor-funded floors — and it is written to be handed to a hostile economist as their starting brief. It has not yet been independently reviewed; getting it that review is the point of publishing it.</p>
-    </div>
-
-    <div class="paths sans">
-      <div class="p">
-        <span class="tag">READ FIRST · 15 MIN</span>
-        <h3>Not sure you want the math?</h3>
-        <p>The Story of the Tests covers the same ground in plain language — crashes, fixes, and open questions.</p>
-        <a href="/evidence">Read the story →</a>
-      </div>
-      <div class="p">
-        <span class="tag">THE DRAFT PDF</span>
-        <h3>The current draft</h3>
-        <p>The full document, failures and all. Ask and it's yours — or grab it below the moment it's posted.</p>
-        <a href="/#subscribe">Request the draft →</a>
-      </div>
-      <div class="p">
-        <span class="tag">FOR EXPERTS</span>
-        <h3>Want to break it?</h3>
-        <p>A replication kit exists: every model, every registered pass/fail bar, every archived original. Free to download; hostile reviews welcome — that's the ask.</p>
-        <a href="/replication">Download the kit →</a>
-      </div>
-    </div>
-
-    <div class="gate">
-      <h2>Get the draft the day it posts.</h2>
-      <p>Join the list and the white paper lands in your inbox when the current consolidation is ratified — along with what changed and why.</p>
-      <!-- LIVE SITE: map to Ghost Portal signup; swap this page's "Request" links to the PDF URL once uploaded -->
-      <form class="sub-form sans" onsubmit="return false">
-        <input type="email" placeholder="you@email.com" aria-label="Email address">
-        <button class="btn gold" type="submit">Send me the draft</button>
-      </form>
-    </div>
-  </div>
-</article>
-
-<footer>
-  <div class="wrap">
-    <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p>
-    <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
-  </div>
-</footer>
-<script>
-/* Local preview: when opened as a file (not on the live site), rewrite
-   site links (/evidence, /faq, ...) to the neighboring .html files. */
-if(location.protocol==='file:'){
-  var LOCAL_MAP={'/':'index.html','/edenquest':'edenquest.html','/essays':'essays.html',
-    '/evidence':'evidence.html','/faq':'faq.html','/about':'about.html','/book':'book.html',
-    '/what-is-eden':'what-is-eden.html','/docs/whitepaper':'whitepaper.html','/replication':'replication.html','/support':'support.html',
-    '/the-power-of-stories':'the-power-of-stories.html',
-    '/the-stories-we-invest-in':'the-stories-we-invest-in.html',
-    '/why-we-feel-powerless':'why-we-feel-powerless.html'};
-  document.querySelectorAll('a[href^="/"]').forEach(function(a){
-    var h=a.getAttribute('href'),hash='',i=h.indexOf('#');
-    if(i>-1){hash=h.slice(i);h=h.slice(0,i);}
-    if(h==='')h='/';
-    if(LOCAL_MAP[h])a.setAttribute('href',LOCAL_MAP[h]+hash);
-  });
-}
-</script>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← Simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">The formal version · v1.9 draft</div>
+<h1>The EDEN White Paper</h1>
+<p class="sub">The full design: how money is minted, routed, governed, and defended — every result graded and every open question labeled.</p>
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>Status: draft, and unreviewed.</b> This is White Paper v1.9 — the newest consolidation, awaiting owner ratification and with <b>no out-of-family human review</b>. Per the program’s standing rule — <em>in-family; verify, don’t trust</em> — every number traces to a committed artifact, but AI review of AI-built work is weak evidence. Treat it as a research draft to be attacked, not a finished spec. Prefer plain English? Read <a href="/evidence">The Story of the Tests</a> or the <a href="/simulations/plain-language">plain-language umbrella</a>. Want to break it? Grab the <a href="/replication">replication kit</a>.</div><h3 id="white-paper-version-19-draft-the-corporate-custody-accountability-release-awaiting-owner-ratification">White Paper — Version 1.9 (Draft — the Corporate, Custody &amp; Accountability Release; awaiting owner ratification)</h3>
+<p><strong>July 18, 2026 · Author: Devan Allen · v1.9 layer drafted from the July 17–18 corporate/custody/accountability program (Claude Fable 5, owner-directed); v1.8 body (July 11, Opus 4.8) carried intact below</strong></p>
+<blockquote>
+<p><strong>STATUS: DRAFT — AWAITING OWNER RATIFICATION. UNREVIEWED (AI-PRODUCED).</strong> This release was compiled by an Anthropic model (Claude, Opus 4.8) integrating the vault's committed record; it has had <strong>no out-of-family human review</strong>. Per the program's standing rule — <em>in-family; verify, don't trust</em> — every number below traces to a committed artifact, but AI review of AI-built work is weak evidence and the two standing non-model obligations (hostile economist review; field measurement of willingness-to-pay) remain open. Treat this as a research draft to be attacked, not a finished spec.</p>
+</blockquote>
+<p><em>This release consolidates three bodies of work that landed after v1.7 (July 7): the </em><em>substrate/architecture adversarial program</em><em> (<code>04 Simulations</code>, sims v11–v15 against <code>01 Canon/EDEN Protocol Architecture v0.1</code>, plus the machine-checked proofs artifact); the </em><em>multi-sponsor federation build</em><em> (<code>EVE Sim v6.8</code>, discharging the v6.7 IOU); and the </em><em>economics-literature red-team with its canon notes</em><em> (<code>EDEN Red-Team — The Economics Literature vs EDEN</code>, spawning the EBI Methodology, Incidence, Monetary-Position and Cross-Check specs). It further folds in the July 9–11 sweep (</em><em>v16–v34</em><em>, the banking-and-savings layer, the decision-support cells v31/v32, and the index-drift and Baumol cells v33/v34), and — most consequentially for honesty — the three </em><em>verification passes</em><em> (v2/v3/v4) and the </em><em>gate-tightening recode</em><em> (Backlog #4b), which re-scored several passing results downward. It is structured as the program's releases always are: a complete changelog, then </em><em>drop-in amendment text</em><em> for every affected section, then a consolidated </em><em>Evidence Base</em><em> reflecting the current, corrected record. Sections not amended here stand as written in v1.5/v1.6/v1.7, which are preserved unedited. The normative spec remains <code>01 Canon/EVE Algorithm v1.4 - Ratified Spec</code> as amended by the July 10 ratifications (Velocity Defense v1.4, EBI Methodology, Monetary Position, Banking &amp; Savings Layer, EBI Cross-Check Addendum), catalogued in the current-canon section below.</em></p>
+<hr>
+<blockquote>
+<h2 id="changelog-v18-the-substrate-verification-consolidation-release">Changelog — v1.8 (the substrate, verification &amp; consolidation release)</h2>
+<p><strong>The headline change: the program stopped adding claims and started subtracting the ones its own tools could no longer support.</strong> v1.6 opened the economy; v1.7 attacked its defenses; this release does two things at once. It <strong>descends a layer</strong> — from the currency mechanism into the <em>substrate</em> the mechanism runs on (civic validation, the proof-of-engagement pipeline, the price oracle, cross-layer composition, the governance cap function, and the banking-and-savings layer canon previously lacked) — and it <strong>audits itself twice</strong> (Verification v3 and v4, then a gate-tightening recode), with the result that the record got <em>worse-looking and more true</em>. Six previously-clean results now carry registered failures, one whole model (ecology) resolved negative, and one flagship rigor artifact was reconciled from three contradictory tallies to a single one with grade labels. Everything below is stated against the post-correction record; where an earlier number circulated, the correction is carried in place.</p>
+<p><strong>What v1.8 folds in, concretely:</strong></p>
+<p><strong>(1) The substrate/architecture program (v11–v15) — NEW EVIDENCE, five gate candidates.</strong> Civic validation by sortition (<strong>v11</strong>) survives capture at budgets the program takes seriously (cheapest safety capture ~$613M, 20× the v9 attacker) — with the honest surprise that the binding wall is <em>honest-pool size</em> (H* ≈ 5,500 volunteers), a live public gate quantity like reserve months. The proof-of-engagement aggregator pipeline (<strong>v12</strong>) is policed by light private-sample audit (break-even 0.62% of batches) <em>provided</em> payouts vest (168 epochs); the oracle (<strong>v13-Oracle</strong>) is sabotage-only-not-theft (faking the index costs $99.5M at an 80× cost/payoff loss) but <strong>fails two registered bars honestly</strong> — re-validation <em>speed</em> is the load-bearing safety parameter (delivery dips to 0.888 under the pessimistic triple-combo, O3c FAIL; the essentials lane clears the 5× "expensive fake" bar only at 4.3×, O4 FAIL). Cross-layer composition (<strong>v14</strong>) <strong>fails two bars as the finding</strong>: one adversary wearing four hats pays 0.66× the separate cost and composes the identity blast radius past the 2% gate (1.37% → 3.74%) — closed by a single 15%-combined cross-layer cap (X4). The governance cap function (<strong>v15</strong>) is robustly non-plutocratic (a 30% whale squashed to ~1%; majority needs ~1,595 colluders) and <em>caught a real flaw in itself</em> — the single-pass cap leaked to 9.4%, forcing an iterative water-filling v0.2 that holds it at exactly 5.00%. Gate candidates 15–19 surfaced; each <strong>prices the mechanism around the identity keystone</strong> and says so.</p>
+<p><strong>(2) Multi-sponsor federation (v6.8) — the v6.7 IOU discharged.</strong> Escrow (≥6 months, = the step-up lag) plus a single-sponsor share cap (≤40%) turns v6.7's catastrophic <strong>−92% single-sponsor exit into a −9.9% ripple</strong> (the currency actually rises), delivery unbroken, zero printing. <strong>J4 FAILED and matters:</strong> "cheaper than welfare" is a <em>peacetime</em> number — the survivor who backstops a mid-storm collapse sees its saving compress from ~24% to ~9% and carry to 2.7%, so the backstop obligation must be priced. Federation is the ratified end-state for the sponsor layer; escrow and the diversification cap are canon terms.</p>
+<p><strong>(3) The economics-literature red-team + its canon notes.</strong> The ten strongest published objections (Lucas, Hayek/calculation, Boskin index bias, Goodhart, Myerson–Satterthwaite incidence, Krugman/Obstfeld crisis models, Mundell/Oates OCA, unit-of-account inertia, Arrieta-Ibarra data-valuation, Baumol) were argued at full strength and scored honestly. The scorecard's owed instruments have since largely been built: the <strong>EBI Methodology Spec</strong> (chaining + bias budget — the pass's top item), the one-page <strong>Incidence Note</strong>, the <strong>Monetary Position Note</strong> (EVE claims the EBI as <em>numéraire</em>, not a unit-of-account takeover), the <strong>EBI Cross-Check Addendum</strong>, and the owed cells (v16 Lucas sweep, v17 composition, v18/v19 crisis, v20/v32 OCA-exit, v33 index-drift, v34 Baumol). The current standing is stated below with its known counting discrepancy carried, not hidden.</p>
+<p><strong>(4) The verification passes (v2/v3/v4) + the gate-tightening recode (Backlog #4b).</strong> Two full re-execution passes (v3, July 9; v4, July 10–11) confirmed the <em>mechanical</em> layer is honest — code regenerates JSON, JSON backs prose, every registered failure recorded — but found the <em>passing</em> side uneven: hardcoded sanity gates, tautological checks, and four write-ups that had gotten ahead of their runs. The July 10–11 fixes moved the scoreboard in both directions. The <strong>gate-tightening recode (July 11)</strong> then converted the disclosed-but-hardcoded gates into computed ones <strong>without moving a single registered bar</strong>, flipping four verdicts honestly:
+  - <strong>v18 Y4 → FAIL</strong> (refuted expectation: the registered interior optimum τ* ≈ 2–3% is refuted; the frontier is τ-degenerate and τ* lands at 5%). The mechanism is unweakened for drain-bounding — canon τ = 3% rests on Y1 (PASS on a computed clause) — but the tuning expectation was wrong in public, <strong>and the v5 re-score (July 12) flipped Y0 too</strong>: its false-quarantine clause, scored across the full registered σ_xc sweep {0.5%, 1%, 2%} instead of the central dial only, FAILS at σ=2% (12.5% of months vs the 5% bar) — so τ=3%'s quarantine comfort is σ-conditional (fine at ≤1% honest noise, or with the coded median smoothing).
+  - <strong>v21 K4 → FAIL</strong> (scored against the registered 6% political bar, which <strong>no split clears</strong>; the "closes within 24 months" clause is now a disclosed non-result). This <em>strengthens</em> gate-22 — it is the measured reason to pre-commit the taper/slice split.
+  - <strong>v26 Q5 → disclosed non-result</strong> (<code>stipulated_not_computed</code>: the engine models no origination-refusal, so contract-freedom scores are stipulated, not measured).
+  - <strong>v28 SB2 → disclosed non-result</strong> (<code>detection_assumed_not_measured</code>: the "detection" number echoed an assumed input; the engine has no velocity/graph model).</p>
+<p><strong>(5) v33 Index Drift — the bias budget is not enough against systematic drift.</strong> A fixed <strong>0.05 measurement-bias budget cannot absorb a persistent ±0.5pp/yr EBI drift</strong>: a one-directional under-read exhausts the budget in ~9.3 years and leaves the floor at 0.856 of essentials by year 50 (ID1); the mirror over-read drains the reserve in 2.5 years while the §5 instantaneous-rate telemetry only lights at 9.8 years (ID2 — a level trigger watching the wrong quantity). Actionable: the binding <strong>re-basing cadence is set by the reserve side (~2.5 years), not the delivery side (~9–10 years)</strong> — canon's 5-year re-basing is delivery-safe but reserve-unsafe (ID3). Amends EBI Methodology §5.</p>
+<p><strong>(6) v34 Baumol Governor Drift — index the floor to essentials; index the governor to the EBI and sunset c_min.</strong> Over a century, an aggregate-productivity-tuned governor drifts against the slow (care/essentials) sector: essentials inflate to 3.74× while the governor's own gauge reads flat (BM1). EDEN's <strong>essentials-indexed floor delivers a full 1.10× basket every month of the century</strong> where a naive aggregate-CPI floor breaches at year 8.8 and collapses to 0.20× by year 100 (BM3) — indexing the <em>floor</em> to essentials is what disarms Baumol for recipients. But two bars <strong>fail as findings</strong>: Baumol delays the v7 generational-floor crossover from year 46 to year 92 (BM2), and essentials-indexing the <em>governor</em> cuts drift 62% but only a <strong>post-bootstrap c_min sunset</strong> removes it entirely (BM4). Canon candidates: index the governor to the EBI and sunset c_min once machine-pay matures; keep the floor on essentials.</p>
+<p><strong>(7) v16 extension (#9) — the layer sweep and the FAIL-tier WTP sensitivity.</strong> With v12/v13-oracle/v14 refactored, the Lucas envelope now sweeps those three layers too (v14's joint-cap fix holds 32/32; two dial-local findings reported, gate-18 unaffected). The sharpest honest result: at <strong>anchors ÷10 ($60-world), EDEN's <em>safety</em> promises survive</strong> (sponsor-backed floor delivery 0 months below; cheaper-than-welfare ratio WTP-invariant at 0.785) but its <strong>builder-economy/self-funding promises break</strong> (median builder $420 → $45/mo; share clearing $200/mo 88% → 3%; endogenous floor coverage ~13% → 7%). The data-valuation gap made quantitative: what is WTP-fragile is exactly what the pending field experiment (H1) must settle.</p>
+<p><strong>(8) v31/v32 — the austerity floor re-ratified and the payer-exit rule found.</strong> v31 swept the sponsor recession-payment floor × escrow depth jointly and resolved the two open UNCERTAINs <em>negative</em>: <strong>escrow is inert against austerity</strong> (it pays at exits, not underpayment), so the "≥50% + deeper escrow" candidate is dead; <strong>≥0.60 holds delivery in both seeds</strong> → re-ratify gate-20 at ≥0.60, escrow unchanged at 6 months. v32 resolves v20's payer-exit countdown: <strong>you cannot bill the survivors</strong> (a slice-bump alone needs +80.2% of givers' burden vs the 6% bar, RB1 FAIL); the taper is the humane tool (a <strong>mixed rule — 6%-capped bump + 41.2% taper — closes the $3B/mo hole at 0.956 delivery</strong>), and the 9-vs-24-month reserve question is really an 18-vs-48-month diplomacy budget.</p>
+<p><strong>(9) The ecology resolution (v13.1) — RESOLVED-NEGATIVE.</strong> The provisional ecology model (v13.0) failed its own harness-trust gate; the regression-gated rebuild (v13.1, 68/68 legacy bars reproduced exactly) answers the funding question: <strong>the ecology-era floor is structurally unfundable at the registered dials</strong> — the funding streams carry 2–5% of obligations, a labeled jump-start proves it is not a bootstrap gap, and obligations eventually exceed the model's entire settlement volume (a 100% tax could not fund it). Zero printing throughout (the old 2,163× inflation was pure floor-printing, now removed). This forces a canon-level <strong>purse-vs-promise-vs-subsidy decision</strong> now in the ratification queue; the white paper cannot assert an ecology-era floor until one of the three is ratified and re-run.</p>
+<p><strong>(10) Canon ratifications and the Decision Record.</strong> Since v1.7, the owner ratified (provisionally, pending economist + out-of-family review): <strong>progressive-by-size demurrage (A2)</strong> as <code>Velocity Defense v1.4</code>; the <strong>full-reserve banking direction</strong> with a FREE-market credit side plus a universal right-to-exit (<code>Banking &amp; Savings Layer Spec v0.1</code>); the <strong>EBI Methodology</strong>, <strong>Monetary Position</strong>, <strong>Incidence</strong>, <strong>Governance Cap-Function</strong>, <strong>Oracle Protocol</strong>, and <strong>Cross-Check</strong> notes. Every choice, its roads not taken, its revisit-triggers, and its reversal path are logged in <code>00 DECISION RECORD</code> (DR-01…DR-17). The settlement-slice transient is DEFERRED; the cross-check τ is HELD at 3% pending a tuning sweep.</p>
+<p><em>v1.0–v1.7 preserved unedited. The July 9–11 program: 24 registered SPECs across the window (v11–v34, several owner-directed same-day), a machine-checked proofs artifact (10/10 with grade labels), a proving-cost desk benchmark, two full verification passes and a gate-tightening recode, one model resolved negative, and — the count that matters most — </em><em>eleven registered bars failed and all eleven are on the record as failures</em><em>, with six more re-scored to failures or disclosed non-results by the verification discipline. All code/JSON/figures public with plain-language companions throughout.</em></p>
+</blockquote>
+<hr>
+<h2 id="part-a0-the-v19-layer-corporate-participation-ownership-registry-data-custody-and-the-accountability-commons-july-18-2026">Part A0 — The v1.9 layer: corporate participation, ownership registry, data custody, and the accountability commons (July 18, 2026)</h2>
+<p><em>Everything in this section was decided and evidence-backed on July 17–18, 2026: five Decision Record entries (DR-18…DR-22, all owner-ratified, provisional per the standing convention), five simulation cells (v35–v39, all SPEC-before-code with pre-registered bars; three of the five recorded refuted registered expectations, filed as findings), and one funding-mix extension. Roads not taken are preserved, shovel-ready, in <code>00 DECISION RECORD</code>; every number traces to the committed <code>results_v3x.json</code> files.</em></p>
+<p><strong>A0.1 — Corporations: coordinators, never owners (DR-18; v35).</strong> A corporation cannot pass the human-minting event, so it can never be the mint-anchor of EVE income. It organizes work and takes a <strong>capped coordinator's share (25%)</strong>; commissioned assets carry a <strong>30-year commercial term</strong> and commons-ify at <code>min(contributor death, term)</code>; outside capital enters via non-transferable, time-limited revenue shares. Evidence: naive corporate ownership rebuilds dynastic persistence to <strong>77.1%</strong> (worse than the 67.7% buyable-catalog counterfactual); the ratified rule set holds it at <strong>10.5% vs the 10.4% mobility line</strong> with the full registered attack battery running, at ~2/3 of naive corporate participation. Chosen over: naive ownership, permissive equity under the demurrage stack (contains dynasties only by negative carry — exclusion in market clothing), and hard exclusion.</p>
+<p><strong>A0.2 — The ownership registry: register to own, registrations are deeds (DR-19; v36 + mix extension).</strong> An entity holds income streams only through <strong>registered, human-rooted owner links</strong>; the link is the <strong>title record</strong> (only the linked owner can reassign it — a defecting nominee keeps the shell, which is what makes straw owners expensive); the aggregation gate <strong>closes transitively to human roots</strong>; enforcement = a refundable flow-scaled link-bond (≈1×; honest cost ~4%/yr carry) + a provenance-anomaly audit (floor a_n ≥ 0.05/yr). Evidence: the payout-only variant fails (whales consume through unlinked shells at <strong>9.46×</strong> the cap, audit-immune); the strong form takes blind shell-evasion from <strong>24.7× to ~1.2×</strong>. Anonymity is preserved: the anchor is one verified, living, unique human — a name attaches only at the fiat bridge. Entity read-logging was <strong>measured and declined</strong> (public state is unmeterable — 95% evasion via mirrors; every <em>paid</em> query is already a public flow). Chosen over: payout-gate-only, revocable links (reopen evasion 4–14×), fee-primary funding (flat tax on honesty; cannot target nominees).</p>
+<p><strong>A0.3 — Public floats and funds: threshold look-through (DR-21; v38).</strong> Intermediated ownership resolves by <strong>threshold look-through at θ = 5%</strong>: bonded, KYC'd qualified intermediaries must pass through any ultimate holder at ≥5% of an entity; the sub-threshold float terminates at the intermediary (a legitimate accountable root — termination <em>re-roots</em> aggregation, it never breaks it). <strong>Officer/controller links are title-class</strong> — the load-bearing choice: it closes the hidden-empire channel at zero marginal audit (a_c* = 0.0), where revocable officer governance would need 0.162/yr of empire detection. Wolf packs of genuinely distinct humans multiply nothing the ownership gate polices (increment 0.0) — concert harms belong to the governance/market-power layer by design. Chosen over: unconditional terminate-at-fund (fund-washing at 3.3–7.2×) and full look-through (institutional participation collapses to 0.41).</p>
+<p><strong>A0.4 — Data custody and pricing as one system (DR-20; v37).</strong> The pay-once-copy-forever attack is real: under per-access terms a full corpus copies for <strong>~1.6% of its living-stream value</strong>. The defense matches <strong>custody class to freshness half-life</strong> (boundary <strong>τ* ≈ 4.35 yr</strong>): short-lived data sells under export license (the copy rots — stolen snapshots hold 0.1–7% of a live subscription's value); long-lived archives (genomics-class: a copy is still ~85% as useful a decade later) never leave — <strong>compute-to-data</strong>, queries in, answers out, per-buyer <strong>egress budgets</strong> on a rising curve (reconstruction ≈ <strong>500×</strong> an honest subscription), budgets aggregated across commonly-owned buyers. Pricing: the <strong>non-waivable, essentials-indexed minimum ask</strong> is confirmed load-bearing (without it, seller competition collapses the price to ~5% of the revenue-optimal reserve; ~90% would undercut if allowed) — but <strong>a floor alone feeds theft</strong> (the thief's resale margin rises with the honest price); only custody starves it. The recommended fair rate is <strong>published, never binding</strong> (price oracles get captured). Terminology fixed network-wide: <em>the floor</em> = the essentials guarantee; <em>the minimum ask</em> = data's price minimum. Chosen over: status quo, floor-only, DRM, single custody class, binding oracle, waivable floor.</p>
+<p><strong>A0.5 — The conduct-claim class: the whistle market (DR-22; v39).</strong> EDEN's rails compose into an accountability market about outside entities: pseudonymous claims + attested evidence + claim bond + the accused's counter-window (non-adopters answer without joining) + sortition-jury verdicts (substantiated / unsubstantiated / <strong>unverifiable</strong> as an honest third) + truth bounty / slash-on-false. Evidence: the market <strong>separates</strong> (truth profits, lies ruin) across 54.6% of the searched bond/bounty grid, tolerating jury error to <strong>ε* = 0.639</strong>; flooding self-bankrupts; extortion threats are empty. Launch at <strong>(B, β) = (2.0, 0.5)</strong>, low-bond (sponsors proved counterproductive at low bonds). Two structural properties: <strong>certified capture</strong> (transparent, unmodifiable recording straight into EDEN) removes the authenticity half of jury error and is the armor against improving AI forgery — but the market separates even without it; and <strong>account-silence is constitutional-class</strong> — the platform <em>cannot</em> confirm whose account disclosed (the anonymity set is the discloser's protection: rational disclosure at knower-sets of ~7 under typical retaliation). Two limits stated on the label: small-circle disclosers against ruinous retaliation remain at risk no bounty fixes, and <strong>short-and-distort is irreducible</strong> (off-protocol positions are invisible; bounded only by adjudication speed — securities law's handoff). Rollout is <strong>staged and governance-gated</strong> per the new PRE-MORTEM obituary #7 ("the leak that got it banned"). Chosen over: no conduct class, high-bond + sponsor infrastructure, waiting for capture-hardware ubiquity, confirmable accounts, and out-bonding the shorts.</p>
+<p><em>Evidence-base addendum: the registered suite now runs v1–v39; the July-18 cells were verified by isolated re-execution (byte-identical, anchor chains re-run exactly) in <code>VERIFICATION v6</code>, with its same-thread independence caveat disclosed — the out-of-family pass remains the standing ask.</em></p>
+<hr>
+<h2 id="part-a-drop-in-amendments-by-section">Part A — Drop-in amendments by section</h2>
+<h3 id="56-extends-the-substrate-is-now-specified-and-priced-against-attack">§5–§6 (extends) — The substrate is now specified, and priced against attack</h3>
+<p>v1.5's §10 argued that "the substrate is the product." The substrate now has a canonical spec — <code>01 Canon/EDEN Protocol Architecture v0.1</code> — and its four trust surfaces have each been red-teamed under registered bars:</p>
+<ul>
+<li><strong>Civic validation (Architecture §4, priced by v11).</strong> Ledger consensus is by <strong>sortition over bonded verified persons</strong>, not stake and not permanent authorities. Measured (11/11 bars): the cheapest safety capture at central dials is <strong>~$613M via bulk identity rental</strong> (20× the v9 attacker); bribing incumbents is <em>more</em> expensive ($1.66B — one lifetime identity makes equivocation a life-scale loss). The honest surprise, reported: registry-rot barely matters (rot supply exceeds seat demand at pessimistic pricing), and the true wall is <strong>honest-pool size H* ≈ 5,500 volunteers</strong> — below which bond-only capture undercuts $30M, so the honest validator count becomes a live public gate quantity like reserve months. Committee size is load-bearing by breach: k = 201 censors 0.483% of epochs at 25% infiltration (k = 101 fails the 1% bar at 3.16%). A hostile-state channel needs <strong>3 colluding jurisdictions to censor, 5 to capture</strong> at the 15% cohort cap. The roads not taken are measured-dominated: young-chain PoS is captured at $100M/$50M and its security <em>crashes with the token</em> (post-crash civic/PoS security ratio 19.1× — personhood-denominated security is counter-cyclical); permanent authorities halt under two legal orders and cannot be forked away from captors.</li>
+<li><strong>The proof-of-engagement pipeline (Architecture §6, priced by v12).</strong> Bonded aggregators cannot profitably launder forged-engagement claims past <strong>transparent-rule / private-sample re-audits</strong>: break-even audit rate is <strong>0.62% of batches at 0.010% honest cost</strong> (the clawback is ruinous per catch, so the watch can be light). <strong>Payout vesting is load-bearing by breach</strong> — a no-vesting smash-and-grab profits +$323k, and a 7-day (168-epoch) vesting window collapses it to ~$0 → canon amendment: <strong>168-epoch payout vesting on the time-mint lane</strong>. Blast radius at the 15% market cap is 0.0063% of annual mint (ring ROI −$586M); cross-aggregator double-counting is 0 of 1,000,000 past the global nullifier. The counterfactual single trusted aggregator keeps $438B (1,580×) — the measured case for many bonded booths over one gate.</li>
+<li><strong>Cross-layer composition (v14 — the attack the per-layer sims structurally cannot see).</strong> One adversary wearing registrar + validator + aggregator + oracle-reporter hats at once. <strong>X1 and X2 fail exactly as registered, and that is the finding:</strong> attacking four layers <em>jointly</em> costs <strong>$483M vs $737M separately (0.66×, a 34% shared-cohort discount)</strong> because the identity bloc is built once and worn four times; and the identity blast radius <strong>composes from v10's isolated 1.37% to 3.74% — past the 2% gate</strong> — once downstream weight is counted. The oracle→reserve loop protects delivery (people over-receive) but drains the reserve in 4 months (X3 — so "EBI-real" needs an oracle-independent cross-check, now built as v18). <strong>The fix is measured to work: one joint cross-layer cap (15% combined across roles) drops per-role reach to 3.75% and composed fraud to 0.96%</strong> (X4). Gate-18 candidate: a live cross-layer concentration cap.</li>
+</ul>
+<p>The defeater carried on the face of all three: <strong>each prices the mechanism <em>around</em> the identity/liveness keystone</strong> (registry rot, rental prices, forgery ceilings are dials; gates 9/14 are unmoved). Sortition over sock-puppets is no defense; only the pilot prices the puppets.</p>
+<h3 id="74-77-amends-demurrage-is-now-progressive-by-size-velocity-defense-v14-a2">§7.4 / §7.7 (amends) — Demurrage is now progressive-by-size (Velocity Defense v1.4, A2)</h3>
+<p>The flat 5%/yr carry cost is retired. <code>EVE Sim v24</code> measured that it landed on ordinary savers — a median household (~4 months' savings) paid ~$67/yr = 2.8% of wealth, and 67% of people paid a meaningful amount. The ratified replacement (<code>Velocity Defense v1.4</code>, owner decision July 10) is a <strong>marginal, band-by-band schedule on idle non-floor surplus</strong>, measured in months-of-essentials:</p>
+<table>
+<thead>
+<tr>
+<th>Idle surplus (months of essentials)</th>
+<th>Marginal annual demurrage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 – 6 months</td>
+<td><strong>0%</strong></td>
+</tr>
+<tr>
+<td>6 – 24 months</td>
+<td>2%/yr</td>
+</tr>
+<tr>
+<td>24 – 120 months</td>
+<td>5%/yr</td>
+</tr>
+<tr>
+<td>above 120 months</td>
+<td>8%/yr</td>
+</tr>
+</tbody>
+</table>
+<p>Ordinary savers pay <strong>$0</strong> (the fraction paying &gt; 0.5%/yr of wealth falls 67% → ~28%); the top idle decile still pays ~4.8%/yr effective (above the 3% deterrence bar); circulation is preserved. All v1.3 exemptions (essentials floor, verified essentials purchases, small balances, money-in-motion), the ~2%/yr background inflation nudge, the 3× stress multiplier, and term-locks as the voluntary no-carry savings vehicle are unchanged; receipts still recirculate to the floor pool. The exemption threshold and band rates are <strong>pilot calibrations</strong> (hoarding elasticity is a field unknown); the <em>structure</em> is the ratified commitment.</p>
+<h3 id="710-replaces-v16-text-the-banking-savings-layer-full-reserve-free-credit-guaranteed-exit">§7.10 (replaces v1.6 text) — The banking &amp; savings layer: full reserve, free credit, guaranteed exit</h3>
+<p>v1.6's §7.10 wrote fiat lien-credit into canon; the owner-directed banking wave (v25–v30) supplies the layer canon lacked, consolidated as <code>Banking &amp; Savings Layer Spec v0.1</code> (proposal grade). The load-bearing invariant: <strong>a bank is a lender, market-maker, and custodian — never a money-creator; broad money always equals what the mint governor issued.</strong> The fork was decided by measurement (v25): fractional reserve multiplies broad money to <strong>6.4× the governor's target</strong> (20× at rr = 3%), drives +540% credit inflation the governor cannot see, reintroduces bank runs, and amplifies shocks 1.8× — a direct contradiction of EDEN's core control mechanism. Full reserve gives up the <em>printing</em>, not real lending: against sound first-round intermediation, a full-reserve system plus an active term-lock market recovers 44% at 40% lock-share and 67% at 60% (N4, honestly reframed).</p>
+<ul>
+<li><strong>Deposits:</strong> custodial demand deposits (100% held, run-proof, carrying the progressive demurrage as a pass-through to the depositor) and voluntary term-locks (the <em>only</em> lendable deposits, maturity-matched, principal always returned).</li>
+<li><strong>Credit — a free market (Freedom pillar, v26):</strong> any rate, simple or compound, any terms. The guaranteed floor already disciplines the market — every borrower can walk onto the floor, collapsing the equilibrium rate from <strong>~36% (desperation) to ~12.5% (choice)</strong>. Products: revolving line, earmarked term loan (unspent proceeds clawed back on freeze), raw lump, and <strong>equity/revenue-share alongside debt</strong> (the only structurally trap-proof, least-concentrating instrument — v26 Q3 trap_rate=0 / Q4 lowest concentration; the sim's JSON bars are Q-named, the old "F5" label was the RESULTS finding number).</li>
+<li><strong>The right-to-exit — arrears-only freeze (v27):</strong> every borrower can freeze the compounding spiral at will; contracted interest continues on principal, accrued interest becomes a non-compounding frozen balance, and debt then grows <strong>at most linearly</strong> (1.63×L/5yr vs 1.86× compounding) — the humane exit that is not a free-money exploit.</li>
+<li><strong>Enforcement without coercion:</strong> collateral, on-ledger garnishment capped above the essentials floor, permanent-identity reputation (the load-bearing defense), and the opportunity cost of hiding off-ledger. Honest limit (v27, precision added July 11): strategic default is defeated by <em>any single</em> defense, <strong>but the fully-undefended unsecured-raw structure already pays the exploit 53% of attempts at central threat</strong> — which is exactly why the market's voluntary self-selection into collateral/earmarking is load-bearing, not decorative. The whole result rests on the identity/reputation keystone.</li>
+<li><strong>Anti-shadow-banking (v28, v30):</strong> the primary defense is demand-side — good money starves shadow demand (rational adoption of a risky private note stays ~3.7% at a 3% yield edge); on-ledger money-like circulation is detectable by its velocity/graph signature; the guaranteed floor removes the coercion channel historical scrip relied on (wage-capture retention 100% → ~5%); and no lender-of-last-resort for shadows means a thin issuer collapses ~98% of the time. Together these bound shadow credit below ~1% (off-ledger) / ~2.6% (on-ledger) of broad money — non-systemic. Two irreducible residuals named, not buried: a coercive territorial sovereign (a secession/blockade problem, cross-linked to v20) and privacy-as-yield criminal use (a law-enforcement matter).</li>
+<li><strong>Concentration (v29):</strong> free compound interest is a real r &gt; g channel (top-1% wealth share 9% → 16% unbraked over 50 years) that EDEN's <em>existing</em> machinery already contains ~74% of (idle-demurrage + non-compounding inheritance + full-reserve pool bound → top-1% ends at 4.1%, below start). A dedicated gate adds ~0% (honestly: the registered 2% cap never binds; at genuinely binding 0.5–1% caps it adds ≤0.62%) → <strong>no new cap; a concentration dashboard</strong> (spec + prototype in canon), revisited only if the channel dominates.</li>
+</ul>
+<h3 id="75-14-amends-v16-text-federation-is-the-ratified-sponsor-end-state-escrow-and-the-diversification-cap-are-canon-terms">§7.5 / §14 (amends v1.6 text) — Federation is the ratified sponsor end-state; escrow and the diversification cap are canon terms</h3>
+<p>v1.6 named escrow, a demand-diversification gate, and multi-sponsor federation as the <em>target</em>; v6.8 built and priced them. <strong>Escrow ≥ 6 months (= the step-up lag) plus a single-sponsor share cap ≤ 40%</strong> turns v6.7's −92% single-sponsor exit into a <strong>−9.9% ripple</strong> (the currency rises — escrow severance bridges the lag), delivery unbroken, zero printing; the compound storm (recession + austerity + mid-storm exit + contagion + chronic delay) passes on a designed-thin margin (delivery trough 1.062, drawdown 42%, recovery 4 months). The measured walls: cap* = 0.40 (at 100% share even <em>with</em> escrow, 59 months below floor — escrow buys months, the cap carries the currency); E* = 6 months (E = 0 → 4 months below floor). <strong>J4 failed and amends the pitch:</strong> the "26% cheaper than welfare" figure is a <em>peacetime, funder-level</em> number; a survivor absorbing a lapsed sponsor's share mid-storm sees its saving compress to ~9% and carry to 2.7% (both bars breached) — <strong>federation overhead concentrates on whoever backstops a collapse, so the backstop obligation must be priced into accession contracts.</strong> Cascade politics (24 draws): 83% zero-months-below, <strong>100% no stranding</strong>.</p>
+<h3 id="78-amends-velocity-defense-v3-gains-an-oracle-independent-cross-check-and-a-corrected-re-basing-cadence">§7.8 (amends) — Velocity defense v3 gains an oracle-independent cross-check and a corrected re-basing cadence</h3>
+<p>As v1.7's A.3 posture ("protect people, concede price"), now with two substrate-era additions. <strong>(a) The oracle→reserve loop is closed (v18):</strong> an independent endogenous-lane estimator with a divergence gate bounds the monthly over-draw to τ×lane rather than δ×lane ($0.30M with it on vs $19.8M off; the reserve survives the full 24-month horizon instead of draining in 2), folded into canon as <code>EBI Cross-Check Addendum v0.1</code> (τ = 3% held pending a tuning sweep). <strong>Honest correction (gate-tightening, July 11):</strong> the registered expectation that the τ-tradeoff has an interior optimum near 2–3% is <strong>refuted</strong> — the frontier is τ-degenerate and τ* lands at 5% (v18 Y4 FAIL). This does not weaken the mechanism (canon τ = 3% rests on Y0/Y1, both PASS on computed clauses), but the tuning claim was wrong in public and a τ-vs-δ sweep is the owed successor. <strong>(b) The re-basing cadence is corrected (v33):</strong> the EBI Methodology's fixed 0.05 bias budget cannot absorb a systematic ±0.5pp/yr drift, and the binding cadence is set by the <em>reserve</em> side at <strong>≤ ~2.5 years</strong>, not the 5-year delivery-safe cadence — a cumulative-draw over-read telemetry is the alternative.</p>
+<h3 id="7-amends-the-monetary-position-stated-on-the-record-the-ebi-is-the-numeraire-not-a-unit-of-account-takeover">§7 (amends) — The monetary position, stated on the record: the EBI is the numéraire, not a unit-of-account takeover</h3>
+<p>Canon now states explicitly (<code>Monetary Position Note</code>, ENDORSED provisional) what EVE claims to be, so the unit-of-account-inertia critique is answered by <em>accepting half of it</em>: <strong>everything that must hold its real meaning is denominated in the EBI — goods, not currency</strong> (the floor at 1.10×EBI, machine-pay floor prices, validator/aggregator bonds, the Redemption Window). Fiat remains the expected language of market prices at the interface, possibly forever; the entire v6 open-economy wave already runs in that world, and <strong>EVE-as-unit-of-account appears in zero registered bars.</strong> EVE mediates exchange within the ring and meets fiat at a priced, survivable edge; as a store of value it is <em>deliberately</em> bounded (holding limits, non-transferable streams, no compounding inheritance) because idle hoards are the incidence target of last-resort funding. One-line version: <em>EVE prices its promises in groceries, settles them on a ledger, and lets dollars keep the job of being dollars.</em></p>
+<h3 id="15-amends-risk-analysis-the-restated-claims-with-the-new-failures-carried">§15 (amends) — Risk analysis: the restated claims, with the new failures carried</h3>
+<p>Adding to v1.7's four restatements:</p>
+<ul>
+<li><strong>(v)</strong> <em>"The substrate is attackable and priced. Civic validation costs ~$613M to capture and its binding wall is the honest-volunteer count, not stake; the engagement pipeline is policed by light audit only because payouts vest; the oracle is sabotage-not-theft but its re-validation speed is load-bearing (a triple-combo dips delivery to 0.888); and one adversary wearing every hat composes the identity blast radius past the fraud gate unless a joint cross-layer cap holds it. Every one of these prices the mechanism around the identity keystone, which only the pilot settles."</em></li>
+<li><strong>(vi)</strong> <em>"Banks in EDEN are custodians and lenders, never money-creators — full reserve, because fractional reserve breaks the governor (6.4×). Credit is a free market disciplined by the floor (36% → 12.5%) with a guaranteed right-to-exit; the fully-undefended loan structure is exploitable (53%), which is why the market self-selects into collateral, and the whole layer rests on the identity/reputation keystone."</em></li>
+<li><strong>(vii)</strong> <em>"Self-funding and the builder economy are willingness-to-pay-fragile. At anchors ÷10 the safety promises survive (the sponsor-backed floor never breaks; cheaper-than-welfare is WTP-invariant) but the builder-economy and self-funding promises break (median builder $420 → $45/mo). The data-valuation gap is real and quantified; only the registered field experiment settles it."</em></li>
+<li><strong>(viii)</strong> <em>"An ecology-era floor is not yet claimable. At registered dials the ecology-era floor is structurally unfundable (2–5% of obligations funded); the design owes a purse-vs-promise-vs-subsidy decision before it asserts one."</em></li>
+</ul>
+<p>The strongest standing criticisms are unchanged and restated for emphasis: proof-of-personhood liveness at scale (gates 9/14 measure, the pilot decides), real willingness-to-pay (v16-extension quantifies the fragility; the field experiment settles it), consent as politics (v5.4/v32), and the <strong>in-family discount on all AI-reviewed evidence</strong> pending out-of-family human replication.</p>
+<h3 id="16-amends-gates-1522-with-their-status">§16 (amends) — Gates 15–22, with their status</h3>
+<p>Adding to the measured gates 12–14 (v1.7):</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>What it bounds</th>
+<th>Status / reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>15</strong></td>
+<td>Honest-validator-pool floor + committee size + coerced-state cohort cap</td>
+<td>Candidate (v11): H* ≈ 5,500; k = 201; ≤15% cohort</td>
+</tr>
+<tr>
+<td><strong>16</strong></td>
+<td>Aggregator payout vesting</td>
+<td>Candidate (v12): 168-epoch vesting on the time-mint lane</td>
+</tr>
+<tr>
+<td><strong>17</strong></td>
+<td>Oracle re-validation speed + move-cap + quarantine</td>
+<td>Candidate (v13-Oracle); the 0.888 stress leg is disclosed, live oracle red-team still a launch gate</td>
+</tr>
+<tr>
+<td><strong>18</strong></td>
+<td>Live cross-layer concentration cap (combined across roles)</td>
+<td>Candidate (v14): 15% combined; robust in the v16-extension sweep</td>
+</tr>
+<tr>
+<td><strong>19</strong></td>
+<td>Governance contribution-house cap (iterative water-fill)</td>
+<td>Candidate (v15): exactly 5.00%; the v0.2 water-fill is load-bearing</td>
+</tr>
+<tr>
+<td><strong>20</strong></td>
+<td>Sponsor recession-payment floor</td>
+<td><strong>Re-ratify at ≥0.60</strong> (v16/v31; the ≥50% + escrow arm is dead — escrow is inert against austerity)</td>
+</tr>
+<tr>
+<td><strong>22</strong></td>
+<td>Payer-exit pre-commitment (accession contract)</td>
+<td>Candidate (v21/v32): the mixed rule — 6%-capped bump + ~41% taper — with a ramp ≤ the ratified reserve window</td>
+</tr>
+</tbody>
+</table>
+<p>Also queued: a <strong>minimum-viable-scale wind-down gate</strong> (v21 K3 — the system has a fixed-cost floor at ~40% retained population, below which the 5% protocol share cannot fund validators/oracle) and a <strong>basket-cost-cap tightening</strong> (v17 C3 — food/shelter each compute $21.6M/yr against the $20M bar). A proposed benchmark gate: <strong>no currency pilot without a measured $/claim on the deployed proving circuit</strong> (the desk benchmark shows feasibility but a TEE-native P-256 device-key trap costs ~200× and the v12 fee dial fails 6–22× at today's outsourced-market prices).</p>
+<hr>
+<h2 id="part-b-the-normative-mechanism-current-state-what-stands-as-canon">Part B — The normative mechanism, current state (what stands as canon)</h2>
+<p><em>This section states the ratified mechanism as it stands after the July 10 ratifications, so a reader need not reconstruct it from seven changelogs. Normative chain: <code>EVE Algorithm v1.0 → v1.1 → v1.2 → v1.3 → v1.4</code>, as amended by the notes below. Everything here is </em><em>ratified provisional</em><em> — pending economist and out-of-family review — and logged in <code>00 DECISION RECORD</code> with its roads not taken and reversal path (universal reversal = two-house + timelock; constitutional-class = supermajority + timelock).</em></p>
+<ol>
+<li>
+<p><strong>Issuance.</strong> EVE is minted only by verified humans' engaged attention to real digital work, governed by a one-way <strong>mint-rate governor</strong> (the core money-supply control). The effort-weight <code>W_effort</code> remains <strong>a cost, not a cure</strong> (v1.7 §7.1): anti-value-farming is delivered by outcome-linked minting on high-value classes, transparent-rule/private-sample audits, a bounded arbitrage spread, and the economic + identity ceilings that never depended on the weight. A constitutional <strong>Exploration-Subsidy floor <code>c_min</code></strong> protects the mint coefficient until exploration pays for itself — with the v34 refinement that <code>c_min</code> should <strong>sunset</strong> once machine-pay matures (otherwise it blocks full Baumol stability).</p>
+</li>
+<li>
+<p><strong>The floor (the guarantee).</strong> A guaranteed essentials floor <strong><code>F = 1.10 × 7-day rolling EBI</code></strong> — indexed to a measured goods basket, <strong>never to the currency, and never printed</strong> (delivery is staged to funding; the failure mode is honest rationing, not inflation finance). The 1.10× decomposes as 1.05× hardship-depth cushion + 0.05× measurement-bias budget. The floor is <strong>universal in guarantee, converging in strength</strong> (v1.7 §7.5): guaranteed from each region's accession, converging as time-equal minting turns joiners into contributors, with mandatory transfers capped at the consent bar. It launches <strong>floorless with staged activation</strong> (EVE Algorithm v1.4): all routing banks into a Floor Reserve; the floor activates on a solvency trigger (reserve ≥ 24 months of obligations + inflow ≥ obligations) with a vulnerable-dependence override (&gt;2% vulnerably dependent for 12 months forces activation). <strong>v34 confirms the floor's essentials-indexing is what disarms Baumol for recipients</strong> across a century; <strong>v33 corrects the re-basing cadence to ≤ ~2.5 years</strong> (reserve-side binding).</p>
+</li>
+<li>
+<p><strong>The EBI (the numéraire).</strong> The Essentials Basket Index prices a stated monthly quantity vector of survival-and-participation goods per person per region — <strong>not a CPI, not a cost-of-living or welfare measure.</strong> Composition changes are constitutional-class (two-house, ±10%/yr relative weight cap, ±2%/revision cost cap, categories defined by <em>function</em> not brand). The published index is a <strong>chained Törnqvist over settlement-lane data, median-of-three-bonded-classes</strong> at the observation layer, with move caps and quarantine (Oracle Protocol Spec, priced by v13-Oracle). EVE claims the EBI as <strong>numéraire, not unit-of-account</strong> (Monetary Position Note).</p>
+</li>
+<li>
+<p><strong>Velocity defense (stability by formula).</strong> A USD-side stabilization reserve sized to projected mature inflow; capped, laddered term-locks; the <strong>Essentials Redemption Window</strong> paying EBI-real value through crashes; the reserve <strong>subordinated to the essentials lane, not to a price corridor</strong> (v1.7 §7.8); progressive-by-size demurrage (Velocity Defense v1.4, above); and an oracle-independent cross-check (τ = 3% held). Crisis performance is scored on <strong>income/essentials reaching people, not price paths</strong>.</p>
+</li>
+<li>
+<p><strong>Banking (Part A §7.10).</strong> Full reserve; custodial + term-lock deposits; free-market credit with a universal right-to-exit; equity alongside debt; enforcement by reputation/collateral/garnishment without coercion; shadow banking bounded demand-side. Constitutional-class invariant: broad money = governor issuance.</p>
+</li>
+<li>
+<p><strong>Distribution and anti-dynasty.</strong> Non-transferable income streams (no compounding inheritance; dynastic persistence 98% → ~11%, top-10% royalty capture 79% → ~17%); <code>W_age</code> and per-node caps on the dependency stream; the Ancestral Dividend as the terminal floor funder "while the living keep the garden." Three honest income tiers (builders earn livings; contributors earn supplements; members earn modest income plus storm-proof shadow savings) — median prosperity from <em>passive</em> participation is not claimed.</p>
+</li>
+<li>
+<p><strong>Identity (the keystone, breach-survivable by design — v1.7 §7.9).</strong> The biometric is the <em>uniqueness check</em>, not the credential — stored as a salted, versioned, rotatable transform; daily use runs on revocable keys plus the accumulating continuity web; cohort caps ≤ 15%; the quarantine invariant (a compromised cohort's floor never turns off); due-process revocation + fallback registrar (un-personing fails). The <strong>liveness arms race (sensors vs synthetics, <code>p_live</code>) is the single load-bearing assumption in the whole program; only the pilot prices it.</strong></p>
+</li>
+<li>
+<p><strong>Governance.</strong> A two-house structure (one-person-one-vote + contribution-weighted-with-caps under the v15 iterative-water-fill cap function, exactly 5.00%), sortition juries of verified persons, subsidiarity/federation, delegation and quorum machinery, and constitutional change control (two houses + timelock; supermajority for constitutional-class).</p>
+</li>
+<li>
+<p><strong>Substrate (Part A §5–§6).</strong> Civic validation by bonded-personhood sortition; a proof-of-engagement pipeline with vesting and private-sample audit; the cross-layer cap; the proving-cost profile — all specified in <code>EDEN Protocol Architecture v0.1</code> and priced by v11–v14.</p>
+</li>
+</ol>
+<hr>
+<h2 id="part-c-evidence-base-the-current-corrected-record">Part C — Evidence Base (the current, corrected record)</h2>
+<p><em>The program's evidence is now </em><em>34 pre-registered simulation waves (v1–v34, several with lettered sub-waves) plus a machine-checked proofs artifact (10/10, with grade labels)</em><em> and a proving-cost desk benchmark. Every headline traces to a committed <code>results*.json</code> via the Replication Kit's Claims Register; the map is <code>04 Simulations/00 INDEX - Simulations Overview</code>. </em><em>Trust model: read every result as mechanism-existence under stated dials — "this rule closes this exploit; removing it reopens it" — never as a forecast.</em><em> This section deliberately carries the failures as findings, mirroring the Economist Brief's candor: presenting a cleaner record than the vault holds is the specific error Verification v4 (D15) named. The prior eras (v1–v10) stand as documented in v1.0–v1.7 and Appendix A; the record below is what v1.8 adds and corrects.</em></p>
+<h3 id="c1-what-was-checked-and-how">C.1 — What was checked, and how</h3>
+<p>Two full verification passes then a gate-tightening recode define the confidence level. <strong>Verification v3 (July 9)</strong> re-ran every engine in the vault from the code on disk (49 of 54 reproduced exactly; the other five differ in explained, harmless ways). <strong>Verification v4 (July 10–11)</strong> independently re-executed all fifteen then-new engines (v16–v30) plus the proofs and the rewritten cost-envelope benchmark in an isolated sandbox: <strong>every one regenerated its committed results file, most byte-for-byte, figures included.</strong> v4's verdict, in one sentence: <em>the outputs are honest; the tests were uneven</em> — the mechanical layer (code → JSON → prose) is in excellent shape and eleven registered failures were all recorded, but the <em>passing</em> side carried hardcoded sanity gates, tautological checks, and four write-ups that had gotten ahead of their runs. The July 10–11 fixes moved the scoreboard <strong>in both directions</strong>. The <strong>gate-tightening recode (Backlog #4b, July 11)</strong> then converted the disclosed-but-hardcoded gates into computed ones <strong>without moving any registered bar</strong>, flipping four verdicts (v18 Y4 → FAIL, v21 K4 → FAIL, v26 Q5 and v28 SB2 → disclosed non-results). A fresh-session independent verification of the recode (Backlog #13) <strong>has since been completed</strong>: all recoded engines reproduce their committed JSON byte-for-byte and are deterministic, and the four verdict changes were independently judged genuinely computed and justified (six low-severity gate-quality caveats logged, all already disclosed).</p>
+<p>The provenance caution travels with the batch: per the owner's record, most July 9–10 work ran as <strong>Opus 4.8 under inherited "(Fable)" signature labels</strong> (v23 the recorded exception) — which is <em>why</em> the verification discipline ignores signatures and re-executes everything.</p>
+<h3 id="c2-the-substratearchitecture-program-v11v15-proofs-envelope">C.2 — The substrate/architecture program (v11–v15, proofs, envelope)</h3>
+<p><strong>v11 Validator Capture &amp; Sortition</strong> — 11/11 bars. Cheapest safety capture ~$613M (bulk identity rental, 20× the v9 attacker); the binding wall is honest-pool size H* ≈ 5,500; k = 201 committee censors 0.483% of epochs at 25% infiltration (k = 101 fails at 3.16%); coerced-state channel needs 3 jurisdictions to censor, 5 to capture at the 15% cap. Counterfactuals measured-dominated: young PoS captured at $100M/$50M with security that crashes with the token (post-crash security ratio 19.1×); permanent authorities halt under 2 legal orders. Thin pass flagged: V3a's bond floor cleared its $100M bar by only 5.7% (index the bond, gate the pool). Gate-15 candidate. Defeater on the face: prices the mechanism around the identity layer.</p>
+<p><strong>v12 Aggregator Collusion &amp; Re-Aggregation Audit</strong> — 6/6 bars (one disclosed harness repair, original archived). Break-even audit 0.62% of batches at 0.010% honest cost; vesting load-bearing (no-vesting +$323k → 7-day vesting ~$0); blast radius 0.0063% of annual mint at the 15% cap (ring ROI −$586M); 0/1,000,000 cross-aggregator duplicates. Counterfactual trusted single aggregator keeps $438B (1,580×). Gate-16 candidate: 168-epoch vesting. Defeater: forged attestations are spotted to the attacker for free (gate 9 again).</p>
+<p><strong>v13-Oracle Capture &amp; Quarantine</strong> — 6/8 bars; <strong>O3-stress and O4 FAIL as honest findings.</strong> Faking 2-of-3 class-medians costs $99.5M (O1) and cannot pay for itself (80× cost/payoff, sabotage-only — the threat-model flip from thief to vandal, O2). Granted a free capture, the floor still delivers 0.960 of essentials monthly centrally (O3b) — <strong>but under the pessimistic triple-combo (4-week lag, 10%/yr inflation, 12-month re-validation) delivery dips to 0.888, just under the 0.90 stress bar (O3c FAIL)</strong>: re-validation <em>speed</em> is the load-bearing safety parameter, not the capture. The essentials lane is the dearest class ($310M) but at 4.3× the reporter class, under the registered 5× bar (O4 FAIL — the "real commerce is the expensive fake" inversion holds qualitatively, the multiple doesn't clear). Counterfactuals: a single CPI feed is capturable at 1/995 the cost (Argentina INDEC precedent); an unbonded crowd 1/199. Gate-17 candidate. <strong>Defeater: does NOT discharge the live prize-funded oracle red-team, still a launch gate.</strong></p>
+<p><strong>v14 Cross-Layer Composition</strong> — <strong>X1 and X2 FAIL exactly as registered — that IS the finding.</strong> Joint attack $483M vs $737M separately (0.66×, 34% shared-cohort discount, X1); identity blast radius composes 1.37% → 3.74% past the 2% gate (X2, 2.7×); oracle→reserve loop drains the reserve in 4 months while protecting delivery (X3); the fix works — one 15%-combined cross-layer cap → per-role reach 3.75%, composed fraud 0.96% (X4). Gate-18 candidate. Defeater: composition coefficients are stated estimates; inherits the identity keystone.</p>
+<p><strong>v15 Governance Capture under the Cap Function</strong> — G0/G2/G5 pass; G1 passes under the fix it motivated; G3/G4 reframed as findings. The contribution house is robustly non-plutocratic (√-concavity squashes a 30% whale to ~1%; majority needs ~1,595 colluders). <strong>The run caught a real flaw in the cap as first written (F1): the single-pass <code>min(raw, κ·Σraw)</code> leaks to 9.4% under concentration; iterative water-filling is required and holds it at exactly 5.00%</strong> → a v0.2 governance-spec refinement. √-weighting rewards identity-splitting 1.41× (= √2), closed only by the identity layer's ~120F-per-lifetime cost — governance anti-capture inherits the identity keystone. Gate-19 candidate. <strong>Defeater: what counts as contribution without becoming farmable is a separate, unsolved Goodhart problem.</strong></p>
+<p><strong>Machine-checked proofs — 10/10 PROVED, with two grade labels applied in the open.</strong> The load-bearing theory/arithmetic claims are now sympy-symbolic and exact-rational-verified, committed as a harness engine so the replication kit re-verifies them forever. Theorem-grade: the taper's no-cliff property (marginal 0.5 → 1.0, income ≥ F, kink at 2F); the v11 committee-censorship tails as exact hypergeometrics matching committed floats to the last digit; the v15 water-fill terminating/summing/holding at 5.00%; identity-splitting gain ≡ k^(1−α) (√2 at k = 2); the cartel bound ≥ 11 at κ = 5%; the v14 blast-radius closed form (2.731887, 0.21σ/0.37σ from both MC seeds); the O0 capped-geometric formula (exactly 13/400, 13/320); and P9/P10 (crash-floor identity, Redemption Window invariance) as exact algebra with empirical premises named. <strong>The two honest grade labels:</strong> <strong>P8</strong> is PROVED at <em>self-consistency</em> grade — the first pass hit its registered NOT-PROVED contingency, the envelope engine was rewritten the same evening to emit its own derivation (values unchanged, 195/195 leaves), and since emitter and checker share an author this certifies internal consistency, not independent re-derivation. <strong>P3</strong> was re-scored to its registered clauses (≤n termination on all feasible cells + the previously-unchecked uniqueness clause, enumerated exactly over the 20-cell grid). <em>Verification v4 found the proofs record was, before reconciliation, internally incoherent — three different tallies (10/10 vs 9/10 vs "still owed") — and the P8 re-grade circular; both are now reconciled to one story with the labels above. This correction is itself carried on the record.</em></p>
+<p><strong>Proving-cost desk benchmark.</strong> Proving a claim costs $7×10⁻⁷–$0.019 = 0.00007%–1.9% of the mint value it certifies — feasibility not in question — with a named exception (the TEE-native P-256 trap, ~200× cost) and an honest tension (the v12 fee dial holds 720× on the lean route, fails 6–22× at today's outsourced-market prices). Proposed gate: no pilot without a measured $/claim on the deployed circuit. Labeled a desk benchmark, not a hardware run.</p>
+<h3 id="c3-federation-v68">C.3 — Federation (v6.8)</h3>
+<p><strong>v6.8 Escrow &amp; Multi-Sponsor Federation</strong> — J0–J3 + J5 pass; <strong>J4 FAIL as a finding.</strong> Federation + escrow turns v6.7's −92% single-sponsor exit into a −9.9% ripple (currency rises), delivery unbroken, zero printing. Walls: cap* = 0.40 (max single-sponsor share; 100% even with escrow → 59 months below floor), E* = 6 months (= step-up lag; E = 0 → 4 months below floor). Storm passes thin (trough 1.062, dd 42%, recover 4 months). <strong>J4: "cheaper than welfare" is a peacetime, funder-level number (~24% member-level here vs v6.4's 26% funder-level); a survivor backstopping a mid-storm collapse sees its saving compress to ~9% and carry to 2.7% — the backstop obligation must be priced.</strong> Cascade politics (24 draws): 83% zero-months-below, 100% no stranding.</p>
+<h3 id="c4-robustness-capture-runexit-adoption-v16v23">C.4 — Robustness, capture, run/exit, adoption (v16–v23)</h3>
+<p><strong>v16 Regime-Shift Envelope (Lucas sweep)</strong> + <strong>extension.</strong> Nine load-bearing dials shaken jointly (±50%, 32-point LHS, both seeds) through the committed engines. <strong>L1/L3/L4 pass; L2 FAILED — the headline:</strong> the storm result holds in only <strong>47.4% of the envelope</strong> (bar 75%), 18/20 flips breach the 3-consecutive-month criterion, zero printing anywhere (honest rationing). The driver is the sponsor recession-payment fraction; committing the isolation slices (July 10) and running both seeds widened the bracket to <strong>g* ∈ (0.45, 0.60) straddling 0.50</strong> (densified in the extension to (0.51, 0.52], with ≥0.60 standing at ~8–9pp margin). Envelope-robust: peacetime federation (100%), the governance cap (100% of 400 cells; the single-pass cap would have leaked in 7.75% — v0.2 water-fill load-bearing), the k = 201 committee (sharp wall at s* = 28%). <strong>The extension</strong> swept the refactored v12/v13-oracle/v14 layers through the same envelope (v14's joint-cap fix holds 32/32; two dial-local findings reported, gate-18 unaffected) and added the <strong>FAIL-tier WTP sensitivity (red-team A9): at anchors ÷10, safety promises survive (floor delivery 0 months below; cheaper-than-welfare WTP-invariant at 0.785) while builder-economy/self-funding promises break (median builder $420 → $45/mo; $200/mo share 88% → 3%; endogenous floor coverage ~13% → 7%).</strong></p>
+<p><strong>v17 Composition Capture</strong> — C0/C1/C4/C5 pass; <strong>C2 and C3 FAIL</strong> (C3 re-scored July 10). Lobbying the basket is unprofitable, but the rate cap <em>alone</em> holds a hypothetical monopolist only to a thin ~1.6× loss (C2, below the 3× bar); scored as registered against "any single category," food and shelter each yield $21.6M/yr vs the $20M bar (C3 FAIL, previously coded energy-only). The load-bearing defense is the <strong>functional-category definition</strong> (C4: a price-taking supplier earns zero rent from a reweight). Defenses off: capture profitable ~12,400× (C5 — corrected from the previously-circulated ~5,000×; committed ratio 8.04×10⁻⁵, naive six-year prize $777.6M). Defeater: the definitions are themselves a governance surface — the composition analogue of "what counts as contribution."</p>
+<p><strong>v18 Oracle-Reserve Cross-Check</strong> — the divergence gate bounds the over-draw to τ×lane ($0.30M on vs $19.8M off; reserve survives 24 months vs draining in 2), delivery whole because the 1.10× cushion absorbs estimator noise. <strong>Under gate-tightening (July 11), Y4 flips PASS → FAIL:</strong> recoded to compute its registered interior-optimum expectation (τ* ≈ 2–3%), the frontier proved τ-degenerate and τ* lands at 5% — the expectation is refuted (a finding); the mechanism is unweakened (canon τ = 3% rests on Y0/Y1/Y2, all PASS on computed clauses). Honest residue (Y3): a 2-of-2 attack converts reserve-drain into a bounded ~1% delivery dip. Folds into <code>EBI Cross-Check Addendum v0.1</code>.</p>
+<p><strong>v19 Run plus Exodus</strong> — all five bars pass; the finding is structural: a <strong>per-capita goods floor cannot be "run" like a fixed-liability peg — when people leave, the bill shrinks as fast as the base.</strong> <em>Correction carried (v4 D1, then executed):</em> the "88% gone" figure that circulated was an inversion of the committed 88%-<em>retained</em> result; the registered sweep (now run) bottoms at 68% retained with delivery 1.0 everywhere; a forced-exodus extension confirms delivery 1.000 to the remaining 12% (reserve 98% full); a permanent-depression extension shows nothing breaks but the base drains to the 2% model floor — <strong>the floor can be abandoned, not run.</strong> Defeater: the reduced form omits fixed infrastructure costs (priced by v21 K3).</p>
+<p><strong>v20 Region Secession + v32 Payer-Exit Re-balancing</strong> — v20's five bars pass with a sharp asymmetry: nobody is stranded below their never-joined baseline; losing a net-<em>drawer</em> relieves the union; losing a net-<em>payer</em> opens a 53% drawdown + $3B/mo hole, the reserve buying ~24 months (committed sizing) or ~9 months (SPEC-registered sizing — a disclosed deviation, flagged for ratification). <strong>v32 resolves the countdown: RB1 FAILS as registered — a slice-bump alone needs +80.2% of givers' burden vs the 6% bar (13× over); you cannot bill the survivors.</strong> The humane tool is the taper (drawers self-fund 89.4%): a <strong>mixed rule — 6%-capped bump + 41.2% taper — closes the gap at 0.956 delivery</strong>; the 9-vs-24-month reserve question is an 18-vs-48-month diplomacy budget.</p>
+<p><strong>v21 Closeout Battery</strong> — <strong>K1 and K4 FAIL; K2/K3 pass.</strong> K1 (reassuring): capturing a category's <em>definition</em> is no more profitable than adding a category (both ~1.6× losing) — treat definitional edits as rate-capped. K2: the 2-of-2 oracle attack costs $410M = 4.1× the single-channel drain. K3: per-capita delivery is run-proof but the system has a <strong>fixed-cost floor at ~40% retained population</strong> → a minimum-viable-scale/wind-down gate candidate. <strong>K4 flipped PASS → FAIL under gate-tightening (July 11):</strong> its pass had been gated only on the 25% measured anchor while its "closes within 24 months" clause was hardcoded True; recoded against the registered 6% political bar, <strong>no split clears it</strong> → honest FAIL, the 24-month timing a disclosed non-result. This <em>strengthens</em> gate-22: it is the measured reason to pre-commit the taper/slice split.</p>
+<p><strong>v22 Adoption Timing</strong> — <strong>seven of eight bars pass; T5 FAILED on re-score (July 10).</strong> The late-joiner catch-up leg, scored at the registered 10-year window (not the mis-indexed 20-year one), holds <strong>0.78 of pioneer influence vs the 0.80 bar</strong> — dilution works but runs ~2 years behind the clock. The three headline answers stand: science symbiosis is real and causal (adopted institutions out-discover 1.92×/institution by year 20; ablations prove failure-data payment <em>and</em> visibility each carry ~half); government efficiency is a level not a path (26% saving at any join date; 1.74× savings-stock gap is the price of lateness); influence is rewarded then diluted on schedule (early wealth's 1.2× premium melts to 0.8× — below the adopted mean — by year 50). <em>Correction carried:</em> science self-funding is 74% of current spend at year 15 as a <em>flow</em> share; the "82%" that circulated was the year-50 cumulative (year-15 cumulative is 28%). All data-payment results are conditional on H1 (the WTP hinge).</p>
+<p><strong>v23 Sponsorship-Agenda Capture</strong> — <strong>three bars pass; B1/B2/B3/B5 FAIL — four of seven registered expectations falsified in public</strong>, the defense hierarchy inverting from what was registered. The steering premium is 1.9× (not 3×) and is <em>entirely</em> researcher data income — <strong>so the WTP hinge is also an anti-capture hinge</strong>; influence decays by metering (~15pp-years per treasury-month), not quickly; unburiability rents ~5 years of fog rather than forcing truth. The headline stands on the contrast: <strong>outside, ignorance is purchasable outright (0/18 evidence cells ever cross in 50 years under burial + compounding); inside, truth crosses anyway in 88.9% of cells</strong>, and the <strong>provenance discount</strong> (weight sponsored studies 0.3) is the only tested mechanism that closes the never-cross corner → a gate candidate. Displacement costs 5.68% of knowledge output (a marginal miss of the ≤5% bar). <em>Verification v4 rated v23 the cleanest sim in the batch — 100% claims-trace, honest 4-of-7 failure reporting — and it is the one artifact the owner records as genuinely Fable 5.</em></p>
+<h3 id="c5-the-banking-savings-layer-v24v30">C.5 — The banking &amp; savings layer (v24–v30)</h3>
+<p><em>One line each; the paragraphs are in Part A §7.10. All findings, including failures, on the record.</em></p>
+<ul>
+<li><strong>v24 Carry-Cost Design</strong> — flat 5% demurrage FAILS the ordinary-earner bar (~$67/yr, 2.8% of wealth, 67% pay); progressive-by-size dominates (median saver → $0) → Velocity Defense v1.4. <em>M1 re-scored July 10: four of five carry configs pass; auto-lock FAILS (was reported as all five).</em></li>
+<li><strong>v25 Banking Reserve Model</strong> — full reserve decisive; fractional multiplies broad money 6.4×, +540% credit inflation, reintroduces runs. <strong>N4 FAILED as registered and reframed</strong> (fractional's "capacity" is ~90% money-creation; full-reserve + term-locks recovers 44–67% of sound lending).</li>
+<li><strong>v26 Lending Regimes &amp; the Freedom Tradeoff</strong> — the floor disciplines the rate 36% → 12.5%. <strong>Q3 FAILS (a gradient not a switch):</strong> a ~3.8% debt-trap tail that only equity fully removes. <strong>Q5 → disclosed non-result under gate-tightening</strong> (contract-freedom scores stipulated, the engine models no origination-refusal). FREE + universal right-to-exit + equity-alongside-debt is the adopted proposal; the two-faces-of-freedom weighting is the owner's values call.</li>
+<li><strong>v27 Lending Integrity</strong> — strategic default defeated by any single defense, <strong>but the fully-undefended unsecured-raw structure already pays 53% at central threat</strong> (corrected July 10) → the market's self-selection into collateral is load-bearing. Rests on the identity/reputation keystone. <em>Disclosed: W0 hardcoded, W2 proxy-scored.</em></li>
+<li><strong>v28 Shadow Banking</strong> — good money starves shadow demand (~3.7% adoption); on-ledger shadow credit bounded ~2.6%. <strong>SB2 → disclosed non-result under gate-tightening</strong> (detection assumed, not measured — no velocity/graph model).</li>
+<li><strong>v29 Lending Concentration</strong> — existing brakes contain ~74% of the r &gt; g channel (top-1% ends at 4.1%, below start); a dedicated gate adds ~0% → dashboard, not a cap. <em>Honest: the registered 2% cap never binds (max share 1.31%); at binding 0.5–1% caps the gate adds ≤0.62%.</em></li>
+<li><strong>v30 Large Off-Ledger Issuer</strong> — the realistic issuer bounded &lt; 1% of broad money; the floor removes the coercion channel (retention 100% → ~5%); reach-vs-seigniorage dilemma (~16%/yr to go systemic); no LoLR for shadows (~98% collapse). Two named residuals: a coercive sovereign; privacy-as-yield crime.</li>
+</ul>
+<h3 id="c6-the-century-cells-v33-v34-and-the-ecology-resolution-v131">C.6 — The century cells (v33, v34) and the ecology resolution (v13.1)</h3>
+<p><strong>v33 Index Drift</strong> — ID0 passes; <strong>ID1/ID2/ID3 FAIL exactly as registered (the findings), and ID4 fails one clause honestly (a too-tight ±3-month cross-seed tolerance on the exhaustion month — its fourth FAIL, carried here per house rule; v5 D7).</strong> A one-directional under-read exhausts the 0.05 budget in ~9.3 years, breaches essentials at year 19.1, and leaves the floor at 0.856 by year 50 (ID1); the mirror over-read drains the reserve in 2.5 years while §5's instantaneous telemetry only lights at 9.8 years (ID2); the binding <strong>re-basing cadence is reserve-side ~2.5 years, not delivery-side ~9–10 years</strong> (ID3). Amends EBI Methodology §5. Verified byte-reproducing + gate-audited (July 11 fresh session; Verification v5, July 12).</p>
+<p><strong>v34 Baumol Governor Drift</strong> — BM0/BM1/BM3 pass; <strong>BM2 and BM4 FAIL as findings.</strong> The aggregate-tuned governor inflates essentials to 3.74× vs 2.17× essentials-tuned while its own gauge reads flat (BM1); the essentials-indexed floor <strong>delivers a full 1.10× basket every month of the century</strong> <em>(the indexed promise — an identity of the floor rule; realized self-funding coverage bottoms at ~12% until the yr-92 crossover, sponsor-backed until then — v5 D6)</em> where a naive aggregate-CPI floor breaches at year 8.8 and collapses to 0.20× by year 100 (BM3). <strong>BM2:</strong> Baumol delays the v7 generational-floor crossover from year 46 to year 92. <strong>BM4:</strong> essentials-indexing the governor cuts drift 62% but only a post-bootstrap c_min sunset removes it entirely. Canon candidates: index the governor to the EBI + sunset c_min; keep the floor on essentials. Fresh-session verify owed.</p>
+<p><strong>Ecology (v13.1) — RESOLVED-NEGATIVE.</strong> <em>This supersedes all circulating "provisional" ecology language; v13.0 artifacts remain only as the investigation trail and must not be cited as results.</em> The provisional v13.0 failed its harness-trust gate (a floor-printing wage-price spiral drove 2,163× inflation). The regression-gated rebuild (v13.1) reproduces 68/68 legacy bars exactly, then answers the funding question with <strong>0 of 7 R-bars passing — the answer:</strong> at registered dials the ecology-era floor is <strong>structurally unfundable</strong> — funding streams carry 2–5% of obligations, a labeled jump-start proves it is not a bootstrap gap, and obligations eventually exceed the model's <em>entire settlement volume</em> (a 100% tax could not fund it). Zero printing in all 10,800 EDEN-months; inflation ~7%/yr (the old figure was pure printing). The E1/E2 delivery-vs-GDP thesis rode on the failing floor-print and is <strong>not claimed</strong>. This forces a canon-level decision — <strong>grow the purse (v5.2-scale slices, ~10×), shrink the promise (a partial/lower floor), or name a permanent bounded subsidy</strong> — now in the ratification queue.</p>
+<h3 id="c7-the-economics-literature-red-team-scorecard">C.7 — The economics-literature red-team scorecard</h3>
+<p>The ten strongest published objections, argued at full strength and scored honestly (<code>EDEN Red-Team — The Economics Literature vs EDEN</code>). The verdicts <strong>as scored in the document</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Objection</th>
+<th>Verdict (as scored)</th>
+<th>Owed instrument — and its current status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1</td>
+<td>Lucas critique</td>
+<td>PARTIALLY ANSWERED</td>
+<td>Joint dial-shift envelope → <strong>built (v16)</strong>; L2 storm FAIL is the honest result</td>
+</tr>
+<tr>
+<td>A2</td>
+<td>Hayek / calculation (basket)</td>
+<td>PARTIALLY ANSWERED</td>
+<td>EBI Methodology Spec → <strong>built</strong>; composition-capture cell → <strong>built (v17, C2/C3 FAIL)</strong></td>
+</tr>
+<tr>
+<td>A3</td>
+<td>Index-number bias (Boskin)</td>
+<td><strong>UNANSWERED → now PARTIAL</strong> (was the clean miss)</td>
+<td>Chaining/bias-budget spec → <strong>built (EBI Methodology §4/§5)</strong> answers the composition half; drift cell → <strong>built (v33, ID1–ID3 FAIL — the fixed 0.05 budget is insufficient; needs ≤~2.5-yr re-basing)</strong></td>
+</tr>
+<tr>
+<td>A4</td>
+<td>Goodhart/Campbell</td>
+<td><strong>ANSWERED IN-MODEL</strong> (the program's best work)</td>
+<td>Live red-team (registered)</td>
+</tr>
+<tr>
+<td>A5</td>
+<td>Myerson–Satterthwaite / incidence</td>
+<td>PARTIALLY ANSWERED</td>
+<td>Incidence Note → <strong>built</strong></td>
+</tr>
+<tr>
+<td>A6</td>
+<td>Krugman/Obstfeld crisis</td>
+<td><strong>ANSWERED by concession</strong> ("protect people, concede price")</td>
+<td>X3 cross-check → <strong>built (v18)</strong>; run+exodus → <strong>built (v19)</strong></td>
+</tr>
+<tr>
+<td>A7</td>
+<td>Mundell/Oates OCA + fiscal federalism</td>
+<td><strong>ANSWERED as far as models go</strong> (the vault found it first)</td>
+<td>Region-secession → <strong>built (v20)</strong>; payer-exit → <strong>built (v32)</strong>; consent remains pilot</td>
+</tr>
+<tr>
+<td>A8</td>
+<td>Unit-of-account inertia</td>
+<td>PARTIALLY ANSWERED</td>
+<td>Monetary Position Note → <strong>built</strong></td>
+</tr>
+<tr>
+<td>A9</td>
+<td>Data-valuation gap (Arrieta-Ibarra)</td>
+<td><strong>ANSWERED IN DESIGN, pending empirically</strong></td>
+<td>WTP field experiment (registered); FAIL-tier sensitivity → <strong>built (v16 extension)</strong></td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Baumol / automation displacement</td>
+<td>PARTIALLY ANSWERED (conscious wager)</td>
+<td>Century drift cell → <strong>built (v34, BM2/BM4 FAIL)</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Counting, honestly (resolved July 11 per owner ratification).</strong> As scored, this is <strong>4 answered-class verdicts</strong> (A4 in-model, A6 by concession, A7 as-far-as-models, A9 in-design), <strong>5 partially answered</strong> (A1, A2, A5, A8, A10), and <strong>1 originally unanswered</strong> (A3) = 10. The <code>ECONOMIST BRIEF</code>'s earlier "<strong>3 answered / 4 partial / 1 miss</strong>" was a miscount (flagged by Verification v4 D17) and has been <strong>corrected to match this scorecard</strong>. Per the owner's ratification, <strong>A3 is now classed PARTIAL, not unanswered</strong>: the EBI Methodology Spec specifies the composition-governance half, and <code>EVE Sim v33</code> (Index Drift) tested the measurement-drift half and found the fixed 0.05 bias budget insufficient — needing a ≤~2.5-yr re-basing rule (a canon candidate). The current effective tally is therefore <strong>4 answered / 6 partial / 0 unanswered</strong>, A3 the newest partial. The material point stands: since July 9 the owed instruments were largely delivered, and the testing did not merely vindicate — <strong>v33 showed the bias budget is insufficient against systematic drift, and v34's Baumol cells failed two bars.</strong> The scorecard improved by being built out; it did not improve by being flattered.</p>
+<h3 id="c8-corrections-applied-to-previously-circulated-numbers">C.8 — Corrections applied to previously-circulated numbers</h3>
+<p>The verification and gate-tightening passes re-scored several figures that had circulated in earlier drafts, briefs, or index rows. The corrected column is what v1.8 cites.</p>
+<table>
+<thead>
+<tr>
+<th>Previously circulated</th>
+<th>Corrected (committed artifacts)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>v18</strong> "all five Y-bars pass"</td>
+<td><strong>Y4 and Y0 FAIL</strong> — Y4 on the recoded gate (τ* ≈ 2–3% interior optimum refuted; frontier τ-degenerate, τ* = 5%) and Y0 on the v5 registered-σ-sweep re-score (12.5% false-quarantine months at σ=2% vs the 5% bar; July 12). Drain-bounding unweakened: canon τ = 3% rests on Y1/Y2; its quarantine comfort is σ-conditional</td>
+</tr>
+<tr>
+<td><strong>v21</strong> "K2/K3/K4 pass; K1 FAILs"</td>
+<td><strong>K1 and K4 FAIL; K2/K3 pass</strong> — K4 scored against the registered 6% bar (no split clears it); the 24-month clause is a disclosed non-result</td>
+</tr>
+<tr>
+<td><strong>v26</strong> Q5 "contract-freedom" scored</td>
+<td><strong>Disclosed non-result</strong> (<code>stipulated_not_computed</code>) — no origination-refusal model</td>
+</tr>
+<tr>
+<td><strong>v28</strong> SB2 "detection ~92%/3% (pass)"</td>
+<td><strong>Disclosed non-result</strong> (<code>detection_assumed_not_measured</code>) — no velocity/graph model; the 92%/3% figure is an assumed input, not a measured output</td>
+</tr>
+<tr>
+<td><strong>v17</strong> defenses-off capture "~5,000×" (0.0002×; $78M)</td>
+<td><strong>~12,400×</strong> — committed ratio 8.04×10⁻⁵, naive six-year prize $777.6M (C5)</td>
+</tr>
+<tr>
+<td><strong>v19</strong> "88% of users <strong>gone</strong>, floor still delivered"</td>
+<td>Inversion of committed Z2 (88% <strong>retained</strong>); registered sweep bottoms at 68% retained, delivery 1.0; forced-exodus extension: delivery 1.000 to the last 12%, reserve 98% full; the floor can be abandoned, not run</td>
+</tr>
+<tr>
+<td><strong>v22</strong> science self-funding "<strong>82%</strong> by year 15"</td>
+<td><strong>74%</strong> is the year-15 <em>flow</em> share; year-15 <em>cumulative</em> is <strong>28%</strong> (82% was year-50)</td>
+</tr>
+<tr>
+<td><strong>v22</strong> T5 catch-up "~0.90 within 10 years — PASS"</td>
+<td>Mis-indexed 20-year window; at the registered 10-year window <strong>0.78 vs 0.80 — FAIL</strong></td>
+</tr>
+<tr>
+<td><strong>Proofs</strong> "7 of 8 proved"</td>
+<td><strong>10 of 10 PROVED</strong>, with grade labels (P8 self-consistency; P3 re-scored to registered clauses)</td>
+</tr>
+<tr>
+<td><strong>v16</strong> g* ∈ (0.45, 0.50] (single seed, uncommitted probes)</td>
+<td>Slices committed, both seeds: <strong>g* ∈ (0.45, 0.60)</strong> straddling 0.50 → gate-20 <strong>≥0.60</strong> (v31 killed the escrow arm); adopted ≥50% flagged for re-ratification</td>
+</tr>
+<tr>
+<td><strong>v24</strong> M1 "all five carry configs pass"</td>
+<td><strong>Four of five</strong> — auto-lock FAILS M1</td>
+</tr>
+<tr>
+<td><strong>v20</strong> reserve "buys 24 months"</td>
+<td>~9 months on the SPEC-registered $36B sizing (engine used $81.1B union volume — disclosed, probed, flagged); v32 quantifies the 18-vs-48-month phase-in</td>
+</tr>
+<tr>
+<td><strong>Position notes</strong> "persistence 79% → ~10%"</td>
+<td>Un-spliced: <strong>persistence 98% → 11%</strong>; royalty-capture 79% → 17% (v4 D14)</td>
+</tr>
+<tr>
+<td><strong>Ecology</strong> "provisional; poor decile fill 1.0 through shocks"</td>
+<td><strong>RESOLVED-NEGATIVE</strong> — floor structurally unfundable at registered dials; the delivery thesis rode on a floor-print spiral and is not claimed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="c9-what-this-evidence-base-does-not-change-the-standing-out-of-family-obligations">C.9 — What this Evidence Base does not change (the standing out-of-family obligations)</h3>
+<p>Nothing above discharges any of the program's four real hinges, and the honest ordering of importance puts them ahead of every further model-hour:</p>
+<ul>
+<li><strong>H1 — the willingness-to-pay field experiment.</strong> The single biggest hinge. Every data-payment magnitude here (self-funding, the builder economy, v22's symbiosis, v23's steering-price defense) is conditional on real buyers paying real prices; the v16-extension makes the fragility quantitative (safety survives anchors ÷10; self-funding does not). The design is registered with failure defined an order of magnitude below the anchors; the outreach field kit exists; <strong>execution requires the field, not a model.</strong></li>
+<li><strong>H2 — the live, prize-funded oracle red-team.</strong> A launch gate. v13-Oracle/v18/v21 price the oracle's statistical and economic failure modes; only a live adversary prices the assumptions they rest on. Protocol design done; execution is human.</li>
+<li><strong>H3 — out-of-family replication.</strong> Every engine has been re-executed, but by Anthropic models checking Anthropic models on one machine. The replication kit exists; no external party has re-run the program.</li>
+<li><strong>H4/H5/H6 — hostile economist review; the identity/liveness keystone (<code>p_live</code>); consent as real-world politics.</strong> The first is the engagement the Economist Brief is written for; the second is "the single load-bearing assumption in the whole program," which only the pilot prices; the third is the unsimulatable remainder of v5.4/v32.</li>
+</ul>
+<hr>
+<h2 id="conclusion-amended-paragraph-appended-to-the-v17-conclusion">Conclusion (amended paragraph, appended to the v1.7 conclusion)</h2>
+<p>The v6 program widened the proven middle; the v7 program reached for the horizon; the adversarial program armored the defenses; and this program did the two things a maturing research effort must do at once — it went <em>down</em> a layer, into the substrate the whole mechanism assumes, and it turned its verification tools on <em>itself</em>. Both moves cost the paper claims. The substrate holds at budgets the program takes seriously, but every substrate result prices the mechanism around the one assumption a model cannot settle — liveness against synthetic humans — and says so on the face of every readout. The self-audit was harsher still: two verification passes and a gate-tightening recode flipped six previously-clean results to failures or disclosed non-results, resolved a whole model negative, and reconciled the flagship rigor artifact from three contradictory tallies to one honest one. What EDEN now claims is therefore <em>smaller and firmer</em> than what it claimed a week ago. It claims a currency created only by verified human contribution, a floor indexed to groceries that never prints and delivers a full basket through a century of Baumol drift, a substrate whose capture costs are measured in the hundreds of millions and whose true wall is the honest-volunteer count, a banking layer that cannot create money and a credit market disciplined by the floor into a free-but-not-predatory equilibrium, and a set of failures it carries in the open: an oracle whose re-validation speed is load-bearing, a composition attack that must be capped, a self-funding story that is willingness-to-pay-fragile, an ecology-era floor it cannot yet fund, and a consent problem that is politics, not arithmetic. The roads not taken were measured, not merely argued. What stands between this paper and the world is unchanged and honestly short: liveness, willingness-to-pay, consent, external replication, and a hostile human expert who tries to break all of it. <em>Proven in the middle, honest about both ends — attacked from below and audited from within, in public, with the receipts filed and the failures kept as findings.</em></p>
+<hr>
+<p><em>End of v1.8 draft. </em><em>DRAFT — awaiting owner ratification per program convention; unreviewed (AI-produced).</em><em> Normative spec remains <code>01 Canon/EVE Algorithm v1.4 - Ratified Spec</code> as amended by the July 10 ratifications catalogued in Part B (Velocity Defense v1.4; EBI Methodology, Monetary Position, Incidence, Governance Cap-Function, Oracle Protocol, and Cross-Check notes; the Banking &amp; Savings Layer Spec at proposal grade) and logged in <code>00 DECISION RECORD</code> (DR-01…DR-17). Still owed: a consolidated EVE Algorithm v1.5 spec ratification incorporating the substrate/architecture terms (validator sortition, aggregator vesting, the cross-layer cap), the banking layer, the demurrage A2 schedule, the federation terms, the EBI numéraire position, the corrected re-basing cadence (v33) and governor-indexing (v34), and gates 15–22; the fresh-session independent verification of the gate-tightening recode (Backlog #13); the ecology purse-vs-promise-vs-subsidy decision; and the four standing human/field hinges (H1–H6). v1.0–v1.7 preserved unedited. Compiled by Claude (Opus 4.8), July 11, 2026, from the committed record — <code>04 Simulations/00 INDEX</code>, the v11–v34 RESULTS/JSON, <code>VERIFICATION v2/v3/v4</code>, the <code>GATE-TIGHTENING PASS</code>, the <code>ECONOMIST BRIEF</code>, and the <code>01 Canon</code> specs. Verify, don't trust — including this file.</em></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "index.html", "/edenquest": "edenquest.html", "/essays": "essays.html", "/evidence": "evidence.html", "/faq": "faq.html", "/about": "about.html", "/book": "book.html", "/what-is-eden": "what-is-eden.html", "/docs/whitepaper": "whitepaper.html", "/replication": "replication.html", "/support": "support.html", "/simulations": "simulations/index.html", "/simulations/plain-language": "simulations/plain-language.html", "/the-power-of-stories": "the-power-of-stories.html", "/the-stories-we-invest-in": "the-stories-we-invest-in.html", "/why-we-feel-powerless": "why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
 <script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
 </body>
 </html>

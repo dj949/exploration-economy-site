@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Adversarial Stress Test — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Adversarial Stress Test.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Adversarial Stress Test</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Adversarial Stress Test</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>Every earlier run assumed everyone behaves honestly. This one adds strategic attackers to the v3 engine and asks the question crypto reviewers ask first: can EDEN be gamed — by self-dealing, by armies of fake identities, by whatever a rational adversary would actually do?</p>
+<h2 id="what-we-found-after-a-correction">What we found — after a correction</h2>
+<p><strong>This file was revised after the July 2026 verification, and the corrected numbers are less flattering than the originals.</strong> Three fixes (old code and JSON archived as <code>*_PRE-FIX_archive.*</code>): the sweep axis was mislabeled in a way that flattered every row (the true detection bar at 50% fake identities is ~87%, not the 74% first reported); a too-kind linear extrapolation was deleted and the saturation case actually run; and attackers were allowed to optimize. The corrected picture: at 50% fake identities and zero detection, naive attackers capture 15.2% of issuance — but <strong>optimizing attackers capture 35.7%</strong>, with a single undetected fake able to net 5.78× the floor by wash-minting fresh AI content at the taper cap.</p>
+<p>The genuinely good news survives the correction: <strong>the floor itself never breaks.</strong> The 10th percentile stays at or above 1.17× essentials and the pool never needs top-up minting, even at 50% fakes with zero detection (wash minting feeds the pool too). The damage lands instead on honest creators — real income 0.76× at saturation, through governor dilution — and on the integrity of issuance itself.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Keeping fraud under the 2%-of-minting pilot milestone against <em>optimizing</em> adversaries requires high-quality identity and liveness enforcement — roughly 79%, 93%, and 98% detection at 10%, 25%, and 50% fake shares — not the modest bars the original table implied. That defense (the v1.2 liveness-gated minting event) still has to earn those rates in a pilot; it is not solved. Sharper still: for the <em>money</em>, identity failure degrades things gracefully, but for <strong>one-person-one-vote governance</strong>, fake identities are fake votes, and that layer could be captured outright — a different and stricter requirement than the economics impose. Detection here is a dial, not a built detector; oracle manipulation and collusion rings were treated analytically; governance capture by sybils is named as the dominant risk but not yet quantified.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>After an honest correction that raised the bar, the verdict is: EDEN's floor survives even massive identity fraud — the poor stay protected and no money gets printed — but optimizing attackers can siphon up to 35.7% of issuance and dilute honest creators unless identity checks catch roughly 80–98% of fakes, and the one-person-one-vote governance layer is where identity failure would be fatal.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Sybil</strong> — one person pretending to be many accounts; the "armies of fake identities" tested here. <strong>Wash-minting</strong> — engaging with your own (or your bots') content so that fake attention creates real new money — the minting cousin of wash trading. <strong>Taper cap</strong> — the daily fade-out that limits how much any one identity's engagement can mint per day. <strong>Liveness</strong> — proving a real, live human is present right now — not a photo, a recording, or a bot. <strong>Issuance</strong> — all newly created money; 35.7% is the share optimizing attackers could siphon. <strong>Top-up minting</strong> — printing extra money to cover the floor when its funding slice falls short; it never triggered, even at 50% fakes. <strong>10th percentile</strong> — the person poorer than 90% of people; at 1.17× essentials they stay above water throughout. <strong>Governor dilution</strong> — the automatic mint-rate limiter (the governor) holds total money creation steady, so what fakes capture comes out of honest creators' share — like printing extra shares of a company. <strong>Oracle</strong> — the system's price-measuring instrument; manipulating it means lying to the thermometer the economy reads. <strong>Saturation</strong> — the maxed-out worst case, here 50% of all identities fake. <strong>Capture</strong> — an attacker gaining control of a mechanism from inside its own rules — here, seizing one-person-one-vote governance with fake voters.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-adversarial-stress-test-0.png" alt="fig_adversarial_fraud.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Closes the biggest blind spot in v1–v3: those runs assumed everyone behaves honestly. This run reuses the v3 engine and adds strategic attackers to ask the question crypto reviewers ask first — </em><em>can it be gamed?</em><em> Files in this folder.</em></p>
+<h2 id="revised-honest-axis-optimizing-attackers-after-the-july-2026-verification">⚠️ REVISED — honest axis + optimizing attackers after the July 2026 verification</h2>
+<p>Three fixes (old code/JSON archived as <code>*_PRE-FIX_archive.*</code>): <strong>(1)</strong> the sweep axis is now genuinely <em>share of all identities that are fake</em> (the old <code>sybil_rate</code> multiplied honest participants but was labeled a share — flattering every row; the true 50%-fake detection bar is ~87%, not 74%); <strong>(2)</strong> the "worst case ~15% of issuance" linear extrapolation is deleted — saturation is now <strong>run</strong>: at 50% fake identities and zero detection, naive attackers reach <strong>15.2%</strong> of issuance but <strong>optimizing attackers reach 35.7%</strong>; <strong>(3)</strong> attackers can now <strong>optimize</strong>: an undetected sybil wash-minting fresh AI content at the taper cap nets <strong>5.78x the floor</strong> (the model's own bound), and the full wash mint enters the money supply, routing, and governor feedback.</p>
+<p><strong>Corrected findings:</strong> the <em>floor itself never breaks</em> — p10 stays &gt;= 1.17 and the pool never needs top-up minting even at 50% fakes / zero detection (wash minting feeds the pool too). The damage lands on <strong>honest creators</strong> (real income 0.76x at saturation, via governor dilution) and on <strong>issuance integrity</strong>. Detection needed to keep fraud &lt; 2% of minting: naive attackers — 0%/61%/87% at 10/25/50% fake share; <strong>optimizing attackers — 79%/93%/98%</strong>. The honest claim is therefore: <em>the economics fail gracefully (the poor are protected structurally), but the 2% fraud milestone against optimizing adversaries requires high-quality identity/liveness enforcement (~80-98% detection), not the modest bars the original table implied.</em> The v1.2 liveness-gated minting event (§2a) is the defense that has to earn those detection rates — a pilot question, not a solved one.</p>
+<p>Numbers in the prose below predate the fix and are <strong>superseded by this section.</strong></p>
+<hr>
+<h2 id="the-one-paragraph-answer">The one-paragraph answer</h2>
+<p>EDEN's <strong>economics degrade gracefully</strong> under attack, but its <strong>governance does not</strong> — and that distinction sharpens the project's "identity is the hard problem" claim. The economic defenses (effort-weighting, repeat-decay, the daily taper, one-device-at-a-time) make gaming the <em>mint</em> economically pointless: sustained self-dealing earns about <strong>0.29×</strong> what you'd get just by claiming the floor honestly. The remaining attack is <strong>sybil floor-farming</strong> — fake identities each claiming the floor — and because the floor pays only about one essentials basket per identity, total fraud stays bounded in the <strong>low single digits of issuance even with weak identity verification</strong>, never forces money-printing, and barely touches honest incomes. The place identity failure is genuinely catastrophic is not the money — it's the <strong>one-person-one-vote governance layer</strong>, which fake identities could capture outright.</p>
+<hr>
+<h2 id="1-gaming-the-mint-wash-consumption-self-dealing-is-bounded-the-defenses-work">1. Gaming the mint (wash-consumption / self-dealing) is bounded — the defenses work</h2>
+<p>Can an attacker mint EVE by consuming their own content? Per identity, per month (model units):</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>EVE / month</th>
+<th>vs. the floor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Honest floor income</td>
+<td>1.77</td>
+<td>1.00×</td>
+</tr>
+<tr>
+<td><strong>Burst</strong> self-minting (fresh catalog, repeat-decay not yet biting)</td>
+<td>10.22</td>
+<td><strong>5.78×</strong></td>
+</tr>
+<tr>
+<td><strong>Sustained</strong> self-minting (re-consuming a finite catalog)</td>
+<td>0.51</td>
+<td><strong>0.29×</strong></td>
+</tr>
+</tbody>
+</table>
+<p>A <em>burst</em> of wash-farming on fresh content can briefly out-earn the floor (~5.8×). But the <strong>repeat-decay</strong> (×0.5 per repeat, floored at 0.05) drives <em>sustained</em> self-dealing down to <strong>0.29× the floor</strong> — less than you'd earn by just doing the floor's verified work honestly. The daily taper caps any single identity at ~11 effective hours, and one-device-at-a-time stops parallelism. <strong>Net: there is no profitable, sustainable way to game the mint from a single identity.</strong> The only way to scale is to control <em>more identities</em> — which moves the whole problem to the identity layer.</p>
+<p>This is also the first quantified evidence that the effort-weight and repeat-decay (added back in v1/v2) are doing real anti-gaming work, not just shaping distribution.</p>
+<h2 id="2-sybil-floor-farming-the-dominant-sustainable-attack-is-cost-bounded">2. Sybil floor-farming — the dominant sustainable attack — is cost-bounded</h2>
+<p>Because the only way to scale is more identities, the real attack is fake identities each claiming the earnability floor. Sweeping the <strong>identity-failure rate</strong> (share of identities that are fake) against the <strong>detection rate</strong> (share of fakes caught):</p>
+<table>
+<thead>
+<tr>
+<th>Identity-failure rate</th>
+<th>99% detected</th>
+<th>95% detected</th>
+<th>90% detected</th>
+<th>50% detected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5% fake</td>
+<td>0.01%</td>
+<td>0.04%</td>
+<td>0.08%</td>
+<td>0.38%</td>
+</tr>
+<tr>
+<td>10% fake</td>
+<td>0.02%</td>
+<td>0.08%</td>
+<td>0.15%</td>
+<td>0.76%</td>
+</tr>
+<tr>
+<td>25% fake</td>
+<td>0.04%</td>
+<td>0.19%</td>
+<td>0.38%</td>
+<td><strong>1.9%</strong></td>
+</tr>
+<tr>
+<td>50% fake</td>
+<td>0.08%</td>
+<td>0.38%</td>
+<td>0.76%</td>
+<td><strong>3.8%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>(fraud as % of issuance)</em></p>
+<p>Three things stand out, and all are reassuring:</p>
+<ul>
+<li><strong>Fraud is bounded even in the worst case.</strong> If <em>every</em> identity were fake and <em>none</em> were caught, floor-fraud would peak at ~<strong>15% of issuance</strong> — not 100% — because the floor pays only ~one essentials basket per identity, which is small next to total issuance. Sybils can't drain what the floor doesn't pay.</li>
+<li><strong>Self-funding never breaks.</strong> Top-up minting stayed at <strong>0.0%</strong> in every run — sybil floor claims fit inside the 10% verification pool, so fraud never forces inflationary money-printing. Honest participants' p10 stayed at 1.18× essentials throughout; median creator real income barely moved (1.26 → 1.21 in the worst case).</li>
+<li><strong>The economics degrade gracefully.</strong> Fraud scales linearly as <code>identity-failure × (1 − detection) × 15.2%</code>. With strong identity (99% detection) fraud is negligible at any plausible sybil rate; even weak identity (50% detection) only reaches the 2% pilot milestone at ~25% fake identities.</li>
+</ul>
+<h2 id="3-the-detection-frontier-hitting-the-2-of-minting-pilot-milestone">3. The detection frontier (hitting the &lt;2%-of-minting pilot milestone)</h2>
+<table>
+<thead>
+<tr>
+<th>Sybil pressure</th>
+<th>Detection needed to keep fraud &lt; 2%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10% of identities fake</td>
+<td><strong>none</strong> (stays &lt; 2% even with zero detection)</td>
+</tr>
+<tr>
+<td>25% of identities fake</td>
+<td><strong>≥ 47%</strong> of fakes caught</td>
+</tr>
+<tr>
+<td>50% of identities fake</td>
+<td><strong>≥ 74%</strong> of fakes caught</td>
+</tr>
+</tbody>
+</table>
+<p>These are <em>achievable</em> detection bars — far below the near-perfect personhood proof one might fear is required. The economic milestone is reachable with imperfect, attestation-based identity plus anomaly detection.</p>
+<h2 id="4-what-this-refines-about-identity-is-the-hard-problem">4. What this refines about "identity is the hard problem"</h2>
+<p>The white paper (rightly) flags proof-of-unique-personhood as the central unsolved problem. This run sharpens <em>why</em> and <em>where</em>:</p>
+<ul>
+<li>For the <strong>money</strong>, identity failure is survivable. Per-identity caps (the floor amount, repeat-decay, the taper) keep fraud in the low single digits and never break monetary stability. EDEN's economy is more sybil-tolerant than expected.</li>
+<li>For <strong>governance</strong>, identity failure is fatal. The constitutional layer is <strong>one-person-one-vote</strong>; fake identities are fake votes. A 25% sybil rate that costs the economy ~1–2% of issuance could, unchecked, <em>capture the franchise outright</em>. <strong>This is where identity integrity is non-negotiable</strong> — and it's a different, sharper requirement than the economics impose.</li>
+</ul>
+<p>So the honest framing for reviewers: <em>the economic mechanism is robust to imperfect identity; the governance mechanism is not. Bond floor claims and invest the hardest identity guarantees in the voting layer.</em></p>
+<h2 id="5-incentive-compatibility-the-mechanism-design-read">5. Incentive-compatibility (the mechanism-design read)</h2>
+<ul>
+<li><strong>Self-dealing is not incentive-compatible for the attacker:</strong> sustained self-mint (0.29× floor) &lt; honest floor income, so a rational actor prefers honest participation. Guaranteed by repeat-decay × effort-weight × taper.</li>
+<li><strong>Sybil floor-farming is profitable per fake but cost-bounded in aggregate:</strong> payoff per fake = one floor basket; system-wide fraud = (undetected fakes) × (floor share). Push it toward zero with (a) identity integrity/detection, (b) <strong>stake-and-slash bonds on floor claims</strong> so a caught fake forfeits more than it gained, (c) friction/cost to mint a new identity.</li>
+<li><strong>Collusion rings reduce to the sybil problem:</strong> a ring of <em>distinct</em> identities consuming each other's assets evades the same-user repeat-decay — but it still needs many identities and is still capped per identity by the taper, so it collapses back to "how many identities can an attacker control," i.e., the identity layer again.</li>
+</ul>
+<h2 id="honest-limits-of-this-model">Honest limits of this model</h2>
+<p>Detection is treated as an exogenous parameter — building the actual detector (the ML/crypto personhood-and-anomaly problem) is the hard real-world work this can't do. The wash-farming bound assumes the taper and repeat-decay are faithfully enforced, which itself depends on honest engagement measurement (TEE attestation). Oracle manipulation and full collusion-ring dynamics are treated analytically rather than simulated. And governance capture by sybils is identified here as the dominant risk but not yet quantified — that deserves its own model. As always: same structural caveats as v1–v3, run at N=25,000.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>adversarial_sim.py</code> — the engine + sybil sweep and wash-farming bound</li>
+<li><code>fig_adversarial_fraud.png</code> — fraud vs identity-failure rate, by detection level</li>
+<li><code>results_adversarial.json</code> — all rows, the wash bound, and the detection frontier</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-adversarial-stress-test-0.json" download>⬇ results_adversarial.json</a><a class="dlbtn" href="data/eve-sim-v3-adversarial-stress-test-1.json" download>⬇ results_adversarial_PRE-FIX_archive.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

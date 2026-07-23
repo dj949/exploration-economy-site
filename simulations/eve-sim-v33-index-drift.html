@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v33 - Index Drift — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v33 - Index Drift.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v33 - Index Drift</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 11, 2026. Companion to <code>RESULTS - v33.0 Index Drift</code>.</em></p>
+<h2 id="the-thing-being-tested">The thing being tested</h2>
+<p>EDEN's safety net promises everyone the price of a basket of essentials — food, shelter, energy, water, connectivity, basic healthcare, transit. To pay that promise you first have to <em>measure</em> what essentials cost. That measurement is the <strong>EBI</strong> — think of it as the ruler the whole floor is denominated in. The floor doesn't pay exactly the measured price; it pays <strong>110%</strong> of it. The extra 10% is a deliberate cushion, and the design says <strong>half of it (5%) is set aside specifically to absorb measurement error</strong> — the "bias budget." This test asks a simple, uncomfortable question: <strong>what if the ruler is quietly, consistently wrong — off by half a percent a year, every year, for fifty years?</strong> Does that 5% cushion hold?</p>
+<h2 id="why-this-matters">Why this matters</h2>
+<p>No price index is perfect, and the dangerous kind of error isn't a random wobble — it's a <em>steady lean</em> in one direction (real-world price indices are famously accused of exactly this). A half-percent a year sounds tiny. The question is whether "tiny but relentless" adds up to something that breaks the promise, and how long the design has before it has to correct course. The design's stated answer is "re-measure the whole basket from scratch every 5 years." We priced whether that's fast enough.</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>Half a percent a year is not tiny — it eats the whole 5% cushion in about ten years.</strong> If the ruler steadily <em>under</em>-reads (says essentials are cheaper than they are), the floor slowly underpays. The 5% measurement cushion is completely used up in about <strong>9–10 years</strong>, and it keeps sliding: people still get bare essentials for about <strong>19 years</strong>, but by year 50 the floor delivers only about <strong>86%</strong> of what it promised — a 14% gap. A steady lean, left uncorrected, wins.</p>
+<p><strong>The two directions fail in completely different ways, on completely different clocks — that's the real discovery.</strong> If the ruler <em>over</em>-reads instead (says essentials cost more than they do), people are fine — they get <em>over</em>-paid. But someone is footing that over-payment, and it comes out of a $36M emergency reserve. That reserve is small next to the floor's monthly bill, so a steady over-read <strong>drains it in about 2.5 years</strong> (and the running total of over-payments reaches <strong>$16 billion</strong> by year 50). So: an <em>under</em>-read slowly starves the <em>people</em> over a decade-plus; an <em>over</em>-read quickly bankrupts the <em>funder</em> in a couple of years.</p>
+<p><strong>The practical upshot: the 5-year re-basing rule is too slow — but only on one side.</strong> Re-measuring the basket every 5 years easily protects <em>delivery</em> (the under-read side has ~10 years of runway). But it does <strong>not</strong> protect the <em>reserve</em> (the over-read side runs out in ~2.5 years, well before the 5-year fix arrives). So the honest recommendation to the design: the binding deadline is <strong>~2.5 years, set by the funding side</strong>, not the 5 years the spec assumed — either re-measure that often, or (cheaper) add an alarm that watches the <em>running total</em> drained from the reserve rather than the <em>instantaneous</em> error rate, or fund the over-payment from ongoing income instead of a fixed pot.</p>
+<h2 id="one-honest-wrinkle-were-flagging">One honest wrinkle we're flagging</h2>
+<p>We also checked that this is really about a <em>steady lean</em>, not ordinary random noise — and it is: pure month-to-month jitter (with no steady lean) never exhausts the cushion, even over 50 years, on both random seeds we ran. That's the reassuring half. The unreassuring half: one of our own internal precision checks was set too strictly and failed — when we added random noise <em>on top of</em> the steady lean, the exact month the cushion "runs out" bounced around by about a year between random seeds. We left the failed check on the record rather than loosening it after the fact (house rule), and the lesson is worth keeping: the trustworthy number is the steady-lean one (about year 10); don't trust any single noisy run to name the exact month.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>A price ruler that leans just half a percent a year eats EDEN's entire 5% measurement cushion in about a decade — and the two directions break differently: a steady under-read slowly shortchanges people (14% short by year 50), while a steady over-read quickly bankrupts the reserve (gone in 2.5 years), so the real deadline for re-checking the ruler is about 2½ years, not the 5 the design assumed.</strong></p>
+<hr>
+<p><em>This is a robustness test under stated assumptions, not a prediction that the ruler will drift — it prices what the design's own 5% "measurement-bias budget" can and cannot absorb, so the re-checking schedule can be set with eyes open. Numbers trace to <code>results_v33.json</code>; the technical companion is <code>RESULTS - v33.0 Index Drift</code>.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v33-index-drift-0.png" alt="fig_v33_index_drift.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 11, 2026. Spec: <code>v33 SPEC - Index Drift (registered).md</code> — bars ID0–ID4 fixed before code (filesystem mtimes: SPEC 20:57 &lt; engine 20:59, same session). Engine: <code>index_drift_sim.py</code> (deterministic; seeds 7/11 used only in ID4's noise overlay). Committed: <code>results_v33.json</code>, <code>fig_v33_index_drift.png</code>. Discharges Backlog #12 [OPUS] and the EBI Methodology §5 named candidate — prices the 0.05 measurement-bias budget. Every number below traces to <code>results_v33.json</code>.</strong></p>
+<p><strong>Verdict in one line: the 0.05 bias budget does exactly what §5 promises for about a decade — then a <em>systematic, one-directional</em> ±0.5pp/yr drift exhausts it, and the finding is a sharp asymmetry in <em>when</em>: an under-read erodes <em>delivery</em> slowly (budget gone at yr 9.3, bare essentials still covered to yr 19, 14.4% short by yr 50), while an over-read drains the <em>finite $36M reserve</em> fast (gone in 2.5 yr; $16.2B over-paid by yr 50) — so because the two ±5% sides fail on wildly different clocks, the binding constraint on re-basing cadence is the reserve/over-read side (~2.5 yr), NOT the delivery side (~10 yr), and canon's 5-year re-basing therefore protects delivery but leaves the reserve exposed. The model is deterministic (two runs byte-identical); honest zero-mean noise is absorbed for the full 50 years — it is systematic <em>bias</em>, not noise, that spends the budget.</strong></p>
+<h2 id="bar-summary-one-pass-id1id3-fail-exactly-as-registered-the-findings-id4-fails-one-clause-honestly">Bar summary (one pass; ID1–ID3 FAIL exactly as registered — the findings; ID4 fails one clause honestly)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered pass condition</th>
+<th>Measured (from JSON)</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ID0</strong> harness / sanity (zero drift)</td>
+<td>delivery = 1.10 every mo; over-pay = 0; reserve = $36M; wedge = 1.0</td>
+<td>delivery <strong>1.100</strong> (min=max); over-pay <strong>$0</strong>; reserve end <strong>$36.0M</strong>; wedge 1.0</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>ID1</strong> under-read: 0.05 budget absorbs 0.5pp/yr for 50 yr</td>
+<td>real delivery ≥ 1.05 all 600 mo</td>
+<td>budget exhausted <strong>mo 112 (yr 9.33)</strong>; essentials breach <strong>mo 229 (yr 19.08)</strong>; yr-50 delivery <strong>0.856 (14.4% short)</strong></td>
+<td><strong>FAIL — as registered (headline, F1)</strong></td>
+</tr>
+<tr>
+<td><strong>ID2</strong> over-read: reserve/funding survives</td>
+<td>reserve &gt; 0 <strong>and</strong> over-fund ≤ 5% all 600 mo</td>
+<td>reserve drained <strong>mo 30 (yr 2.50)</strong>; §5 5%-telemetry only lights <strong>yr 9.83</strong>; <strong>$16.2B</strong> over-paid by yr 50</td>
+<td><strong>FAIL — as registered (F2)</strong></td>
+</tr>
+<tr>
+<td><strong>ID3</strong> re-basing: canon 5-yr keeps both safe</td>
+<td>canon L=5 yr delivery-safe <strong>and</strong> reserve-safe, all 50 yr</td>
+<td>delivery-safe ≤ <strong>9.3 yr</strong> (✓ at 5); reserve-safe ≤ <strong>2.5 yr</strong> (✗ at 5) → <strong>binding 2.5 yr</strong></td>
+<td><strong>FAIL — split, as registered (F3)</strong></td>
+</tr>
+<tr>
+<td><strong>ID4</strong> determinism + honest-noise robustness</td>
+<td>two runs byte-identical <strong>and</strong> seeds agree ±3 mo on crossing <strong>and</strong> pure noise never exhausts</td>
+<td>determinism ✓ (SHA <code>bf18be…</code>); pure-noise absorbed ✓ (both None); <strong>crossing 110 vs 123 mo — agreement clause FAILS</strong></td>
+<td><strong>FAIL — one clause (F4 holds, F5 finding)</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>Registered expectations: ID0 expected PASS ✓; ID1/ID2/ID3 expected FAIL/split-findings ✓ (all matched); ID4 expected PASS — </em><em>refuted on its ±3-month clause</em><em> (F5), though its two substantive clauses (determinism, noise-absorption) both hold.</em></p>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The under-read clock: the 0.05 budget is spent in ~9–10 years, not 50 (ID1, the headline).</strong> Under a systematic 0.5pp/yr under-read the real floor delivery <code>1.10 × (0.995)^t</code> falls through the <strong>1.05</strong> line — the point at which the entire 0.05 measurement-bias budget is consumed — at <strong>month 112 (year 9.33)</strong> (closed form 9.281 yr), consistent with §5's own "≈ ±0.5pp/yr drifting for a decade." It keeps going: bare essentials (the <strong>1.00</strong> line) are breached at <strong>month 229 (year 19.08)</strong>, and by year 50 the floor delivers <strong>0.856</strong> of true essentials — a <strong>14.4%</strong> shortfall (22.2% below the intended floor). <strong>A registered clarification of §5's own prose, reported not buried:</strong> §5 glosses "5% understatement" as the point where "the real floor sinks below true essentials." Those are two different events, because the cushion is <em>multiplicative</em> (1.10×) while §5's decomposition is <em>additive</em> (1.05 + 0.05). The 0.05 <em>slice</em> is exhausted at yr 9.3 (delivery &lt; 1.05), but the floor does not actually drop below bare essentials until yr 19.0 (delivery &lt; 1.00) — a 5% cumulative under-read (wedge &lt; 0.95) lands in between at <strong>yr 10.25</strong>. So the honest reading is: the design's <em>reserved measurement margin</em> is gone in ~a decade (after which mismeasurement eats the hardship-depth cushion meant for something else), and total floor failure is ~a further decade out. The FAIL is not a defect in the design — a <em>fixed</em> budget was never meant to absorb a <em>persistent one-directional</em> drift; re-basing (F3) is the intended mechanism, and this cell prices exactly how much runway the budget buys before re-basing must act.</p>
+<p><strong>F2 — The over-read clock: the finite reserve is gone in 2.5 years, four times sooner than the §5 telemetry lights (ID2).</strong> A systematic 0.5pp/yr <em>over</em>-read makes the floor over-pay <code>1.10 × ((1.005)^t − 1) × $180M</code> every month, drawn from the $36M reserve (v18's accounting, reused verbatim). Cumulative over-pay reaches the <strong>$36M</strong> reserve at <strong>month 30 (year 2.50)</strong>, and totals <strong>$16.2B</strong> by year 50 (the year-50 over-funding <em>rate</em> is 28.3%). Crucially, §5's stated safeguard — "over-funds by ≤5% before the fund/oblig telemetry notices" — is an <em>instantaneous-rate</em> trigger, and it does not light until the wedge itself reaches 5%, at <strong>year 9.83</strong>. But the reserve is a <em>finite</em> $36M buffer — only <strong>0.18 months</strong> of the $198M/mo baseline floor flow — so it is spent by <em>cumulative</em> over-pay long before the <em>instantaneous</em> rate ever reaches the telemetry threshold. <strong>A level-triggered telemetry watches the wrong quantity for a finite reserve: cumulative draw, not instantaneous rate, is what empties it.</strong></p>
+<p><strong>F3 — The asymmetry sets the binding re-basing cadence, and canon's 5 years fails it on the reserve side (ID3).</strong> The two ±5% budget sides fail on wildly different clocks (F1: ~decade; F2: ~2.5 yr) because delivery has a 10% <em>multiplicative</em> cushion that erodes slowly while the reserve is a tiny <em>fixed</em> buffer that empties fast. Sweeping the re-basing interval L ∈ {1..15} yr: the <strong>delivery side</strong> stays inside budget up to L ≈ <strong>9.3 yr</strong> (closed form; 10.2 yr on the cumulative-under-read reading), so canon's <strong>5-yr</strong> cadence is comfortably delivery-safe (min delivery 1.073, budget never exhausted within an interval). The <strong>reserve side</strong> stays solvent only up to L ≈ <strong>2.5 yr</strong> — so at canon's 5-yr cadence the reserve is drained at month 30, <strong>before the first re-base at month 60</strong>. The binding cadence is therefore <strong>2.5 years, set entirely by the over-read/reserve side.</strong> <em>Recommendation to canon (§5):</em> the "re-base every 5 years" rule is sufficient for the <em>delivery</em> guarantee but not for reserve solvency under a sustained over-read. Close the gap the cheap way — either (a) re-base/spot-correct the index on a ≤2.5-yr cadence, (b) add a <em>symmetric</em> over-read telemetry that triggers on <strong>cumulative</strong> reserve draw rather than instantaneous rate (F2), or (c) fund the floor over-pay from the ongoing lane/machine-pay inflow with the reserve as a secondary buffer (which lengthens the runway; see Honest limits). This is the cell's actionable output.</p>
+<p><strong>F4 — The budget is a <em>bias</em> budget, not a noise budget, and the model is deterministic (ID4, substantive clauses).</strong> Two full engine runs produce a <strong>byte-identical</strong> <code>results_v33.json</code> (SHA-256 <code>bf18be…</code>, verified); the headline paths use no RNG. Overlaying zero-mean i.i.d. 1% basis noise on the monthly wedge with <strong>no</strong> systematic drift, the 12-month-trailing-average delivery <strong>never</strong> drops below 1.05 across all 600 months, on <strong>both</strong> seeds 7 and 11 (<code>pure_noise_exhaust_month = {7: null, 11: null}</code>). This confirms §5's design intent precisely: honest zero-mean noise is absorbed <em>indefinitely</em> (it does not accumulate), and it is <em>systematic bias</em> alone that spends the budget — the exact quantity this cell was registered to price.</p>
+<p><strong>F5 — ID4's ±3-month cross-seed agreement clause fails, and that jitter is itself the honest caution (bar not moved).</strong> With the 0.5pp/yr under-read <em>plus</em> 1% noise, the trailing-average crossing month lands at <strong>110 (seed 7)</strong> and <strong>123 (seed 11)</strong> — 13 months apart, breaching the registered ±3-month agreement tolerance. Per house rule the bar is not moved; the FAIL is reported as the finding. The cause is structural: near a gently-sloped threshold (delivery falls only ~0.005/yr around the 1.05 crossing) a 1% noise overlay smoothed over 12 months still jitters the <em>first-crossing month</em> by ~±6 months (1σ), so two seeds differing by ~13 months is ~1.5σ — entirely ordinary. The registered ±3-month tolerance was simply too tight for a first-crossing statistic. The trustworthy headline is the <strong>deterministic</strong> value (month 112, F1); a single noisy run's crossing month should be read as a ~1-year-wide distribution around it, never quoted to the month. (This reinforces, rather than undermines, F4: the systematic drift is the signal; the noise is a distraction that cannot be pinned precisely and cannot on its own exhaust the budget.)</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced-form. Prices are normalized to <code>EBI_true = 1.0</code> and the drift is an <strong>exogenous, perfectly-systematic</strong> wedge; real mismeasurement mixes bias + noise + discrete regime breaks (re-basings, methodology changes) — ID4 addresses zero-mean noise only, not regime breaks. The funding side <strong>reuses v18's convention</strong> (floor over-pay charged against the $180M/mo redemption lane and absorbed by the <em>single</em> $36M reserve, with <strong>no replenishment</strong>) — a deliberately <strong>conservative</strong> buffer assumption: that reserve is only ~0.18 months of the $198M/mo baseline floor flow, so the 2.5-yr reserve-depletion (F2/F3) is a statement about <em>that specific buffer absorbing 100% of the wedge</em>. In practice the floor over-pay would be funded partly by ongoing lane/machine-pay inflows with the reserve as a secondary buffer, which would <strong>lengthen</strong> the depletion — but would not change the <em>direction</em> or the <em>asymmetry</em> that is the finding (over-read hits funding, under-read hits delivery, on different clocks). The additive §5 decomposition (<code>1.10 = 1.05 + 0.05</code>) vs the multiplicative wedge splits "budget exhausted" (yr 9.3, delivery &lt; 1.05) from "5% cumulative under-read" (yr 10.2, wedge &lt; 0.95) from "essentials breached" (yr 19.0, delivery &lt; 1.00); all three are reported (F1) rather than collapsed. Existence-and-robustness demonstration under the stated v18/v13-Oracle/v14 anchors — <strong>not a forecast</strong>, and it does not re-derive the essentials market, the oracle observation layer (that is v13-Oracle/v18), or the true-inflation path.</p>
+<p><em>Run and written July 11, 2026 (Opus 4.8, built to the registered SPEC per Backlog #12's [OPUS] division-of-labor: Fable/methodology registers the bars — here EBI Methodology §5 — Opus implements to spec; a fresh session verifies against the harness — owed). No bar was moved after running; ID4's clause-level FAIL is filed as finding F5. Feeds <code>01 Canon/EBI Methodology Spec §5</code> (re-basing-cadence evidence: the binding cadence is ~2.5 yr on the reserve side, tighter than the registered 5 yr) and the white-paper measurement protocol.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v33-index-drift-0.json" download>⬇ results_v33.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

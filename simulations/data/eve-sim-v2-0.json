@@ -1,0 +1,381 @@
+{
+  "parameters": {
+    "N": 100000,
+    "T": 180,
+    "hours_mean": 4.5,
+    "hours_sd": 2.0,
+    "hours_min": 0.5,
+    "hours_max": 10.0,
+    "engagement_growth_yr": 0.03,
+    "creator_frac": 0.3,
+    "pareto_alpha": 1.1,
+    "addictive_frac": 0.1,
+    "addictive_mult": 3.0,
+    "royalty": 0.15,
+    "sharer_frac": 0.95,
+    "beta": 0.1,
+    "money_stock_months": 60,
+    "death_rate_yr": 0.012,
+    "supply_growth_yr": 0.02,
+    "passthrough": 1.0,
+    "start_buffer": 0.85,
+    "floor_mult": 1.1,
+    "effort_weight": 0.3,
+    "gov_down": 0.99,
+    "gov_up": 1.005,
+    "gov_band": 0.05
+  },
+  "verdicts": {
+    "bare|baseline|finite": {
+      "longest": 163,
+      "first": 18,
+      "fails": true,
+      "infl_yr": 9.6,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.492
+    },
+    "bare|baseline|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 9.6,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.556
+    },
+    "bare|shock|finite": {
+      "longest": 163,
+      "first": 18,
+      "fails": true,
+      "infl_yr": 9.8,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.487
+    },
+    "bare|shock|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 9.8,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.551
+    },
+    "bare|commoditization|finite": {
+      "longest": 163,
+      "first": 18,
+      "fails": true,
+      "infl_yr": 9.6,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.449
+    },
+    "bare|commoditization|scaling": {
+      "longest": 107,
+      "first": 74,
+      "fails": true,
+      "infl_yr": 9.6,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.468
+    },
+    "bare|automation|finite": {
+      "longest": 159,
+      "first": 22,
+      "fails": true,
+      "infl_yr": 7.5,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.657
+    },
+    "bare|automation|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 7.5,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.701
+    },
+    "bare|combined|finite": {
+      "longest": 163,
+      "first": 18,
+      "fails": true,
+      "infl_yr": 9.8,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.444
+    },
+    "bare|combined|scaling": {
+      "longest": 107,
+      "first": 74,
+      "fails": true,
+      "infl_yr": 9.8,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.463
+    },
+    "governor|baseline|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.375
+    },
+    "governor|baseline|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.328
+    },
+    "governor|shock|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.377
+    },
+    "governor|shock|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.33
+    },
+    "governor|commoditization|finite": {
+      "longest": 96,
+      "first": 85,
+      "fails": true,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.254
+    },
+    "governor|commoditization|scaling": {
+      "longest": 107,
+      "first": 74,
+      "fails": true,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.24
+    },
+    "governor|automation|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": -0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.731
+    },
+    "governor|automation|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": -0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.639
+    },
+    "governor|combined|finite": {
+      "longest": 96,
+      "first": 85,
+      "fails": true,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.256
+    },
+    "governor|combined|scaling": {
+      "longest": 107,
+      "first": 74,
+      "fails": true,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.242
+    },
+    "floor|baseline|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 9.9,
+      "floor_share_end": 9.0,
+      "creator_real_end": 0.527
+    },
+    "floor|baseline|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 9.6,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.556
+    },
+    "floor|shock|finite": {
+      "longest": 1,
+      "first": null,
+      "fails": false,
+      "infl_yr": 10.1,
+      "floor_share_end": 9.2,
+      "creator_real_end": 0.522
+    },
+    "floor|shock|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 9.8,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.551
+    },
+    "floor|commoditization|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 10.1,
+      "floor_share_end": 14.9,
+      "creator_real_end": 0.514
+    },
+    "floor|commoditization|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 9.8,
+      "floor_share_end": 12.0,
+      "creator_real_end": 0.525
+    },
+    "floor|automation|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 7.7,
+      "floor_share_end": 4.4,
+      "creator_real_end": 0.676
+    },
+    "floor|automation|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 7.5,
+      "floor_share_end": 0.0,
+      "creator_real_end": 0.701
+    },
+    "floor|combined|finite": {
+      "longest": 1,
+      "first": null,
+      "fails": false,
+      "infl_yr": 10.3,
+      "floor_share_end": 15.1,
+      "creator_real_end": 0.509
+    },
+    "floor|combined|scaling": {
+      "longest": 1,
+      "first": null,
+      "fails": false,
+      "infl_yr": 10.0,
+      "floor_share_end": 12.1,
+      "creator_real_end": 0.52
+    },
+    "full|baseline|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.375
+    },
+    "full|baseline|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.328
+    },
+    "full|shock|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.377
+    },
+    "full|shock|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.33
+    },
+    "full|commoditization|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 3.9,
+      "creator_real_end": 1.284
+    },
+    "full|commoditization|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 4.6,
+      "creator_real_end": 1.272
+    },
+    "full|automation|finite": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": -0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.731
+    },
+    "full|automation|scaling": {
+      "longest": 0,
+      "first": null,
+      "fails": false,
+      "infl_yr": -0.1,
+      "floor_share_end": 0.0,
+      "creator_real_end": 1.639
+    },
+    "full|combined|finite": {
+      "longest": 1,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 3.9,
+      "creator_real_end": 1.268
+    },
+    "full|combined|scaling": {
+      "longest": 1,
+      "first": null,
+      "fails": false,
+      "infl_yr": 0.1,
+      "floor_share_end": 4.6,
+      "creator_real_end": 1.262
+    }
+  },
+  "summary": {
+    "bare": {
+      "passes_all_finite": false,
+      "failing_scenarios": [
+        "baseline",
+        "shock",
+        "commoditization",
+        "automation",
+        "combined"
+      ],
+      "infl_baseline": 9.6
+    },
+    "governor": {
+      "passes_all_finite": false,
+      "failing_scenarios": [
+        "commoditization",
+        "combined"
+      ],
+      "infl_baseline": 0.1
+    },
+    "floor": {
+      "passes_all_finite": true,
+      "failing_scenarios": [],
+      "infl_baseline": 9.9
+    },
+    "full": {
+      "passes_all_finite": true,
+      "failing_scenarios": [],
+      "infl_baseline": 0.1
+    }
+  }
+}

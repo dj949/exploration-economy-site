@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v25 - Banking Reserve Model — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v25 - Banking Reserve Model.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v25 - Banking Reserve Model</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 10, 2026. Companion to <code>RESULTS - v25.0 Banking Reserve Model</code>.</em></p>
+<h2 id="the-decision-we-modeled">The decision we modeled</h2>
+<p>EDEN doesn't have a rulebook for banks yet, and the biggest unanswered question is: <strong>can a bank in EDEN create money?</strong> In today's world, banks do — when a bank makes a loan, it mostly creates new money rather than lending out someone's existing savings (that's "fractional-reserve" banking). The alternative is "full-reserve": a bank can only lend money that actually exists — real savings people have committed. You asked to model both before deciding. Here's what came back.</p>
+<h2 id="what-we-found-its-lopsided">What we found — it's lopsided</h2>
+<p><strong>Letting banks create money breaks EDEN's core machinery.</strong> EDEN's whole design depends on one dial controlling how much money exists (the mint governor, which keeps prices stable). If banks can create money, that dial stops working:
+- the money supply balloons to about <strong>6× the target</strong> (at a typical reserve level),
+- prices run away by <strong>hundreds of percent</strong> because the governor can't see or offset money it didn't create, and
+- <strong>bank runs come back</strong> — a bank holding only a fraction of its deposits collapses the moment enough people ask for their money at once (the classic run EDEN otherwise doesn't suffer).</p>
+<p>Full-reserve banking avoids all three: the money supply stays exactly where the governor sets it, prices stay controllable, and a bank that holds 100% of everyone's on-demand money can never be run.</p>
+<p><strong>The usual objection turns out to be mostly wrong here.</strong> People say full-reserve "starves lending." But when we looked closely, ~90% of the extra lending fractional banks provide <em>is just the money-printing</em> — not real credit. The genuine part (lending out actual savings) is largely preserved under full-reserve, <strong>as long as people can lock savings for a term</strong> — which EDEN already lets them do. The more people lock, the more lending capacity; and locked lending is run-proof and creates no money. So full-reserve gives up almost nothing worth having.</p>
+<h2 id="the-recommendation">The recommendation</h2>
+<p><strong>EDEN banks should be lenders of real, locked savings — not money-creators.</strong> They can be lenders, market-makers, and savings custodians; they just can't conjure credit. On-demand deposits are held fully; loans are funded by money people have deliberately committed for a term. This keeps the money dial working, keeps prices governable, keeps the system run-proof, and still supports healthy lending.</p>
+<h2 id="whats-still-to-decide-within-full-reserve">What's still to decide (within full-reserve)</h2>
+<p>Four smaller questions remain for a proper banking spec: is the term-lock <em>the</em> savings/deposit product? who pays the idle-money carry cost on deposits — the bank or the saver? can a bank charge compounding interest on loans (EDEN generally dislikes compounding)? and is the protocol's stabilization reserve the lender of last resort? None of these reopen the big fork — they're details inside the full-reserve choice.</p>
+<h2 id="one-honest-caveat">One honest caveat</h2>
+<p>The real risk isn't the math — it's the <em>pressure</em>. Every real economy drifted into money-creating banking because there's always demand for more credit. EDEN would have to actively <em>enforce</em> full-reserve against that pull, including watching for "shadow banking" that recreates money-creation outside the rules. That's a governance and enforcement challenge, not something a simulation can settle — but the design choice itself is clear.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v25-banking-reserve-model-0.png" alt="fig_v25_banking.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 10, 2026. Spec: <code>v25 SPEC - Banking Reserve Model (registered).md</code> — bars N0–N5 fixed before code. Engine: <code>banking_reserve_sim.py</code> (deterministic); committed: <code>results_v25.json</code>, <code>fig_v25_banking.png</code>. Owner-directed "model both first" on the fundamental banking fork. Every number traces to <code>results_v25.json</code>.</strong></p>
+<p><strong>Verdict in one line: the fork answers itself — fractional-reserve banking breaks the three things EDEN is built on (it multiplies the money supply 6×+ beyond the mint governor's control, drives 500%+ credit inflation the governor can't see or offset, and reintroduces classic bank-run risk whenever withdrawals exceed the reserve ratio), while full-reserve keeps the governor in sole control with zero run risk — and an active term-lock lending market recovers most of the <em>sound</em> credit fractional would provide, without any of the money-creation. Recommendation: full-reserve, with term-locks as the lending-funding vehicle (FULL+LOCK).</strong></p>
+<h2 id="bar-summary-n0n1n2n3n5-pass-n4-fails-as-a-mis-framed-bar-reframed-below">Bar summary (N0/N1/N2/N3/N5 pass; N4 FAILS as a mis-framed bar — reframed below)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N0 accounting sanity</td>
+<td>FULL = M0; FRAC = multiplier identity</td>
+<td>independent re-lending cascade reproduces the registered identity (residual &lt;1e-14)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>N1 money-supply control</td>
+<td>FULL/FULL+LOCK within ±5%; FRAC breaches</td>
+<td>FULL <strong>1.00×</strong>; FULL+LOCK <strong>1.00× at every lock share (computed)</strong>; FRAC <strong>6.4× at rr=10%</strong> (20.4× at rr=3%)</td>
+<td><strong>PASS</strong> (FRAC breaks control)</td>
+</tr>
+<tr>
+<td>N2 price stability</td>
+<td>FULL ≤5% dev; FRAC breaches</td>
+<td>FULL <strong>0%</strong>; FULL+LOCK <strong>0%</strong>; FRAC <strong>+540%</strong> at rr=10% (+240% to +1,940%)</td>
+<td><strong>PASS</strong> (FRAC inflates)</td>
+</tr>
+<tr>
+<td>N3 run resilience</td>
+<td>FULL survives all w; FRAC fails w&gt;rr</td>
+<td>FULL survives <strong>100%</strong> withdrawal (static reserve-coverage, zero margin at w=1.0; not a dynamic run sim); FRAC fails once w&gt;rr</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>N4 lending capacity</td>
+<td>FULL+LOCK recovers ≥60% of FRAC capacity at 40% lock</td>
+<td>4% of <em>total</em>, <strong>44% of <em>sound</em></strong> at 40% lock; <strong>67% of sound at 60% lock</strong></td>
+<td><strong>FAIL as registered — mis-framed bar (F4)</strong></td>
+</tr>
+<tr>
+<td>N5 credit-cycle amplitude</td>
+<td>FRAC more pro-cyclical</td>
+<td>FRAC amplifies a shock <strong>1.8×</strong> (rr=10%) vs FULL+LOCK <strong>0.2× (linear, gain=1 computed)</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>Gate-tightening (Backlog #4b) executed July 11 — see footer. N0/N1/N2/N3/N5 pass-components are now computed from real monetary state (previously hardcoded/tautological/disclosure-grade); every value above held under honest computation, no verdict flipped. N4 untouched.</em></p>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — Fractional reserve breaks the mint governor's control of the money supply (N1, the decisive finding).</strong> EDEN's entire monetary design rests on one actor controlling the money supply: the mint governor, which targets essentials-price stability. Fractional-reserve banking creates money <em>outside</em> that control — at a 10% reserve ratio the broad money supply balloons to <strong>6.4× the governor's target</strong> (20.4× at 3%). The governor would be setting the base while banks silently multiply it 6-fold. This isn't a tunable friction; it's a <strong>direct contradiction of the design's core mechanism.</strong> Full-reserve (and full-reserve-plus-locks) hold broad money at exactly the governor's target, because lending only moves existing money, never creates it.</p>
+<p><strong>F2 — The credit the governor can't see becomes inflation it can't stop (N2).</strong> The money fractional banks create shows up as essentials-price inflation the governor is blind to — the same "governor sees issuance, not the other leg" problem v3 found for velocity, now from the credit side. At rr=10% the modeled price deviation is <strong>+540%</strong>; even at a conservative 20% reserve it's +240%. The governor was refuted as a <em>price</em>-targeter for exactly this class of blindness (v3 D3); letting banks create money re-opens the hole it can't close.</p>
+<p><strong>F3 — Fractional reserve reintroduces the bank run EDEN otherwise doesn't have (N3).</strong> A full-reserve bank holds 100% of demand deposits and lends only genuinely-committed (term-locked) money, so it survives <em>any</em> withdrawal wave — there's no maturity mismatch to run on. A fractional bank holds only <code>rr</code> and fails the moment withdrawals exceed it: at rr=10% a 30% withdrawal month breaks it. This is the Diamond–Dybvig run, imported into a system that (per v19) is otherwise structurally run-proof. Fractional reserve would <em>manufacture</em> the fragility the rest of EDEN was designed to avoid.</p>
+<p><strong>F4 — The "cost of full reserve" is far smaller than the headline, because fractional's extra capacity IS the money creation (N4, honest reframe).</strong> The registered N4 bar asked whether FULL+LOCK recovers ≥60% of fractional's lending capacity, and it FAILS at 4% — but that bar was mis-framed, and the mis-framing is the finding. Fractional's "capacity" of 5.4×M0 is <strong>~90% pure money creation</strong> (the multiplier excess that N1/N2 flag as harmful); its <em>sound</em> credit — the first-round intermediation of real savings — is only <strong>0.54×M0</strong>. Against that honest denominator, full-reserve with an active term-lock market recovers <strong>44% of sound credit at a 40% lock share and 67% at 60%</strong>. So what full-reserve actually gives up is not useful lending — it's the inflationary money-creation nobody wanted. The genuine credit intermediation is largely preserved, and scales with how much of the deposit base chooses to lock (term-lock uptake becomes the lending-capacity dial, and it's a <em>voluntary, run-proof</em> one).</p>
+<p><strong>F5 — Fractional reserve is also the more pro-cyclical (N5).</strong> A ±20% credit-demand shock is amplified 1.8× by the fractional multiplier (6.5× at rr=3%) — the boom-bust credit cycle — while full-reserve-plus-locks moves linearly with actual lock supply. So fractional adds instability on the cycle axis too, not just the run axis.</p>
+<h2 id="recommendation-for-the-fundamental-fork">Recommendation for the fundamental fork</h2>
+<p><strong>Adopt full-reserve, with term-locks as the lending vehicle (FULL+LOCK).</strong> Banks in EDEN are lenders, market-makers, and savings-custodians — never money-creators. Demand deposits are held 100%; lending is funded by maturity-matched term-locks (already canon, Velocity Defense v1.4), which are voluntary, run-proof, and create no money. This keeps the mint governor in sole control of the money supply (F1), keeps prices governable (F2), keeps the system run-proof (F3, extending v19), avoids the credit cycle (F5), and gives up only the inflationary money-creation, not real credit (F4). The lending-capacity dial is term-lock uptake, which the design can encourage (the lock premium) without ever reintroducing fractional's fragilities. This should gate a <code>01 Canon/Banking &amp; Savings Layer Spec</code> — the four downstream decisions (deposit product = locks; who bears demurrage on deposits; whether loan interest may compound given the anti-compounding stance; lender-of-last-resort = the stabilization reserve) can be settled within the full-reserve frame.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced-form money-multiplier / narrow-banking arithmetic with stated dials — the <em>directions</em> (fractional breaks control, inflates, runs, and is pro-cyclical; full-reserve doesn't; locks recover sound credit) are structural and robust; the exact multiples (6.4×, 540%) are the textbook multiplier at the chosen deposit share and are illustrative, not forecasts. It does not model the <em>political-economy</em> pressure to allow fractional banking (real systems drifted into it for a reason — credit demand), which is the actual risk: EDEN would have to <em>enforce</em> full reserve against that pressure, a governance question no sim settles. Nor does it model shadow-banking / off-ledger credit that could recreate fractional dynamics outside the rules — a named successor cell. The anti-compounding tension (can a full-reserve bank charge compounding loan interest?) is flagged for the banking spec, not resolved here.</p>
+<h2 id="plain-language">Plain language</h2>
+<p>We tested the big unmade banking decision: can EDEN banks create money (like today's banks), or only lend money that really exists? The answer came back lopsided. Letting banks create money <strong>breaks the one lever EDEN relies on</strong> — the control of how much money exists — inflating the money supply six-fold past target, causing runaway prices the system can't correct, and bringing back bank runs that EDEN otherwise doesn't suffer. Full-reserve banking avoids all three. The usual objection — "full reserve starves lending" — turns out mostly false here: fractional's extra lending is 90% just money-printing; the <em>real</em> lending (intermediating actual savings) is largely preserved under full-reserve if people can lock savings for a term, which they can. So: <strong>EDEN banks should lend real, locked savings — not conjure credit — and they lose almost nothing worth having.</strong></p>
+<p><em>Run and written July 10, 2026 (Fable), owner-directed. N4 reported as a FAIL against a mis-framed bar, with the honest reframe as F4 — bar unmoved, per house rules. Numbering checked against max (v24) before registering v25.</em></p>
+<p><em>Gate-tightening EXECUTED July 11, 2026 (Backlog #4b, Opus 4.8), against VERIFICATION v4 D13b. The gates D13b flagged as hardcoded/tautological/disclosure-grade are now computed from real monetary state; core numbers are byte-identical (deterministic run-to-run), only gate machinery + diagnostics changed, and </em><em>no verdict flipped</em><em>. Itemized:</em>
+- <em>N0 — was: compared the closed-form multiplier to itself (tautology). Now: an independent iterative deposit re-lending cascade (<code>money_created</code>) is simulated and confirmed to reproduce the registered closed-form multiplier identity M0·(1+d·(1−rr)/rr) to residual &lt;1e-14; FULL's zero creation is computed from a 100%-reserve cascade. </em><em>PASS (genuine).</em><strong>
+- <em>N1 — was: <code>fulllock_within_tol</code> hardcoded <code>True</code>. Now: FULL+LOCK broad money is computed from <code>broad_money_fulllock()</code> across the full registered lock-share sweep (control ratio = 1.00× at 20/40/60% lock, per-lock diagnostics added) and the ±5% governor test is evaluated on it. **PASS (genuine).</em></strong>
+- <em>N2 — was: FULL/FULL+LOCK price deviations hardcoded <code>0.0</code> and the pass tested only that FRAC breaches. Now: both deviations are computed from each regime's actual money creation (=0 → 0% deviation) and the pass tests all three registered legs (FULL ≤5%, FULL+LOCK ≤5%, FRAC breaches). </em><em>PASS (genuine).</em><strong>
+- <em>N3 — was: FULL's survival (incl. "survives 100% withdrawal") asserted <code>True</code>, w-sweep stopped at 0.5. Now: survival is computed as a static reserve-coverage (liquidity) check (survives iff w ≤ reserve_ratio) from FULL's 100%-reserve state — the same check already applied to FRAC — and the registered "survives 100% withdrawal" clause is evaluated by running that check at w=1.0 (survives with <strong>zero margin</strong>). <strong>Disclosed, not faked:</strong> this is a balance-sheet liquidity check, NOT a dynamic sequential-redemption / fire-sale / contagion run (<code>dynamic_run_simulated=false</code>), which is outside the reduced form. **PASS (genuine within the disclosed static frame).</em></strong>
+- <em>N5 — was: FULL+LOCK amplitude hardcoded to the shock (0.2). Now: it is computed from FULL+LOCK's zero-money-creation state (<code>fulllock_gain</code> = 1 + created/M0 = 1 → linear passthrough = 0.2), and the pass compares FRAC's computed amplitude to the computed FULL+LOCK amplitude (all rr exceed it). </em><em>PASS (genuine).</em><em><em>
+- </em>N4 untouched — its FAIL against the mis-framed registered bar was already computed and honestly headlined (F4).</em></p>
+<p><em>Backup of pre-tightening engine + results at <code>outputs/backups/v25/</code>. Change is scoring + diagnostics only; the physics (broad-money functions, N4, figure inputs) is unchanged.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v25-banking-reserve-model-0.json" download>⬇ results_v25.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

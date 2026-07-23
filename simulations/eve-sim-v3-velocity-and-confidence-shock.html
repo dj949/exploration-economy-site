@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Velocity &amp; Confidence Shock — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Velocity &amp; Confidence Shock.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Velocity &amp; Confidence Shock</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Velocity &amp; Confidence Shock</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>Every prior sim formed prices with velocity held constant — money assumed to change hands at a fixed pace. Real crises are velocity events: people hoard, or panic-spend. This run makes velocity endogenous and shockable and asks whether the design holds, testing designs from the bare governor (D0) through demand-side levers (D4: demurrage — a small carry cost on idle money — plus a mild 2% inflation target) to a full velocity-defense stack (D5: D4 plus a velocity circuit-breaker, a stabilization reserve, progressive demurrage, and faster floor indexing).</p>
+<h2 id="read-the-re-framing-first">Read the re-framing first</h2>
+<p>A July 2026 verification pass re-framed how this run must be read, in three parts. (1) D5 and the RESILIENCE bar are post-hoc: the SPEC pre-registered designs D0–D4 and a ±5% STRICT bar; every design failed STRICT in the confidence scenario, and D5 and the bar it passes were designed <em>after</em> that failure — the results are real, but they are exploratory design iteration, not a pre-registered confirmation, and a fresh pre-registered test of D5 belongs on the pilot's modeling list. (2) The demand-side mitigation dial (<code>mitig_coef = 13</code>) was hand-set and carries the headline results: the committed sweep shows D5 passes hoarding and the confidence RESILIENCE bar at coef ≥ 8, but at coef ≤ 4 even D5 fails both (max inflation 41–52%, throughput 0.56–0.67), and D4 needs coef ≈ 13 and never passes confidence — how strongly small carry costs deter hoarding is an empirical behavioral parameter no simulation can settle. (3) The stabilization reserve is modeled as a costless direct velocity absorber sized ~2× the shock; the caveat on its real-world feasibility is load-bearing, not boilerplate.</p>
+<h2 id="what-we-found">What we found</h2>
+<p>The floor is robust to velocity, full stop: EBI-indexed and self-funded, it passed in every design and every scenario — top-up stayed 0 throughout. Price stability is not automatic. The bare governor is blind to velocity: hoarding halves transactional throughput (0.50) with −42% deflation — a demand-trap contraction the constant-velocity sims cannot even produce — and a confidence run whipsaws +82% then −64%. Demand-side levers fix hoarding: demurrage plus the mild 2% target restores throughput to 0.96 at 2% inflation, passing both bars. The intuitive fix — making the governor watch prices (D3) — is refuted: it worsens creator real income to 0.18 under hoarding, stimulating issuance into an economy where money isn't circulating. The confidence run is bounded and arrested by D5: +9.4% peak inflation, throughput 0.98, recovery to 2% within ~12 months, clearing RESILIENCE on all four scenarios at both 25k and 100k agents — but <em>not</em> STRICT, since +9.4% breaches the ±5% band. Mechanism isolation: the circuit-breaker and the reserve are complementary and both necessary — either alone leaves a 53–55% spike; together, 9.4% — and the reserve must be funded to ≥ ~9 months of absorption capacity or the spike returns.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Verdict: SURVIVES WITH CHANGES. Hoarding is fully repaired; a genuine confidence run is bounded and arrested, not eliminated — which is what real monetary systems achieve, and the white paper restates the inflation claim as conditional on stable velocity, bounded-and-arrested under a shock. But carry the re-framing: the confidence defense is post-hoc and dial-dependent, and the reserve's real implementation must be formulaic, transparent, symmetric, and time-bounded — a discretionary "pause" would reintroduce the capturable chokepoint EDEN exists to remove; that design is a pilot question. Velocity here is reduced-form; shock sizes are swept parameters, not estimates; no exchange-rate layer; not a forecast.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>With money's pace of circulation finally allowed to move, the floor still never needed printing in any scenario and hoarding is genuinely solved by a small carry cost plus a mild 2% inflation target — but the confidence-panic defense that bounds the spike to +9.4% and arrests it within ~12 months was built after the pre-registered ±5% bar failed and leans on a hand-set behavioral dial, so it stands as honest, promising design iteration awaiting a fresh pre-registered test, not a confirmed result.</strong></p>
+<p><em>(Dated note, July 18, 2026: this file describes its simulation-era result faithfully and is kept unedited above — but read "self-funded / costs almost nothing" as an in-model result from this early chassis, since retired as a general claim. The harder open-economy and rebuild tests (v6.x, v13.1) found no scenario where the floor fully pays for itself; every real activation needs a real funder, and the durable result is that a funded floor is cheaper than traditional welfare delivery. The current framing lives in the reframed public docs and the Decision Record.)</em></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Endogenous</strong> — determined inside the model rather than set by hand; velocity now responds to conditions and can be shocked. <strong>Governor</strong> — the automatic, committee-free rule setting how fast new EVE is minted. <strong>Throughput</strong> — how much real buying-and-selling is actually happening, with 1.0 as normal; 0.50 means half the economy's transacting stopped. <strong>Deflation</strong> — falling prices — which sounds pleasant and isn't: it rewards hoarding and starves sellers. <strong>Circuit-breaker</strong> — an automatic emergency brake that trips at a threshold, like a stock exchange halting trading in a crash. <strong>Stabilization reserve</strong> — a pre-funded buffer that absorbs a panic's rush until it passes; modeled here as free and frictionless, which is exactly the flagged caveat. <strong>EBI</strong> — the essentials-basket index: what basics actually cost, measured locally; "EBI-indexed" means the floor tracks it automatically. <strong>Top-up</strong> — extra minting to cover the floor if its funding slice falls short; it stayed at zero throughout. <strong>Issuance</strong> — the creation of new money. <strong>Pre-registered</strong> — the pass/fail bar was written down before running, so results can't be graded on a curve. <strong>Post-hoc</strong> — designed after seeing the failure — honest iteration, but not a pre-registered confirmation. <strong>Reduced-form</strong> — deliberately simplified to only the parts that matter for this question; velocity here is a sketch, not a mechanism. <strong>Discretionary</strong> — left to a human's case-by-case judgment — precisely what the reserve must not be, since a discretionary pause is a capturable chokepoint.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-velocity-and-confidence-shock-0.png" alt="fig_velocity.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Closes the program's standing limit — "quantity-theory price formation," i.e. constant velocity (<code>00 INDEX</code>) — and answers <code>White Paper/EDEN Red-Team — Second Pass</code> §A2. Pre-registration and method are in the companion <code>… (SPEC)</code>. Numbers from <code>results_velocity.json</code> (N=25,000) and <code>results_velocity_100k.json</code> (N=100,000). Existence/robustness demonstration, not a forecast.</em></p>
+<h2 id="re-framed-july-2026-verification-item-4-pre-registration-honesty-the-dial-that-carries-the-result">⚠️ RE-FRAMED (July 2026 verification, item 4) — pre-registration honesty + the dial that carries the result</h2>
+<p>Three corrections to how this run should be read. <strong>(1) D5 and the RESILIENCE bar are post-hoc.</strong> The SPEC pre-registered designs D0–D4 and the ±5% STRICT bar; every design failed STRICT in the confidence scenario; D5 and the RESILIENCE bar it passes were designed <em>after</em> that failure. The results below are real, but they are <strong>exploratory design iteration, not a pre-registered confirmation</strong> — a fresh pre-registered test of D5 belongs on the pilot's modeling list. <strong>(2) The demand-side mitigation dial (<code>mitig_coef = 13</code>) was hand-set and carries the headline results.</strong> The committed sweep (<code>mitig_coef_sweep.py</code> / <code>results_mitig_sweep.json</code>, July 2026) shows: D5 passes hoarding and the confidence RESILIENCE bar at coef ≥ 8 (i.e., demurrage + inflation-target removing ≥ ~55% of desired hoarding) — at coef ≤ 4, even D5 fails both scenarios (max inflation 41–52%, throughput 0.56–0.67). D4 needs coef ≈ 13 (~90% mitigation) for hoarding and never passes confidence. <strong>How strongly small carry costs deter hoarding is an empirical behavioral parameter no simulation can settle — it is now on the pilot list alongside liveness and the oracle.</strong> (3) The stabilization reserve is modeled as a costless direct velocity absorber sized ~2× the shock — the MD's existing "pilot question" caveat on its feasibility should be read as load-bearing, not boilerplate.</p>
+<blockquote>
+<p><strong>Reading note.</strong> Criteria fixed before the run (SPEC). Reported per (design × scenario), and against <strong>both</strong> bars the design owner asked for: <strong>STRICT</strong> — |annual essentials inflation| ≤ 5% throughout <em>and</em> floor self-funds; <strong>RESILIENCE</strong> — the shock is bounded (≤ 20%/yr), <strong>arrested</strong> (back in the ±5% band within 12 months of the shock ending), the floor's real value never breaches the basket, and throughput + creator real income recover. Designs: <strong>D0</strong> bare M-governor · <strong>D1</strong> +demurrage · <strong>D2</strong> +mild inflation target · <strong>D3</strong> +price-aware (Taylor) governor · <strong>D4</strong> demand-side combined (demurrage + mild inflation) · <strong>D5</strong> = D4 + velocity circuit-breaker + stabilization reserve + progressive demurrage + faster floor indexing.</p>
+</blockquote>
+<hr>
+<h2 id="the-framing-which-is-the-whole-point">The framing (which is the whole point)</h2>
+<p>The entire program forms prices by <code>price = price0 · (M/M1)^φ / S</code> — quantity theory with <strong>velocity held constant</strong>. The governor targets net issuance (<code>M</code>-growth) and is therefore <strong>blind to velocity <code>V</code></strong>. This model makes <code>V</code> endogenous and shockable (<code>M·V = P·Y</code>) and asks whether the design holds. Nothing else changes from <code>EVE Sim v3</code>.</p>
+<hr>
+<h2 id="the-result-the-floor-is-robust-to-velocity-price-stability-must-be-engineered-for-it">The result — the floor is robust to velocity; price stability must be engineered for it</h2>
+<table>
+<thead>
+<tr>
+<th>Design</th>
+<th>stable</th>
+<th>hoarding</th>
+<th>confidence</th>
+<th>combined</th>
+<th>STRICT / RESIL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>D0 bare</strong></td>
+<td>0.0%, thru 1.00 ✓</td>
+<td>thru <strong>0.50</strong>, defl −42%</td>
+<td>infl <strong>+82% / −64%</strong></td>
+<td>+82%</td>
+<td>only <code>stable</code></td>
+</tr>
+<tr>
+<td><strong>D4 demand-side</strong></td>
+<td>2%, 1.00 ✓</td>
+<td>infl <strong>2%, thru 0.96 ✓</strong></td>
+<td>infl +55%</td>
+<td>+55%</td>
+<td>STRICT: stable+hoarding · RESIL: +hoarding</td>
+</tr>
+<tr>
+<td><strong>D5 velocity-defense</strong></td>
+<td>2%, 1.00 ✓</td>
+<td>2%, <strong>0.97 ✓</strong></td>
+<td>infl <strong>+9.4%</strong>, thru <strong>0.98</strong>, floor ✓, recovers</td>
+<td>+9.4%</td>
+<td><strong>RESIL: all four</strong> · STRICT: stable+hoarding</td>
+</tr>
+</tbody>
+</table>
+<p>Findings, in order:</p>
+<p><strong>1. H0 confirmed — the harness is sound.</strong> With velocity pinned (<code>stable</code>), <strong>D0 reproduces <code>EVE Sim v3</code> exactly</strong>: 0.0% inflation, throughput 1.0, floor self-funded (top-up 0), p10 never below basket. Relaxing velocity adds an axis; it does not break the validated core.</p>
+<p><strong>2. H1 confirmed — the governor is blind to velocity.</strong> Every design passes the <strong>floor</strong> criterion in every scenario (it is EBI-indexed, so the poverty guarantee holds mechanically), but the bare governor fails the moment velocity moves: hoarding collapses transactional throughput to <strong>0.50</strong> (a demand-trap contraction the constant-velocity sim cannot produce) with −42% deflation; a confidence run drives a <strong>+82% then −64%</strong> whipsaw the slow one-way governor cannot catch.</p>
+<p><strong>3. Hoarding is solved by demand-side levers (D4).</strong> Demurrage + a mild 2% inflation target restores circulation (throughput 0.96) and holds inflation at 2% — passing <strong>both</strong> bars under hoarding. The mechanism: a guaranteed floor + zero-carry money makes holding rational; a small carry cost keeps money moving. This is <em>not</em> something the issuance governor can do, and the intuitive "make the governor watch prices" fix (<strong>D3</strong>) is <strong>refuted</strong> — it does not help and <em>worsens</em> creator real income under hoarding (to 0.18), because it stimulates issuance into an economy where money isn't circulating.</p>
+<p><strong>4. The confidence run is bounded and arrested by D5 — resilience, not strict.</strong> Adding the velocity-defense stack holds the confidence spike to <strong>+9.4% peak inflation</strong>, keeps throughput at <strong>0.98</strong> (no demand trap), protects the floor throughout, and <strong>recovers to 2% within ~12 months</strong> — clearing the <strong>RESILIENCE</strong> bar on <em>all four</em> scenarios at both 25k and 100k. It does <strong>not</strong> clear <strong>STRICT</strong>: the +9.4% breaches the ±5% band. That gap is the honest headline: <strong>a genuine confidence run can be bounded and arrested, not eliminated</strong> — exactly what a real monetary system achieves, and a claim EDEN can defend, where "±5% through any panic" would be overreach.</p>
+<p><img alt="Figure. D0 bare (top) vs D5 velocity-defense (bottom): annual essentials inflation and transactional throughput across the four scenarios. D0 whipsaws ±80% and halves throughput; D5 holds inflation near 2% with a bounded +9.4% confidence spike (it nicks the −5% band on the rebound — the strict miss) and throughput pinned in [0.97, 1.07]." src="fig_velocity.png"></p>
+<h2 id="what-actually-does-the-work-mechanism-isolation-confidence-scenario">What actually does the work (mechanism isolation, confidence scenario)</h2>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th>peak inflation</th>
+<th>resilience</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>circuit-breaker only (no reserve)</td>
+<td><strong>55%</strong></td>
+<td>✗</td>
+</tr>
+<tr>
+<td>reserve only (no breaker)</td>
+<td><strong>53%</strong></td>
+<td>✗</td>
+</tr>
+<tr>
+<td><strong>both (D5)</strong></td>
+<td><strong>9.4%</strong></td>
+<td>✓</td>
+</tr>
+</tbody>
+</table>
+<p>The circuit-breaker and the stabilization reserve are <strong>complementary and both necessary</strong> — neither alone clears resilience. The <strong>reserve caps the spike's <em>level</em></strong> (it absorbs ~85% of the excess velocity); the <strong>breaker caps the crash's <em>rate</em></strong>, which is what prevents the post-spike deflation from triggering a secondary-hoarding whipsaw. Two further notes from the sensitivities:</p>
+<ul>
+<li><strong>The reserve must be adequately funded</strong> — peak inflation is 9.4% at ≥ ~9 months of absorption capacity but <strong>53–55%</strong> at ≤ 3 months. The stabilization reserve's capitalization is a first-class design parameter, not a detail.</li>
+<li><strong>Faster floor indexing is precautionary, not load-bearing here.</strong> Once the spike is bounded to +9.4%, the floor's <strong>1.10× multiplier already absorbs the indexing lag</strong> — p10 stays at 1.157× the basket even with a 3-month lag. It earns its place only as insurance against a larger/faster spike.</li>
+<li><strong>Progressive demurrage</strong> modestly shrinks the hot money that can flee, but a real panic is <em>not</em> stopped by a carry cost — so this run credits demurrage with at most ~40% mitigation of the flight, and lets the breaker + reserve do the heavy lifting.</li>
+</ul>
+<h2 id="scale-check-100k">Scale check (100k)</h2>
+<p>Re-running D0, D4, and D5 at <strong>N=100,000</strong> reproduces the 25k inflation paths <strong>to the third decimal</strong> in every scenario (the macro price path is scale-invariant; agent count affects only cross-sectional noise). The result is not an artifact of the smaller run.</p>
+<h2 id="verdict">Verdict</h2>
+<p><code>SURVIVES WITH CHANGES.</code> The poverty <strong>floor is robust to velocity</strong> (indexed, self-funded — top-up stayed 0 in every scenario). <strong>Price stability is not automatic</strong> and must be engineered: <strong>hoarding</strong> is fully repaired by demurrage + a mild inflation target (both bars); a <strong>confidence run</strong> is <strong>bounded and arrested</strong> by a stabilization reserve + velocity circuit-breaker (resilience bar, all scenarios) but is <strong>not</strong> held inside ±5% (strict bar). The design adopts these as the <strong>D5</strong> configuration; the white paper restates the inflation claim as <em>conditional on stable velocity, bounded-and-arrested under a shock</em> (v1.3 §7.4, gate 5). The intuitive governor-tuning fix is refuted.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<ul>
+<li><strong>Reduced-form velocity</strong> (adaptive expectations + hoarding deadband + capped panic mitigation), not a microfounded portfolio choice; shock sizes and sensitivities are <strong>swept parameters, not estimates</strong> — this shows <em>what happens if <code>V</code> moves</em> and <em>which mechanisms bound it</em>, not <em>how likely or large</em> a real shock is.</li>
+<li><strong>The reserve is modeled as a velocity absorber with finite monthly capacity</strong>; a real implementation (term lock-ups, a buy-side reserve at the bridges, redemption throttling) must be designed to be <strong>formulaic, transparent, symmetric, and time-bounded</strong> — a discretionary "pause" would reintroduce the capturable chokepoint EDEN exists to remove. That design (and its own attack surface) is a pilot question, not settled here.</li>
+<li><strong>Throughput coupling</strong> (machine-pay + discretionary engagement scale with circulation) is the modeling choice that lets a demand trap appear at all in a quantity-theoretic skeleton — stated plainly.</li>
+<li><strong>No exchange rate.</strong> Real purchasing power during a spike also depends on convertibility (Second-Pass §A1), one layer up and not modeled here.</li>
+<li>Fixed population, single 15-year horizon, calibrated (not estimated) parameters, <strong>not a forecast.</strong></li>
+</ul>
+<h2 id="files">Files</h2>
+<p><code>velocity_confidence_sim.py</code> (runnable; <code>EVE_N</code> / <code>EVE_DESIGNS</code> / <code>EVE_TAG</code> env vars) · <code>results_velocity.json</code> (25k, all designs × scenarios, both bars) · <code>results_velocity_100k.json</code> (100k confirmation) · <code>fig_velocity.png</code> · pre-registration <code>../EVE Sim v3 - Velocity &amp; Confidence Shock (SPEC).md</code>. <em>Maps to: <code>White Paper/EDEN White Paper v1.3</code> §7.4 + Appendix A.8 + §16 gate 5; <code>Second Pass</code> §A2; retires the "constant velocity" line in <code>00 INDEX</code>.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-velocity-and-confidence-shock-0.json" download>⬇ results_mitig_sweep.json</a><a class="dlbtn" href="data/eve-sim-v3-velocity-and-confidence-shock-1.json" download>⬇ results_velocity.json</a><a class="dlbtn" href="data/eve-sim-v3-velocity-and-confidence-shock-2.json" download>⬇ results_velocity_100k.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

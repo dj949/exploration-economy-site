@@ -1,0 +1,11 @@
+{
+  "operating_point": {
+    "prize": 0.04,
+    "equilibrium_detection_pct": 100.0,
+    "equilibrium_fraud_pct": 0.0,
+    "attacker_evasion": 0.0
+  },
+  "prize_threshold_where_fraud_exceeds_2pct": 0.06,
+  "evasion_cost_needed_for_under_2pct_at_stress_prize": 0.836,
+  "note": "Detection is the equilibrium of a defender-vs-attacker contest. Raw defense BUDGET is not the lever (proportional contest -> attackers scale to match). The two real levers: (1) keep the PRIZE small (EDEN's economic defenses do this structurally, so the arms race never ignites), and (2) make evasion costlier than detection (an engineering goal)."
+}

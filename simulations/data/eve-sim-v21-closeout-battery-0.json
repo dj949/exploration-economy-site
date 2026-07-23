@@ -1,0 +1,111 @@
+{
+ "spec": "v21 SPEC - Closeout Battery (registered).md",
+ "K1_definition_capture": {
+  "prize_diverted_yr": 86400000.0,
+  "benefit_yr": 12960000.0,
+  "benefit_horizon": 77760000.0,
+  "capture_cost": 125000000.0,
+  "cost_benefit_ratio": 1.6075102880658436,
+  "roi_yr": -7873333.333333332,
+  "more_attractive_than_v17_composition": false,
+  "v17_composition_benefit_h": 77800000.0,
+  "pass": false
+ },
+ "K2_two_of_two_oracle": {
+  "published_index_capture": 99500000.0,
+  "lane_capture": 310000000.0,
+  "two_of_two_cost": 409500000.0,
+  "bar_min_usd": 409500000.0,
+  "single_channel_drain_cost": 99500000.0,
+  "cost_multiple_vs_single": 4.115577889447236,
+  "no_combined_attack_discount": true,
+  "suppression": 0.1,
+  "cushion": 0.1,
+  "delivery_dip_bounded": 0.010000000000000002,
+  "delivery_dip_additive_deadcode": 0.0,
+  "delivery_dip_model": "1-(1+cushion)*(1-suppression) floored>=0 (multiplicative; matches v18/SPEC ~1%)",
+  "finding": "2-of-2 attack cost = sum of the two independent component captures (O1 $99.5M + O4 $310M); the >=$409.5M floor holds by construction (no combined-attack discount), so the substantive result is the 4.1x cost multiple over the cheapest single-channel drain; the computed residual delivery dip (1.00%) stays well under the cushion (10%)",
+  "pass": true
+ },
+ "K3_fixed_cost_exodus": {
+  "fixed_infra_monthly": 60000.0,
+  "protocol_share": 0.05,
+  "f_star_closed_form": 0.4,
+  "insolvent_below_frac": 0.4,
+  "insolvent_below_frac_scan": 0.3500000000000001,
+  "last_covered_frac_scan": 0.4,
+  "scan_confirms_closed_form": true,
+  "percap_delivery_v19_anchor": 1.0,
+  "percap_delivery_recomputed_in_v21": false,
+  "percap_delivery_f_invariant": true,
+  "percap_delivery_holds_above_fstar": true,
+  "below_fstar_failure_is_fixed_cost": true,
+  "finding": "per-capita delivery is run-proof at any population (v19 anchor, f-invariant here); the SYSTEM's fixed infra is uncovered below f*=40% retained population (closed form, confirmed by the grid scan's own boundary; first insolvent grid point 35%) -> a fixed-cost floor on viable scale, not a per-capita failure",
+  "pass": true
+ },
+ "K4_payer_exit_rebalance": {
+  "gap_mo": 3007000000.0,
+  "runway_mo": 24,
+  "paths": {
+   "0.0": {
+    "from_slice_musd": 3007.0,
+    "from_taper_musd": 0.0,
+    "givers_contrib_share": 0.3,
+    "gap_fully_covered": true,
+    "under_political_bar": false,
+    "under_measured_bar": false
+   },
+   "0.25": {
+    "from_slice_musd": 2255.25,
+    "from_taper_musd": 751.75,
+    "givers_contrib_share": 0.2665888888888889,
+    "gap_fully_covered": true,
+    "under_political_bar": false,
+    "under_measured_bar": false
+   },
+   "0.5": {
+    "from_slice_musd": 1503.5,
+    "from_taper_musd": 1503.5,
+    "givers_contrib_share": 0.2331777777777778,
+    "gap_fully_covered": true,
+    "under_political_bar": false,
+    "under_measured_bar": true
+   },
+   "0.75": {
+    "from_slice_musd": 751.75,
+    "from_taper_musd": 2255.25,
+    "givers_contrib_share": 0.19976666666666668,
+    "gap_fully_covered": true,
+    "under_political_bar": false,
+    "under_measured_bar": true
+   },
+   "1.0": {
+    "from_slice_musd": 0.0,
+    "from_taper_musd": 3007.0,
+    "givers_contrib_share": 0.16635555555555556,
+    "gap_fully_covered": true,
+    "under_political_bar": false,
+    "under_measured_bar": true
+   }
+  },
+  "gap_fully_covered_by_rebalance": true,
+  "gap_coverage_by_construction": true,
+  "closes_within_24mo_not_computed_reduced_form": true,
+  "closes_within_24mo_note": "no month-by-month trajectory exists in this reduced form; the re-balancing closes the full gap magnitude instantaneously by algebra and 24mo is the v20 reserve runway, not a simulated phase-in -> closure timing is a disclosed non-result",
+  "consent_bar_political": 0.06,
+  "consent_bar_measured": 0.25,
+  "min_taper_share_for_consent": 0.5,
+  "min_taper_share_for_consent_measured": 0.5,
+  "min_taper_share_for_consent_political": null,
+  "consent_met_under_measured": true,
+  "consent_met_under_political": false,
+  "finding": "a re-balancing path exists that covers the full gap magnitude and clears the 25% MEASURED consent anchor at >=50% subsidy-taper (min taper 0.5), but NO split clears the stricter registered 6% POLITICAL-tolerance anchor (best case, full taper, is 16.6%); scored against the un-loosened political bar K4 FAILS -- the v20 consent sting is the verdict, not a footnote. The '24-month' closure timing is a disclosed non-result (no trajectory in the reduced form). The mechanism is intact (a path exists under the measured anchor and covers the full gap); the binding constraint is consent under political tolerance, which must be pre-committed in the accession contract.",
+  "pass": false
+ },
+ "bar_summary": {
+  "K1_definition_capture": false,
+  "K2_two_of_two_oracle": true,
+  "K3_fixed_cost_exodus": true,
+  "K4_payer_exit_rebalance": false
+ }
+}

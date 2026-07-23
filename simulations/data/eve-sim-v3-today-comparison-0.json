@@ -1,0 +1,215 @@
+{
+  "TODAY": {
+    "N": 100000,
+    "T": 180,
+    "wage_sigma": 0.85,
+    "ess_infl_yr": 0.03,
+    "p10_real_growth_yr": 0.002,
+    "start_parity": 1.18,
+    "start_market": 0.55,
+    "net_target": 0.9,
+    "net_takeup": 0.85,
+    "net_target_austerity": 0.7,
+    "net_takeup_austerity": 0.65,
+    "shock_depth": 0.05,
+    "shock_perm": 0.01,
+    "erosion_total": 0.13,
+    "automation_p10_gain_yr": 0.003
+  },
+  "verdicts": {
+    "EDEN-v3-full|baseline": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "p10_min": 1.18,
+      "p10_end": 1.18,
+      "creator_real_end": 1.26
+    },
+    "EDEN-v3-full|shock": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "p10_min": 1.06,
+      "p10_end": 1.18,
+      "creator_real_end": 1.25
+    },
+    "EDEN-v3-full|erosion": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "p10_min": 1.1,
+      "p10_end": 1.1,
+      "creator_real_end": 0.91
+    },
+    "EDEN-v3-full|automation": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": -0.1,
+      "p10_min": 1.18,
+      "p10_end": 1.18,
+      "creator_real_end": 1.55
+    },
+    "EDEN-v3-full|combined": {
+      "fails": false,
+      "longest": 1,
+      "first": null,
+      "infl": 0.0,
+      "p10_min": 0.99,
+      "p10_end": 1.1,
+      "creator_real_end": 0.89
+    },
+    "TODAY-parity|baseline": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "p10_start": 1.18,
+      "p10_min": 1.18,
+      "p10_end": 1.22,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-parity|shock": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "p10_start": 1.18,
+      "p10_min": 1.13,
+      "p10_end": 1.2,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-parity|erosion": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "p10_start": 1.18,
+      "p10_min": 1.05,
+      "p10_end": 1.06,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-parity|automation": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "p10_start": 1.18,
+      "p10_min": 1.18,
+      "p10_end": 1.27,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-parity|combined": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "p10_start": 1.18,
+      "p10_min": 1.01,
+      "p10_end": 1.05,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-market|baseline": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.55,
+      "p10_min": 0.55,
+      "p10_end": 0.57,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-market|shock": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.55,
+      "p10_min": 0.53,
+      "p10_end": 0.56,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-market|erosion": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.55,
+      "p10_min": 0.49,
+      "p10_end": 0.49,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-market|automation": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.55,
+      "p10_min": 0.55,
+      "p10_end": 0.59,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-market|combined": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.55,
+      "p10_min": 0.47,
+      "p10_end": 0.49,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-safetynet|baseline": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.85,
+      "p10_min": 0.85,
+      "p10_end": 0.85,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-safetynet|shock": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.85,
+      "p10_min": 0.81,
+      "p10_end": 0.85,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-safetynet|erosion": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.85,
+      "p10_min": 0.84,
+      "p10_end": 0.84,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-safetynet|automation": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.85,
+      "p10_min": 0.85,
+      "p10_end": 0.85,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-safetynet|combined": {
+      "fails": true,
+      "longest": 180,
+      "first": 1,
+      "p10_start": 0.85,
+      "p10_min": 0.61,
+      "p10_end": 0.84,
+      "top10_wage_share": 0.33
+    },
+    "TODAY-parity-SEVEREshock|shock": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "p10_min": 1.05,
+      "p10_end": 1.2
+    },
+    "TODAY-parity-SEVEREshock|combined": {
+      "fails": true,
+      "longest": 16,
+      "first": 103,
+      "p10_min": 0.94,
+      "p10_end": 1.05
+    }
+  }
+}

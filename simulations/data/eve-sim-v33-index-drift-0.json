@@ -1,0 +1,202 @@
+{
+ "ID0": {
+  "deterministic_no_seeds": true,
+  "normalized_delivery_min": 1.0,
+  "over_pay_total": 0.0,
+  "pass": true,
+  "real_delivery_max": 1.1,
+  "real_delivery_min": 1.1,
+  "reserve_end": 36000000.0,
+  "wedge_max": 1.0,
+  "wedge_min": 1.0
+ },
+ "ID1": {
+  "budget_exhaust_month": 112,
+  "budget_exhaust_year": 9.333333333333334,
+  "closed_form_budget_exhaust_year": 9.280723687208935,
+  "closed_form_essentials_breach_year": 19.014341058790933,
+  "essentials_breach_month": 229,
+  "essentials_breach_year": 19.083333333333332,
+  "normalized_delivery_year50": 0.7783125570686419,
+  "note": "additive \u00a75 line (deliv<1.05) vs multiplicative wedge line (cum under-read=5%) differ ~1yr; both reported",
+  "pass": false,
+  "real_delivery_year50": 0.8561438127755061,
+  "shortfall_vs_essentials_year50": 0.1438561872244939,
+  "shortfall_vs_intended_floor_year50": 0.22168744293135811,
+  "wedge_5pct_month": 123,
+  "wedge_5pct_year": 10.25
+ },
+ "ID2": {
+  "baseline_floor_flow_usd": 198000000.00000003,
+  "cum_over_pay_year50_billion": 16.15314112865018,
+  "cum_over_pay_year50_usd": 16153141128.65018,
+  "note": "asymmetry: over-read hits the finite reserve fast; under-read (ID1) hits delivery slowly (cushioned)",
+  "over_funding_rate_year50": 0.28322581493536325,
+  "overfund_5pct_telemetry_month": 118,
+  "overfund_5pct_telemetry_year": 9.833333333333334,
+  "pass": false,
+  "reserve0_usd": 36000000.0,
+  "reserve_as_months_of_flow": 0.1818181818181818,
+  "reserve_drain_month": 30,
+  "reserve_drain_year": 2.5
+ },
+ "ID3": {
+  "binding_interval_yr": 2.5,
+  "binding_side": "reserve/over-read",
+  "canon_delivery_safe": true,
+  "canon_rebasing_yr": 5,
+  "canon_reserve_safe": false,
+  "closed_form_delivery_max_interval_yr": 9.280723687208935,
+  "closed_form_reserve_max_interval_yr": 2.5,
+  "closed_form_wedge5_max_interval_yr": 10.232990804510022,
+  "max_L_delivery_safe_yr": 9,
+  "max_L_reserve_safe_yr": 2,
+  "note": "binding cadence is set by the over-read/reserve side; canon 5yr is delivery-safe but reserve-unsafe",
+  "pass": false,
+  "sweep": {
+   "1": {
+    "delivery_min": 1.0945,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.006430096625298904,
+    "intra_interval_over_pay_usd": 6430096.625298904,
+    "reserve_safe": true
+   },
+   "2": {
+    "delivery_min": 1.0890275,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.02477234373372401,
+    "intra_interval_over_pay_usd": 24772343.73372401,
+    "reserve_safe": true
+   },
+   "3": {
+    "delivery_min": 1.0835823625,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.05508630207769098,
+    "intra_interval_over_pay_usd": 55086302.07769098,
+    "reserve_safe": false
+   },
+   "4": {
+    "delivery_min": 1.0781644506875,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.09743183021337753,
+    "intra_interval_over_pay_usd": 97431830.21337754,
+    "reserve_safe": false
+   },
+   "5": {
+    "delivery_min": 1.0727736284340625,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.15186908598974222,
+    "intra_interval_over_pay_usd": 151869085.98974222,
+    "reserve_safe": false
+   },
+   "6": {
+    "delivery_min": 1.0674097602918922,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.21845852804498855,
+    "intra_interval_over_pay_usd": 218458528.04498854,
+    "reserve_safe": false
+   },
+   "7": {
+    "delivery_min": 1.0620727114904327,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.29726091731051074,
+    "intra_interval_over_pay_usd": 297260917.31051075,
+    "reserve_safe": false
+   },
+   "8": {
+    "delivery_min": 1.0567623479329806,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.38833731852236036,
+    "intra_interval_over_pay_usd": 388337318.5223604,
+    "reserve_safe": false
+   },
+   "9": {
+    "delivery_min": 1.0514785361933157,
+    "delivery_safe": true,
+    "intra_interval_over_pay_billion": 0.49174910174026887,
+    "intra_interval_over_pay_usd": 491749101.7402689,
+    "reserve_safe": false
+   },
+   "10": {
+    "delivery_min": 1.0462211435123492,
+    "delivery_safe": false,
+    "intra_interval_over_pay_billion": 0.6075579438742668,
+    "intra_interval_over_pay_usd": 607557943.8742667,
+    "reserve_safe": false
+   },
+   "11": {
+    "delivery_min": 1.0409900377947874,
+    "delivery_safe": false,
+    "intra_interval_over_pay_billion": 0.7358258302189343,
+    "intra_interval_over_pay_usd": 735825830.2189343,
+    "reserve_safe": false
+   },
+   "12": {
+    "delivery_min": 1.0357850876058134,
+    "delivery_safe": false,
+    "intra_interval_over_pay_billion": 0.8766150559953251,
+    "intra_interval_over_pay_usd": 876615055.9953251,
+    "reserve_safe": false
+   },
+   "13": {
+    "delivery_min": 1.0306061621677844,
+    "delivery_safe": false,
+    "intra_interval_over_pay_billion": 1.0299882279005976,
+    "intra_interval_over_pay_usd": 1029988227.9005976,
+    "reserve_safe": false
+   },
+   "14": {
+    "delivery_min": 1.0254531313569455,
+    "delivery_safe": false,
+    "intra_interval_over_pay_billion": 1.1960082656653959,
+    "intra_interval_over_pay_usd": 1196008265.665396,
+    "reserve_safe": false
+   },
+   "15": {
+    "delivery_min": 1.0203258657001608,
+    "delivery_safe": false,
+    "intra_interval_over_pay_billion": 1.374738403619018,
+    "intra_interval_over_pay_usd": 1374738403.619018,
+    "reserve_safe": false
+   }
+  }
+ },
+ "ID4": {
+  "deterministic_exhaust_month": 112,
+  "deterministic_headline_no_rng": true,
+  "deterministic_note": "ID0-ID3 use no RNG; two runs -> byte-identical results_v33.json (SHA-256 verified externally)",
+  "honest_noise_absorbed_50yr": true,
+  "note": "confirms \u00a75 intent: the 0.05 budget is a BIAS (systematic) budget; zero-mean noise is absorbed indefinitely",
+  "pass": false,
+  "pure_noise_exhaust_month": {
+   "7": null,
+   "11": null
+  },
+  "seed_noisy_exhaust_month": {
+   "7": 110,
+   "11": 123
+  },
+  "seeds_agree_within_3mo_and_near_det": false,
+  "sigma_noise": 0.01
+ },
+ "bar_summary": {
+  "ID0": true,
+  "ID1": false,
+  "ID2": false,
+  "ID3": false,
+  "ID4": false
+ },
+ "dials": {
+  "ess_pm": 600.0,
+  "floor_mult": 1.1,
+  "g": 0.005,
+  "horizon_yr": 50,
+  "months": 600,
+  "redemption_pm": 180000000.0,
+  "reserve0": 36000000.0,
+  "ring": 1000000
+ },
+ "model": "DETERMINISTIC (closed-form drift); seeds 7,11 used only in ID4 noise overlay",
+ "prices_normalized_to": "EBI_true = 1.0",
+ "spec": "v33 SPEC - Index Drift (registered).md"
+}

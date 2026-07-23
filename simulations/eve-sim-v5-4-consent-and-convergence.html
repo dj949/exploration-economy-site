@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v5.4 - Consent &amp; Convergence — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v5.4 - Consent &amp; Convergence.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">The World Model (v5)</div>
+<h1>v5.4 - Consent &amp; Convergence</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v5.4 Consent &amp; Convergence.md</code>. The consent problem in one sentence: the world floor needs rich regions to chip in far more than any population has ever agreed to send strangers. July 6's decision was to cap the ask and let poor regions' floors grow toward equality instead of promising it on day one. This run measured that road — and the two roads not taken — in the same model world.</em></p>
+<h2 id="the-setup">The setup</h2>
+<p>A 40-region toy world, tuned until it reproduces the original world-simulation's committed numbers (rich regions' net contribution peaking at 46% of their minting and falling to ~19% by year 15 as poorer joiners build their own earning power). Same world, five experiments.</p>
+<h2 id="the-honest-road-the-one-you-chose">The honest road (the one you chose)</h2>
+<p>Cap every region's mandatory contribution at the politically survivable level (6%), fund each floor locally first, top up the poorest from the capped pool, and let time-equal minting do the rest. Result: the poorest region's floor starts weak — about a third of full strength in the early years — and climbs steadily, crossing 90% at <strong>year 13.7</strong> and reaching full parity by year 15. The promise "universal in guarantee, converging in strength" turns out to arrive <em>inside</em> the 15-year window it was registered against, with about a year to spare. Not lavish. Real.</p>
+<p>And staying is worth it for the payers: at deliberately stingy estimates of what membership buys a rich region (cheaper welfare delivery, recovered tax gap, the builder economy, stability), the value comes out at <strong>1.6× the capped fee</strong>, every region, every year. Consent doesn't have to be begged; it's arithmetic.</p>
+<h2 id="road-not-taken-1-print-the-difference">Road not taken #1 — print the difference</h2>
+<p>Promise equal floors everywhere on day one and mint whatever's missing. The model's money-printer starts at month 20, and the floor's <em>real</em> value drops below full strength <strong>one month later</strong> and never comes back — by year 15 the "equal" floor buys <strong>15%</strong> of a grocery basket. Inflation ate the generosity, and it ate it fastest for the people holding the currency with no escape — the poor. The most generous-sounding promise delivered the least generous outcome in the entire experiment.</p>
+<h2 id="road-not-taken-2-force-it-and-hide-it">Road not taken #2 — force it and hide it</h2>
+<p>Keep the giant transfer but fog the glass so contributors can't see it. It works — delivery is a perfect 1.0 — right up until someone derives the number. At discovery (tested at years 3, 5, and 8), the paying regions walk, and because this road never admitted anyone could leave, it never built the parachute. The poorest regions' floors collapse to <strong>8–17%</strong> of strength within six months and stay broken for <strong>7 to 12 years</strong>. At the exact moment of betrayal, the honest capped road — the one that never promised day-one equality — is delivering <strong>three times more</strong> and still climbing. The chart of these two lines is the whole July 6 consent decision in one picture.</p>
+<h2 id="the-test-that-failed-and-why-thats-the-good-kind-of-failure">The test that failed — and why that's the good kind of failure</h2>
+<p>One bar was set on purpose to keep the marketing honest: the "mutual insurance" story ("you pay in because someday <em>you</em> might need to draw") is only legitimate if regions really do trade places. Measured over 60 years of shocks: <strong>only about half</strong> the regions ever experience both sides. Among the <em>paying</em> class it's true — three-quarters to five-sixths of payers also drew at least once, so for them the fire-pool framing is fact. But the persistently poorest half draws and, within a lifetime, essentially never pays.</p>
+<p>So the design survives; the <em>sales pitch</em> gets a haircut. The pool is honestly two things wearing one name: real mutual insurance <strong>among the contributors</strong>, plus front-loaded, shrinking start-up help for joiners. Tell the insurance story to the people it's true for; call the other half what it is. A failed bar that improves the language instead of the mechanism — which is exactly what this vault's bars are for.</p>
+<p><em>Usual honesty: a reduced-form world, calibrated to the committed originals, where the comparisons between roads are the finding and the absolute levels are not. Politics itself still isn't simulatable — these runs price the conditions consent needs, not the vote. Run and written by Claude Fable 5, July 7 2026, under bars registered before the code existed.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v5-4-consent-and-convergence-0.png" alt="fig_v54_consent.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 7, 2026.</strong> Spec: <code>v5.4 SPEC - Consent &amp; Convergence (registered)</code> (bars K0–K5b fixed before any engine code). Engine: <code>v54_consent_convergence_sim.py</code>; artifacts: <code>results_v54.json</code>, <code>fig_v54_consent.png</code>. Seeds 7 + 11 on the stochastic cell. <strong>One registered bar failed (K2) and is reported as the run's most valuable finding.</strong> Two engine bugs were fixed pre-readout (a run-length encoder and the K5a clock measuring from t=0 instead of printing-start as the spec words it); no bar was moved.</p>
+<h2 id="verdict-table">Verdict table</h2>
+<table>
+<thead>
+<tr>
+<th>Cell</th>
+<th>Bar</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>K0 validation</strong></td>
+<td>Reproduce committed v5.1 anchors: corrected net contribution peak 46.0 ± 1.5pp, yr-15 18.7 ± 1.5pp, obligations −60 ± 8%</td>
+<td><strong>45.9% peak, 18.9% at yr 15, −61.5%</strong> (calibrated dials published: spread 8, β 0.42, κ 0.821, ramp 30 mo — frozen for all other cells)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>K1 ratified design (capped + converging)</strong></td>
+<td>Poorest-region floor strength ≥ 0.90 by yr 15, within the 6% cap, zero printing</td>
+<td>Sustained ≥ 0.90 from <strong>year 13.7</strong>; strength <strong>1.00 at yr 15</strong>; zero printing</td>
+<td><strong>PASS — with ~15 months to spare.</strong> "Universal in guarantee, converging in strength" arrives inside its own registered window; the margin is real but not lavish, and the white paper should quote the year, not just the pass</td>
+</tr>
+<tr>
+<td><strong>K2 insurance legitimacy</strong></td>
+<td>≥ 67% of regions both net-payer and net-drawer across 60 yr, both seeds</td>
+<td><strong>50.0% / 52.5% — FAIL.</strong> Diagnostic: among <em>payer</em> regions, 74–84% also drew at least once</td>
+<td><strong>FAIL, informative — see below</strong></td>
+</tr>
+<tr>
+<td><strong>K3 membership equilibrium</strong></td>
+<td>Value &gt; capped contribution in ≥ 95% of rich region-years at conservative anchors</td>
+<td><strong>100%</strong> of region-years; median ratio <strong>1.6×</strong></td>
+<td><strong>PASS</strong> — staying beats leaving on the ledger, at anchors chosen against the claim</td>
+</tr>
+<tr>
+<td><strong>K4 federation fallback</strong></td>
+<td>Zero printing, no collapse; publish the thin-solidarity number</td>
+<td>Poorest local-only strength <strong>0.10 at accession → 0.43 by yr 15</strong>; zero printing</td>
+<td><strong>PASS</strong> — survivable, and visibly thin: this number is what the capped tranche buys</td>
+</tr>
+<tr>
+<td><strong>K5a print the gap (counterfactual)</strong></td>
+<td>Expectation: real delivery &lt; 1.0 within 12 months of printing start</td>
+<td>Printing starts month 20 (post-accession ramp); delivery falls below 1.0 <strong>one month later</strong>; year-15 delivery <strong>0.148</strong></td>
+<td><strong>CONFIRMED</strong> — the generous promise starves its beneficiaries; Road 2(c) stands, measured</td>
+</tr>
+<tr>
+<td><strong>K5b discovered forced pool (counterfactual)</strong></td>
+<td>Expectation: ≥ 24 consecutive months &lt; 1.0 after discovery AND below the same-date K1 path</td>
+<td>Discovery at yr 3/5/8 → <strong>144 / 120 / 84 consecutive months below 1.0</strong>; delivery 6 months post-discovery <strong>0.08 / 0.11 / 0.17</strong> vs K1's same-date <strong>0.29 / 0.37 / 0.54</strong> — the humble road is 3× higher <em>at the moment of betrayal</em> and never cliffs</td>
+<td><strong>CONFIRMED</strong> — Road 2(b) stands, measured</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-k2-failure-stated-the-way-the-vault-states-failures">The K2 failure, stated the way the vault states failures</h2>
+<p>The registered bar demanded that the veil-of-ignorance framing be <em>factually</em> true for <strong>most regions</strong>: over 60 years of regional shocks, at least two-thirds should experience both sides of the insurance pool. Measured: only <strong>half</strong> do. The mechanism: post-convergence income <em>levels</em> compress, but income <em>rankings</em> barely change in this world — so above-median regions both pay and draw (74–84% of payers also drew — for the contributor class, the insurance framing is <em>strongly</em> factual), while the persistently-poorest half draws and essentially never pays within a human lifetime.</p>
+<p><strong>What this does to the ratified A.2 language:</strong> the tranche is honestly described as <strong>two instruments wearing one name</strong> — (1) genuine mutual shock-insurance <em>among the contributor class</em> (factual, measured), and (2) convergence support for joiners (front-loaded, self-liquidating, but not "insurance you might claim" on any electoral timescale for the payer who asks). The §4.2 reframe survives for audience (1); selling it as literally mutual for <em>everyone</em> would be the kind of overclaim this program retires. Recommended claim surgery: "mutual insurance among contributors, plus a capped, declining accession tranche — both inside the 6% cap." A mobility-including variant (regions changing <em>rank</em>, not just level) may be re-registered as exploratory; adding mobility now, to pass the bar, is what house rules exist to prevent.</p>
+<h2 id="what-the-run-establishes-overall">What the run establishes overall</h2>
+<p>The ratified road works on its own registered terms (K1), is individually rational for the payers (K3, 1.6× at conservative anchors), and degrades gracefully (K4 — with the honest price tag: local-only leaves the poorest at 10% coverage on day one). Both roads not taken are now measured catastrophes for exactly the people they sound generous toward: printing melts the floor to 0.15 by year 15; the opaque forced pool delivers a decade of broken floor after discovery, from which the capped design — 3× higher delivery at the same date and rising — never has to recover, because it never lied. And the one bar that failed (K2) failed in the direction that makes the <em>language</em> humbler, not the design weaker: the cap, the reciprocity dashboard, and the membership ledger carry consent for the payers; the insurance story should be told only to the audience for whom it is true.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced-form world (equal populations, one obligation slope, exponential convergence, static rankings — the K2 result is conditional on that last structure and says so); K3 anchors conservative but assumed; K5b's crash shape is a v6.7-anchored dial (v9 owns the microstructure); consent itself remains political, not simulatable. Within-world comparisons are the deliverable.</p>
+<p><em>Run executed by Claude Fable 5, July 7 2026, under the July 7 registration. Plain-language companion: <code>PLAIN LANGUAGE - v5.4 Consent &amp; Convergence.md</code>.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v5-4-consent-and-convergence-0.json" download>⬇ results_v54.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

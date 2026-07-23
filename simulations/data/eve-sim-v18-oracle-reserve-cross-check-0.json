@@ -1,0 +1,131 @@
+{
+ "spec": "v18 SPEC - Oracle-Reserve Cross-Check (registered).md",
+ "derived": {
+  "redemption_pm": 180000000.0,
+  "reserve0": 36000000.0
+ },
+ "Y0": {
+  "false_quar_months": [
+   0,
+   0
+  ],
+  "horizon": 24,
+  "false_quar_rate": 0.0,
+  "registered_sigma_sweep": {
+   "0.005": {
+    "false_quar_months": [
+     0,
+     0
+    ],
+    "false_quar_rate": 0.0,
+    "rate_lt_5pct": true,
+    "seeds_agree_within_3pct": true,
+    "seeds_comparison_vacuous_0v0": true,
+    "seeds_overdraw": [
+     0.0,
+     0.0
+    ]
+   },
+   "0.01": {
+    "false_quar_months": [
+     0,
+     0
+    ],
+    "false_quar_rate": 0.0,
+    "rate_lt_5pct": true,
+    "seeds_agree_within_3pct": true,
+    "seeds_comparison_vacuous_0v0": true,
+    "seeds_overdraw": [
+     0.0,
+     0.0
+    ]
+   },
+   "0.02": {
+    "false_quar_months": [
+     2,
+     3
+    ],
+    "false_quar_rate": 0.125,
+    "rate_lt_5pct": false,
+    "seeds_agree_within_3pct": false,
+    "seeds_comparison_vacuous_0v0": false,
+    "seeds_overdraw": [
+     0.0,
+     0.0
+    ]
+   }
+  },
+  "clause1_rate_lt_5pct_all_registered_sigma": false,
+  "reserve_monotone_nonincreasing": true,
+  "monotonicity_vacuous_at_delta0": true,
+  "decreases_only_when_paying_above_lane": true,
+  "seeds_overdraw": [
+   0.0,
+   0.0
+  ],
+  "seeds_agree_within_3pct": false,
+  "finding": "FAIL as registered: at sigma_xc=0.02 the false-quarantine rate is [2, 3]/24 = 12.5% vs the 5% bar; at sigma_xc=0.02 the seeds disagree >3% rel on quarantine months ([2, 3]). At sigma<=1% the rate clause passes (0 false quarantines) but the seeds and monotonicity clauses are vacuous there (0-vs-0; flat reserve at delta=0). The 5% bar is unmoved; the prior PASS was scored at the central sigma only (sigma-selected -- Verification v5 D1).",
+  "pass": false
+ },
+ "Y1": {
+  "monthly_overdraw_xc_on": 298571.2454703896,
+  "monthly_overdraw_xc_off": 19800000.00000001,
+  "tau_times_lane": 5400000.0,
+  "delta_times_lane": 18000000.0,
+  "pass": true
+ },
+ "Y2": {
+  "months_to_drain_xc_off": 2,
+  "months_to_drain_xc_on": 24,
+  "baseline_x3_months": 4,
+  "registered_bar_months": 12,
+  "extension_vs_baseline": 6.0,
+  "pass": true
+ },
+ "Y3": {
+  "deliv_min_single_source_attack": 1.0,
+  "deliv_min_single_source_smoothed_v02": 1.0,
+  "deliv_min_two_source_bracket": 0.9900000000000001,
+  "two_source_drains_or_underdelivers": true,
+  "pass": true,
+  "smoothed_restores_delivery": true,
+  "bracket_as_registered": true
+ },
+ "Y4": {
+  "frontier": {
+   "0.01": {
+    "false_quar_months": 14,
+    "excess_drain_musd": 7.16570989128935,
+    "cost": 21.16570989128935
+   },
+   "0.02": {
+    "false_quar_months": 7,
+    "excess_drain_musd": 7.16570989128935,
+    "cost": 14.16570989128935
+   },
+   "0.03": {
+    "false_quar_months": 3,
+    "excess_drain_musd": 7.16570989128935,
+    "cost": 10.16570989128935
+   },
+   "0.05": {
+    "false_quar_months": 0,
+    "excess_drain_musd": 7.16570989128935,
+    "cost": 7.16570989128935
+   }
+  },
+  "tau_star": 0.05,
+  "drain_spread_musd": 0.0,
+  "drain_tau_invariant": true,
+  "registered_expectation_tau_star_2_3pct": false,
+  "finding": "REFUTED registered expectation: the tau tradeoff is degenerate at the registered dials. Under delta=10% the gate diverges at every swept tau (<=5% << 10%), so excess drain is tau-invariant and tau* lands on the loosest tau (5%) via false-quarantine reduction alone. An interior tau* ~ 2-3% would require tau to approach delta, outside the registered sweep. Canon tau=3% stands on Y1's divergence-bounded drain and on a false-quarantine floor that holds at sigma_xc<=1% ONLY (Y0's registered-sweep re-score records 3/24 months at sigma=2% -- see Y0, Verification v5 D1), NOT on a Y4 interior optimum.",
+  "pass": false
+ },
+ "bar_summary": {
+  "Y0": false,
+  "Y1": true,
+  "Y2": true,
+  "Y3": true,
+  "Y4": false
+ }
+}

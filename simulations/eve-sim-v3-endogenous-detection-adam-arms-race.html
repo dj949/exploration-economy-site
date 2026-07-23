@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Endogenous Detection (ADAM arms race) — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Endogenous Detection (ADAM arms race).">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Endogenous Detection (ADAM arms race)</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Endogenous Detection</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>Earlier adversarial runs treated fraud-detection as a fixed dial we swept by hand. In reality ADAM is what turns that dial — and attackers run ADAMs too. So this run makes detection endogenous: the equilibrium of a contest where defenders spend on catching fraud and attackers spend on evading it, each up to the point where it pays. Where does fraud actually settle?</p>
+<h2 id="what-we-found">What we found</h2>
+<p>The first finding is itself the surprise: you can't out-budget an arms race. In a proportional contest, if defenders spend more, attackers simply scale evasion to match — equilibrium fraud depends on the size of the <em>prize</em> and the <em>cost ratio</em>, not on absolute spending. Two levers actually work. First, keep the prize small — and EDEN does, structurally: the earlier adversarial model showed gaming the mint is unprofitable and sybil floor-farming nets only ~one essentials basket per fake, so the realistic fraud prize sits in the low single digits of issuance. At that level the attacker's optimal evasion spend is zero, equilibrium detection is ~100%, and equilibrium fraud ≈ 0% — the race never even ignites. The prize would have to climb past roughly 6% of issuance before fraud crossed the 2% pilot milestone. Second, if the prize <em>were</em> larger — a stress case at 10% of issuance — fraud drops below 2% once evasion costs roughly 0.8× the value at stake, i.e., once detecting a fake is cheaper than faking past detection. That's an engineering goal for ADAM's immune system, not a budget question. The two models lock together: the bounded payoff is exactly what keeps the arms race cold, so EDEN's fraud resistance doesn't rest on "we'll always have the better AI."</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>This is a stylized game-theoretic contest. The ~6% ignition threshold and the ~0.8× cost-advantage depend on assumed evasion costs and contest decisiveness — illustrative, not measured; a pilot's red-team is what would calibrate them. And the comfort margin is not huge: the bounded prize (low single digits) sits only a little below the ~6% ignition threshold under these assumptions, which is precisely why both levers matter — keep the prize small <em>and</em> keep detection cost-advantaged; don't rely on either alone. The discovery-manipulation vector is covered separately, and attacker and defender are single aggregate agents here.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>EDEN's most important fraud defense isn't a smarter detector — it's that there's little worth stealing: a prize held to a few percent of issuance means the evasion arms race never ignites, and even under a stress-sized prize, making detection cheaper than evasion (about 0.8× the value at stake) holds fraud under the 2% milestone.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>ADAM</strong> — EDEN's AI layer, here wearing its immune-system hat: it runs the fraud detection — and attackers run ADAMs of their own. <strong>Endogenous</strong> — produced inside the model rather than set by hand: detection strength is now an outcome of the contest, not a dial we swept. <strong>Equilibrium</strong> — where the back-and-forth settles: the point at which neither side gains by spending another dollar. <strong>Proportional contest</strong> — a tug-of-war where your odds equal your share of total spending — which is why extra defense budget just invites matching evasion budget. <strong>Contest decisiveness</strong> — how strongly a spending edge tips the outcome; an assumed dial here. <strong>Mint</strong> — the creation of new EVE by verified human engagement; "gaming the mint" means faking engagement to create money. <strong>Sybil</strong> — one person pretending to be many accounts; "sybil floor-farming" is running fake people to collect the safety-net payment. <strong>Issuance</strong> — all newly created money; the fraud "prize" is measured as a share of it. <strong>Red-team</strong> — friendly attackers hired to break the system on purpose, so a pilot can measure what real ones could do. <strong>Stylized</strong> — deliberately simplified; the ~6% and ~0.8× thresholds are illustrative shapes, not measurements.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-endogenous-detection-adam-arms-race-0.png" alt="fig_endogenous_detection.png">
+<p class="eyebrow">Technical results</p>
+<p><em>The adversarial model treated fraud-detection as a fixed dial we swept. ADAM is what actually turns that dial — and attackers run ADAMs too. So this makes detection </em><em>endogenous</em><em>: the equilibrium of a contest between defender and attacker agents. Files in this folder.</em></p>
+<hr>
+<h2 id="setup">Setup</h2>
+<p>Detection isn't a constant; it's the outcome of <code>d(D,A) = D² / (D² + A²)</code> — defender effort <code>D</code> versus attacker evasion <code>A</code>. The attacker invests in evasion up to where it pays: <code>maximize P·(1−d) − cost·A</code>, where <code>P</code> is the fraud <strong>prize</strong> and <code>cost</code> is the per-unit price of evasion. Equilibrium fraud is <code>P·(1−d*)</code>.</p>
+<h2 id="the-first-finding-is-itself-the-surprise-you-cant-out-budget-an-arms-race">The first finding is itself the surprise: you can't out-budget an arms race</h2>
+<p>In a proportional contest, <strong>raw defense budget is not the lever</strong> — if defenders spend more, attackers simply scale evasion to match, and equilibrium fraud depends on the <em>prize</em> and the <em>cost ratio</em>, not on absolute spending. Throwing more money at detection, by itself, doesn't win. What wins are two other things.</p>
+<h2 id="lever-1-keep-the-prize-small-and-eden-does-structurally">Lever 1 — keep the prize small (and EDEN does, structurally)</h2>
+<p>Equilibrium fraud rises with the prize. But at <strong>EDEN's prize level the arms race never even ignites:</strong> because the earlier adversarial model showed gaming the mint is unprofitable and sybil floor-farming nets only ~one essentials basket per fake, the realistic fraud prize sits in the <strong>low single digits of issuance</strong> — and at that level the attacker's optimal evasion spend is <strong>zero</strong> (it isn't worth chasing a small prize), so equilibrium detection is ~100% and <strong>equilibrium fraud ≈ 0%</strong>. The prize would have to climb past roughly <strong>6% of issuance</strong> before equilibrium fraud crosses the 2% pilot milestone. EDEN's economic defenses keep it below that — so the most important "fraud defense" isn't the detector, it's the fact that <strong>there's little worth stealing.</strong></p>
+<h2 id="lever-2-make-evasion-costlier-than-detection">Lever 2 — make evasion costlier than detection</h2>
+<p>If the prize <em>were</em> larger (a stress case), the second lever takes over: a <strong>detection cost-advantage.</strong> At a 10%-of-issuance stress prize, equilibrium fraud falls as evasion gets more expensive, dropping below the 2% milestone once attacker evasion costs roughly <strong>0.8× the value at stake</strong> — i.e., once detecting a fake is cheaper than faking past detection. That's an engineering goal for ADAM's immune system (cheap, scalable anomaly detection + identity) rather than a budget question.</p>
+<h2 id="why-this-reinforces-the-rest-of-the-program">Why this reinforces the rest of the program</h2>
+<p>The two adversarial models lock together: the <strong>bounded payoff</strong> established earlier is exactly what keeps the <strong>arms race</strong> from igniting here. Attackers don't pour resources into evading detection when the most they can win is a couple percent of issuance. So EDEN's fraud resistance doesn't rest on perpetually out-spending an adversary — it rests on a structural property (a small prize) plus an achievable engineering target (a detection cost-advantage). That's a far more durable position than "we'll always have the better AI."</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>A stylized game-theoretic contest. The exact ignition threshold (~6%) and the required cost-advantage (~0.8×) depend on the assumed evasion cost and contest decisiveness, which are illustrative, not measured — a pilot's red-team is what would calibrate them. Note the comfort margin is not huge: EDEN's bounded prize (~low single digits) sits only a little below the ignition threshold under these assumptions, which is precisely <em>why both levers matter</em> — keep the prize small <strong>and</strong> keep detection cost-advantaged; don't rely on either alone. The model also abstracts away the discovery-manipulation vector (covered separately) and treats defender/attacker as single aggregate agents. Audience: crypto reviewers thinking about AI-vs-AI fraud dynamics.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>endogenous_detection_sim.py</code> — the contest model and the prize / cost-asymmetry sweeps</li>
+<li><code>fig_endogenous_detection.png</code> — fraud vs the prize; fraud vs evasion cost at a stress prize</li>
+<li><code>results_endogenous_detection.json</code> — operating point and thresholds</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-endogenous-detection-adam-arms-race-0.json" download>⬇ results_endogenous_detection.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

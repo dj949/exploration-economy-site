@@ -1,0 +1,216 @@
+{
+ "spec": "v12 SPEC - Aggregator Collusion & Re-Aggregation Audit (registered).md",
+ "dials": {
+  "central": {
+   "claims": 50000,
+   "hrs_per_claim": 0.2,
+   "mint_per_hr": 5.0,
+   "take": 0.2,
+   "fee_per_claim": 0.0005,
+   "d": 0.9,
+   "m": 200,
+   "audit_cost": 500.0,
+   "bond": 250000.0,
+   "n_ops": 3,
+   "fee_claw_months": 6,
+   "V": 168
+  },
+  "corner": {
+   "claims": 50000,
+   "hrs_per_claim": 0.2,
+   "mint_per_hr": 5.0,
+   "take": 1.0,
+   "fee_per_claim": 0.0005,
+   "d": 0.5,
+   "m": 100,
+   "audit_cost": 500.0,
+   "bond": 50000.0,
+   "n_ops": 1,
+   "fee_claw_months": 3,
+   "V": 168
+  },
+  "V_sweep": [
+   0,
+   24,
+   168,
+   720
+  ],
+  "world_aggregators": 10000,
+  "market_cap": 0.15
+ },
+ "R0": {
+  "cells": {
+   "central_op": {
+    "p_c": 0.01,
+    "exact_kept": 184804.5639485463,
+    "exact_T": 100.0,
+    "seeds": {
+     "7": {
+      "mc_kept": 182471.9,
+      "se_kept": 1800.7065925758764,
+      "mc_T": 99.93447,
+      "se_T": 0.31230360435576776,
+      "vesting_survivals": 18421
+     },
+     "11": {
+      "mc_kept": 186161.5,
+      "se_kept": 1837.374945035549,
+      "mc_T": 100.04446,
+      "se_T": 0.3157234496296568,
+      "vesting_survivals": 18421
+     }
+    },
+    "mode": "mean_3sigma",
+    "within_3sigma": true,
+    "seeds_agree": true
+   },
+   "corner_V0": {
+    "p_c": 0.1,
+    "exact_kept": 500000.0,
+    "exact_T": 10.0,
+    "seeds": {
+     "7": {
+      "mc_kept": 499705.5,
+      "se_kept": 1488.597508369176,
+      "mc_T": 9.99411,
+      "se_T": 0.02977195016738352,
+      "vesting_survivals": 100000
+     },
+     "11": {
+      "mc_kept": 500295.5,
+      "se_kept": 1505.2609524274683,
+      "mc_T": 10.00591,
+      "se_T": 0.030105219048549365,
+      "vesting_survivals": 100000
+     }
+    },
+    "mode": "mean_3sigma",
+    "within_3sigma": true,
+    "seeds_agree": true
+   },
+   "corner_V168": {
+    "p_c": 0.1,
+    "exact_kept": 0.01027333831228285,
+    "exact_T": 10.0,
+    "seeds": {
+     "7": {
+      "mc_kept": 0.0,
+      "se_kept": 0.0,
+      "mc_T": 9.99411,
+      "se_T": 0.02977195016738352,
+      "vesting_survivals": 0
+     },
+     "11": {
+      "mc_kept": 0.0,
+      "se_kept": 0.0,
+      "mc_T": 10.00591,
+      "se_T": 0.030105219048549365,
+      "vesting_survivals": 0
+     }
+    },
+    "mode": "poisson_count (rare-event repair)",
+    "expected_survivals": 0.00205466766245657,
+    "within_3sigma": true,
+    "seeds_agree": true
+   },
+   "dilute": {
+    "p_c": 0.004176771819666655,
+    "exact_kept": 3555.4852467776777,
+    "exact_T": 239.41935139751283,
+    "seeds": {
+     "7": {
+      "mc_kept": 3543.4818,
+      "se_kept": 19.407316275825927,
+      "mc_T": 239.26704,
+      "se_T": 0.7499064590289624,
+      "vesting_survivals": 49650
+     },
+     "11": {
+      "mc_kept": 3562.3062,
+      "se_kept": 19.656040278591462,
+      "mc_T": 239.52786,
+      "se_T": 0.7581281639810872,
+      "vesting_survivals": 49325
+     }
+    },
+    "mode": "mean_3sigma",
+    "within_3sigma": true,
+    "seeds_agree": true
+   }
+  },
+  "pass": true
+ },
+ "R1": {
+  "q_star": 0.006156813069793599,
+  "bar": 0.05,
+  "penalty": 575500.0,
+  "pass": true,
+  "phi_at_qstar": 0.0
+ },
+ "q_star_vs_V": {
+  "0": 0.01737619461337967,
+  "24": 0.012765603515830212,
+  "168": 0.006156813069793599,
+  "720": 0.002622765451258336
+ },
+ "R2": {
+  "q_op": 0.01,
+  "audit_cost_per_epoch": 5.0,
+  "gross_mint_per_epoch": 50000.0,
+  "honest_cost_frac": 0.0001,
+  "bar": 0.005,
+  "pass": true
+ },
+ "R3": {
+  "V0": {
+   "best_profit": 323250.0,
+   "phi_star": 1.0
+  },
+  "V168": {
+   "best_profit": 0.0,
+   "phi_star": 0.0
+  },
+  "bar": "V0 profitable (expected FAIL of no-vesting); V168 unprofitable",
+  "V0_profitable_as_registered": true,
+  "V168_deterred": true,
+  "pass_bracket": true
+ },
+ "R4": {
+  "ring_size": 1500,
+  "kept_per_campaign_max": 184804.5639485463,
+  "phi_damage": 1.0,
+  "ring_kept_total": 277206845.92281944,
+  "ring_penalty_total": 863250000.0,
+  "ring_roi": -586043154.0771806,
+  "annual_gross_mint": 4380000000000.0,
+  "blast_frac": 6.328923422895421e-05,
+  "bar": 0.005,
+  "pass": true
+ },
+ "R5": {
+  "injected_duplicates": 1000000,
+  "accepted": 0,
+  "rejection_rate": 1.0,
+  "pass": true
+ },
+ "counterfactual_single_trusted": {
+  "skim_frac": 0.1,
+  "external_detection_months": 12,
+  "kept": 438000000000.0,
+  "vs_capped_ring": 1580.0475581398482,
+  "note": "one trusted batcher, no bond, no audit: whole-market laundering until external detection"
+ },
+ "report_censorship": {
+  "censoring_share": 0.2,
+  "p99_inclusion_delay_epochs": 3,
+  "note": "devices hold signed receipts; resubmission is free choice (A11)"
+ },
+ "bar_summary": {
+  "R0": true,
+  "R1": true,
+  "R2": true,
+  "R3_bracket": true,
+  "R4": true,
+  "R5": true
+ }
+}

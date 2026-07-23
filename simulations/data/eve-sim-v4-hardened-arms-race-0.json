@@ -1,0 +1,241 @@
+{
+  "assumptions": {
+    "w0": 0.2,
+    "a0": 0.5,
+    "IDV": "120F x myopia",
+    "prize_off": 5.78,
+    "prize_on": "max(1.0 floor, 0.29 wash)"
+  },
+  "cells": {
+    "simOFF|d0=0.7|myopia=0.1|bond=0F": {
+      "ignites": true,
+      "max_profit": 1.09,
+      "best_evasion": 2.0,
+      "detection_at_best": 0.14
+    },
+    "simOFF|d0=0.7|myopia=0.1|bond=2F": {
+      "ignites": true,
+      "max_profit": 0.82,
+      "best_evasion": 2.13,
+      "detection_at_best": 0.133
+    },
+    "simOFF|d0=0.7|myopia=0.1|bond=10F": {
+      "ignites": false,
+      "max_profit": -0.16,
+      "best_evasion": 2.62,
+      "detection_at_best": 0.112
+    },
+    "simOFF|d0=0.7|myopia=0.5|bond=0F": {
+      "ignites": false,
+      "max_profit": -3.52,
+      "best_evasion": 4.3,
+      "detection_at_best": 0.073
+    },
+    "simOFF|d0=0.7|myopia=0.5|bond=2F": {
+      "ignites": false,
+      "max_profit": -3.66,
+      "best_evasion": 4.37,
+      "detection_at_best": 0.072
+    },
+    "simOFF|d0=0.7|myopia=0.5|bond=10F": {
+      "ignites": false,
+      "max_profit": -4.22,
+      "best_evasion": 4.65,
+      "detection_at_best": 0.068
+    },
+    "simOFF|d0=0.7|myopia=1.0|bond=0F": {
+      "ignites": false,
+      "max_profit": -7.19,
+      "best_evasion": 6.13,
+      "detection_at_best": 0.053
+    },
+    "simOFF|d0=0.7|myopia=1.0|bond=2F": {
+      "ignites": false,
+      "max_profit": -7.3,
+      "best_evasion": 6.19,
+      "detection_at_best": 0.052
+    },
+    "simOFF|d0=0.7|myopia=1.0|bond=10F": {
+      "ignites": false,
+      "max_profit": -7.71,
+      "best_evasion": 6.39,
+      "detection_at_best": 0.051
+    },
+    "simOFF|d0=0.9|myopia=0.1|bond=0F": {
+      "ignites": true,
+      "max_profit": 0.42,
+      "best_evasion": 2.33,
+      "detection_at_best": 0.159
+    },
+    "simOFF|d0=0.9|myopia=0.1|bond=2F": {
+      "ignites": true,
+      "max_profit": 0.11,
+      "best_evasion": 2.48,
+      "detection_at_best": 0.151
+    },
+    "simOFF|d0=0.9|myopia=0.1|bond=10F": {
+      "ignites": false,
+      "max_profit": -0.99,
+      "best_evasion": 3.04,
+      "detection_at_best": 0.127
+    },
+    "simOFF|d0=0.9|myopia=0.5|bond=0F": {
+      "ignites": false,
+      "max_profit": -4.8,
+      "best_evasion": 4.94,
+      "detection_at_best": 0.083
+    },
+    "simOFF|d0=0.9|myopia=0.5|bond=2F": {
+      "ignites": false,
+      "max_profit": -4.97,
+      "best_evasion": 5.02,
+      "detection_at_best": 0.081
+    },
+    "simOFF|d0=0.9|myopia=0.5|bond=10F": {
+      "ignites": false,
+      "max_profit": -5.6,
+      "best_evasion": 5.34,
+      "detection_at_best": 0.077
+    },
+    "simOFF|d0=0.9|myopia=1.0|bond=0F": {
+      "ignites": false,
+      "max_profit": -8.97,
+      "best_evasion": 7.02,
+      "detection_at_best": 0.06
+    },
+    "simOFF|d0=0.9|myopia=1.0|bond=2F": {
+      "ignites": false,
+      "max_profit": -9.09,
+      "best_evasion": 7.08,
+      "detection_at_best": 0.059
+    },
+    "simOFF|d0=0.9|myopia=1.0|bond=10F": {
+      "ignites": false,
+      "max_profit": -9.55,
+      "best_evasion": 7.32,
+      "detection_at_best": 0.058
+    },
+    "simON|d0=0.7|myopia=0.1|bond=0F": {
+      "ignites": false,
+      "max_profit": -2.97,
+      "best_evasion": 1.63,
+      "detection_at_best": 0.164
+    },
+    "simON|d0=0.7|myopia=0.1|bond=2F": {
+      "ignites": false,
+      "max_profit": -3.28,
+      "best_evasion": 1.79,
+      "detection_at_best": 0.153
+    },
+    "simON|d0=0.7|myopia=0.1|bond=10F": {
+      "ignites": false,
+      "max_profit": -4.37,
+      "best_evasion": 2.34,
+      "detection_at_best": 0.123
+    },
+    "simON|d0=0.7|myopia=0.5|bond=0F": {
+      "ignites": false,
+      "max_profit": -7.94,
+      "best_evasion": 4.12,
+      "detection_at_best": 0.076
+    },
+    "simON|d0=0.7|myopia=0.5|bond=2F": {
+      "ignites": false,
+      "max_profit": -8.09,
+      "best_evasion": 4.2,
+      "detection_at_best": 0.075
+    },
+    "simON|d0=0.7|myopia=0.5|bond=10F": {
+      "ignites": false,
+      "max_profit": -8.67,
+      "best_evasion": 4.49,
+      "detection_at_best": 0.07
+    },
+    "simON|d0=0.7|myopia=1.0|bond=0F": {
+      "ignites": false,
+      "max_profit": -11.72,
+      "best_evasion": 6.01,
+      "detection_at_best": 0.054
+    },
+    "simON|d0=0.7|myopia=1.0|bond=2F": {
+      "ignites": false,
+      "max_profit": -11.82,
+      "best_evasion": 6.06,
+      "detection_at_best": 0.053
+    },
+    "simON|d0=0.7|myopia=1.0|bond=10F": {
+      "ignites": false,
+      "max_profit": -12.24,
+      "best_evasion": 6.27,
+      "detection_at_best": 0.052
+    },
+    "simON|d0=0.9|myopia=0.1|bond=0F": {
+      "ignites": false,
+      "max_profit": -3.54,
+      "best_evasion": 1.92,
+      "detection_at_best": 0.186
+    },
+    "simON|d0=0.9|myopia=0.1|bond=2F": {
+      "ignites": false,
+      "max_profit": -3.9,
+      "best_evasion": 2.1,
+      "detection_at_best": 0.173
+    },
+    "simON|d0=0.9|myopia=0.1|bond=10F": {
+      "ignites": false,
+      "max_profit": -5.13,
+      "best_evasion": 2.72,
+      "detection_at_best": 0.14
+    },
+    "simON|d0=0.9|myopia=0.5|bond=0F": {
+      "ignites": false,
+      "max_profit": -9.18,
+      "best_evasion": 4.74,
+      "detection_at_best": 0.086
+    },
+    "simON|d0=0.9|myopia=0.5|bond=2F": {
+      "ignites": false,
+      "max_profit": -9.35,
+      "best_evasion": 4.83,
+      "detection_at_best": 0.085
+    },
+    "simON|d0=0.9|myopia=0.5|bond=10F": {
+      "ignites": false,
+      "max_profit": -10.0,
+      "best_evasion": 5.15,
+      "detection_at_best": 0.08
+    },
+    "simON|d0=0.9|myopia=1.0|bond=0F": {
+      "ignites": false,
+      "max_profit": -13.46,
+      "best_evasion": 6.88,
+      "detection_at_best": 0.061
+    },
+    "simON|d0=0.9|myopia=1.0|bond=2F": {
+      "ignites": false,
+      "max_profit": -13.58,
+      "best_evasion": 6.94,
+      "detection_at_best": 0.06
+    },
+    "simON|d0=0.9|myopia=1.0|bond=10F": {
+      "ignites": false,
+      "max_profit": -14.06,
+      "best_evasion": 7.18,
+      "detection_at_best": 0.059
+    }
+  },
+  "min_bond_to_close": {
+    "simOFF|d0=0.7|myopia=0.1": 8.7,
+    "simOFF|d0=0.7|myopia=0.5": 0.0,
+    "simOFF|d0=0.7|myopia=1.0": 0.0,
+    "simOFF|d0=0.9|myopia=0.1": 2.8,
+    "simOFF|d0=0.9|myopia=0.5": 0.0,
+    "simOFF|d0=0.9|myopia=1.0": 0.0,
+    "simON|d0=0.7|myopia=0.1": 0.0,
+    "simON|d0=0.7|myopia=0.5": 0.0,
+    "simON|d0=0.7|myopia=1.0": 0.0,
+    "simON|d0=0.9|myopia=0.1": 0.0,
+    "simON|d0=0.9|myopia=0.5": 0.0,
+    "simON|d0=0.9|myopia=1.0": 0.0
+  }
+}

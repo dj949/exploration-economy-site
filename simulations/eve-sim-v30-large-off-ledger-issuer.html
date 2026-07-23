@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v30 - Large Off-Ledger Issuer — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v30 - Large Off-Ledger Issuer.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v30 - Large Off-Ledger Issuer</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 10, 2026. Companion to <code>RESULTS - v30.0 Large Off-Ledger Issuer</code>.</em></p>
+<h2 id="the-worry">The worry</h2>
+<p>EDEN keeps the money supply under control by requiring that every EVE be fully backed — no bank can conjure money out of thin air. But what stops someone <em>outside</em> the system from doing it anyway? Picture a big employer, a merchant coalition, or a would-be strongman who prints their own paper notes and gets people to use them like money. Because these notes are physical and off-the-books, EDEN's cameras can't see them and its rules can't freeze them. If enough people started using private notes, the money supply would balloon outside anyone's control — the exact thing full-reserve was built to prevent, sneaking in the back door. Our earlier shadow-banking study (v28) admitted this was the one case it hadn't cracked. This is that study.</p>
+<h2 id="the-good-news-its-real-but-it-cant-get-big-for-reasons-eden-already-has">The good news: it's real, but it can't get big — for reasons EDEN already has</h2>
+<p><strong>Yes, if it worked it would be dangerous.</strong> If a big issuer got everyone to accept thinly-backed notes, it could nearly quadruple the effective money supply. So the threat is genuine. The question is whether it <em>can</em> actually work at scale. Three things stop it, and none of them require catching the issuer.</p>
+<p><strong>1. The floor kills the oldest trick in the book.</strong> Historically, private money almost always won through <em>coercion</em> — company towns paid workers in "scrip" only spendable at the company store, because workers had no other way to eat. EDEN breaks that. Everyone has a guaranteed essentials floor, paid in real EVE. So a worker handed private notes can just cash out to EVE or lean on the floor — they're not trapped. In the model, forced acceptance drops from 100% to about <strong>5%</strong>. The floor removes <strong>95%</strong> of the coercion that made private money work for centuries.</p>
+<p><strong>2. You can be trusted or you can be profitable — not both.</strong> To get people to <em>voluntarily</em> accept your note, it has to be safe, which means backing it fully with real EVE — at which point you've just built a warehouse for EVE and made no money doing it. To actually profit, you have to print more notes than you have EVE — which makes the note risky, so nobody wants it. There's no sweet spot: across every version we tried, the biggest a realistic private note could get is about <strong>0.6%</strong> of the money supply. To break past that, an issuer would have to bribe holders with ~16%/year — paying out far more than it earns, which is just a slow-motion collapse.</p>
+<p><strong>3. Printing thin means you die on the first scare.</strong> A note-issuer holding only a little real EVE is one rumor away from a bank run — and EDEN deliberately refuses to bail out shadow issuers. In the model, an issuer holding 10% reserves collapses <strong>98%</strong> of the time when a scare hits. To survive scares, it has to hold so much real EVE that it's back to being an unprofitable warehouse (point 2). The temptation to print thin is self-punishing.</p>
+<h2 id="the-honest-part-two-things-this-does-not-solve">The honest part: two things this does NOT solve</h2>
+<p>We're not claiming this closes every door. Two cases are genuinely outside what money-design can fix, and we'd rather name them than pretend:</p>
+<ul>
+<li><strong>A strongman with a territory and guns.</strong> If someone physically controls a region and can force its currency <em>and</em> cut people off from EDEN's floor, then economics doesn't stop them — force does. That's not a money problem, it's a secession/occupation problem, and it belongs with our region-secession work (v20), not here.</li>
+<li><strong>Crime that wants the secrecy itself.</strong> Some off-the-books notes will be used for illegal trade precisely <em>because</em> they're untraceable. That's bounded by how much crime there is, and it's a job for law enforcement — it doesn't threaten control of the legitimate money supply.</li>
+</ul>
+<h2 id="bottom-line">Bottom line</h2>
+<p>The scary version — someone quietly printing a parallel currency at scale — doesn't hold together, and interestingly, not because EDEN catches them. It's because EDEN's guaranteed floor removes the coercion that private money historically relied on, and because private money faces an unwinnable choice between being trusted and being profitable. The realistic ceiling is under 1% of the money supply. The two things that remain — a coercive sovereign, and crime that values secrecy — are honestly out of scope for monetary design, and we've said so on the record.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v30-large-off-ledger-issuer-0.png" alt="fig_v30_offledger.png">
+<p class="eyebrow">Technical results</p>
+<p><em>July 10, 2026. Engine: <code>offledger_issuer_sim.py</code>. Spec: <code>v30 SPEC - Large Off-Ledger Issuer (registered).md</code> (bars OL0–OL5 fixed before code). Deterministic (seeds 7+11 agree; re-run byte-identical). Discharges the named open threat from <code>EVE Sim v28</code> (SB5).</em></p>
+<h2 id="headline">Headline</h2>
+<p><strong>The threat v28 deferred is real but bounded — and it's bounded by economics EDEN already has, not by detection it lacks.</strong> A large coordinated off-ledger issuer is exactly the actor the transparency defense (v28/SB2) can't see and the governor can't freeze. With detection removed by assumption, three EDEN-specific structural facts still cap it below systemic, and two genuinely irreducible residuals are named on the record rather than buried. <strong>All six bars pass.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Test</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OL0</td>
+<td>Sanity / conservation / seeds agree</td>
+<td>conservation exact; seeds agree (retention 0.0478 vs 0.0476)</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td>OL1</td>
+<td>Unchecked threat is real</td>
+<td>20× per-base multiplier; +2.85 broad money if fully accepted &amp; coordinated</td>
+<td>✅ PASS (threat genuine)</td>
+</tr>
+<tr>
+<td>OL2</td>
+<td><strong>Floor breaks the coercion channel</strong></td>
+<td>retention 100% → <strong>4.8%</strong> — the floor removes <strong>95%</strong> of coercive scrip retention</td>
+<td>✅ PASS (headline)</td>
+</tr>
+<tr>
+<td>OL3</td>
+<td>Reach-vs-seigniorage dilemma</td>
+<td>run-safe max shadow money <strong>0.61%</strong>; issuer would need to offer <strong>~16%/yr</strong> to go systemic</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td>OL4</td>
+<td>Run fragility caps size (no LoLR)</td>
+<td>run-safe reserve floor <strong>r_s = 0.55</strong>; a fractional issuer (r_s=10%) collapses <strong>98%</strong> of the time in a shock</td>
+<td>✅ PASS</td>
+</tr>
+<tr>
+<td>OL5</td>
+<td>Aggregate bound + honest residuals</td>
+<td>realistic aggregate <strong>0.61%</strong> (non-systemic); two irreducible residuals named</td>
+<td>✅ PASS</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-each-bar-found">What each bar found</h2>
+<p><strong>OL1 — the threat is genuine (mirrors v28/SB1).</strong> Grant the issuer everything: wide coordinated reach (15% of money demand, vs v28's 2% trust radius), a thin 5% reserve, and full forced acceptance. It creates 2.85 units of money on a 1.0 EVE base — nearly quadrupling broad money, off the balance sheet. The rest of the sim is about why it can't actually get all three at once.</p>
+<p><strong>OL2 — the floor is EDEN's anti-company-scrip (the headline).</strong> Historical private scrip succeeded overwhelmingly through <em>coercion</em>: the truck system, company towns, colonial scrip — workers accepted the notes because they had no other way to eat. EDEN removes that precondition. Every verified human has a guaranteed essentials floor in EBI-real value, redeemable at the Redemption Window in EVE. Modeled as wage-capture: an issuer pays a captured workforce in notes. Without an outside option, retention is 100% (full coercion). With EDEN's floor, a captured worker keeps the note only to the extent it's <em>voluntarily</em> worth holding — and a thin, risky private note isn't. Retention collapses to <strong>4.8%</strong>; the floor removes <strong>95%</strong> of the coercive channel. The single historical precondition for large-scale private scrip is gone by construction.</p>
+<p><strong>OL3 — the issuer's dilemma: trusted OR profitable, not both.</strong> To be <em>voluntarily</em> held, a note must be trusted → well-backed → near-full-reserve → it creates almost no money (it's just an EVE warehouse). To capture seigniorage it must run thin → high counterparty risk → almost no one voluntarily holds it (v28/SB3's demand-side defense). Sweeping the reserve ratio, the sustainable shadow money in the run-safe region peaks at <strong>0.61%</strong> of broad money. To reach the 5% systemic line even at run-safe backing, the issuer would have to <em>offer ~16%/yr yield</em> — i.e., pass through more than it earns on its float, which is a Ponzi that OL4 then kills. <strong>Robustness:</strong> even if EVE were only <em>mediocre</em> money (its convenience yield set to zero), the run-safe max is still <strong>2.2%</strong> — the defense rests on the note's own intrinsic risk and run fragility, not solely on EVE being excellent.</p>
+<p><strong>OL4 — run fragility caps the stable size (and it's honest about victims).</strong> A fractional off-ledger issuer is a Diamond–Dybvig bank with no lender of last resort (Banking Spec §7 explicitly excludes shadow issuers). Monte-Carlo a confidence shock (redemption pressure ~N(0.35, 0.12)): the issuer defaults whenever redemptions exceed reserves. A 10%-reserve issuer collapses <strong>98%</strong> of the time; run-stability (&lt;5% collapse) requires holding <strong>r_s ≥ 0.55</strong> — which forces it right back into OL3's no-seigniorage corner. <strong>Honest note:</strong> fractional issuers chasing seigniorage <em>do</em> form and <em>do</em> collapse, harming their note-holders. But the collapse is self-limiting, and EVE + the floor are untouched — the failure stays inside the shadow issuer's own trust circle.</p>
+<p><strong>OL5 — the honest residuals.</strong> Combining the above, the realistic large-off-ledger contribution to broad money is <strong>0.61%</strong> — non-systemic to the governor's control. Two things these economic defenses genuinely do <strong>not</strong> close, named rather than buried:</p>
+<ul>
+<li><strong>(a) A coercive territorial sovereign.</strong> An actor with physical control of a territory can mandate its currency at gunpoint <em>and</em> block access to EDEN's floor/Redemption Window. That defeats the outside-option defense by <em>force</em>, not economics. It is a secession/blockade problem, not a monetary one — cross-link <code>EVE Sim v20 — Region Secession</code>. Out of this model by construction.</li>
+<li><strong>(b) Privacy-as-yield criminal use.</strong> Notes used for illicit trade where the opacity <em>itself</em> is the value (not competing for legitimate money demand). Bounded by illicit demand; a law-enforcement matter, not a money-supply-control matter.</li>
+</ul>
+<h2 id="why-this-is-not-rigged">Why this is not rigged</h2>
+<p>The demand model (logistic steepness 25, central 3% yield, 6% EVE convenience yield) is <strong>reused verbatim from the registered v28 spec</strong> — not re-tuned to produce a comforting number. The one place the naive story breaks is disclosed as a finding, not hidden: <strong>voluntary demand alone does <em>not</em> bound the thin-reserve corner</strong> (as r_s → 0 the leverage 1/r_s outruns the logistic demand floor and shadow money would climb). What rules that corner out is <em>run fragility</em> (OL4), not demand. The defenses are layered, not redundant — which is exactly why the sim prices all three (floor, dilemma, run) rather than leaning on any one.</p>
+<h2 id="what-this-feeds">What this feeds</h2>
+<p>Banking Spec §6 (the SB5 "named open threat" becomes a priced, bounded finding with two honestly-named irreducible residuals). Successor candidates: a dynamic bootstrap-and-network-effects timing cell (does coordination <em>speed</em> change the ceiling?); and the sovereignty residual belongs to the v20 secession line, not here.</p>
+<p><em>Figure: <code>fig_v30_offledger.png</code> — left: the dilemma + run curve (the only place shadow money could climb is exactly the run-unsafe region); right: the floor removing 95% of coercive scrip retention.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v30-large-off-ledger-issuer-0.json" download>⬇ results_v30.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v39 - The Whistle Market — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v39 - The Whistle Market.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v39 - The Whistle Market</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v39.0 The Whistle Market.md</code>. July 18, 2026. Jargon-compliant from birth per the house rule. Every number traces to <code>results_v39.json</code>; this is a model of the design, not a forecast.</em></p>
+<h2 id="the-question">The question</h2>
+<p>The owner asked: could EDEN be the best whistleblowing tool ever built? People could review companies that never joined, and employees could anonymously share <em>proof</em> of wrongdoing — permanent, unburiable, and paid. This simulation tested whether that market can be built so the incentives point the right way: <strong>telling the truth pays; lying costs you.</strong> It also tested the weapons the same tool hands to bad actors, and it folded in two refinements the owner added when reviewing the concept — both of which turned out to be structural.</p>
+<h2 id="how-the-market-works-the-design-under-test">How the market works (the design under test)</h2>
+<p>Anyone can file a <strong>conduct claim</strong> about any organization — inside EDEN or not — under their pseudonym, attaching evidence, and posting a <strong>bond</strong> (a deposit you lose if the claim is judged false). The accused gets a window to answer — without having to join EDEN. A citizen <strong>jury</strong> (EDEN's existing lottery-selected, country-capped jury machinery) rules: substantiated, unsubstantiated, or <em>unverifiable</em> — an honest third verdict meaning "we can't tell," which returns the bond minus a small fee rather than punishing anyone. Substantiated truth earns the bond back <strong>plus a bounty</strong>; a judged-false claim forfeits the bond. Everything filed is permanent: it can be answered and refuted forever, but never quietly deleted.</p>
+<h2 id="what-we-found-in-plain-terms">What we found, in plain terms</h2>
+<p><strong>1. The market works, with room to spare.</strong> Across more than half of all the bond-and-bounty settings we searched, the two conditions hold at once: truth-tellers come out ahead and liars come out behind. And it isn't fragile: the incentives stay pointed the right way even if juries misjudge claims at rates far worse than any real jury should (up to ~64% error tolerance — the deposit asymmetry does most of the work, since truth usually gets its deposit back and lies usually lose it).</p>
+<p><strong>2. Two of the obvious weapons kill themselves.</strong> Flooding the system with false accusations loses money on every single claim (−1.6 units each at the central setting). Extortion — "pay me or I file" — is an empty threat, because filing a false claim <em>costs the extortionist money</em>, and withdrawing a threat leaves a permanent record of having made it.</p>
+<p><strong>3. The owner's recording idea (transparent capture) turned out even better than expected.</strong> The owner argued that a fully transparent recording stack — open software everyone can verify, hardware that can't alter what it captures, files that go straight into EDEN unchanged — is the closest thing ever built to answering "is this accusation true?" The simulation agrees, with a precision worth keeping: certified capture doesn't make the market <em>possible</em> (to our surprise, even a market running on ordinary uncertified evidence separates truth from lies — the bond-and-jury machinery is that robust). What it does is make the market <em>strong</em>: it removes the "is this footage real?" doubt entirely, leaving juries only the question "does this real footage prove the claim?" — and it's the insurance policy against a future where AI-forged documents get better and better, because you cannot forge a certified capture without staging reality itself. Translation: the market can launch before the special hardware exists everywhere, and gets safer as it spreads.</p>
+<p><strong>4. The owner's one-of-three point is now the market's central security property.</strong> The owner pushed back on the "if only three people knew, you're exposed" worry: the employer may suspect all three, but <em>proving which one</em> requires real-world investigation — inside EDEN, nobody can tell whose account it was. The simulation formalizes exactly that: the discloser's protection is the <strong>anonymity set</strong> — how many people could have known. The results: with typical retaliation stakes, disclosures are rational when about <strong>7 or more</strong> people knew; when retaliation is cheap, even <strong>2</strong> suffices; when retaliation is ruinous (career-ending), you need ~<strong>32</strong>, and a scorched-earth employer who punishes everyone in the set pushes it to ~20 regardless. About 55% of modeled would-be truth-tellers clear the bar. And the deep point: all of this works <em>only because the platform can never confirm which account it was</em> — if EDEN could be forced to tell, the anonymity set wouldn't matter and the market would collapse to the fearless. So "the platform cannot confirm, by architecture" gets written into the rule set as a security invariant, not a privacy courtesy.</p>
+<p><strong>5. One weapon survives, and we name it rather than hide it.</strong> A trader who secretly bets against a company <em>outside</em> EDEN (a "short" position — profiting when the stock falls), then files a false claim to drive the price down, can profit if the position is big enough — because EDEN cannot see outside trading books, no bond can be sized to the real stakes. The only protocol-side defense is <strong>speed</strong>: the faster juries rule, the smaller the window the lie can profit in. The rest is a handoff to securities law, which is the institution that exists for exactly this. Honest bound, not a fix.</p>
+<p><strong>6. Sponsors (someone else posts your bond) matter less than expected — because fear, not money, is the wall.</strong> We expected bond-sponsors (a newsroom or union underwriting a poor discloser's deposit) to be important. At sensible bond levels they're not — the deposit risk on a true claim is small, so giving a sponsor half your bounty costs more than it saves. Sponsors only become essential if bonds are set high, where they resurrect disclosers who'd otherwise be priced out entirely. Design conclusion: keep bonds low (the math allows it), and what stops people isn't money — it's retaliation fear, which is priced by the anonymity set above, and no bounty in our search rescued the three-people-knew case against a ruinous retaliator. We say that out loud instead of promising otherwise.</p>
+<p><strong>7. The double edge is real and now has a name.</strong> The same capability that could be EDEN's strongest "why join" story is also the likeliest reason a powerful coalition would try to kill the platform — not because the market fails, but because it <em>works</em>. That failure mode ("the leak that got it banned") was missing from the project's pre-mortem and has now been added as obituary #7, with the staging implication: this feature should roll out governance-gated, not day-one.</p>
+<h2 id="the-bottom-line">The bottom line</h2>
+<p>Yes — the whistle market can be built so truth profits and lies cost, on rails EDEN already has (bonds, juries, provenance, permanence, pseudonymity). The owner's two refinements shaped the result: transparent capture is the market's armor (and its anti-AI-forgery insurance), and platform-silence-about-accounts is its foundation. Two limits get named in public rather than papered over: small-circle whistleblowers facing ruinous retaliation are still taking a real risk no bounty fixes, and short-sellers weaponizing false claims are bounded only by jury speed plus outside law. What nobody gets to say yet: "best whistleblowing tool there is" — what the evidence supports is narrower and better: <em>a market where telling the truth pays, lying costs, and the two things it can't fix are named on the label.</em></p>
+<h2 id="words-used-here-quick-reference">Words used here (quick reference)</h2>
+<p><strong>Conduct claim</strong> — an accusation of wrongdoing filed about any organization, with evidence attached. <strong>Bond</strong> — the deposit a filer posts, forfeited if the claim is judged false. <strong>Bounty</strong> — the reward paid when a claim is substantiated. <strong>Unverifiable</strong> — the honest third verdict: "we can't tell"; bond returned minus a fee, nobody punished, record kept. <strong>Certified capture</strong> — recording through a transparent, community-verifiable software/hardware stack that cannot alter what it sees; makes "is this footage real?" a solved question. <strong>Interpretation error</strong> — the jury mistake that remains even with real evidence: does authentic footage actually prove the claim? <strong>Anonymity set (k_anon)</strong> — how many people could have known the disclosed fact; the discloser's real protection, since suspicion divides across the set and EDEN never confirms accounts. <strong>Retaliation cost (R_ret)</strong> — what being punished would cost the discloser (a nuisance, a job, a career). <strong>Bond sponsor</strong> — a third party (newsroom, union) that posts the bond for a share of the bounty. <strong>Short-and-distort</strong> — betting against a company outside EDEN, then filing a false claim to move the price; the one attack bonds can't size against, bounded only by jury speed. <strong>Separating market</strong> — one where the honest choice and the dishonest choice have opposite signs: truth profits, lies lose. <strong>D-unit</strong> — the standardized value of one substantiated claim; all bonds/bounties are measured in it.</p>
+<p><em>Written July 18, 2026 (Fable 5, owner-directed). Honest limits: jury error rates, retaliation costs, and forgery rates are dials a pilot must measure; content-based unmasking is beyond any protocol's reach and modeled honestly as suspicion; the platform's own legal exposure for hosting leaks is a scenario, not a model. Status: DR-22, PROPOSED — evidence in hand, awaiting owner ratification.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v39-the-whistle-market-0.png" alt="fig_v39_whistle_market.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 18, 2026. Spec: <code>v39 SPEC - The Whistle Market (registered).md</code> — bars WB0–WB6 fixed before code, with two owner refinements registered as model structure (certified capture splits jury error into authenticity vs interpretation; the anonymity set k_anon is the discloser's real protection, since the platform never confirms accounts). Engine: <code>whistle_market_sim.py</code> (deterministic; RNG = the k_anon/R_ret population draws, seeds 7 + 11; import-guarded; anchor values LOADED from the committed <code>results_v7.json</code> at runtime — sha256 recorded — no transcribed constants, per VERIFICATION v6 D1). Committed: <code>results_v39.json</code>, <code>fig_v39_whistle_market.png</code>. Every number below traces to the JSON. Produced by Claude Fable 5, owner-directed [FABLE] cell.</strong></p>
+<p><strong>Verdict in one line: the whistle market separates — a wide (bond, bounty) region exists where true disclosures profit and false ones ruin (54.6% of the searched grid at central dials; the market tolerates interpretation error up to ε* ≈ 0.64, far beyond any plausible jury), false-claim flooding and extortion are priced out at the central point (EV_false = −1.60 per claim) — and both registered safe-to-refute expectations were refuted in informative directions: bonded adjudication is so robust that certified capture is not needed for the market to <em>exist</em> (it widens the region and kills the authenticity/forgery channel, but even the stressed uncertified-only market separates), and bond sponsors fix nothing at the central bond (they halve the bounty against an unchanged fear cost — their real value appears only at high bonds, where they resurrect disclosers who were priced out entirely: k* None → 11). The two honest walls stand exactly where the owner's framing put them: fear is priced by the anonymity set (k* = 7 at central retaliation; 2 when retaliation is cheap; 32 when it's ruinous — and the platform's silence about accounts is what keeps k* finite at all), and short-and-distort is the one weapon bonds cannot touch (off-protocol position size is invisible by construction; profit grows without bound, bounded only by jury speed). 5/7 bars PASS; WB3 and WB4 FAIL as refuted registered expectations — the findings.</strong></p>
+<h2 id="bar-summary-5-pass-wb3wb4-fail-as-refuted-expectations-filed-as-findings">Bar summary (5 PASS; WB3/WB4 FAIL as refuted expectations, filed as findings)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured (seed 7; seed 11 in JSON)</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WB0 anchors</td>
+<td>v7 J-values loaded from committed JSON at runtime, sha256 recorded, no transcribed constants</td>
+<td>J1 0.8053 / τ0 0.7787 / J3 1.0374 loaded; sha 86976fda…</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>WB1 separation (load-bearing)</td>
+<td>non-empty (B, β) region with EV_true &gt; 0 &gt; EV_false; ε* delivered</td>
+<td><strong>54.6%</strong> of grid separates; central (B=2, β=0.5): EV_true <strong>+0.070</strong>, EV_false <strong>−1.600</strong>; <strong>ε_int* = 0.639</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>WB2 weaponization</td>
+<td>flood priced out; extortion non-credible; short-and-distort expected irreducible</td>
+<td>flood <strong>−1.60</strong>/claim; extortion threats empty (a rational victim won't pay when filing loses money); <strong>π_sd &gt; 0 for large L at every T_adj</strong> — confirmed irreducible, bounded only by adjudication speed</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>WB3 certified capture load-bearing</td>
+<td>holds at φ_cert ≥ 0.3 AND fails at 0.1</td>
+<td>holds at 0.3 ✓ — but <strong>also separates at 0.1</strong>, even under the uncertified stress combo (δ_auth 0.3 + ε_forge 0.2)</td>
+<td><strong>FAIL — refuted expectation (F3)</strong></td>
+</tr>
+<tr>
+<td>WB4 anonymity set + sponsor split</td>
+<td>k* delivered; sponsors expected to help where bonds bind, hurt where fear binds</td>
+<td><strong>k* = 7</strong> central (2 / 7 / 32 across R_ret; 20 under punish-them-all γ=3); population participation 55.5% / 55.9% (seeds); <strong>sponsors hurt at central even for uncertified disclosers</strong> (k* 10 → 11)</td>
+<td><strong>FAIL — refuted expectation, sharper finding (F4)</strong></td>
+</tr>
+<tr>
+<td>WB5 double edge</td>
+<td>sensitivity table computes, monotone</td>
+<td>V* table across a_u × h_p sweeps, monotone ✓ — feeds PRE-MORTEM obituary #7</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>WB6 harness</td>
+<td>byte-identical double run; seeds ≤ 3% rel</td>
+<td><strong>three byte-identical runs</strong> (2 dev + committed vault); seed gap 0.8%</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The market separates, with enormous room (WB1).</strong> At central dials, more than half the searched (bond, bounty) grid satisfies both conditions at once: a true discloser's expected value is positive and a false accuser's is negative. At the central point (bond 2, bounty 0.5, in units of one substantiated claim's public value): truth nets <strong>+0.07</strong> after fear costs, lies lose <strong>−1.60</strong>. The boundary that matters most: separation survives interpretation error up to <strong>ε* = 0.639</strong> — a jury that got four in ten judgments wrong would still leave the incentives pointed the right way, because the bond asymmetry (truth mostly gets its bond back; lies mostly lose it) does the work. The registered caveat stands: ε_int is a dial, and a pilot's real juries are the fact no desk run supplies — but the margin is wide enough that jury <em>competence</em> is unlikely to be the binding constraint. What is: F5.</p>
+<p><strong>F2 — Flooding and extortion die at the bond; the short is the survivor (WB2).</strong> Filing false claims costs −1.60 each at the central point — flooding is self-bankrupting, and "pay me or I file" is an empty threat against a rational victim (filing loses the extortionist money; withdrawing leaves a permanent record). The registered safe-to-refute expectation confirmed: <strong>short-and-distort is irreducible</strong> — a trader who shorts a target off-protocol and files a false claim profits whenever position size × pre-verdict damage × adjudication delay exceeds the bond, and EDEN cannot see off-protocol position size <em>by construction</em>. The deliverable is the honest bound: profit scales with <strong>T_adj</strong>, so fast adjudication is the only protocol-side lever (halving delay halves the weapon), with the rest belonging to securities law — the same handoff pattern as v38's off-protocol dividends.</p>
+<p><strong>F3 — REFUTED EXPECTATION (WB3): certified capture is not what makes the market exist — it's what makes it strong.</strong> The SPEC registered that separation should fail at 10% certified-capture coverage ("the market cannot run on unverifiable-provenance evidence alone"). It doesn't fail — even the stressed uncertified world (jury authenticity-doubt 0.3, forgery success 0.2) separates at every coverage level, because bonded adjudication with a 20–24% authenticity discount still leaves truth profitable and lies expensive. What certification actually buys, measured: it <strong>widens</strong> the separating region (more workable bond/bounty configurations), <strong>eliminates the authenticity discount</strong> (at full coverage the only residual error is interpretation — the owner's point 1, exactly), and <strong>caps forgery escalation</strong> (a certified-class fake requires staging reality itself — the analog-hole residual, 0.02 — where uncertified forgery rides document-faking rates that could worsen as AI fakes improve; ε_forge is a dial this cell holds fixed, and the certified channel is insurance against its drift). The owner's transparent-capture-stack instinct is validated as the market's <em>robustness layer</em>, not its existence condition — an even better position than registered, since the market can launch before certified-capture hardware is ubiquitous.</p>
+<p><strong>F4 — REFUTED EXPECTATION (WB4): the sponsor's limit is sharper than registered — and fear is the real wall.</strong> Registered: sponsors (who post the bond for a bounty share) help where bonds bind and hurt where fear binds. Measured: at the central bond, <strong>bonds bind almost nobody</strong> — a true claim's expected bond loss is small (mostly returned or fee-only), so the sponsor's 50% bounty cut buys almost nothing and k* <em>worsens</em> (7 → 10 blended; 10 → 11 even for fully-uncertified disclosers). The sponsor mechanism earns its keep only at <strong>high bonds with weak evidence</strong> — at bond 5, uncertified, the unsponsored discloser is priced out entirely (k* = None) and sponsorship resurrects them (k* = 11). Design translation: keep bonds <em>low</em> in the conduct-claim class (the separation region allows it) and sponsors become mostly unnecessary; if governance ever raises bonds, sponsor infrastructure becomes load-bearing for poor disclosers. <strong>The wall that remains is fear, and it's priced by the anonymity set</strong> (owner's point 2, quantified): k* = <strong>2</strong> when retaliation is cheap (0.5), <strong>7</strong> at central (2.0), <strong>32</strong> when ruinous (10.0), and <strong>20</strong> under a punish-them-all employer (γ=3) even at central cost. About <strong>55%</strong> of the modeled discloser population clears the bar at central. No bounty in the searched range rescues the three-people-knew case against ruinous retaliation — the honest limit, held.</p>
+<p><strong>F5 — What the platform's silence buys (the owner's point 2, structural).</strong> p_susp = γ/k_anon is the whole retaliation model, and it exists <em>because</em> EDEN never confirms which account disclosed — the employer suspects the set, and narrowing it further requires off-protocol investigation the protocol never assists. If the platform could be compelled to confirm accounts, p_susp → 1 regardless of k_anon and the market's participation collapses to the fearless. This makes <strong>account-confidentiality a load-bearing security property of the whistle market</strong>, not a privacy nicety — worth stating in DR-22 as an explicit invariant (the platform <em>cannot</em> confirm, by architecture, not policy — rhyming with A5's "nothing biometric on-ledger, ever").</p>
+<p><strong>F6 — The double edge, sized as arithmetic (WB5).</strong> With adoption uplift linear in substantiated-leak volume and shutdown pressure convex in it, the net-exposure optimum V* moves proportionally with the uplift dial and inversely with the pressure dial (monotone across all nine sweep cells). This is assumption-arithmetic, not a forecast — its role is to make PRE-MORTEM obituary #7 concrete: the failure mode is not "the market doesn't work," it is "the market works so well that the platform's legal surface becomes the target before its defenses mature." Governance implication worth recording: the conduct-claim class is the one EDEN feature whose <em>success rate</em> is itself a strategic dial.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced-form throughout, as registered: jury error, retaliation costs, forgery rates, and pre-verdict damage are dials, not measurements (ε_int and the retaliation distribution are pilot facts; v11 prices jury <em>capture</em>, not jury <em>competence</em>); content-based deanonymization is out of protocol reach and modeled only as suspicion over the knower-set (retaliation on suspicion needs no proof — which is exactly why k* is the honest metric); the D-unit normalization hides claim-size heterogeneity; sponsor-laundering is bounded by the DR-19 aggregation assumption, not re-simulated; platform legal exposure (hosting leaked material) is a scenario layer feeding the pre-mortem, not a model; <strong>"best whistleblowing tool" was not a bar and is not a conclusion</strong> — what this cell establishes is incentive-compatibility with wide margins, two refuted expectations in the robust direction, and two named walls (fear at small k_anon, off-protocol shorts). Findings are existence/ordering/boundary-location under stated dials, not forecasts.</p>
+<h2 id="recommendation-for-the-owner-to-react-to-dr-22">Recommendation (for the owner to react to — DR-22)</h2>
+<p><strong>Open the conduct-claim class, low-bond, with account-confidentiality as an architectural invariant.</strong> Specifically: (1) adopt the market mechanics as specced (bond + bounty + counter-window + jury + unverifiable-as-honest-verdict), with <strong>bonds at the low end of the separating region</strong> — F4 shows low bonds make sponsors unnecessary while flooding stays priced out; (2) record <strong>account-non-confirmation as an invariant</strong> (F5): the platform architecturally cannot say whose account disclosed — this is the market's security floor, not a courtesy; (3) treat <strong>certified capture as the robustness layer</strong> (F3): launch does not wait for hardware ubiquity, but the capture-stack roadmap (§7.3 C2PA pattern + the owner's transparent-stack concept) is what defends the market against improving AI forgery; (4) make <strong>adjudication speed a funded target</strong> (F2): T_adj is the only protocol-side lever against short-and-distort — the rest is securities law's handoff; (5) accept the honest walls in public framing: EDEN narrows retaliation to suspicion and never confirms, but small-knower-set disclosures against ruinous retaliators remain dangerous and no bounty fixes that — say so; (6) add <strong>PRE-MORTEM obituary #7</strong> (done this session) and treat the conduct-class launch as a staged, governance-gated rollout because of F6. Comms guardrail updates from "may not say best whistleblowing tool" to: <em>may say "a whistle market where truth profits and lies cost, with the strongest anonymity architecture we know how to build — and two limits we name out loud."</em></p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>v39 SPEC - The Whistle Market (registered).md</code> — bars WB0–WB6 before code; owner refinements registered as structure</li>
+<li><code>whistle_market_sim.py</code> — anchors-loaded-at-runtime + market closed forms (import-guarded, deterministic)</li>
+<li><code>results_v39.json</code> — every number above; <code>fig_v39_whistle_market.png</code> — four panels</li>
+<li><code>PLAIN LANGUAGE - v39.0 The Whistle Market.md</code> — jargon-compliant companion (house rule, from birth)</li>
+</ul>
+<p><em>Run and written July 18, 2026, by Claude Fable 5 (owner-directed [FABLE] cell). Verification: anchors loaded from the committed v7 JSON at runtime (sha256 in the JSON — the VERIFICATION v6 D1 pattern); the engine ran three times — twice in the development sandbox, once committed in this folder — all three byte-identical by sha256; numbering checked against the folder max (v38) before registration. WB3 and WB4 FAIL as refuted registered expectations filed as findings F3/F4 — both in the informative direction. Bars unmoved.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v39-the-whistle-market-0.json" download>⬇ results_v39.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+{
+  "model": "EVE Sim v3 - Network & Dependency Graph",
+  "graph": "scale-free DAG, N=8000, 3 deps/asset (preferential attachment)",
+  "params": {
+    "dep_share": 0.1,
+    "alpha_depth_attenuation": 0.6,
+    "lambda_own_freshness": 1.5,
+    "lambda_dep_freshness_fix": 2.0
+  },
+  "concentration": {
+    "own_mint": {
+      "gini": 0.5515302559140944,
+      "top1": 0.10097075731804302,
+      "top10": 0.4131530212779625
+    },
+    "royalty_no_decay": {
+      "gini": 0.9264180294976683,
+      "top1": 0.6117094856709743,
+      "top10": 0.8687306246473324
+    },
+    "royalty_decay": {
+      "gini": 0.8908668407678977,
+      "top1": 0.49666646879904003,
+      "top10": 0.7928983987374829
+    },
+    "royalty_decay_cap": {
+      "gini": 0.8292607247701129,
+      "top1": 0.20833935780461313,
+      "top10": 0.6742633333726437
+    },
+    "total_no_decay": {
+      "gini": 0.5428046415192194,
+      "top1": 0.11313576755475631,
+      "top10": 0.4149206066969601
+    },
+    "total_decay": {
+      "gini": 0.5460107998498496,
+      "top1": 0.09975492572538142,
+      "top10": 0.4099839001375982
+    }
+  },
+  "cap_mult": 20.0,
+  "royalty_share_by_age_decile_no_decay": [
+    0.7964,
+    0.0764,
+    0.0383,
+    0.0282,
+    0.022,
+    0.0136,
+    0.0112,
+    0.0075,
+    0.0047,
+    0.0018
+  ],
+  "royalty_share_by_age_decile_decay": [
+    0.6569,
+    0.0821,
+    0.0504,
+    0.0455,
+    0.0433,
+    0.0326,
+    0.0328,
+    0.0268,
+    0.0204,
+    0.0091
+  ],
+  "alpha_sweep": {
+    "alpha": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9
+    ],
+    "top10_share_no_decay": [
+      0.8089,
+      0.8204,
+      0.8324,
+      0.8446,
+      0.8568,
+      0.8687,
+      0.8803,
+      0.8915,
+      0.9022
+    ],
+    "top10_share_decay": [
+      0.7295,
+      0.7401,
+      0.752,
+      0.7649,
+      0.7786,
+      0.7929,
+      0.8076,
+      0.8223,
+      0.837
+    ]
+  },
+  "fragility": {
+    "systemic_top1_footprint_share": 0.2926,
+    "max_in_degree": 1052,
+    "note": "Footprint = total downstream mint depending on a node. Scale-free -> a few systemic nodes. BUT under Legacy, a dead owner's asset PERSISTS and stays usable (data/code remains); only the owner's royalty stops -> no FUNCTIONAL cascade. Systemic risk is about asset AVAILABILITY (argue for commons-custody of critical deps), not economic contagion."
+  },
+  "legacy_floor_dividend": {
+    "share_owners_deceased": 0.438,
+    "ancestral_dividend_share_of_dep_pool": 0.819,
+    "top10_capture_no_legacy_heirs": 0.793,
+    "top10_capture_with_legacy_floor": 0.167,
+    "note": "Orphaned dependency-shares of Legacy (dead-owner) assets route to the floor, NOT to heirs or the living stack. Because the oldest, most-depended-on assets are the ones whose owners have died, much of the dependency pool becomes an ANCESTRAL DIVIDEND funding the floor, and concentration among living owners falls vs the all-alive snapshot."
+  },
+  "headline": "Pay-the-stack concentrates dependency royalties heavily into a few foundational ('genesis') assets WHILE THEIR OWNERS ARE ALIVE (royalty Gini 0.93 vs 0.55 own-mint; oldest 10% capture ~80%). This is a WITHIN-LIFE concentration, not a dynasty - Legacy ends every earning stream at death. Two levers bound the living concentration: W_age freshness-decay on the dependency stream and a per-node royalty cap (top-10% 87%->79%->67%). And because the oldest, most-depended-on assets are exactly the ones whose owners have died, routing their orphaned dependency-shares to the FLOOR - not to heirs, and not to the living stack (which would reward removing an upstream owner) - turns much of the pool into an ANCESTRAL DIVIDEND funding the safety net and drops living concentration further. Fragility is topological (top asset underlies ~29% of mint) but Legacy prevents an economic cascade -> an availability concern met by commons-custody. Verdict: SURVIVES WITH CHANGES.",
+  "closes_roadmap_item": "Network / dependency-graph concentration model (Modeling Roadmap #4)"
+}

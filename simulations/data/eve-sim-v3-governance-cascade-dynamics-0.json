@@ -1,0 +1,24 @@
+{
+  "flips_over_20y": {
+    "naive_with_timelock": 8.916666666666666,
+    "eden_with_timelock": 1.0,
+    "naive_no_timelock": 110.51666666666667,
+    "eden_no_timelock": 1.0
+  },
+  "escalation_pct_by_threshold": {
+    "tau50": 100.0,
+    "tau55": 100.0,
+    "tau60": 100.0,
+    "tau66": 45.3,
+    "tau70": 37.9,
+    "tau75": 25.3,
+    "tau80": 12.8
+  },
+  "rings": [
+    "local",
+    "city",
+    "region",
+    "nation",
+    "world"
+  ]
+}

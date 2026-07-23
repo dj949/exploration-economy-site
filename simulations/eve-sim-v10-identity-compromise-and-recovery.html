@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v10 - Identity Compromise &amp; Recovery — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v10 - Identity Compromise &amp; Recovery.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v10 - Identity Compromise &amp; Recovery</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v10.0 Identity Compromise &amp; Recovery.md</code>. The biometric red-team argued that a stolen-identity disaster can be made survivable by design — compartments, a floor that never switches off, and a recovery contest the real owner always wins. This simulation ran the disaster on paper, with the pass/fail lines written down before the code existed.</em></p>
+<h2 id="the-four-drills">The four drills</h2>
+<p><strong>Drill 1 — the mass breach.</strong> Imagine thieves compromise every identity issued by one registrar — 10%, 15%, or 30% of the economy at once. The design's answer is quarantine: everyone affected keeps their <strong>floor</strong> (nobody starves because paperwork broke), everything above the floor pauses until you re-verify in person, and every fraudulent claim still has to sneak past the liveness check, session by session.</p>
+<p>The arithmetic came out exactly where the design bet it would. At a 15% compartment, the thieves' maximum haul is small enough to fit inside the system's standing fraud budget (1.4% of issuance against a 2% cap) and inside the floor pool's spare capacity — and the affected people's groceries never miss a month. At a 30% compartment, both safety margins blow at once. <strong>The proposed rule — no compartment bigger than ~15% — turns out to be a real wall, not a round number:</strong> the drill shows the cliff sits at about 22%, and the rule parks you safely uphill of it.</p>
+<p><strong>Drill 2 — the recovery contest.</strong> A thief with a copied credential files to take over your identity; you show up with your body, your history, and the guardians you named at sign-up. Two hundred thousand simulated contests, against attackers spending ten times the required bond: the real owner won <strong>all of them</strong> — including people who enrolled last week. Switch off the guardian feature and the win rate at the "joined yesterday" edge slips to 99.88% — which is exactly why the design makes you name guardians <em>at enrollment</em>, before you've built any history. The newcomer's thin file is carried by the people who vouched for them.</p>
+<p>The honest asterisk, printed on the result itself: this all assumes the in-person ceremony can tell a live body from a fake one. That assumption is a <em>setting</em> in this model — the real war between sensors and synthetic humans is the project's deepest open risk, and it gets measured in a pilot, not simulated on a laptop.</p>
+<p><strong>Drill 3 — the hostile government.</strong> A captured state mass-revokes half of its citizens' credentials to un-person its dissidents. Because a betrayed group can re-anchor to the independent fallback registrar <em>without their government's permission</em>, the drill turns political erasure into a queue: five months to restore everyone, twelve at half capacity, and <strong>zero months of anyone losing their floor</strong>. The state can stop vouching for you; it cannot erase you. The embassy stays open.</p>
+<p><strong>Drill 4 — changing the locks on schedule.</strong> The "scrambled shadow" of your biometric can be retired and re-issued on a schedule, like rotating ciphers. Cost of even the aggressive 2-year schedule: about one percent of one month's floor payment, per person, per year — while cutting the exposure of any one era's records fourfold. Changing the locks is nearly free. There's no excuse not to.</p>
+<h2 id="the-one-line-verdict">The one-line verdict</h2>
+<p>The nightmare framing — "you can't reissue an iris, so a breach is forever" — failed its own drill. <strong>Built as designed, a mass identity breach is a bounded, five-month logistics event during which nobody misses a meal and no thief out-argues a living owner</strong> — provided the compartments stay small (the new gate-14 rule), the guardians are named on day one, and the one assumption everything leans on — that a ceremony can tell bodies from fakes — is proven by real attackers in a real pilot, not assumed by anyone's simulation, including this one.</p>
+<p><em>Usual honesty: calculator-grade drills with stated dials, run under bars registered before the code existed, seeds agreeing. Run and written by Claude Fable 5, July 7 2026.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v10-identity-compromise-and-recovery-0.png" alt="fig_v10_identity_recovery.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 7, 2026.</strong> Spec: <code>v10 SPEC - Identity Compromise &amp; Recovery (registered)</code> (bars I0–I4 fixed before any engine code). Engine: <code>v10_identity_recovery_sim.py</code>; artifacts: <code>results_v10.json</code>, <code>fig_v10_identity_recovery.png</code>. Seeds 7 + 11 on the stochastic cell (I2); agreement to the third decimal. No bar was moved. Supplies the numbers behind proposed <strong>gate 14</strong>.</p>
+<h2 id="verdict-table">Verdict table</h2>
+<table>
+<thead>
+<tr>
+<th>Cell</th>
+<th>Bar</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>I0 regression</strong></td>
+<td>Exact reproduction of Hardened Arms Race (36 cells + min-bond map)</td>
+<td>cells_match ✓, min_bond_match ✓</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>I1 quarantine economics</strong></td>
+<td>Cohort essentials delivery ≥ 1.0 every month AND fraud &lt; 2% of issuance AND attacker take ≤ the §3.5 bound; registered expectation: FAIL at s=30%, p_live=0.2</td>
+<td>s=10–15%: <strong>PASS all cells</strong> (worst: fraud 1.37%, pool strain 7.6% vs 10% headroom, delivery 1.0, take 33k F ≤ bound 165k F). s=30%, p_live=0.2: <strong>fraud 2.75%, delivery 0.655 — FAIL exactly as registered</strong></td>
+<td><strong>PASS, and the cap is load-bearing</strong> — the 2% fraud gate survives to ~22% cohort share at p_live=0.2; the proposed ≤15% gate-14 cap sits inside it with margin</td>
+</tr>
+<tr>
+<td><strong>I2 recovery race</strong></td>
+<td>Overall owner win ≥ 99.9% AND thin-web decile ≥ 99% at B ≤ 10× bond</td>
+<td>Design (with enrollment guardian): <strong>100.0% / 100.0%</strong>, zero-tenure 100.0%, both seeds. Ablation (guardian off): 99.996% / 99.965%, zero-tenure <strong>99.88%</strong></td>
+<td><strong>PASS</strong> — no regressive hole <em>at these dials</em>; the guardian's value concentrates exactly at the zero-tenure edge</td>
+</tr>
+<tr>
+<td><strong>I3 weaponized revocation</strong></td>
+<td>≥ 95% re-anchored within 12 months at central capacity; time-below-floor = 0</td>
+<td>Worst case (r=50% of a jurisdiction): full re-anchor in <strong>5.0 months</strong> (10.0 at half capacity); 100% within 12; floor never off</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>I4 rotation overhead</strong></td>
+<td>Measurement</td>
+<td>2-yr cadence: 0.011F/yr overhead, epoch breach prob 0.095; 10-yr: 0.002F/yr, 0.393 — the cadence curve is published; rotation is a priced dial</td>
+<td>reported</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gate-14 numbers:</strong> max cohort share passing at p_live=0.2 = <strong>15%</strong> (breaks by ~22%); recovery window at the 15% cap = <strong>5.0 months</strong>; thin-web win rate = <strong>100%</strong> (99.97% without the guardian).</p>
+<h2 id="what-the-run-establishes-and-its-defeaters">What the run establishes (and its defeaters)</h2>
+<ol>
+<li><strong>The quarantine arithmetic works, and the cohort cap is where it works.</strong> Floor-capped quarantine bounds a mass breach to a computable fraud load; at the proposed ≤15% cohort cap that load (1.37% of issuance, 7.6% of pool headroom) fits inside both standing gates, and the affected cohort's essentials never miss a month. Double the cohort and both gates break at the same time (2.75% fraud, delivery 0.655) — measured confirmation that gate 14's cap is a real wall, not a round number.</li>
+<li><strong>The recovery race is not close — at the stated dials.</strong> Body presence + an accumulating continuity web beats a 10×-bond attacker everywhere, including brand-new identities, and the ablation shows <em>why</em> newcomers are safe: the enrollment-time guardian carries the zero-tenure edge (99.88% → 100%). The registered regressive-hole check found no hole — <strong>but the honest sentence is that the 0.45 forgery ceiling below 0.5 body presence is doing the heavy lifting.</strong> That ceiling <em>is</em> the sensors-vs-synthetics keystone wearing a parameter's clothes. If ceremony-grade liveness fails in the wild, I2's guarantees fail with it. This run prices the design around that assumption; only the pilot prices the assumption.</li>
+<li><strong>Un-personing doesn't work.</strong> A hostile issuer revoking half its jurisdiction produces a five-month re-anchoring queue with zero months below floor — the fallback registrar converts issuer capture from fatal to logistical, at capacities that are dials a pilot can size.</li>
+<li><strong>Rotation is cheap where it matters.</strong> Even aggressive 2-year transform rotation costs ~1% of one month's floor per person per year while cutting epoch breach exposure fourfold vs 10-year cadence — the crypto-agility requirement in the pass costs almost nothing to keep.</li>
+</ol>
+<h2 id="honest-limits-from-the-spec-still-true-after-the-run">Honest limits (from the spec, still true after the run)</h2>
+<p><code>p_live</code> and the forgery ceiling are exogenous stand-ins for the liveness arms race (the keystone; gates 9/14 exist to <em>measure</em> it). The continuity web is a one-parameter curve, not a social graph; coercion is unmodeled; the re-binding queue assumes attackers cannot congest it (named, unmodeled); income = issuance is a stylization. Existence-and-shape under stated dials — not a forecast, and no single-dial headline without its dial.</p>
+<p><em>Run executed by Claude Fable 5, July 7 2026, under the July 7 registration. Plain-language companion: <code>PLAIN LANGUAGE - v10.0 Identity Compromise &amp; Recovery.md</code>.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v10-identity-compromise-and-recovery-0.json" download>⬇ results_v10.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

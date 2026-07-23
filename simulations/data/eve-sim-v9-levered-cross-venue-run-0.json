@@ -1,0 +1,152 @@
+{
+  "R0_calibration": {
+    "dials": {
+      "momentum": 3.4,
+      "base_exit": 0.06,
+      "depth_mult": 1.2,
+      "panic_kick": 0.8
+    },
+    "confidence_dd_pct": 26.0,
+    "confidence_recovery_mo": 41,
+    "spec90_dd_pct": 90.6,
+    "spec90_recovers_in_24mo": false,
+    "recession_defended_dd_pct": 41.5,
+    "grocery_fill": 1.0,
+    "bars": "REGISTERED (spec \u00a73 R0): A.11 dip 26\u00b15pp WITH in-window recovery at 30% share; NO recovery at 90% share; defended grocery fill 1.000. (spec90_dd and recession_dd are published diagnostics, not registered gates \u2014 the committed engine's PASS line had silently added them; pre-readout fix.)",
+    "PASS": true
+  },
+  "R1_procyclical": {
+    "dd_pct": {
+      "7": 37.4,
+      "11": 37.5
+    },
+    "income_recovery_mo": {
+      "7": 13,
+      "11": 13
+    },
+    "bar": "confirm if dd>55% or INCOME-metric recovery>18mo (spec wording; committed code used price recovery \u2014 pre-readout fix)",
+    "CONFIRMED": false
+  },
+  "R2_leverage": {
+    "dd_pct": {
+      "7": 68.1,
+      "11": 68.1
+    },
+    "forced_sale_pressure_$M": 57.0,
+    "reserve_capacity_$M": 36.0,
+    "pressure_over_reserve": 1.6,
+    "bar": "confirm if pressure>reserve or dd>55%",
+    "CONFIRMED": true
+  },
+  "R3_conjunction_canon": {
+    "dd_pct": {
+      "7": 71.8,
+      "11": 71.9
+    },
+    "max_consec_months_delivery_below_1": {
+      "7": 12,
+      "11": 12
+    },
+    "months_below_total": {
+      "7": 12,
+      "11": 14
+    },
+    "reserve_end_$M": {
+      "7": 0.0,
+      "11": 0.0
+    },
+    "end_spec_share_pct": {
+      "7": 0.0,
+      "11": 0.0
+    },
+    "attacker_pnl_$M": {
+      "7": 14.9,
+      "11": 14.9
+    },
+    "bar": "expected FAIL: >=3 consecutive months delivery<1.0",
+    "CANON_FAILS_AS_EXPECTED": true
+  },
+  "R4_mitigated": {
+    "min_monthly_delivery": {
+      "7": 1.0,
+      "11": 1.0
+    },
+    "reserve_end_$M": {
+      "7": 28.9,
+      "11": 28.9
+    },
+    "end_spec_share_pct": {
+      "7": 0.0,
+      "11": 0.0
+    },
+    "dd_pct_reported_not_barred": {
+      "7": 71.8,
+      "11": 71.8
+    },
+    "price_recovery_mo_diagnostic": {
+      "7": null,
+      "11": null
+    },
+    "income_recovery_mo": {
+      "7": 0,
+      "11": 0
+    },
+    "bar": "delivery>=1.0 all months AND reserve runway>=3mo AND end share<=70% AND INCOME recovery<=24mo (spec d is income-based; committed PASS had dropped it \u2014 pre-readout fix)",
+    "PASS": true,
+    "min_forward_contract_share_passing": 0.0
+  },
+  "R5_peg_counterfactual": {
+    "dd_pct": {
+      "7": 75.8,
+      "11": 75.8
+    },
+    "reserve_end_$M": {
+      "7": 0.0,
+      "11": 0.0
+    },
+    "reserve_spent_$M": {
+      "7": 36.0,
+      "11": 36.0
+    },
+    "share_of_reserve_to_spec_and_levered": {
+      "7": 95.7,
+      "11": 95.9
+    },
+    "months_below": {
+      "7": 156,
+      "11": 156
+    },
+    "max_consec_below": {
+      "7": 156,
+      "11": 156
+    },
+    "r3_max_consec_for_comparison": {
+      "7": 12,
+      "11": 12
+    },
+    "reserve_spend_multiple_vs_R4": {
+      "7": 5.1,
+      "11": 5.1
+    },
+    "dd_within_10pp_of_R3": {
+      "7": true,
+      "11": true
+    },
+    "expectations": "(i) reserve exhausts faster than R4's draw (multiple reported), majority to spec/levered exits; (ii) more CONSECUTIVE months below 1 than R3; (iii) end dd within 10pp of R3 (spec text; committed flag compared burn vs R3 and used total months \u2014 pre-readout fix)",
+    "ROAD3_MEASURED_DOMINATED": true
+  },
+  "gate13": {
+    "levered_run_drawdown_pct": {
+      "7": 71.8,
+      "11": 71.9
+    },
+    "real_essentials_delivery_min_canon": {
+      "7": 0.528,
+      "11": 0.528
+    },
+    "real_essentials_delivery_min_mitigated": {
+      "7": 1.0,
+      "11": 1.0
+    }
+  }
+}

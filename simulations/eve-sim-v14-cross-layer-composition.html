@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v14 - Cross-Layer Composition — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v14 - Cross-Layer Composition.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v14 - Cross-Layer Composition</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v14.0 Cross-Layer Composition.md</code>, and the measured follow-through on the earlier alarm "One Crook in Every Uniform." That was the worry; this is the arithmetic. Bars were written down before the code ran.</em></p>
+<h2 id="the-blind-spot-measured">The blind spot, measured</h2>
+<p>EDEN has four safeguards, each with its own "no one may hold more than 15%" rule: the ID desk, the guards (who verify the ledger), the clerks (who bundle everyone's activity), and the appraisers (who price essentials). We stress-tested each one against a burglar — and each test quietly assumed the <em>other three</em> were staffed by honest people. Real burglars don't play along; the dangerous one gets hired into <strong>all four departments with one set of fake identities.</strong> This drill finally added the hats up.</p>
+<h2 id="what-the-arithmetic-says">What the arithmetic says</h2>
+<p><strong>Wearing four hats is a third cheaper than four separate crooks — measured.</strong> Attacking all four layers at once costs about <strong>$483 million</strong>; four independent attackers each doing one would cost <strong>$737 million</strong>. The discount (about a third) comes from the most expensive thing an attacker buys — a bloc of fake-but-verified identities — being <strong>built once and reused</strong> as votes, as signatures, and as price-reporters. Our four separate tests each charged for that bloc; the real attacker pays for it once. <em>We were quoting four admission fees for one ticket.</em></p>
+<p><strong>The identity-breach damage is bigger than we'd advertised.</strong> We'd proudly reported that a breach of 15% of identities was contained to about <strong>1.37%</strong> of fraud. True — <em>at the ID desk.</em> But those stolen identities keep voting, signing, and reporting prices during the months it takes to recover them. Count that, and the real damage is <strong>3.74%</strong> — past the 2% line we'd drawn, about 2.7 times what the single-layer test showed. The old number wasn't a lie; it was <strong>incomplete</strong>, because you can't measure a blast radius one room at a time.</p>
+<p><strong>The scariest loop turned out to hurt the wallet, not the people.</strong> We worried that a crook who controls the price appraisers could fake the essentials price and make the safety net pay out wrong. The good news: if he <em>inflates</em> the price, the net simply pays people a little <strong>extra</strong> — nobody goes hungry. The bad news: it <strong>drains the reserve fund in about four months.</strong> So the danger of that loop is a bleeding reserve, not a starving family — which points to a clean fix: the payout should double-check the price against the system's <em>own</em> real transactions, so a lying appraiser can't quietly open the reserve tap.</p>
+<p><strong>And the fix is almost embarrassingly simple.</strong> Turn the four separate "15% per department" rules into <strong>one rule: 15% total across all departments, per person.</strong> A crook spreading a 15% budget across four roles then reaches only <strong>3.75% in each</strong> — nowhere near enough to bend anything — and the identity-breach damage drops back to <strong>0.96%, safely inside the line.</strong> We measured it: the joint cap closes all three problems at once. The caps already exist; they just need to be <em>added together and aimed at the same person.</em></p>
+<h2 id="why-two-failures-here-is-a-success">Why "two failures" here is a success</h2>
+<p>Two of this drill's tests <strong>failed on purpose</strong> — we predicted they would, wrote that down first, and they did. That's not a dent; it's the point. "Attacking together is cheaper" and "the blast radius grows" are exactly the truths a per-layer test <em>cannot</em> see, and surfacing them — with a fix that measurably works — is what this drill was for. The human core still holds through all of it: you still can't print money by wearing hats, getting caught in any room burns your one identity in <em>all</em> of them, and people can still walk out to ordinary money.</p>
+<h2 id="the-one-line-verdict">The one-line verdict</h2>
+<p><strong>Attacking all four of EDEN's layers with one identity is a third cheaper than attacking them separately, and the damage from a stolen-identity breach grows past its safety line once you count every hat it wears — but a single "15% across all roles, per person" cap closes the whole thing, and the drill measured the fix working.</strong></p>
+<p><em>Usual honesty: this composes our earlier per-layer results rather than re-deriving them; the "how much cheaper" coefficients are stated estimates, not field measurements, and everything still rests on the one keystone the pilot alone can settle — that a real, unique human can be told from a fake. Two bars failed exactly as predicted; the fix passed. Run and written by Claude Fable 5, July 9, 2026.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v14-cross-layer-composition-0.png" alt="fig_v14_composition.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Spec: <code>v14 SPEC - Cross-Layer Composition (registered).md</code> — bars X0–X4 fixed in the composition red-team before this code. Engine: <code>composition_sim.py</code>; committed: <code>results_v14.json</code>, <code>fig_v14_composition.png</code>. Seeds 7 + 11 on the X2 blast-radius MC. Composes the committed v10/v11/v12/v13-oracle anchors (verified in X0), does not re-derive them.</strong></p>
+<p><strong>Verdict in one line: attacking EDEN's four layers <em>together</em> with one identity is measurably cheaper than attacking them separately (joint costs 66% of the sum), the identity blast radius grows past its safety gate when downstream weight is counted (1.37% → 3.74%), and the oracle→reserve loop protects people's delivery while bleeding the reserve — and all three are closed by a single fix the run also measures: one joint cross-layer cohort cap.</strong></p>
+<hr>
+<h2 id="bar-summary-x0x4-pass-x1x2-fail-exactly-as-registered-that-is-the-finding-x3-nuanced">Bar summary (X0/X4 pass; X1/X2 FAIL exactly as registered — that IS the finding; X3 nuanced)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X0 regression</td>
+<td>reproduce v11/$613M, v12/q*0.62%, v13o/$99.5M, v10/1.37%</td>
+<td>all reproduce from committed JSON</td>
+<td><strong>PASS (harness trusted)</strong></td>
+</tr>
+<tr>
+<td>X1 vertical-cohort joint cost</td>
+<td>joint ≥ sum of 4 independent (<em>expected FAIL</em>)</td>
+<td><strong>joint $483M &lt; sum $737M, ratio 0.66</strong></td>
+<td><strong>FAIL as registered → F1</strong></td>
+</tr>
+<tr>
+<td>X2 composed blast radius</td>
+<td>≤ 2% fraud gate (<em>expected FAIL</em>)</td>
+<td><strong>3.74% (2.7× the isolated 1.37%)</strong>, seeds agree</td>
+<td><strong>FAIL as registered → F2</strong></td>
+</tr>
+<tr>
+<td>X3 oracle→reserve loop</td>
+<td>essentials delivery ≥ 1.0 (<em>uncertain</em>)</td>
+<td>delivery <strong>1.0 (over-pays)</strong>; reserve drains in <strong>4 months</strong></td>
+<td><strong>PASS on delivery; F3 reserve finding</strong></td>
+</tr>
+<tr>
+<td>X4 joint-cap fix</td>
+<td>joint cap restores X1 &amp; X2 ≤ 2%</td>
+<td>per-role 3.75%, composed fraud <strong>0.96%</strong></td>
+<td><strong>PASS → F4</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — One adversary, every hat, at a 34% discount (X1 fails as registered — the intended result).</strong> Reaching 15% simultaneously at registrar + validator + aggregator + oracle-reporter costs a vertical adversary <strong>$483M</strong>, versus <strong>$737M</strong> if four separate attackers each paid their own way — a <strong>0.66 ratio</strong>. The discount is structural: the expensive identity bloc (the validator seats' rented identities) is <strong>built once and worn as four hats</strong> — the same identities vote in consensus, sign attestations for the aggregator, and seat the oracle's reporter class. The per-layer sims each charged for that bloc; the composed attacker pays once. This is precisely the "honest mechanism, captured input" pattern applied at the <em>seams</em>: our four 15% caps were each set to bound one layer, blind to the same actor sitting under all four. <strong>The number is the argument for the fix.</strong></p>
+<p><strong>F2 — The identity blast radius grows past its own gate when you count downstream weight (X2 fails as registered).</strong> v10 proudly held a 15% identity breach to <strong>1.37% fraud</strong> — <em>at the identity layer</em>. But breached identities are not idle during v10's 5-month recovery queue: they carry validator votes, free attestations, and reporter seats the whole time. Counting that downstream leverage (mean ~2.8× per identity, capped, both seeds agreeing), composed fraud reaches <strong>3.74% — past the 2% gate</strong>. v10's headline was true and <em>incomplete</em>; the honest composed number is ~2.7× larger. This does not mean v10 was wrong; it means <strong>a blast radius measured one layer at a time understates the blast</strong>.</p>
+<p><strong>F3 — The oracle→reserve loop protects people and bleeds the reserve (X3, the nuanced one).</strong> The registered bar was delivery ≥ 1.0 and it <em>passes</em> — but not for a comforting reason. An attacker who has captured the oracle <em>inflates</em> the published EBI; the essentials-redemption window faithfully pays "EBI-real" at the inflated rate, so recipients actually <strong>over-receive</strong> (delivery ≥ 1.0, people are fine) while the <strong>reserve drains in ~4 months</strong> at a 5% inflation on a $180M/month redemption lane. So the v9 door v9 declared safe <em>is</em> safe for people and <em>unsafe for the reserve</em> when the oracle is the captured input. The fix the finding points to: <strong>"EBI-real" needs an oracle-independent cross-check</strong> (e.g., the endogenous essentials-lane price from v13-oracle Class-E) on the redemption rate, so a captured oracle cannot open the reserve tap. Deflation (the delivery-cutting direction) is separately caught by the floor-underpay alarm.</p>
+<p><strong>F4 — One joint cap closes all three (X4 passes — the cheap, obvious fix).</strong> Replace the four independent "15% per layer" caps with a single <strong>"15% total combined weight across all roles, per actor."</strong> A vertical adversary spending a 15% budget across four roles reaches only <strong>3.75% at each</strong> — far below every capture threshold — and the composed blast radius falls back to <strong>0.96%, inside the 2% gate</strong>. The caps already exist; they need only be <em>summed and pointed at the same actor</em>. The run confirms the red-team's proposal quantitatively.</p>
+<h2 id="gate-18-candidate-published">Gate-18 candidate (published)</h2>
+<p>A <strong>cross-layer concentration cap</strong>: one actor's combined weight across registrar + validator + aggregator + oracle-reporter ≤ <strong>15%</strong>, monitored live like the validator honest-pool H and the per-layer cohort caps. Reference numbers: uncapped composition discount <strong>0.66</strong>; composed blast radius <strong>3.74%</strong>; both restored under the joint cap (<strong>0.96%</strong> fraud). Proposed as an amendment to <code>EDEN Protocol Architecture v0.1</code> §4/§6 — and, per the red-team, it should be adopted on ratification regardless of the exact multiple, because the direction is not in doubt.</p>
+<h2 id="honest-limits-from-the-spec-carried">Honest limits (from the spec, carried)</h2>
+<p>Inherits every dial and limit of v10/v11/v12/v13-oracle — the identity keystone above all (<strong>this prices the design around the identity layer; the pilot prices it</strong>). The composition coefficients — the reuse decomposition (shared bloc vs layer marginal), the per-identity downstream leverage (mean ~2.8×, capped at 5×), the oracle-loop drain rate — are <strong>stated modeling choices, not measured field values</strong>; the sim shows <em>that</em> composition is cheaper and the blast composes, and <em>roughly how much</em>, not a precise number. Coordination across hats is free (attacker-favoring); cap-evasion by cohort laundering is unmodeled (defense-favoring). A threat-composition calculator, not a live multi-agent adversary. Existence-and-shape under stated dials; in-family discount stands.</p>
+<hr>
+<p><em>Feeds: gate-18 (proposed joint cross-layer cap); the proposed §4/§6 amendment to <code>EDEN Protocol Architecture v0.1</code>; closes the composition red-team's registered sim. Two bars failed exactly as registered (X1, X2) — that is the finding, not a defect — and the fix (X4) is measured to work. Run and written by Claude Fable 5, July 9, 2026. Bars as registered; none moved.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v14-cross-layer-composition-0.json" download>⬇ results_v14.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

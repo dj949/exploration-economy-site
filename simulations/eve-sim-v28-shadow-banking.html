@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v28 - Shadow Banking — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v28 - Shadow Banking.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v28 - Shadow Banking</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 10, 2026. Companion to <code>RESULTS - v28.0 Shadow Banking</code>.</em></p>
+<h2 id="the-worry">The worry</h2>
+<p>EDEN says banks can't create money — they can only lend money that really exists. But couldn't someone dodge that by printing their <em>own</em> private IOUs and getting people to pass them around like cash? That's "shadow banking," and it's how the no-money-printing rule could be quietly broken off to the side. We tested whether it works in EDEN.</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>Unchecked, it's a real threat</strong> — a private note-printer holding only 10% backing could balloon the effective money supply tenfold. So it's worth taking seriously. But three things stop it in EDEN:</p>
+<ol>
+<li>
+<p><strong>Almost nobody would take the private notes.</strong> This is the big one. People accept private IOUs in the real world when the official money is bad — scarce, unstable, untrustworthy. EDEN's money is the opposite: it's backed by the guaranteed essentials floor and kept stable by the governor. So why would you hold someone's risky private paper? Only if it paid you a lot more to compensate for the risk — and a note that safe is really just a normal loan, which is already allowed. At a realistic yield, only ~4% of people would touch it. <strong>You can't build a shadow money system on money nobody wants.</strong></p>
+</li>
+<li>
+<p><strong>Private money <em>should</em> be easy to spot.</strong> A normal loan gets handed out and paid back — it doesn't circulate. Private <em>money</em> circulates hand to hand, and on EDEN's transparent ledger that pattern should stand out. <em>(Honest caveat, added July 11: this study </em><em>assumes</em><em> a high catch rate — around 92% — rather than measuring it on real transaction data. So treat detection as a plausible expectation to be confirmed by a pilot, not a proven result.)</em> The idea is that anyone trying to run a private-money operation on the ledger lights up and can be shut down.</p>
+</li>
+<li>
+<p><strong>What's left is tiny.</strong> Put those together and on-ledger shadow money stays under ~3% of the total — the governor keeps control. The only fully-hidden version is small physical IOUs inside tight-knit communities (like old local scrip), which is trust-limited and too small to matter.</p>
+</li>
+</ol>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The one scenario we can't fully rule out is a <strong>big, organized group printing physical notes off the grid</strong> at real scale. It's still hard — they'd have to convince a lot of people to hold risky private paper instead of safe EVE, and if they ever move it onto the ledger for convenience, they get caught. But it's the real edge case to keep an eye on.</p>
+<h2 id="the-bottom-line">The bottom line</h2>
+<p><strong>The best defense against private money isn't a police force — it's making the official money so good nobody wants a substitute.</strong> EDEN's floor-backed, stable EVE does exactly that (the part this study actually computes), and the transparent ledger is <em>expected</em> to mop up the rest (the part it assumes). Shadow banking mostly defeats itself here.</p>
+<p><em>Detection caveat added July 11, 2026 (gate-tightening pass): the ~92% ledger-detection figure is an assumed input, not a measured result — the headline (good money starves shadow demand) is unchanged.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v28-shadow-banking-0.png" alt="fig_v28_shadow.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 10, 2026 (gates recoded July 11, 2026 — see footer). Spec: <code>v28 SPEC - Shadow Banking (registered).md</code> — bars SB0–SB5 fixed before code. Engine: <code>shadow_banking_sim.py</code> (deterministic; closed-form, no RNG); committed: <code>results_v28.json</code>, <code>fig_v28_shadow.png</code>. Discharges the residual threat named in <code>01 Canon/Banking &amp; Savings Layer Spec v0.1</code> §6. Every number traces to <code>results_v28.json</code>.</strong></p>
+<p><strong>Verdict in one line: shadow banking is a real threat only against <em>bad</em> money — and EDEN's money is good, so the threat mostly starves itself. An unchecked private-note system could 10× the money supply, but because EVE is floor-backed and stable, rational adoption of a risky fractional private note stays ~3.7% (the computed, headline demand-side defense); combined with detection this bounds on-ledger shadow credit to ~2.6% of broad money, plus a ~1% trust-radius-bounded off-ledger residual — all non-systemic. The money-supply conservation identity holds exactly (SB0, residual = 0). Honesty note (gate-tightening, July 11): on-ledger detection (92% TP) is an <em>assumed input dial</em>, not a quantity this sim measures — it is now reported as a disclosed non-result (SB2), and the 2.6% on-ledger bound inherits that assumption. The one open risk remains a large coordinated <em>off-ledger</em> issuer.</strong></p>
+<h2 id="bar-summary-5-pass-4-computed-sb0-at-identityself-consistency-grade-v5-d3-sb2-a-disclosed-non-result">Bar summary (5 PASS — 4 computed, SB0 at identity/self-consistency grade (v5 D3); SB2 a disclosed non-result)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Test</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SB0</td>
+<td>conservation sanity</td>
+<td><strong>PASS</strong> — money-supply identity computed from the ledger: effective money = EVE + shadow notes reconciles via the multiplier and component-sum paths, max|residual| = 0 (was a hardcoded <code>true</code>)</td>
+</tr>
+<tr>
+<td>SB1</td>
+<td>unchecked threat is real</td>
+<td><strong>PASS</strong> — 10× money multiplier at 10% shadow reserve if adoption were free</td>
+</tr>
+<tr>
+<td>SB2</td>
+<td>on-ledger detection</td>
+<td><strong>DISCLOSED NON-RESULT</strong> — 92% TP / 3% FP are <em>assumed input dials</em>, not measured/computed (engine has no velocity/graph model); downgraded from a self-echoing PASS (<code>pass: null</code>)</td>
+</tr>
+<tr>
+<td>SB3</td>
+<td>adoption resistance</td>
+<td><strong>PASS</strong> — only <strong>3.7%</strong> adoption at a 3% shadow yield edge</td>
+</tr>
+<tr>
+<td>SB4</td>
+<td>enforcement efficacy</td>
+<td><strong>PASS</strong> — on-ledger shadow credit bounded to <strong>2.62%</strong> of broad money (<em>inherits the assumed detection dial</em>)</td>
+</tr>
+<tr>
+<td>SB5</td>
+<td>irreducible residual</td>
+<td><strong>PASS</strong> — off-ledger residual <strong>1.0%</strong>, now shown <strong>≤ the trust radius</strong> (trust-radius-limited, computed), non-systemic</td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The threat is real only in the absence of defenses (SB1).</strong> If a private issuer could get fractionally-backed notes freely adopted, the money multiplier is the textbook 1/r — 10× at a 10% reserve. So shadow banking <em>is</em> the way full-reserve could be defeated off the balance sheet, and it deserves to be taken seriously. The rest of the run is why it doesn't happen in EDEN.</p>
+<p><strong>F2 — Good money starves shadow demand (SB3, the headline).</strong> This is the deepest defense and it's a <em>demand-side</em> one: historically, shadow/private money arises when official money is scarce, inconvenient, or untrustworthy. EVE is none of those — it's floor-backed (no counterparty risk), governor-stabilized, and convenient. So a rational holder adopts a private note only if its yield beats EVE's safety <em>plus</em> the note's counterparty risk — and at a plausible 3% yield edge, adoption is just <strong>3.7%</strong>. People don't hold risky private paper when the official money can't fail them. You can't build a shadow banking system on money nobody wants to hold. (If a note somehow offered a huge risk-adjusted edge, adoption rises — but a note that safe isn't really "shadow," it's just on-ledger lending, which is allowed.)</p>
+<p><strong>F3 — On-ledger shadow money <em>should</em> be legible — but this sim assumes it, it does not measure it (SB2, disclosed non-result).</strong> The mechanism is sound in principle: ordinary lending disburses and is repaid (it does <em>not</em> circulate hand-to-hand), whereas a shadow note <em>does</em> circulate (high secondary velocity, hub-and-spoke issuance), so on a transparent ledger that pattern is in principle a detectable signature. But the engine contains <strong>no velocity/graph circulation model</strong> — the 92% true-positive / 3% false-positive figures are <strong>assumed input dials the engine consumes, not results it computes</strong>. The original SB2 gate merely checked that its own input constant (0.92) exceeded the 0.90 bar — a tautology that echoed the input. Under the July-11 gate-tightening pass, SB2 is therefore <strong>downgraded from PASS to a disclosed non-result</strong> (<code>detection_assumed_not_measured: true</code>, <code>pass: null</code>): detection is a <em>plausible, assumed</em> defense, not one this run demonstrates. Measuring real detection rates on actual circulation graphs is left to a pilot. (SB4's undetected-fraction bound inherits this same assumption.)</p>
+<p><strong>F4 — Defended, shadow credit is non-systemic (SB4/SB5).</strong> Weak adoption (F2) times the undetected fraction (F3 — an <em>assumed</em> detection dial, not a measured rate) bounds on-ledger shadow credit to <strong>2.6%</strong> of broad money — the governor keeps control, <em>conditional on that detection assumption</em>. The off-ledger channel (physical/bearer notes among a closed trust community, like historical local scrip) is better-backed by trust but has tiny reach, leaving a <strong>~1%</strong> residual — now shown explicitly to sit <strong>≤ the trust radius</strong> (<code>trust_radius_limited: true</code>, a computed bound, satisfying the registered "trust-radius-limited" clause). Neither threatens the money-supply invariant — which SB0 now verifies as an exact accounting identity (residual = 0), rather than asserting it.</p>
+<p><strong>F5 — The honest open risk: a large coordinated off-ledger issuer.</strong> The one scenario the defenses don't fully reach is a <em>determined, large-scale off-ledger</em> competing issuer (physical notes at regional scale, beyond the transparent ledger). But it faces the same two walls: the adoption problem (why would a population hold its risky notes over floor-backed EVE? — F2), and if it ever grows on-ledger for reach/convenience, detection (F3). So it's bounded, not impossible — the named successor red-team, and the real residual to watch.</p>
+<h2 id="what-this-gives-the-banking-spec">What this gives the Banking Spec</h2>
+<p>Banking Spec §6 flagged shadow-banking enforcement as "unspecified — the real residual threat." This run turns that into a <strong>priced defense hierarchy</strong>: (1) the primary defense is <em>demand-side</em> — keep EVE such good money that shadow notes have no adoption edge (which the floor + governor already do); (2) detect on-ledger money-like circulation by its velocity/graph signature and apply canon penalties; (3) accept a small, non-systemic, trust-radius-bounded off-ledger residual; (4) treat a large coordinated off-ledger issuer as a standing monitored risk. Recommend §6 adopt this hierarchy, with the demand-side defense named as primary.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>The adoption model (SB3) is a behavioral assumption — a logistic in the note's net risk-adjusted yield advantage, with a sharpness dial (people flee risky private money unless it's clearly better). If real users are more yield-chasing / less risk-aware than modeled, adoption and shadow credit rise; the demand-side defense is only as strong as users' preference for safe money, which a pilot would measure. Detection rates are assumed, not measured on real circulation graphs. The off-ledger residual is a trust-radius estimate, not a modeled physical-note economy. Directions are robust (good money starves shadow demand; on-ledger circulation is detectable; off-ledger is trust-bounded); magnitudes are illustrative.</p>
+<h2 id="plain-language">Plain language</h2>
+<p>Could someone get around EDEN's "banks can't print money" rule by printing their <em>own</em> private IOUs and getting people to spend them like cash? In theory yes — unchecked, it could balloon the money supply tenfold. In practice, almost nobody would take those IOUs, because EDEN's own money is safe (backed by the guaranteed floor) and private IOUs aren't — you'd only hold a risky private note if it paid you a lot more, and a note that safe is just a normal loan anyway. On top of that, private money <em>circulates</em> in a way normal loans don't, so on the transparent ledger it <em>should</em> be easy to spot and shut down — though this run <em>assumes</em> that detection rate rather than measuring it, so treat it as a plausible expectation, not a proven number. What's left is tiny — small physical-cash IOUs inside close-knit communities, like old-timey local scrip, too small to matter. The one thing to keep watching: a big, organized group printing physical notes off the grid — still hard, because who'd take them over safe EVE, but it's the real edge case.</p>
+<p><em>Run and written July 10, 2026 (Fable). Five bars pass (computed); SB2 detection is a disclosed non-result (assumed, not measured) after the July-11 gate-tightening. The behavioral-adoption dependency, the assumed detection dial, and the large-off-ledger open risk are flagged, not buried. Numbering checked against max before registering v28. Feeds Banking Spec §6.</em></p>
+<p><em>Gate-tightening EXECUTED July 11, 2026 (Backlog #4b, Opus 4.8). Recoded the three v28 gates flagged in <code>VERIFICATION v4</code> D13e. All core physics is unchanged and byte-identical (verified by flatten-diff against the pre-change backup); the run is deterministic and byte-identical run-to-run.</em></p>
+<ul>
+<li><strong><em>SB0</em>* (was a hardcoded <code>{"pass": true}</code>): now reconciles the money-supply identity from the SB1 ledger — for every reserve ratio, effective money via the multiplier path (<code>M_gov/r</code>) and the EVE-base + shadow-notes component-sum path (<code>M_gov + M_gov·(1-r)/r</code>); <code>max_abs_residual = 0</code> → PASS. </strong>Grade corrected July 12 (Verification v5 D3):<strong> the two "paths" are the same algebra rearranged, so their residual is 0 by construction and that leg cannot fail — SB0 is an </strong>identity/self-consistency check*<em> (its only non-trivial leg is agreement with SB1's committed value from the same run), not an independent computation. An improvement over the hardcoded <code>true</code>; a grade below v25 N0's simulated re-lending cascade. Now labeled in-JSON (<code>identity_by_construction: true</code>, <code>grade</code>).</em></li>
+<li><strong><em>SB2</em>* (was a self-echoing PASS — input constant <code>detect_tp=0.92</code> checked against the 0.90 bar): </strong>DOWNGRADED to a disclosed non-result.<strong> The engine has no velocity/graph circulation model; <code>detect_tp</code>/<code>detect_fp</code> are assumed input dials, not measured. Now <code>detection_assumed_not_measured: true</code>, <code>computed: false</code>, <code>pass: null</code>. </strong>This is the one verdict flip: PASS → disclosed non-result.*<em> SB4's undetected-fraction bound inherits this assumption (disclosed).</em></li>
+<li><strong><em>SB5</em>* (was under-coded, with a code comment that disagreed with the code): now </strong>COMPUTES<strong> the registered "trust-radius-limited" bound (<code>residual_over_trust_radius = 0.5</code>, <code>trust_radius_limited: true</code>) in addition to non-systemic. The committed residual stays </strong>1.0%<em><em> byte-identical; the misleading comment (which quoted a <code>/backing</code> multiplier form the code never used) is corrected to match the code. PASS — verdict unchanged, now scored on the full registered clause. </em>July 12 grade note (v5): as coded, radius×(1−backing) ≤ radius holds for any backing in [0,1] — the bound clause is structurally always-true; SB5's informative content is the non-systemic magnitude (1% &lt; 3%), which rests on the two input dials.</em></li>
+<li><em><strong>Decorative seeds removed:</strong> the engine consumes no RNG (verified — only <code>np.exp</code>/<code>np.linspace</code>), so the declared <code>seeds=[7,11]</code> were never used. Removed from <code>params</code>; the run is marked explicitly deterministic (<code>SB0.deterministic: true</code>, <code>rng_used: false</code>). The registered "seeds agree" sub-clause is no longer claimed as evidence — run-to-run identity follows from determinism.</em></li>
+<li><em>Net bar line: SB1/SB3/SB4/SB5 PASS (computed), SB0 PASS (identity/self-consistency grade — v5 D3); SB2 disclosed non-result. The headline verdict (good money starves shadow demand; the money-supply invariant holds) is unchanged; the detection defense is honestly reported as assumed, not demonstrated.</em></li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v28-shadow-banking-0.json" download>⬇ results_v28.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

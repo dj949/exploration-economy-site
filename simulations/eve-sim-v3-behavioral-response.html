@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Behavioral Response — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Behavioral Response.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Behavioral Response</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Behavioral Response</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>Every earlier model assumed people behave by fixed rules. This one lets them <strong>optimize</strong>, and aims at the sharpest objection to a guaranteed floor: if anyone can always earn the cost of essentials, why would anyone work harder? Every agent chooses between contributing for market income and taking the floor (~1.10× essentials for the network's verified work, at lower effort) — whichever leaves them better off.</p>
+<h2 id="what-we-found">What we found</h2>
+<p>The floor does not crater the economy. At the spec'd 1.10× level, about 37% of people rationally choose floor-work — but because output is concentrated in high-productivity contributors who earn far above the floor and keep working, those 37% carried only 11% of total output. <strong>Roughly 89% of aggregate contribution is retained: many heads, little output.</strong> The cost scales with generosity, though: push the floor toward or past the median income and a majority disengage and a fifth to a third of output disappears (80% retained at 1.6×, 64% at 2.5×). The design lesson — which the spec already follows — is to keep the floor near subsistence. A floor is a safety net, not a salary.</p>
+<h2 id="two-corrections-on-the-record">Two corrections, on the record</h2>
+<p>The July 2026 verification added an addendum (the code and JSON were always right; the write-up wasn't). <strong>First,</strong> the write-up omitted a cost column: gross floor payments are <strong>19.3% of output</strong> at the 1.10× floor — a figure irreconcilable with the main model's "self-funded at ≤2.2% of issuance" until <code>EVE Sim v4 - Integrated Behavioral Funding</code> resolved it (the two sit on one cost curve; self-funding holds when essentials cost below ~0.5× median income and breaks above it). The original claim that "the v1–v3 results are robust to behavioral response" was <strong>overreach</strong> — v4 is the model that actually closes that loop, and it motivates changing the floor from an unconditional top-up to an EITC-style taper (same guarantee, about half the output loss at high essentials ratios). <strong>Second,</strong> "the incentive to farm addictive content collapses" was wrong by the model's own arithmetic: the 0.4 effort weight leaves addictive content paying 1.2× active — attenuated ~2.5×, not collapsed. A rational farmer still farms it; the honest claim is attenuation plus the adversarial model's separate bounds.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Preferences are a standard simplification with no income effect on labor; the choice is single and static (no careers or learning); the effort premium and productivity distribution are calibrated, not estimated; and the model leaves out the non-monetary pull of creative work, which would reduce disengagement. The 37% headcount is the most calibration-sensitive number — the robust finding is the shape: many heads, little output, and a cost that rises sharply only as the floor nears the median.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Letting people optimize doesn't sink the floor — at 1.10× essentials about 37% take it but ~89% of output survives — yet the verification pass cut this run down to size: its gross cost (19.3% of output) had been omitted, its "robust to behavioral response" claim was overreach that Sim v4 had to close, and effort-weighting attenuates addictive-content farming rather than ending it.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Agent</strong> — a simulated person in the model, each making its own best choice. <strong>Floor</strong> — guaranteed pay for the network's verified work at ~1.10× the cost of essentials — a safety net anyone may take. <strong>Median</strong> — the middle income: half earn more, half less; trouble starts only as the floor approaches it. <strong>Effort weight</strong> — the multiplier that pays active engagement more than passive consumption; 0.4 here for addictive content. <strong>EITC-style taper</strong> — support that phases out gradually as you earn more (like the US Earned Income Tax Credit) instead of vanishing the moment you work — same guarantee, about half the output loss. <strong>Gross</strong> — the total paid out before netting anything against it; 19.3% is the raw bill. <strong>Issuance</strong> — newly created money; "≤2.2% of issuance" quotes the main model's floor cost as a share of new money. <strong>Income effect</strong> — the standard idea that simply being richer makes people work less; deliberately left out here. <strong>Calibrated, not estimated</strong> — dials set by hand to plausible values rather than measured from real-world data.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-behavioral-response-0.png" alt="fig_behavioral.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Closes the deepest gap in the whole program: every earlier model assumed people behave by fixed rules. This one lets them </em><em>optimize</em><em>, and tests the sharpest worry about a guaranteed floor — "won't everyone just stop working?" Files in this folder.</em></p>
+<h2 id="addendum-july-2026-verification-the-omitted-cost-column-and-one-corrected-claim">⚠️ ADDENDUM (July 2026 verification) — the omitted cost column, and one corrected claim</h2>
+<p>Two corrections to the write-up below (the code and JSON were always right): <strong>(1)</strong> the JSON's <code>floor_cost_vs_output_pct</code> — <strong>gross floor payments = 19.3% of output at the spec'd 1.10x floor</strong> — was omitted from the table below, which quoted only the 11.1% lost-output figure. That 19.3% was irreconcilable with the ABM's "self-funded at &lt;=2.2% of issuance" and is now resolved by <code>EVE Sim v4 - Integrated Behavioral Funding</code>: this model's essentials ratio (~0.7x median income) and the ABM's (~0.15x) sit on one cost curve; self-funding holds below ~0.5x median and breaks above it. The claim "the v1-v3 results are robust to behavioral response" was <strong>overreach</strong> — v4 is the model that actually closes that loop, and it motivates changing the floor design from unconditional top-up to an EITC-style taper (same guarantee, ~half the output loss at high essentials ratios). <strong>(2)</strong> "the incentive to farm [addictive content] collapses" — by this model's own arithmetic the 0.4 weight leaves addictive content paying <strong>1.2x active</strong> (attenuated ~2.5x, not collapsed). A rational farmer still farms it; the honest claim is attenuation plus the adversarial model's separate bounds.</p>
+<hr>
+<h2 id="the-worry-and-the-answer">The worry, and the answer</h2>
+<p>The economist's objection (the Lucas critique) is that behavior changes when the rules change — and the floor's version is blunt: <em>if anyone can always earn the cost of essentials, why would anyone work harder?</em> This model gives every agent a real choice between contributing (earning their market income, at the effort it costs) and taking the floor (earning ~1.10× essentials doing the network's verified work, at lower effort). They pick whichever leaves them better off.</p>
+<p><strong>The answer: the floor does not crater the economy — it sorts the low-productivity tail into steady work while the productive keep contributing.</strong> At the spec'd 1.10× floor, about <strong>37% of people</strong> rationally choose floor-work over uncertain creative contribution — but because output is heavily concentrated in high-productivity contributors (who earn far above the floor and keep working), those 37% were only <strong>11% of total output</strong>. So <strong>~89% of aggregate contribution is retained.</strong> Many heads, little output.</p>
+<h2 id="why-it-holds-output-is-concentrated-the-floor-is-modest">Why it holds: output is concentrated, the floor is modest</h2>
+<p>Two facts do the work. First, productivity is <strong>lognormal</strong> — most of the economy's output comes from the upper tail, so pulling the low-productivity bottom out of creative work removes a lot of <em>people</em> but little <em>production</em>. Second, the floor is <strong>modest</strong> (just above essentials, well below the 1.6× median income), so anyone meaningfully productive earns multiples of it and has every reason to keep contributing.</p>
+<h2 id="the-design-lesson-keep-the-floor-below-the-median">The design lesson: keep the floor below the median</h2>
+<p>The labor-supply cost is real and it scales with the floor's generosity:</p>
+<table>
+<thead>
+<tr>
+<th>Floor level (× essentials)</th>
+<th style="text-align: right;">% who take the floor</th>
+<th style="text-align: right;">Aggregate contribution retained</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5×</td>
+<td style="text-align: right;">14%</td>
+<td style="text-align: right;">98%</td>
+</tr>
+<tr>
+<td>0.8×</td>
+<td style="text-align: right;">26%</td>
+<td style="text-align: right;">94%</td>
+</tr>
+<tr>
+<td><strong>1.10× (spec'd)</strong></td>
+<td style="text-align: right;"><strong>37%</strong></td>
+<td style="text-align: right;"><strong>89%</strong></td>
+</tr>
+<tr>
+<td>1.4×</td>
+<td style="text-align: right;">47%</td>
+<td style="text-align: right;">84%</td>
+</tr>
+<tr>
+<td>1.6× (≈ median income)</td>
+<td style="text-align: right;">53%</td>
+<td style="text-align: right;">80%</td>
+</tr>
+<tr>
+<td>2.0×</td>
+<td style="text-align: right;">62%</td>
+<td style="text-align: right;">73%</td>
+</tr>
+<tr>
+<td>2.5×</td>
+<td style="text-align: right;">70%</td>
+<td style="text-align: right;">64%</td>
+</tr>
+</tbody>
+</table>
+<p>While the floor sits below the median, its cost in lost output is mild (single-digit-to-low-teens percent). Push it toward or past the median and a majority disengage and a fifth-to-a-third of output disappears. <strong>The clear lesson — and the spec already follows it — is to keep the floor near subsistence (1.10×), not near the median.</strong> A floor is a safety net, not a salary.</p>
+<h2 id="a-bonus-people-optimizing-is-what-makes-the-anti-gaming-rules-work">A bonus: people optimizing is what makes the <em>anti-gaming</em> rules work</h2>
+<p>The same "people respond to incentives" logic that creates the labor-supply worry is exactly what makes EDEN's effort-weighting succeed. Addictive/passive content has ~3× the raw appeal of active content, so <strong>without</strong> the effort-weight it would pay 3× as much and rational creators would flood it. <strong>With</strong> the 0.4 passive weight, addictive content pays only 1.2× active — so the incentive to farm it collapses. The behavioral response to the effort-weight is the <em>intended</em> one: agents shift toward genuinely valuable active contribution. The rule works <em>because</em> people optimize, not in spite of it.</p>
+<h2 id="what-this-validates">What this validates</h2>
+<p>The v1–v3 results — floor holds, economy funded, prices stable — are <strong>robust to behavioral response</strong>, provided the floor stays modest. The one substantive addition is a quantified design constraint that the spec already respects: the floor's labor-supply cost is small at 1.10× essentials and grows steeply as the floor approaches the median, so the floor must be set near subsistence. Endogenous behavior doesn't break the design; it bounds one parameter.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>GHH-style preferences (so there's no income effect on labor — a standard simplification); a single static choice (no career dynamics, learning-by-doing, or lifecycle); and the effort-premium of productive vs floor work, plus the productivity distribution, are calibrated, not estimated. It also leaves out the non-monetary pull of creative work and status (which would <em>reduce</em> disengagement) and the possibility that floor-work is itself fulfilling. The headline headcount (37%) is the most calibration-sensitive number; the robust findings are the <em>shape</em> — many heads but little output, and a cost that rises sharply only as the floor nears the median. Audience: economists and skeptics who lead with the work-incentive objection.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>behavioral_sim.py</code> — the participation model, the floor-level sweep, and the effort-weight response</li>
+<li><code>fig_behavioral.png</code> — the floor-level tradeoff; heads-vs-output at the 1.10× floor</li>
+<li><code>results_behavioral.json</code> — all figures</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-behavioral-response-0.json" download>⬇ results_behavioral.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

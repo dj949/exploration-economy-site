@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v15 - Governance Capture — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v15 - Governance Capture.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v15 - Governance Capture</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v15.0 Governance Capture.md</code>. EDEN changes its own rules through two chambers that must BOTH agree: one where every verified person gets one vote, and one where votes are weighted by how much you've genuinely contributed. The first chamber is simple. The second is dangerous — weight votes by contribution the wrong way and you've just rebuilt "the richest rules," wearing a merit badge. This drill tested the formula for that second chamber. The pass/fail lines were written down first.</em></p>
+<h2 id="the-trap-and-the-two-guardrails">The trap, and the two guardrails</h2>
+<p>If the biggest contributor simply gets the most votes in proportion to their contribution, then the single most prolific person (or company) dominates — plutocracy by another name. EDEN's design uses two guardrails against that:</p>
+<ol>
+<li><strong>Diminishing returns (the "square-root rule").</strong> Your voting weight grows with the <em>square root</em> of your contribution, not in a straight line. Contribute 100 times more than someone else and you get 10 times the vote, not 100 times. Scale is rewarded, but with the volume turned down hard as you get bigger.</li>
+<li><strong>A hard ceiling.</strong> No single person may ever exceed 5% of the chamber's total weight, no matter how much they've contributed.</li>
+</ol>
+<h2 id="what-the-drills-found">What the drills found</h2>
+<p><strong>The square-root rule alone is surprisingly powerful.</strong> We dropped in a whale who single-handedly produced <strong>30% of all the contribution in the system</strong> and asked how much of the vote they'd command. Answer: about <strong>1%.</strong> The diminishing-returns curve flattens a giant into an ordinary voice all by itself — the ceiling doesn't even have to kick in. And to assemble an outright <em>majority</em> of the chamber, you'd need roughly <strong>1,595</strong> of the largest contributors all colluding at once — every one of whom is still just a single vote in the other chamber, among millions. Capturing this chamber is not a rich-person problem; it's a "herd 1,595 cats and also become an entire fake population" problem.</p>
+<p><strong>The drill caught a real bug in our own ceiling — and that's the point of testing.</strong> We'd written the 5% ceiling as a simple one-step cap. When we stress-tested it with a genuinely lopsided little population, the "capped" whale still slipped through to <strong>9.4% — nearly double the ceiling</strong> — because trimming the big players quietly shrinks everyone's denominator and re-inflates the trimmed ones. The fix is to apply the ceiling <strong>repeatedly</strong> until nobody exceeds it (like leveling water across compartments), which pins the whale at exactly <strong>5.0%.</strong> We didn't paper over this; we logged it and upgraded the specification. A test that only ever confirms your design isn't a test.</p>
+<p><strong>Two things behaved differently than we predicted — both kept on the record.</strong> We expected plain straight-line weighting to obviously produce tyranny of the top three; at realistic inequality it didn't (they'd get 35%, not a majority) — you need <em>extreme</em> concentration before straight-line weighting turns plutocratic, and there the square-root-plus-ceiling still contains it. And we confirmed an uncomfortable truth: because of the diminishing-returns curve, <strong>splitting yourself into several fake identities actually gains you voting weight</strong> — the formula alone doesn't stop it. The only thing that stops it is the same wall that protects everything else in EDEN: <strong>one identity per human, for life, expensive to fake.</strong> Governance safety, like all EDEN safety, ultimately rests on that one keystone.</p>
+<h2 id="the-one-line-verdict">The one-line verdict</h2>
+<p><strong>In EDEN's contribution chamber, votes are earned and sharply diminishing — a whale with 30% of all contribution gets about 1% of the vote, and a majority would take ~1,595 colluders — and the drill both confirmed the design works and caught a real flaw in the vote-ceiling (it must be applied repeatedly, not once), with the one honest caveat that stopping vote-farming-by-splitting depends entirely on the one-human-one-identity wall.</strong></p>
+<p><em>Usual honesty: a weighting-arithmetic drill; the "contribution" distribution is a dial, and — importantly — </em>what counts as contribution<em> without becoming farmable is a separate unsolved problem this drill does not touch. Two predictions came out differently than expected and are reported as findings. Run and written by Claude Fable 5, July 9, 2026.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v15-governance-capture-0.png" alt="fig_v15_governance.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Bars G0–G5 registered in <code>01 Canon/Governance Cap-Function Spec v0.1</code> §4 before code (folder-local restatement in <code>v15 SPEC</code>). Engine: <code>governance_capture_sim.py</code>; committed: <code>results_v15.json</code>, <code>fig_v15_governance.png</code>. Seeds 7 + 11. Every number traces to <code>results_v15.json</code>.</strong></p>
+<p><strong>Verdict in one line: the contribution house is robustly non-plutocratic — √-concavity alone squashes a 30%-of-contribution whale to ~1% and a majority needs ~1,595 colluders — but the run caught a real flaw in the cap as first written (the single-pass cap leaks to 9.4% under concentration; iterative water-filling is required to truly hold 5%), which refines the governance spec to v0.2.</strong></p>
+<hr>
+<h2 id="bar-summary-g0g2g5-pass-g1-passes-under-the-water-fill-fix-the-run-motivated-g3g4-reframed-as-findings">Bar summary (G0/G2/G5 pass; G1 passes under the water-fill fix the run motivated; G3/G4 reframed as findings)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G0 regression</td>
+<td>linear+uncapped top-share = plutocracy baseline</td>
+<td>reproduces exactly, both seeds</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>G1 whale ≤ κ (5%)</td>
+<td>single largest ≤ 5%</td>
+<td>central 30%-whale → <strong>1.1%</strong> (√ alone); extreme conc.: single-pass <strong>9.4% (leaks!)</strong>, water-fill <strong>5.00%</strong></td>
+<td><strong>PASS under water-fill → F1</strong></td>
+</tr>
+<tr>
+<td>G2 cartel ≥ 20 for majority</td>
+<td>≥ 1/κ ≈ 20</td>
+<td><strong>1,595</strong> colluders for a majority</td>
+<td><strong>PASS (by ~80×)</strong></td>
+</tr>
+<tr>
+<td>G3 α bracket</td>
+<td>α=1 → top-3 majority (<em>expected FAIL</em>)</td>
+<td>top-3 = <strong>35% at σ=2</strong> (didn't break); linear-majority crossover at <strong>σ=4</strong>; √+cap contains ≤5% everywhere</td>
+<td><strong>reframed → F3</strong></td>
+</tr>
+<tr>
+<td>G4 identity-split</td>
+<td>√ rewards splitting; closed by identity cost</td>
+<td>k=2 → <strong>1.41× (=√2)</strong> raw gain; closed by 120F/identity</td>
+<td><strong>as registered → F4</strong></td>
+</tr>
+<tr>
+<td>G5 joint cap</td>
+<td>gov weight + others ≤ 15%</td>
+<td>5% ≤ 15%, 10% headroom</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The single-pass cap leaks; iterative water-filling is the fix (the run earned its keep here).</strong> The governance spec's registered function — <code>w = min(raw, κ·Σraw)</code>, then normalize — does <strong>not</strong> actually bound the <em>normalized</em> voting share at κ. Under an extreme-concentration population (three mega-contributors among forty small ones), the largest contributor's single-pass share comes out at <strong>9.4%, nearly double the 5% ceiling</strong>, because capping the big players shrinks the denominator and re-inflates their normalized share. <strong>Iterative water-filling</strong> (cap → renormalize → re-cap until no share exceeds κ) holds it at exactly <strong>5.00%</strong>. This is a genuine function-design finding: the ceiling must be implemented as water-filling, not a single-pass min. Registered as a <strong>v0.2 refinement to the Governance Cap-Function Spec</strong> (the bar is not moved; the naive function <em>fails</em> the ≤5% bar under concentration and the water-fill function <em>passes</em>, and both are reported).</p>
+<p><strong>F2 — √-concavity alone is a powerful de-plutocratizer; the cap is a backstop for the extreme.</strong> At realistic contribution inequality (lognormal σ=2), a contributor holding <strong>30% of all contribution</strong> ends up with just <strong>1.1% of the vote</strong> under √-weighting — before the cap even binds. Power in the contribution house is naturally diffuse: a <strong>majority requires ~1,595 colluding top contributors</strong> (G2), each of whom is also one vote among millions in the person house. The AND-gate plus concavity does most of the work; the 5% ceiling matters only under pathological concentration (F1's extreme cell), where it then holds.</p>
+<p><strong>F3 — The α bracket reframed: linear weighting only concentrates power under <em>extreme</em> inequality (σ≥4), and √+cap contains it there too.</strong> The registered expectation was that linear weighting (α=1, cap off) would hand the top-3 a majority. At σ=2 it did <strong>not</strong> — top-3 reach only <strong>35%</strong> — so the bracket "failed to fail," which is itself the finding: <em>at moderate inequality even naive linear weighting isn't plutocratic in a large contributor base.</em> Sweeping concentration, the linear top-3 crosses 50% at <strong>σ=4</strong>; and at every concentration tested (σ up to 6), the √+cap function still contains the top actor to ≤5%. So the <em>mechanism claim</em> holds — wherever linear concentrates power, √+cap contains it — even though the specific "σ=2 breaks under linear" expectation was wrong. Honest reframe, bar not moved.</p>
+<p><strong>F4 — √-weighting rewards identity-splitting; only the identity layer closes it (the inherited keystone).</strong> Because √ is concave, splitting one actor's contribution across k identities multiplies raw weight by k^(1−α) — <strong>1.41× at k=2</strong>, growing with k. So the function is <strong>not sybil-neutral on its own</strong>: absent a cost per identity, splitting always pays. It is closed <em>only</em> by the identity layer's ~120F-per-lifetime-identity cost and one-human-one-account rule — meaning the governance function inherits the identity keystone's open status exactly as every other layer does. Stated plainly rather than hidden: <strong>governance anti-capture is downstream of proof-of-personhood, like everything else.</strong></p>
+<p><strong>F5 — Governance weight composes into the joint cross-layer cap (G5, v14 tie-in).</strong> An actor at the 5% contribution-house ceiling has spent 5% of a 15% joint cross-layer budget (gate-18), leaving ≤10% for validator/aggregator/registrar/reporter roles combined — so a vertical adversary cannot max governance <em>and</em> every other layer. Governance is now inside the composition defense, not a separate silo.</p>
+<h2 id="gate-19-candidate-published">Gate-19 candidate (published)</h2>
+<p>Contribution-house weighting: <strong>α = 0.5</strong> (√), <strong>κ = 0.05</strong> enforced by <strong>iterative water-filling</strong> (not single-pass — F1); measured whale containment <strong>1.1%</strong> (√ alone) / <strong>5.00%</strong> (cap under extreme concentration); cartel-for-majority <strong>~1,595</strong>; linear-plutocracy crossover <strong>σ=4</strong> (√+cap contains beyond it); identity-split gain <strong>1.41× at k=2</strong>, closed only by the 120F identity cost. Governance weight counts toward the gate-18 joint cap.</p>
+<h2 id="honest-limits-from-the-spec-carried">Honest limits (from the spec, carried)</h2>
+<p>Contribution distribution is a dial (lognormal σ swept), not a measured Created-score distribution — which doesn't exist yet, and whose <em>definition</em> is an unsolved Goodhart problem flagged in the governance spec §5 (what counts as contribution without becoming farmable). Sybil-neutrality rests entirely on the identity layer (F4). No deliberation, agenda-setting, or vote-buying dynamics; the person-house AND-gate is asserted, not co-simulated. A weighting-arithmetic calculator, not a political model. Existence-and-shape under stated dials; in-family discount stands.</p>
+<hr>
+<p><em>Feeds: gate-19 and a </em><em>v0.2 refinement to <code>01 Canon/Governance Cap-Function Spec v0.1</code></em><em> (water-filling implementation, F1). Two registered expectations behaved differently than predicted (G1 single-pass leak → water-fill; G3 bracket reframe) and are reported as findings, not smoothed. Run and written by Claude Fable 5, July 9, 2026. Bars as registered; none moved.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v15-governance-capture-0.json" download>⬇ results_v15.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

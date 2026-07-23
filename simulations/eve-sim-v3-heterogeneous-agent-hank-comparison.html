@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Heterogeneous-Agent (HANK) Comparison — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Heterogeneous-Agent (HANK) Comparison.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Heterogeneous-Agent (HANK) Comparison</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Heterogeneous-Agent Comparison</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>EDEN's agent-based runs persuade builders but are unfamiliar to economists. This run restates the central distributional claim in the profession's standard tool — an incomplete-markets, heterogeneous-agent (Aiyagari) model, the core of modern HANK macro: households face income risk and save against a no-borrowing constraint, and we compare today's leaky, partial safety net with EDEN's hard earnability floor at 1.10× essentials.</p>
+<h2 id="the-correction-read-this-first">The correction — read this first</h2>
+<p>The July 2026 verification found and fixed two real problems, and this companion reports only the corrected headline (the pre-fix output is archived as <code>*_PRE-FIX_archive.json</code>; the original prose numbers are superseded). First, calibration: the income-risk process was built on the wrong volatility figure (the innovation std, 0.30, instead of the unconditional ~0.88), giving ~3x too little income risk — the status-quo consumption Gini came out 0.144 where the US sits around 0.30–0.40 — while a comment claimed "realistic." Second, funding: the floor was a free lunch, ~5.6% of aggregate income injected untaxed. The headline comparison is now budget-balanced: each regime funds its own transfers through a proportional income tax.</p>
+<h2 id="what-we-found">What we found</h2>
+<p>With realistic risk and the tax made visible: consumption poverty falls <strong>40.2% -&gt; 0.0%</strong>; the consumption Gini falls <strong>0.258 -&gt; 0.116</strong>; precautionary asset hoards drop <strong>5.64 -&gt; 1.50</strong> — the insurance is working, so households stop stockpiling buffers against disaster; and welfare rises <strong>+7.9% overall, +22.7% for the poorest third</strong> (consumption-equivalent), <em>net of the tax that pays for it</em>. The cost is now on the table: at this model's generosity (essentials at 0.8× mean income) the floor requires a <strong>~40.3% proportional tax</strong>, against ~14.6% for the status quo. Under CRRA(2) the insurance value exceeds even that cost — a defensible, now-honest result — but the 40% figure is the real price of a HANK-generosity floor. It reconciles with the agent-based model's "~2% of issuance" on a single cost curve (see <code>EVE Sim v4 - Integrated Behavioral Funding</code>): ~2% when essentials are ~10% of median income, ~40% at this model's much higher ratio. For the record, the old unfunded variant showed +19.5% CEV — meaning ~+11.6pp of it was unfunded transfer, not insurance.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Partial equilibrium at a fixed real rate; calibrated, not estimated. This is the heterogeneous-agent core, not a full HANK — no New Keynesian block (no nominal rigidities, Taylor rule, or monetary feedback) — and general-equilibrium effects of the floor on interest rates or wages are not modeled. The numbers illustrate the mechanism and its direction, not precise forecasts.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Restated in the economists' own workhorse model — and corrected in July 2026 so the income risk is realistic and the floor visibly pays for itself through a tax — EDEN's floor still eliminates consumption poverty and is worth more than it costs: +7.9% welfare overall and +22.7% for the poorest third, net of a ~40% tax at this generosity level.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Heterogeneous-agent</strong> — a model of many unequal households, each with its own luck and savings, instead of one averaged "representative" household. <strong>Aiyagari</strong> — the standard academic workhorse of that kind (households face income risk, can't borrow, save up buffers), used as the outside benchmark economists trust. <strong>HANK</strong> — Heterogeneous-Agent New Keynesian: the modern macro family built on that core. <strong>Incomplete markets</strong> — no insurance exists against your own income luck; your only protection is your own savings. <strong>Gini</strong> — a 0-to-1 lopsidedness score: 0 means everyone consumes equally, 1 means one person gets everything; the US sits around 0.30–0.40. <strong>CRRA(2)</strong> — a standard dial for how strongly households dislike risk; 2 is the conventional middle setting. <strong>Consumption-equivalent (CEV)</strong> — welfare expressed as "worth the same to you as X% more consumption every year." <strong>Precautionary assets</strong> — rainy-day hoards saved purely against disaster; when real insurance appears they shrink — that is the 5.64 → 1.50. <strong>Partial equilibrium</strong> — prices and the interest rate held fixed rather than letting the whole economy adjust; a deliberate simplification. <strong>New Keynesian block / Taylor rule</strong> — the mainstream central-bank machinery (sticky prices, an interest-rate playbook) a full HANK would add; absent here. <strong>Calibrated, not estimated</strong> — dials set by hand to plausible values, not fitted to data. <strong>Innovation std vs unconditional volatility</strong> — the spread of each year's fresh income shock versus the total spread once shocks pile up over time; using the first where the second belonged was the bug. <strong>Issuance</strong> — newly created money in the agent-based sims; the "~2% of issuance" cost sits on the same curve as the ~40% tax here.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-heterogeneous-agent-hank-comparison-0.png" alt="fig_hank.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Restates EDEN's central distributional claim in the framework academic economists actually use — an incomplete-markets, heterogeneous-agent model — so the result isn't dismissable as "just a bespoke simulation." Files in this folder.</em></p>
+<h2 id="revised-recalibrated-budget-balanced-after-the-july-2026-verification">⚠️ REVISED — recalibrated &amp; budget-balanced after the July 2026 verification</h2>
+<p>Two fixes to the model below (old JSON archived as <code>*_PRE-FIX_archive.json</code>): <strong>(1) calibration</strong> — the Rouwenhorst chain was built on the innovation std (0.30) instead of the unconditional std (~0.88), giving ~3x too little income risk (SQ consumption Gini 0.144 vs US ~0.30-0.40) while the comment claimed "realistic"; <strong>(2) funding</strong> — the floor was a free lunch (~5.6% of aggregate income injected untaxed). The headline is now the <strong>budget-balanced</strong> comparison (each regime funds its own transfers via a proportional income tax).</p>
+<p><strong>Corrected headline (fixed risk, tax-funded):</strong> poverty <strong>40.2% -&gt; 0.0%</strong>; consumption Gini <strong>0.258 -&gt; 0.116</strong>; precautionary assets <strong>5.64 -&gt; 1.50</strong> (insurance working); welfare <strong>CEV +7.9% overall, +22.7% for the poorest third</strong> — <em>net of the tax that pays for it</em>. <strong>The cost is now visible: at this essentials ratio (0.8x mean income) the floor requires a ~40.3% proportional tax</strong> (status-quo net: ~14.6%). The insurance value exceeds even that cost under CRRA(2) — a defensible, now-honest result — but the 40% figure is the real price of a HANK-generosity floor, and it is reconciled with the ABM's "~2% of issuance" by <code>EVE Sim v4 - Integrated Behavioral Funding</code>: both sit on one cost curve, ~2% at essentials ~10% of median income, ~40% at HANK's ratio. The unfunded variant is retained in the JSON only to show what the free lunch was worth (+19.5% CEV, i.e., ~+11.6pp was unfunded transfer, not insurance).</p>
+<p>Numbers in the prose below predate the fix and are <strong>superseded by this section.</strong></p>
+<hr>
+<h2 id="why-this-model">Why this model</h2>
+<p>The agent-based runs (v1–v3) are persuasive to a builder but unfamiliar to an economist. The <strong>Bewley–Huggett–Aiyagari</strong> incomplete-markets model — the "H" (heterogeneous agents) at the core of modern <strong>HANK</strong> macro — is the standard tool for exactly EDEN's question: <em>how does a population facing income risk fare, and what does adding a floor do to poverty, inequality, savings, and welfare?</em> Putting EDEN in this framework lets the distributional claim travel.</p>
+<p><strong>Setup.</strong> Households face persistent idiosyncratic income risk, save in a buffer-stock asset against a no-borrowing constraint, and choose consumption optimally (solved with the Endogenous Grid Method; stationary cross-section simulated for 60,000 households). Two regimes, identical in income risk, patience, and the interest rate:</p>
+<ul>
+<li><strong>Status quo</strong> — market income plus a leaky, partial safety net (lifts the very bottom toward ~0.85× essentials, with incomplete take-up).</li>
+<li><strong>EDEN</strong> — market income plus a <strong>hard, indexed earnability floor at 1.10× essentials</strong> (full take-up) and stable prices.</li>
+</ul>
+<h2 id="results">Results</h2>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th style="text-align: right;">Status quo</th>
+<th style="text-align: right;">EDEN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consumption poverty (share below essentials)</td>
+<td style="text-align: right;"><strong>28.3%</strong></td>
+<td style="text-align: right;"><strong>0.0%</strong></td>
+</tr>
+<tr>
+<td>Consumption Gini</td>
+<td style="text-align: right;">0.144</td>
+<td style="text-align: right;"><strong>0.105</strong></td>
+</tr>
+<tr>
+<td>Precautionary savings (mean assets)</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;"><strong>0.53</strong> (−41%)</td>
+</tr>
+<tr>
+<td>Welfare gain, all households (CEV)</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;"><strong>+7.9%</strong></td>
+</tr>
+<tr>
+<td>Welfare gain, poorest third (CEV)</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;"><strong>+12.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><em>(income normalized to mean 1; essentials = 0.8; EDEN floor = 0.88; welfare in consumption-equivalent terms.)</em></p>
+<h2 id="what-it-means-in-the-language-reviewers-expect">What it means (in the language reviewers expect)</h2>
+<ol>
+<li><strong>The floor eliminates consumption poverty by construction.</strong> In the stationary cross-section, 28% of households consume below essentials under the status quo; under EDEN's floor, none do. The left tail of the distribution is moved to just above the essentials line (see <code>fig_hank.png</code>).</li>
+<li><strong>It compresses consumption inequality</strong> — the consumption Gini falls from 0.144 to 0.105 — because the floor lifts the bottom without touching the top.</li>
+<li><strong>It crowds out precautionary saving</strong> — mean assets fall ~41%. This is the classic incomplete-markets result and a <em>feature</em>, not a bug: a credible floor is insurance, so households no longer need to hoard buffers against the downside. In welfare terms, EDEN <strong>completes a missing insurance market</strong>.</li>
+<li><strong>Welfare gains are large and concentrated at the bottom</strong> — a +7.9% consumption-equivalent gain on average, rising to +12.0% for the poorest third. That distribution of gains is exactly what a floor should produce.</li>
+</ol>
+<p>The academic translation: <em>EDEN's earnability floor behaves like a guaranteed-income / public-insurance program in the Aiyagari framework and delivers the standard welfare gains from completing missing insurance — except EDEN provides it as paid, useful work financed by the protocol's own routing (shown in the ABM and SFC models) rather than as a tax-financed transfer.</em></p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Partial equilibrium at a fixed real rate; calibrated, not estimated. This is the <strong>heterogeneous-agent core</strong>, not a full HANK — there is no New Keynesian block (no nominal rigidities, Taylor rule, or monetary-policy feedback), because the distributional claim doesn't need one; adding it is a later step if a reviewer wants the inflation dynamics in this framework too. General-equilibrium feedback (a floor shifting the equilibrium interest rate or wages) is not modeled, and the floor's <em>funding</em> is abstracted here — it's handled by the agent-based and stock-flow-consistent models. The numbers are illustrative of the mechanism and its direction, not precise forecasts. Audience: <strong>academic economists</strong>.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>hank_sim.py</code> — the EGM solver, the two regimes, and the stationary-distribution simulation</li>
+<li><code>fig_hank.png</code> — consumption distributions + the poverty/Gini/savings comparison</li>
+<li><code>results_hank.json</code> — all statistics</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-heterogeneous-agent-hank-comparison-0.json" download>⬇ results_hank.json</a><a class="dlbtn" href="data/eve-sim-v3-heterogeneous-agent-hank-comparison-1.json" download>⬇ results_hank_PRE-FIX_archive.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

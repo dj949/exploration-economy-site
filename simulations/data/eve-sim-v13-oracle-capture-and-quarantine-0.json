@@ -1,0 +1,130 @@
+{
+ "spec": "v13 SPEC - Oracle Capture & Quarantine (registered).md",
+ "derived": {
+  "ess_flow_pm": 600000000.0,
+  "lane_pm": 180000000.0,
+  "lane_launch_pm": 30000000.0
+ },
+ "capture_cost_by_class": {
+  "R": {
+   "seats": 1001,
+   "base": 26026000.0,
+   "sustain": 2.8,
+   "cost": 72872800.0
+  },
+  "M": {
+   "seats": 101,
+   "base": 12120000.0,
+   "sustain": 2.2,
+   "cost": 26664000.000000004
+  },
+  "E": {
+   "wash_pm": 189000000.0,
+   "friction_pm": 51030000.0,
+   "detect_burn_pm": 680400.0,
+   "cost": 310262400.0
+  },
+  "E_launch": {
+   "wash_pm": 31500000.0,
+   "friction_pm": 8505000.0,
+   "detect_burn_pm": 113399.99999999999,
+   "cost": 51710400.0
+  }
+ },
+ "O1": {
+  "pairs": {
+   "R+M": 99536800.0,
+   "R+E": 383135200.0,
+   "M+E": 336926400.0
+  },
+  "cheapest": "R+M",
+  "cost": 99536800.0,
+  "bar": 25000000.0,
+  "pass": true
+ },
+ "O2": {
+  "capture_cost": 99536800.0,
+  "deflate_payoff_6mo": 1250000.0,
+  "cost_payoff_ratio": 79.62944,
+  "roi": -98286800.0,
+  "bar_ratio": 3.0,
+  "pass": true,
+  "finding": "sabotage-only"
+ },
+ "O0": {
+  "cells": {
+   "central": {
+    "closed_uncapped": 0.04,
+    "closed_capped": 0.0325,
+    "mc_capped_mean_s7": 0.03253090000000001,
+    "mc_se_s7": 2.90443960831469e-05,
+    "mc_capped_mean_s11": 0.03251274999999999,
+    "mc_se_s11": 2.905575946991047e-05,
+    "closed_form_agrees_3sigma": true,
+    "seeds_agree": true
+   },
+   "stress": {
+    "closed_uncapped": 0.08,
+    "closed_capped": 0.040625,
+    "mc_capped_mean_s7": 0.04066830000000001,
+    "mc_se_s7": 2.783892509740189e-05,
+    "mc_capped_mean_s11": 0.04065280000000001,
+    "mc_se_s11": 2.788446069974714e-05,
+    "closed_form_agrees_3sigma": true,
+    "seeds_agree": true
+   }
+  },
+  "pass": true
+ },
+ "O3": {
+  "central": {
+   "pre_dmg": 0.04,
+   "delivery_min": 0.96,
+   "delivery_start": 0.96,
+   "pass_a": true,
+   "pass_b": true
+  },
+  "stress": {
+   "pre_dmg": 0.08,
+   "delivery_min": 0.8879487153775801,
+   "delivery_start": 0.92,
+   "pass_c": false
+  },
+  "cap_off_bracket": {
+   "pre_dmg": 0.2,
+   "exceeds_15pct": true
+  },
+  "pass_central": true,
+  "bracket_as_registered": true
+ },
+ "O4": {
+  "cost_E": 310262400.0,
+  "cost_R": 72872800.0,
+  "ratio_E_over_R": 4.257588565280873,
+  "bar": 5.0,
+  "launch_cost_E": 51710400.0,
+  "launch_ratio": 0.7095980942134789,
+  "pass": false
+ },
+ "O5": {
+  "three_class_cost": 99536800.0,
+  "cpi_cost": 100000.0,
+  "cpi_ratio": 0.0010046535552680014,
+  "cpi_one_order": true,
+  "crowd_cost": 500100.0,
+  "crowd_ratio": 0.0050242724298952745,
+  "pass_cpi": true,
+  "pass_crowd": true,
+  "pass": true
+ },
+ "bar_summary": {
+  "O0": true,
+  "O1": true,
+  "O2": true,
+  "O3_central": true,
+  "O3_stress_c": false,
+  "O3_bracket": true,
+  "O4": false,
+  "O5": true
+ }
+}

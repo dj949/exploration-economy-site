@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v17 - Composition Capture — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v17 - Composition Capture.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v17 - Composition Capture</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 9, 2026. Companion to <code>RESULTS - v17.0 Composition Capture</code>.</em></p>
+<h2 id="the-worry">The worry</h2>
+<p>EDEN's safety net guarantees people can afford a basket of essentials — food, shelter, energy, and so on. But <em>someone</em> decides what's in that basket. If a company could get its product added, or its category's share pumped up, the floor's guaranteed spending would flow toward it. That's the oldest game in politics: lobby the rulebook. So we priced it: does rigging the grocery list pay?</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>No — but only because of one specific guard, and the margin is thinner than we first reported.</strong> We gave the would-be riggers every advantage, imagining a company that completely monopolizes whatever category it inflates. Getting a self-serving change through EDEN's two voting houses costs about <strong>$125 million</strong>. Milking the <em>energy</em> category back over six years returns about <strong>$78 million</strong> — a losing trade, but only by about 1.6×. And when we re-checked the biggest categories (a July 10 correction — the original run only tested energy), <strong>food or shelter would return about $130 million over six years: the monopolist's ceiling case actually turns a small profit.</strong> The fiscal speed limit, tested the way it was originally registered, <strong>fails its bar on the big categories.</strong></p>
+<p>The thin margin taught us which defense is actually doing the work. EDEN has three:
+1. <strong>Two voting houses</strong> — you must win both a one-person-one-vote house and a contribution-weighted house (with its 5% cap), which alone puts a $100M+ floor on any capture attempt.
+2. <strong>A speed limit</strong> — no category's share can move more than 10% a year, which cuts the yearly loot tenfold.
+3. <strong>Categories defined by <em>function<em>, not </em>brand</em></strong> — the basket says "calories" and "kilowatt-hours," never "Brand X." </p>
+<p>The speed limit alone doesn't hold the line — on food and shelter it leaves the monopolist's ceiling case slightly <em>in the money</em>. The thing that makes rigging <em>hopeless</em> is #3: because the basket asks for a function (calories), floor recipients buy the <em>cheapest</em> calories, not any particular company's — so pumping a category's share earns a normal supplier exactly <strong>nothing</strong> extra. The only way to profit would be to be the sole supplier of a whole category, which defining categories by function specifically prevents. In other words: the only "capture" that pays is <em>being genuinely the cheapest</em> — which isn't capture, it's just competition. (Because the speed limit failed its registered test, a tightening — roughly halving the per-revision cost cap — is now in the ratification queue as a proposed one-dial fix.)</p>
+<p><strong>And to prove these guards matter:</strong> we turned them off. A basket run by one official, with brand categories and no speed limit, gets captured for a ~$62,000 bribe returning roughly <strong>$780 million</strong> over six years — profitable about <strong>twelve-thousand-fold</strong>. <em>(Also corrected July 10: an earlier version said ~$78M and ~5,000×.)</em> So the guardrails aren't decoration; they're the whole game.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>We're assuming the <em>definitions themselves</em> are hard to rig — that nobody can quietly redefine "adequate nutrition" to favor their product. That's the same unsolved problem as "what counts as real contribution" in the governance house: a level up, and still open. The grocery list is safe; who writes the definition of "groceries" is the next question.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Rigging the essentials basket doesn't pay — but the fiscal speed limit alone no longer gets the credit (on the biggest categories it fails its own test): what really stops capture is the quiet decision to define essentials by function (calories, kilowatt-hours) instead of by brand, which turns would-be capture back into ordinary competition.</strong></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v17-composition-capture-0.png" alt="fig_v17_composition_capture.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Spec: <code>v17 SPEC - Composition Capture (registered).md</code> — bars C0–C5 fixed before code. Engine: <code>composition_capture_sim.py</code> (calculator-grade, deterministic); committed: <code>results_v17.json</code>, <code>fig_v17_composition_capture.png</code>. Discharges the registered sim candidate in <code>01 Canon/EBI Methodology Spec v0.1</code> §2. Every number traces to <code>results_v17.json</code>.</strong></p>
+<p><strong>Verdict in one line: lobbying the essentials basket does not pay <em>only because of the functional-category definition</em> — the fiscal defenses alone are not enough. The run caught its registered expectations being too generous twice: the rate cap holds a monopolist to a thin ~1.6× loss on the energy case (C2 FAIL), and — re-scored July 10 against the bar as registered — the cap does NOT hold every category under $20M/yr: food and shelter each clear $21.6M (C3 FAIL), and at the food ceiling the forbidden-monopoly attacker would turn a marginal profit. What zeroes all of it is C4: a price-taker captures no rent from a reweight. The defense that carries this is definitional, not fiscal.</strong></p>
+<h2 id="bar-summary-c0c1c4c5-pass-c2-and-c3-failed-as-findings">Bar summary (C0/C1/C4/C5 pass; C2 and C3 FAILED as findings)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C0 accounting</td>
+<td>weights sum to 1; diverted = Δw×flow</td>
+<td>exact</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>C1 capture cost floor</td>
+<td>≥ $100M to pass a self-serving change</td>
+<td><strong>$125M</strong> (contribution house $99.7M + person house $25M)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>C2 capture ROI</td>
+<td>cost/benefit ≥ 3× AND ROI &lt; 0</td>
+<td>ratio <strong>1.6×</strong>, ROI <strong>−$7.8M/yr</strong> (energy); worst category (food) ratio <strong>0.96×</strong>, ROI <strong>+$0.8M/yr</strong></td>
+<td><strong>FAIL (finding F1)</strong> — thin on energy; marginally <em>profitable</em> at the food ceiling</td>
+</tr>
+<tr>
+<td>C3 rate cap load-bearing</td>
+<td>capped benefit &lt; $20M/yr <strong>for any single category</strong></td>
+<td>energy <strong>$13.0M/yr</strong>, but <strong>food &amp; shelter $21.6M/yr each</strong> (2% basket-cost cap binds above the 10% relative cap)</td>
+<td><strong>FAIL (finding F1b — re-scored July 10; was coded energy-only)</strong></td>
+</tr>
+<tr>
+<td>C4 functional-definition bracket</td>
+<td>price-taker rent ≈ 0</td>
+<td><strong>$0</strong> competitive rent; brand insertion infeasible</td>
+<td><strong>PASS (the load-bearing finding)</strong></td>
+</tr>
+<tr>
+<td>C5 counterfactual, defenses off</td>
+<td>capture profitable without the defenses</td>
+<td>cost/benefit <strong>8.0e-05×</strong> (wildly profitable)</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The rate cap is necessary but not sufficient; the functional definition is load-bearing (C2 FAIL, honestly).</strong> Registered expectation was that capture would be unprofitable "by an order of magnitude." Measured: against the attacker's <em>best possible case</em> — a monopolist who fully owns whatever category they inflate — the rate cap throttles the annual divertible benefit to $13M/yr (a 10× cut vs seizing the whole category at once, C3), so six years of capture returns $78M against a $125M cost: <strong>a loss, but only 1.6×, below the registered 3× bar.</strong> The bar is not moved. The finding is <em>which</em> defense carries the weight: the fiscal throttle (rate cap) alone leaves a thin margin, and it is the <strong>functional-category definition</strong> (C4) that makes capture decisively hopeless — because categories are defined by function (kcal, m², kWh) in open supply, a lobbyist who is merely one supplier captures <strong>zero</strong> rent from a reweight (recipients buy the cheapest satisfier, not theirs); positive rent requires a <em>monopoly</em> satisfier, which functional definition + open supply forbid. So the honest hierarchy of the three EBI-Methodology defenses is: <strong>functional definition (decisive) &gt; two-house cost (C1, $100M+ floor) &gt; rate cap (thin on its own).</strong> Keep all three, but do not lean on the rate cap.</p>
+<p><strong>F1b — Re-scored July 10 (Verification v4, D3): the rate cap fails its registered bar outright on the large categories.</strong> The bar was registered as "capped benefit &lt; $20M/yr for <strong>any</strong> single category" but the engine scored energy only. Scored as registered: for food (w=0.35) and shelter (w=0.30) the 10%-relative weight cap would allow moves of 0.035/0.030 absolute, so the <strong>2% basket-cost cap binds instead</strong>, and each yields 0.02 × $7.2B × 15% = <strong>$21.6M/yr — over the bar.</strong> At that ceiling the six-year monopoly best case is $129.6M against the $125M capture cost: <strong>cost/benefit 0.96×, ROI +$0.8M/yr — the forbidden-monopoly attacker marginally profits.</strong> The bar is not moved; C3 is a FAIL and F1's hierarchy sharpens: on the biggest categories the fiscal throttle does not even hold the line alone — C4 (functional definition) is the <em>only</em> thing standing between a food-category monopolist and paid capture. <strong>Design consequence for the ratification queue:</strong> either tighten the basket-cost cap (2% → ~0.9% per revision restores the $20M line at food's weight) or add a per-category absolute divertible-benefit cap; both are one-dial amendments to the EBI Methodology §2 rate-cap clause.</p>
+<p><strong>F2 — The person house is the cost floor, but cheaper than expected (C1 PASS, with a flag).</strong> Passing a self-serving basket change must clear <em>both</em> houses. The person house (one-per-person, sybil-resistant) can be cleared two ways — a persuasion campaign (~$25M at $50/vote for a 500k majority) or manufacturing unique verified identities (500k × $72k = $36B, absurd) — so the campaign path dominates at $25M, and the contribution house (bribing ~1,595 capped large contributors) is the larger bill at ~$100M. Flag: the $50/vote campaign dial is soft; if real-world persuasion of a verified electorate is cheaper than manufacturing identities but the campaign is <em>visible</em> (basket votes are public, per §2), reputational cost is unmodeled and would raise it. Either way capture clears $100M+ and loses money.</p>
+<p><strong>F3 — Remove the defenses and capture is trivial (C5).</strong> A naive single-administrator basket with brand categories and no rate cap is captured by bribing one official (~$62.5k) for a <strong>$777.6M</strong> six-year prize (the whole energy category, brand-locked: $129.6M/yr × 6) — cost/benefit <strong>8.0e-05× (≈1/12,400)</strong>, i.e. <strong>profitable ~12,400×</strong>. <em>(Corrected July 10: this paragraph previously said "~$78M prize, 0.0002×, ~5,000×" — $78M is C2's defended figure, and the ratios didn't match the committed JSON. <code>C5.cost_benefit_ratio_naive</code> = 8.04e-05.)</em> This is the measured proof that composition governance is not decoration: all three defenses are what stand between the basket and regulatory capture.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Calculator-grade with stated dials (margin 15%, bribe fractions, $50/vote campaign) — the <em>ratios</em> are robust (the monopoly-vs-competitive gap in C4 is structural, not dial-sensitive), but the exact 1.6× in C2 is dial-dependent and should be read as "thin, and here's why," not as a precise threshold. No dynamic voting model (the two-house process is priced statically); no coalition dynamics between the lobbyist and the contribution house; and the deepest version — a lobbyist who <em>reframes</em> a functional category's definition itself (redefining "adequate nutrition" to favor their product) — is the composition analogue of the still-open "what counts as contribution" Goodhart problem, and is not retired here. The functional-definition defense assumes the <em>definitions</em> are themselves capture-resistant, which is the same governance surface one level up.</p>
+<p><em>Run and written July 9, 2026, verification session (self-labeled Fable; per the owner's record this sitting ran as Opus 4.8 — see INDEX provenance note). C2 reported as a FAIL/finding, bar unmoved, per house rules.</em></p>
+<p><em>Postscript, July 10, 2026 (Verification v4 action 3, executed by the Fable 5 verification session): C3 re-scored against its registered "any single category" scope — FAIL (F1b), engine extended with per-category table and C2 worst-case ceiling, all pre-existing JSON leaves verified unchanged; F3's prose numbers corrected to the committed JSON (8.0e-05× / ~12,400× / $777.6M). Bars unmoved throughout; the figure now shows both the energy and worst-category benefit bars.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v17-composition-capture-0.json" download>⬇ results_v17.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

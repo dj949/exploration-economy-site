@@ -1,0 +1,42 @@
+{
+  "model": "EVE Sim v3 - Oracle (EBI) Manipulation",
+  "estimator_spec": "outlier-trimmed on-chain median (breakdown point ~0.5 of sources)",
+  "attacks": {
+    "plausible_inflate_x": 1.5,
+    "extreme_inflate_x": 5.0
+  },
+  "dispersions": {
+    "realistic_sigma": 0.2,
+    "tight_sigma": 0.05
+  },
+  "study_A_statistical": {
+    "finding": "Median resists manipulation until the attacker controls ~50% of SOURCES (its breakdown point); a trimmed mean breaks at its trim fraction; a naive mean breaks immediately. BUT with realistic price dispersion a sub-50% minority already shifts the median materially.",
+    "median_distortion": {
+      "f=0.25": 0.08993077152353268,
+      "f=0.40": 0.21362901136832035,
+      "f=0.49": 0.49651012168395336,
+      "f=0.55_full_capture": 0.5
+    }
+  },
+  "study_B_economic": {
+    "floor_payout_inflation_equals_EBI_distortion": true,
+    "machine_pay_scales_with_EBI": true,
+    "median_distortion_at_f0.25": 0.08993077152353268,
+    "median_distortion_at_f0.40": 0.21362901136832035,
+    "median_distortion_at_f0.49": 0.49651012168395336,
+    "median_distortion_at_f0.55_full_capture": 0.5,
+    "EBI_inflation_to_break_mature_selffunding": 3.545454545454546,
+    "note_launch": "At launch the floor (~23.5% of issuance) is subsidized; EBI inflation raises the external subsidy ~1:1, so harm appears long before self-funding 'breaks'.",
+    "harm_threshold_much_lower_than_break": "A +10-20% EBI distortion (median, f~0.30-0.40, realistic dispersion) is already 10-20% inflation in the floor and ALL data prices -- it defeats the governor's ~0% mandate well before it threatens self-funding."
+  },
+  "study_C_defense": {
+    "breakeven_stake_per_source_p50": 940.0,
+    "breakeven_stake_per_source_p90": 520.0,
+    "interpretation": "A per-source bond above the break-even makes the best manipulation net-negative; higher detection lowers the required bond. This converts oracle security into a source-authenticity + cost problem, exactly as the median's 50%-of-sources breakdown predicts.",
+    "move_rate_cap_per_period": 0.02,
+    "periods_to_reach_20pct_distortion": 10,
+    "move_cap_note": "A move-rate cap doesn't stop a sustained attacker reaching the target level, but it forces the index to crawl there over ~10 periods of visible deviation -- buying detection, slashing, and bridge-freeze time."
+  },
+  "headline": "Outlier-trimmed median converts oracle risk from a continuous statistical risk into a THRESHOLD risk at ~50% of sources -- so the security of the floor and machine-pay reduces to SOURCE AUTHENTICITY AND COST. AI collapses the cost of manufacturing plausible fake sources, so without staking/authentication + breadth + a move-rate cap, the attacker's reachable source-share (not the statistics) is the real variable. Verdict matches Red-Team #5: SURVIVES WITH CHANGES.",
+  "closes_roadmap_item": "Oracle (EBI) manipulation model (Modeling Roadmap, 'still worth running' #3)"
+}

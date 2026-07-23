@@ -1,0 +1,41 @@
+{
+  "baseline": {
+    "N": 1000000,
+    "scenario": "baseline",
+    "demand": "conservative",
+    "fails": false,
+    "longest": 0,
+    "p10_min": 1.1764,
+    "infl_yr": 0.026,
+    "floor_cost_max": 0.482,
+    "topup_max": 0.0,
+    "creator_real_end": 1.262,
+    "runtime_s": 4.6
+  },
+  "combined": {
+    "N": 1000000,
+    "scenario": "combined",
+    "demand": "conservative",
+    "fails": false,
+    "longest": 1,
+    "p10_min": 0.9895,
+    "infl_yr": 0.039,
+    "floor_cost_max": 2.244,
+    "topup_max": 0.0,
+    "creator_real_end": 0.901,
+    "runtime_s": 4.4
+  },
+  "commoditization": {
+    "N": 1000000,
+    "scenario": "commoditization",
+    "demand": "conservative",
+    "fails": false,
+    "longest": 0,
+    "p10_min": 1.0999,
+    "infl_yr": 0.026,
+    "floor_cost_max": 2.099,
+    "topup_max": 0.0,
+    "creator_real_end": 0.914,
+    "runtime_s": 4.5
+  }
+}

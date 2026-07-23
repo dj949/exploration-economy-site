@@ -1,0 +1,317 @@
+{
+ "spec": "v38 SPEC - Multi-Root Ownership (registered).md",
+ "params": {
+  "central": {
+   "theta_dis": 0.05,
+   "c_ctl": 0.3,
+   "m_emp": 25.0,
+   "a_c": 0.15,
+   "a_QI": 0.15,
+   "B_QI": 1.0,
+   "eps_title": 1.0,
+   "eps_rev": 0.1,
+   "kL_title": 0.6,
+   "kL_rev": 0.1,
+   "hL": 0.1,
+   "f_n": 0.05,
+   "f_p": 0.02,
+   "g": 0.25,
+   "d_flow": 0.9,
+   "f_QI": 0.05,
+   "d_med": {
+    "T": 0.02,
+    "H": 0.05,
+    "L": 0.2
+   },
+   "sigma_d": 0.75,
+   "theta_wage": 0.7,
+   "sigma_h": 1.5,
+   "H_holders": 10000
+  },
+  "sweeps": {
+   "theta_dis": [
+    0.01,
+    0.05,
+    0.1
+   ],
+   "c_ctl": [
+    0.2,
+    0.3,
+    0.5
+   ],
+   "m_emp": [
+    5.0,
+    25.0,
+    100.0
+   ],
+   "a_c": [
+    0.0,
+    0.05,
+    0.15,
+    0.3
+   ],
+   "a_QI": [
+    0.05,
+    0.15,
+    0.3
+   ],
+   "B_QI": [
+    0.5,
+    1.0,
+    2.5
+   ],
+   "f_p": [
+    0.01,
+    0.02,
+    0.05
+   ],
+   "g": [
+    0.1,
+    0.25,
+    0.5
+   ],
+   "f_QI": [
+    0.02,
+    0.05,
+    0.1
+   ],
+   "d_mult": [
+    0.5,
+    1.0,
+    2.0
+   ]
+  },
+  "seeds": [
+   7,
+   11
+  ],
+  "committed": {
+   "v36_L2_title_ratio": 1.197,
+   "v36_a_star": 0.1723,
+   "v36_blind": 24.67,
+   "v36_share_single": 0.00055,
+   "v35_r2": 10.5,
+   "v36_part_d0": 0.6568
+  },
+  "lam_link": 0.05977,
+  "note_kL": "kL follows the committed v36 fork convention: title 0.6 / revocable 0.1"
+ },
+ "mr0a_v36_isolated": {
+  "L2_title": 1.197,
+  "a_star": 0.1723,
+  "blind": 24.67,
+  "exact": true
+ },
+ "mr0b_pool": {
+  "blind_seed7": 24.67,
+  "share_single": 0.00055,
+  "exact": true
+ },
+ "mr0c_chassis": {
+  "r2_seed7": 10.5,
+  "exact": true
+ },
+ "participation_regression_d0": {
+  "value": 0.6568,
+  "committed": 0.6568,
+  "match": true
+ },
+ "mr1_threat": {
+  "seed7": {
+   "ratio": 11.14,
+   "net_per_entity": 0.4083,
+   "k_pieces": 6
+  },
+  "seed11": {
+   "ratio": 11.14,
+   "net_per_entity": 0.4083,
+   "k_pieces": 6
+  },
+  "offprotocol_residual_x_cap": 16.06
+ },
+ "mr2_closure": {
+  "seed7": {
+   "ratio": 1.0,
+   "net_per_entity": -0.1121,
+   "k_pieces": 6
+  },
+  "seed11": {
+   "ratio": 1.0,
+   "net_per_entity": -0.1121,
+   "k_pieces": 6
+  },
+  "a_c_star_title": 0.0,
+  "a_c_star_rev": 0.1621,
+  "offprotocol_residual_title_central": 3.62,
+  "offprotocol_residual_rev_ac0": 16.06
+ },
+ "mr3_variants": {
+  "T": {
+   "evasion_central": 3.335,
+   "qi_net_title": -0.0321,
+   "qi_net_rev": 0.0936,
+   "fragility_rev_by_aQI": {
+    "a_QI=0.05": 7.15,
+    "a_QI=0.15": 3.34,
+    "a_QI=0.3": 1.48
+   },
+   "participation": 0.6338,
+   "passes_evasion": false,
+   "passes_participation": true,
+   "passes_both": false
+  },
+  "L": {
+   "evasion_central": 1.0,
+   "note": "full look-through: captured intermediaries buy nothing",
+   "participation": 0.4118,
+   "passes_evasion": true,
+   "passes_participation": false,
+   "passes_both": false
+  },
+  "H": {
+   "evasion_central": 1.0,
+   "participation": 0.5967,
+   "passes_evasion": true,
+   "passes_participation": true,
+   "passes_both": true
+  },
+  "d_med_sensitivity": {
+   "T": {
+    "0.5": 0.6455,
+    "1.0": 0.6338,
+    "2.0": 0.6093
+   },
+   "H": {
+    "0.5": 0.6278,
+    "1.0": 0.5967,
+    "2.0": 0.532
+   },
+   "L": {
+    "0.5": 0.532,
+    "1.0": 0.4118,
+    "2.0": 0.2439
+   }
+  }
+ },
+ "mr4_threshold": {
+  "by_theta": {
+   "0.01": {
+    "k_pieces": 30,
+    "assembly_cost_per_entity": 0.6,
+    "ratio_title_central": 1.0,
+    "ratio_rev_ac0": 1.0,
+    "forced_linkers_seed7": 1,
+    "forced_linkers_seed11": 0
+   },
+   "0.05": {
+    "k_pieces": 6,
+    "assembly_cost_per_entity": 0.12,
+    "ratio_title_central": 1.0,
+    "ratio_rev_ac0": 11.14,
+    "forced_linkers_seed7": 0,
+    "forced_linkers_seed11": 0
+   },
+   "0.1": {
+    "k_pieces": 3,
+    "assembly_cost_per_entity": 0.06,
+    "ratio_title_central": 1.0,
+    "ratio_rev_ac0": 12.62,
+    "forced_linkers_seed7": 0,
+    "forced_linkers_seed11": 0
+   }
+  },
+  "interior": true
+ },
+ "mr5_wolfpack": {
+  "5": {
+   "k": 5,
+   "lawful_over_cap": 5.0,
+   "coordinated_over_cap": 5.0,
+   "increment_x": 0.0
+  },
+  "10": {
+   "k": 10,
+   "lawful_over_cap": 10.0,
+   "coordinated_over_cap": 10.0,
+   "increment_x": 0.0
+  },
+  "25": {
+   "k": 25,
+   "lawful_over_cap": 25.0,
+   "coordinated_over_cap": 25.0,
+   "increment_x": 0.0
+  }
+ },
+ "mr6_dynasty": {
+  "worst_capture": 0.5783,
+  "runs": {
+   "seed7": 10.3,
+   "seed11": 10.0
+  },
+  "increments_pp": {
+   "seed7": -0.2,
+   "seed11": -0.5
+  }
+ },
+ "bars": {
+  "MR0": {
+   "v36_exact": true,
+   "pool_exact": true,
+   "chassis_exact": true,
+   "participation_regression": true,
+   "pass": true
+  },
+  "MR1": {
+   "ratio_seed7": 11.14,
+   "bar_min": 10.0,
+   "pass": true
+  },
+  "MR2": {
+   "ratio_title_central": 1.0,
+   "bar_max": 1.1,
+   "a_c_star_title": 0.0,
+   "pass": true
+  },
+  "MR3": {
+   "passes_both": {
+    "T": false,
+    "L": false,
+    "H": true
+   },
+   "pass": true
+  },
+  "MR4": {
+   "interior": true,
+   "pass": true
+  },
+  "MR5": {
+   "max_increment": 0.0,
+   "bar_max": 0.1,
+   "pass": true
+  },
+  "MR6": {
+   "increments_pp": {
+    "seed7": -0.2,
+    "seed11": -0.5
+   },
+   "bar_max_pp": 0.5,
+   "pass": true
+  },
+  "MR7": {
+   "pool_seed_gap": 0.0,
+   "chassis_seed_gap_pp": 0.3,
+   "determinism": "verified externally by double run (byte-identical)",
+   "pass": true
+  }
+ },
+ "bar_summary": {
+  "MR0": true,
+  "MR1": true,
+  "MR2": true,
+  "MR3": true,
+  "MR4": true,
+  "MR5": true,
+  "MR6": true,
+  "MR7": true
+ }
+}

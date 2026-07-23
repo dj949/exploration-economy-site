@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Governance Capture — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Governance Capture.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Governance Capture</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Governance Capture</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>The adversarial stress test found that EDEN's economics tolerate identity failure but its <em>governance</em> is where sybils bite. This run quantifies that: how expensive is it, in numbers, to capture EDEN's constitution — and does the two-house design actually earn its keep?</p>
+<h2 id="what-we-found">What we found</h2>
+<p>Amending the constitution takes a 2/3 supermajority in two houses plus a 24-month timelock — and each house covers the other's weakness. The one-person-one-vote house falls only to sybils, and the cost explodes with identity detection: at 90% of fakes caught, passing an amendment means fielding fakes equal to 20× the entire honest population; at 99%, 200× (blocking at 1/3 is cheaper but scales the same way). The contribution-weighted house alone is plutocratically capturable: in an illustrative distribution where the top 10% hold ~55% of weight, a coalition of just 16.6% of holders reaches the 2/3 threshold (3.3% can block) — and under EDEN's actual concentration (v1 found the top 10% of creators capture ~84% of minting) it would be even easier. Requiring both houses converts an OR-vulnerability into an AND-requirement that one resource can't satisfy: wealth can't buy person-votes (a whale is still one human) and sybils carry ~no contribution weight (fakes did no work). The timelock is a real backstop on top: a capture attempt is publicly visible for two years, and with even a 10%-per-month chance of honest detection-and-response, a live capture survives only 8.0% of the time (61.6% at 2%/month, 29.2% at 5%).</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The model's biggest soft spot is voter apathy: it assumes honest voters turn out, and if real turnout is low, the same number of fakes buys a larger vote share, lowering the capture bar — low participation is itself a governance risk worth modeling. It also assumes sybils hold ~zero contribution weight (a patient attacker could slowly build some), models the timelock response simply, and leaves out vote-buying and off-chain coordination. Detection quality itself — the hard personhood problem — is taken as given. Hence the run's practical advice: put the strongest identity guarantees on the voting layer (the economy tolerates weak identity; the vote does not), keep the two-house supermajority and long timelock, and consider bonded personhood for constitutional votes plus published live capture-risk metrics so the response can trigger early.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Either house of EDEN's governance can be captured alone — sybils take the person-vote house if identity is weak, and a ~17% wealthy coalition takes the weighted house — but taking both at once means being a population-scale sybil farm that also owns two-thirds of all real contribution, and then surviving two years in public view.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Capture</strong> — an attacker gaining control of a mechanism from inside its own rules — here, the constitution itself. <strong>Sybil</strong> — one person pretending to be many accounts; in a vote, fake people are fake votes. <strong>Supermajority (2/3)</strong> — a bar well above half — two of every three votes — so a bare majority can't rewrite the rules. <strong>Timelock</strong> — a mandatory waiting period (24 months here) between a vote passing and taking effect, leaving a capture attempt exposed in public view. <strong>Contribution-weighted house</strong> — the chamber where votes scale with verified work done rather than headcount. <strong>Plutocratic</strong> — rule by wealth; "plutocratically capturable" means money alone could buy the outcome there. <strong>Whale</strong> — a single holder of an outsized share; in the person-vote house a whale is still one human, one vote. <strong>Minting</strong> — the creation of new EVE by verified human engagement; "~84% of minting" measures how concentrated earning is. <strong>Bonded personhood</strong> — backing the claim "I am one real human" with a posted deposit forfeited if you're caught faking.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-governance-capture-0.png" alt="fig_governance.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Follows directly from the adversarial test, which found EDEN's economics tolerate identity failure but its </em><em>governance</em><em> is where sybils bite. This quantifies that — and shows why the two-house design is the answer. Files in this folder.</em></p>
+<hr>
+<h2 id="the-setup">The setup</h2>
+<p>EDEN's constitution can only be changed by a supermajority of <strong>two houses</strong> plus a long timelock:</p>
+<ul>
+<li>a <strong>one-person-one-vote house</strong> (gated by proof-of-personhood) — vulnerable to <strong>sybils</strong> (fake identities = fake votes);</li>
+<li>a <strong>contribution-weighted house</strong> — vulnerable to <strong>wealth/contribution concentration</strong> (a whale coalition).</li>
+</ul>
+<p>The crucial asymmetry: <strong>sybils have ~no contribution weight</strong> (they did no real work), so they help only the 1p1v house; and <strong>a whale is still one human</strong>, so wealth helps only the weighted house. To pass a constitutional amendment an attacker must clear the supermajority in <em>both</em> — simultaneously faking a supermajority of humans <em>and</em> owning a supermajority of contribution. Thresholds: 1/3 to block/veto, 2/3 to amend.</p>
+<h2 id="result-1-capturing-the-one-person-one-vote-house-gets-astronomically-expensive-with-detection">Result 1 — Capturing the one-person-one-vote house gets astronomically expensive with detection</h2>
+<p>Fakes an attacker must field, <strong>as a multiple of the entire honest population</strong>, to capture the 1p1v house:</p>
+<table>
+<thead>
+<tr>
+<th>Identity detection</th>
+<th style="text-align: right;">To block (1/3)</th>
+<th style="text-align: right;">To pass an amendment (2/3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>50% of fakes caught</td>
+<td style="text-align: right;">1× the population</td>
+<td style="text-align: right;">4× the population</td>
+</tr>
+<tr>
+<td>90% caught</td>
+<td style="text-align: right;">5×</td>
+<td style="text-align: right;"><strong>20×</strong></td>
+</tr>
+<tr>
+<td>95% caught</td>
+<td style="text-align: right;">10×</td>
+<td style="text-align: right;"><strong>40×</strong></td>
+</tr>
+<tr>
+<td>99% caught</td>
+<td style="text-align: right;">50×</td>
+<td style="text-align: right;"><strong>200×</strong></td>
+</tr>
+</tbody>
+</table>
+<p>At strong detection, passing an amendment through the 1p1v house alone requires faking <strong>20–200× the entire honest population</strong> — and the cost explodes as detection improves (<code>fig_governance.png</code>, right panel, log scale). This is the quantified version of the adversarial test's headline: identity integrity matters most <em>here</em>, in the vote.</p>
+<h2 id="result-2-the-weighted-house-alone-is-plutocratically-capturable">Result 2 — The weighted house alone is plutocratically capturable</h2>
+<p>In an illustrative contribution distribution where the top 10% hold ~55% of weight, a coalition of just <strong>16.6% of holders</strong> reaches the 2/3 amendment threshold (and <strong>3.3%</strong> can block). Under EDEN's <em>actual</em> concentration (v1 found the top 10% of creators capture ~84% of minting), the weighted house would be <strong>even easier</strong> to capture. So a single contribution-weighted chamber — like a token-weighted DAO — is wide open to a wealthy coalition. That is precisely the failure the 1p1v house exists to prevent.</p>
+<h2 id="result-3-the-two-house-design-converts-an-or-vulnerability-into-an-and-requirement">Result 3 — The two-house design converts an OR-vulnerability into an AND-requirement</h2>
+<ul>
+<li>A <strong>single token-weighted DAO</strong> is captured by ~17% of holders (a whale coalition).</li>
+<li>A <strong>single one-person-one-vote DAO</strong> is captured by a sybil farm if identity is weak.</li>
+<li><strong>EDEN requires both at once</strong> — and the two requirements can't be met by the same resource: wealth can't buy 1p1v votes (a whale is one person), and sybils can't supply contribution weight (fakes did no work). An attacker would need to be simultaneously a population-scale sybil farm <em>and</em> the owner of two-thirds of all real contribution. The houses cover each other's weakness; that mutual coverage is the design's core security property, and it holds quantitatively.</li>
+</ul>
+<h2 id="result-4-the-timelock-is-a-real-backstop">Result 4 — The timelock is a real backstop</h2>
+<p>A 24-month timelock means any capture attempt is publicly visible for two years before it takes effect. If honest participants have even a modest monthly chance of detecting and responding (boosting detection, slashing bonded fakes, forking, or mobilizing votes), a live capture is unlikely to survive:</p>
+<table>
+<thead>
+<tr>
+<th>Monthly honest-response probability</th>
+<th style="text-align: right;">Chance the capture survives 24 months</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2% / month</td>
+<td style="text-align: right;">61.6%</td>
+</tr>
+<tr>
+<td>5% / month</td>
+<td style="text-align: right;">29.2%</td>
+</tr>
+<tr>
+<td>10% / month</td>
+<td style="text-align: right;"><strong>8.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Transparency (the white-box ledger) is what makes that response possible — every fake vote and every large weight shift is visible.</p>
+<h2 id="what-to-do-with-it">What to do with it</h2>
+<ul>
+<li><strong>Put the strongest identity guarantees on the voting layer, not the economy.</strong> The adversarial model showed the <em>economy</em> tolerates weak identity; this shows the <em>vote</em> does not. Detection quality for governance is the binding constraint.</li>
+<li><strong>Keep the two-house supermajority + long timelock for constitutional changes</strong> — it is doing the heavy lifting, and removing either house collapses security to the weaker single-house case.</li>
+<li><strong>Consider bonding/escalating personhood-strength for constitutional votes</strong> specifically, and publishing live capture-risk metrics (sybil-rate estimates, weight concentration) so the timelock response can trigger early.</li>
+</ul>
+<h2 id="honest-limits">Honest limits</h2>
+<p>This is a stylized, mostly analytic model. It assumes <strong>honest voters turn out</strong> — its biggest soft spot is <strong>voter apathy</strong>: if real turnout is low, the attacker's vote share rises for the same number of fakes, lowering the capture bar (low participation is itself a governance risk worth modeling). It assumes sybils carry ~zero contribution weight (a patient attacker could slowly build some), models the timelock response simply, and does not model vote-buying/bribery of honest voters or off-chain coordination. Detection quality itself — the hard ML/crypto personhood problem — is exogenous here, as in the adversarial model. Audience: crypto reviewers and governance designers.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>governance_sim.py</code> — the two-house capture model, thresholds, and timelock</li>
+<li><code>fig_governance.png</code> — sybil vote share vs detection; cost of capture exploding with detection</li>
+<li><code>results_governance.json</code> — all thresholds and figures</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-governance-capture-0.json" download>⬇ results_governance.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

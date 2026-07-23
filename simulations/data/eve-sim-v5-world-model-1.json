@@ -1,0 +1,73 @@
+{
+  "slow": {
+    "act_month": 69,
+    "act_years": 5.8,
+    "act_by_override": false,
+    "D1_zero_printing_post24": true,
+    "D3_dep_gt12_pre_pct": 1.33,
+    "D5_reserve_min_post24_months": 23.6,
+    "adoption_end_pct": 60.1,
+    "machinepay_share_end": 0.82,
+    "reserve_end_months": 2366.1
+  },
+  "slow_gov": {
+    "act_month": 69,
+    "act_years": 5.8,
+    "act_by_override": false,
+    "D1_zero_printing_post24": true,
+    "D3_dep_gt12_pre_pct": 1.33,
+    "D5_reserve_min_post24_months": 23.8,
+    "adoption_end_pct": 60.1,
+    "machinepay_share_end": 0.84,
+    "reserve_end_months": 5424.1
+  },
+  "base": {
+    "act_month": 66,
+    "act_years": 5.5,
+    "act_by_override": false,
+    "D1_zero_printing_post24": true,
+    "D3_dep_gt12_pre_pct": 1.08,
+    "D5_reserve_min_post24_months": 24.4,
+    "adoption_end_pct": 80.1,
+    "machinepay_share_end": 0.82,
+    "reserve_end_months": 6128.7
+  },
+  "base_gov": {
+    "act_month": 66,
+    "act_years": 5.5,
+    "act_by_override": false,
+    "D1_zero_printing_post24": true,
+    "D3_dep_gt12_pre_pct": 1.08,
+    "D5_reserve_min_post24_months": 24.4,
+    "adoption_end_pct": 80.1,
+    "machinepay_share_end": 0.84,
+    "reserve_end_months": 14077.4
+  },
+  "fast": {
+    "act_month": 67,
+    "act_years": 5.6,
+    "act_by_override": false,
+    "D1_zero_printing_post24": true,
+    "D3_dep_gt12_pre_pct": 0.78,
+    "D5_reserve_min_post24_months": 25.7,
+    "adoption_end_pct": 90.0,
+    "machinepay_share_end": 0.82,
+    "reserve_end_months": 9076.6
+  },
+  "fast_gov": {
+    "act_month": 67,
+    "act_years": 5.6,
+    "act_by_override": false,
+    "D1_zero_printing_post24": true,
+    "D3_dep_gt12_pre_pct": 0.78,
+    "D5_reserve_min_post24_months": 25.7,
+    "adoption_end_pct": 90.0,
+    "machinepay_share_end": 0.84,
+    "reserve_end_months": 21037.7
+  },
+  "D4_note": {
+    "pre_activation_real_share_of_eve_demand": 0.82,
+    "crash_floor_at_30pct_speculative": 0.66,
+    "assessment": "pre-activation EVE demand is machine-pay dominated; per the reflexivity model, a 30%-speculative panic bottoms near the real-demand floor and recovers. Risk grows with speculative share: bridge/holding limits are the recommended pre-activation policy if speculation exceeds ~50-60% of holdings."
+  }
+}

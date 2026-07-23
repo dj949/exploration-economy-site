@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Network &amp; Dependency Graph — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Network &amp; Dependency Graph.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Network &amp; Dependency Graph</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Network &amp; Dependency Graph</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>EDEN routes 10% of every mint up the chain of earlier work an asset is built on — "pay the stack." Real software and data ecosystems are scale-free: a few foundational assets (a base dataset, a core library, a reference model) sit underneath almost everything. So do the owners of those few assets end up collecting a slice of <em>all</em> downstream activity while they live, and does the network have dangerous single points of failure?</p>
+<h2 id="what-we-found">What we found</h2>
+<p>Left unmitigated, the dependency pool concentrates severely — but only within a lifetime, because a dead owner's asset stops earning entirely. Unmitigated dependency royalties reach a Gini of 0.93 with the top 10% capturing 87% of the pool (own-mint, for comparison, sits at 0.55), and the oldest 10% of assets take ~80%. Two levers, both needed, bound it: applying freshness-decay (<code>W_age</code>) to the dependency stream cuts top-10% capture from 87% to 79%, and adding a per-node royalty cap (excess to the commons) takes it to 67%. Neither lever alone suffices.</p>
+<p>The unexpected gift is the "ancestral dividend." When a living asset mints and one of its dependencies is Legacy (dead-owned), that orphaned 10% slice must not go to heirs (Legacy zeroes earning) and must not go to the living stack (that would reward removing an upstream owner) — so it routes to the floor. Because the oldest, most-depended-on assets are exactly the ones whose owners have died (~44% of owners deceased in the model), ~82% of the dependency pool ends up funding everyone's floor, and top-10% private capture falls from 79% (if heirs collected) to ~17%. Legacy routing isn't just neutral on inequality — it is strongly equalizing.</p>
+<p>On fragility: the most-depended-on asset underlies ~29% of all downstream mint, but a dead owner's asset persists and stays usable — only the royalty changes hands — so there is no functional cascade. The real systemic concern is availability (a critical dependency must not be lost or withdrawn), answered by commons-custody plus availability guarantees for systemic foundational assets, not a financial circuit-breaker.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The verdict is SURVIVES WITH CHANGES — the bounding levers and the Legacy-to-floor routing are design changes this run surfaces for the spec, not properties the bare design already had. And the model is stylized: a scale-free graph built by preferential attachment, while real dependency networks have clustering, domain silos, and version churn it omits; the attenuation, decay, cap, and mortality parameters are illustrative, so the exact percentages move with them. What's robust is the shapes: dependency royalties concentrate far more than own-mint and pool in the oldest assets; <code>W_age</code> plus a per-node cap bound the living concentration; and routing orphaned Legacy shares to the floor turns most of the pool into a broadly shared dividend rather than inherited rent.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Pay-the-stack does concentrate rewards among living foundational creators — top-10% capture of 87% if left alone, bounded to 67% by freshness-decay plus a per-node cap — and because Legacy routing sends ~82% of the pool to everyone's floor once creators pass, the verdict is SURVIVES WITH CHANGES: foundational value becomes a broadly shared dividend, never an inherited rent.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Mint / minting</strong> — the creation of new EVE by verified human engagement; "downstream mint" is new money earned by works built on top of a foundation. <strong>Dependency</strong> — an earlier asset your asset is built on; the 10% "pay the stack" slice flows to those. <strong>Node</strong> — a single asset in the network graph; a "per-node cap" limits what any one asset can collect. <strong>Gini</strong> — a 0-to-1 lopsidedness score: 0 means the royalty pool is spread evenly, 1 means one asset takes it all; 0.93 is extreme concentration. <strong>Preferential attachment</strong> — new things plug into whatever is already popular — rich-get-richer wiring, which is how the model grows its network. <strong>W_age (freshness-decay)</strong> — a weight that shrinks payouts as an asset ages, so ancient foundations don't collect full rent forever. <strong>Commons</strong> — the shared public pot; royalties above the cap spill there instead of to any owner. <strong>Attenuation</strong> — the fading of the royalty at each step up the chain. <strong>Circuit-breaker</strong> — an automatic emergency stop; the point here is that availability guarantees, not a financial stop, are what the fragility calls for. <strong>Stylized</strong> — deliberately simplified; trust the shapes, not the exact percentages.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-network-and-dependency-graph-0.png" alt="fig_network_dependency.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Closes the last structural item in the Modeling Roadmap (#4): does "pay the stack" — the 10% of every mint that routes recursively up the dependency graph — create </em><em>runaway concentration</em><em> or </em><em>fragility</em><em> on a realistic graph? Files in this folder. Pairs with the Multi-Generational sim.</em></p>
+<blockquote>
+<p><strong>Note on Legacy (June 2026).</strong> A Legacy asset (dead owner) stops generating EVE entirely — direct <em>and</em> via dependency routing. So the concentration below is a <strong>within-life</strong> phenomenon among <em>living</em> foundational creators, never a permanent or inherited rent. The one genuinely open question is what happens to the orphaned dependency-share of a <em>living</em> asset whose dependency is now Legacy — answered below (→ the floor).</p>
+</blockquote>
+<h2 id="the-framing">The framing</h2>
+<p>Real software/data ecosystems are <strong>scale-free</strong>: a few foundational assets (a base dataset, a core library, a reference model) are depended on by almost everything. EDEN routes 10% of every mint up the dependency chain, depth-attenuated. So the worry: while their creators are alive, do the owners of those few foundational assets collect a slice of <em>all</em> downstream activity, and does the network have systemic single-points-of-failure?</p>
+<p>We build a scale-free DAG (preferential attachment, N=8,000, 3 deps/asset), flow the 10% dependency share up each chain with depth-attenuation, and measure concentration, the mitigating levers, fragility, and — new — the ancestral dividend that Legacy routing produces.</p>
+<h2 id="result-a-pay-the-stack-concentrates-the-dependency-pool-severely-within-a-lifetime">Result A — pay-the-stack concentrates the dependency pool severely (within a lifetime)</h2>
+<table>
+<thead>
+<tr>
+<th>Earnings measure</th>
+<th style="text-align: right;">Gini</th>
+<th style="text-align: right;">Top-10% capture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Own-mint (engagement only)</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr>
+<td><strong>Dependency royalties — no mitigation</strong></td>
+<td style="text-align: right;"><strong>0.93</strong></td>
+<td style="text-align: right;"><strong>87%</strong></td>
+</tr>
+<tr>
+<td>+ freshness-decay (<code>W_age</code>) on the dependency stream</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">79%</td>
+</tr>
+<tr>
+<td>+ freshness-decay <strong>and</strong> a per-node cap</td>
+<td style="text-align: right;"><strong>0.83</strong></td>
+<td style="text-align: right;"><strong>67%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The oldest 10% of assets capture <strong>~80%</strong> of the pool (→66% with <code>W_age</code>). Dependency royalties are far more concentrated than own-mint, and depth-attenuation <code>alpha</code> makes it worse (Panel C). Some of this is fair — foundational assets really are depended on by everything — but the concentration among <em>living</em> foundational owners is real and worth bounding.</p>
+<h2 id="result-b-bounding-the-living-concentration-two-levers-both-needed">Result B — bounding the living concentration (two levers, both needed)</h2>
+<ol>
+<li><strong>Apply <code>W_age</code> to the dependency stream</strong>, not just to own-mint: an aged asset's royalty share tapers to the commons. Cuts top-10% capture 87% → 79%.</li>
+<li><strong>Per-node dependency-royalty cap</strong>, excess to the commons: takes it to 67%. Neither lever alone suffices; together they convert an unbounded living rent into a bounded reward whose residual reflects genuine foundational value.</li>
+</ol>
+<h2 id="result-c-the-ancestral-dividend-legacy-routing-the-floor-new">Result C — the ancestral dividend (Legacy routing → the floor)  <em>(new)</em></h2>
+<p>When a <em>living</em> asset mints and one of its dependencies is a Legacy (dead-owned) asset, that dependency's 10% slice is <strong>orphaned</strong>. It must not go to heirs (Legacy zeroes earning) and must not be redistributed to the living stack (that would reward removing an upstream owner). Routed instead to the <strong>floor / verification pool</strong>, it becomes a broadly-shared <em>ancestral dividend</em> — and because the oldest, most-depended-on assets are exactly the ones whose owners have died, the effect is large:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align: right;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Share of owners deceased (modeled)</td>
+<td style="text-align: right;">~44%</td>
+</tr>
+<tr>
+<td><strong>Dependency pool routed to the floor (ancestral dividend)</strong></td>
+<td style="text-align: right;"><strong>~82%</strong></td>
+</tr>
+<tr>
+<td>Top-10% private capture of the dependency pool — <em>if heirs collected</em></td>
+<td style="text-align: right;">79%</td>
+</tr>
+<tr>
+<td>Top-10% private capture — <strong>with Legacy → floor</strong></td>
+<td style="text-align: right;"><strong>~17%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>So Legacy routing is not just neutral on inequality — it is strongly <em>equalizing</em>: the bulk of the dependency value created by humanity's foundational work, once its creators pass, funds everyone's floor instead of a few lineages.</p>
+<h2 id="result-d-fragility-is-topological-but-legacy-prevents-an-economic-cascade">Result D — fragility is topological, but Legacy prevents an economic cascade</h2>
+<p>Scale-free structure means systemic single-points-of-dependence (the most-depended-on asset underlies <strong>~29%</strong> of all downstream mint). But the Legacy mechanic means a dead owner's asset <em>persists and stays usable</em> — only the (now-floor-routed) royalty changes hands. No <em>functional</em> cascade. The real systemic concern is <strong>availability</strong> (a critical dependency must not be lost or withdrawn), addressed by <strong>commons-custody + availability guarantees for systemic foundational assets</strong> — not a financial circuit-breaker.</p>
+<h2 id="the-design-changes-this-surfaces-for-spec-v12-white-paper-v12">The design changes this surfaces (for Spec v1.2 / White Paper v1.2)</h2>
+<ol>
+<li><strong>Apply <code>W_age</code> freshness-decay to the dependency-routing weight</strong>, not only to own-mint.</li>
+<li><strong>Cap per-node dependency royalties</strong>, excess → commons.</li>
+<li><strong>Route the orphaned dependency-share of a live asset (whose dependency is Legacy) to the floor</strong> — not heirs (Legacy already zeroes earning), not the living stack (moral hazard). This is the "ancestral dividend."</li>
+<li><strong>Commons-custody + availability guarantees for systemic foundational assets</strong> (the fragility answer).</li>
+</ol>
+<p>Verdict: <strong>SURVIVES WITH CHANGES.</strong> Pay-the-stack does what it should — value flows to the work everything is built on — and the living concentration is bounded by (1)+(2), while Legacy + (3) ensure none of it becomes inherited rent and most of it eventually funds the floor.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>A stylized scale-free DAG via preferential attachment; real dependency graphs have clustering, domain silos, and version churn the model omits. Own-mint is lognormal popularity × age-decay; the death process is a simple age-rising probability; the attenuation, decay, cap, and mortality parameters are illustrative, so exact percentages move with them. The robust takeaways are the <strong>shapes</strong>: dependency royalties concentrate far more than own-mint and pool in the oldest assets; <code>W_age</code> + a per-node cap bound the living concentration; and routing orphaned (Legacy) shares to the floor turns the bulk of the pool into a broadly-shared dividend rather than inherited rent. Audience: whoever finalizes the routing and Legacy mechanics in the spec.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>network_dependency_sim.py</code> — the scale-free DAG, royalty propagation, the freshness-decay/cap levers, the <code>alpha</code> sweep, the fragility computation, and the Legacy→floor ancestral-dividend model</li>
+<li><code>fig_network_dependency.png</code> — six panels: Lorenz of the pool, royalty-by-age, <code>alpha</code> sweep, systemic footprint, the ancestral dividend, and top-10% capture (heirs vs Legacy→floor)</li>
+<li><code>results_network_dependency.json</code> — all figures and readouts</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-network-and-dependency-graph-0.json" download>⬇ results_network_dependency.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

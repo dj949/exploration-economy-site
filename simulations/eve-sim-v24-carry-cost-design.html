@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v24 - Carry-Cost Design — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v24 - Carry-Cost Design.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v24 - Carry-Cost Design</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 10, 2026 (dateline corrected July 11; originally mis-dated July 9). Companion to <code>RESULTS - v24.0 Carry-Cost Design</code>.</em></p>
+<h2 id="the-question-we-tested">The question we tested</h2>
+<p>EDEN discourages hoarding by making idle cash slowly lose a little value each year (demurrage). The worry: does that quietly punish ordinary people who just want to save what they earned? We built a population of savers — from people with a few months' cushion to a few large hoarders — and compared the current rule against gentler versions, checking three things at once: does money keep circulating, does it spare ordinary savers, and does it still discourage giant idle hoards?</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>The worry is real.</strong> Under the current flat rule (5%/year on all idle cash), a typical person with about four months of savings pays roughly <strong>$67 a year — about 2.8% of their savings — and two out of three people pay a meaningful amount.</strong> That's not ruinous (it's close to what inflation already quietly does to cash in a bank account today), but it does land on regular savers, not just hoarders. Your instinct was right.</p>
+<p><strong>And it's easily fixable.</strong> If we simply <strong>exempt the first several months of savings</strong> and only apply the cost above that — or ramp it up gradually so only very large idle piles pay the full rate — then:
+- a typical saver pays <strong>exactly $0</strong>,
+- the giant idle hoards still pay ~4.5%/year (the anti-hoarding purpose is kept), and
+- money still circulates just as intended.</p>
+<p>So EDEN can keep the benefit (money stays in motion, dynasties don't pile up) <strong>without</strong> the sting on ordinary earned savings. That's the recommendation: switch from a flat rate to a progressive one with a generous personal exemption.</p>
+<p><strong>Two tempting alternatives that turned out worse:</strong>
+- <em>"Just use invisible inflation instead"</em> — it's invisible, but it hits <strong>everyone</strong> (including the poorest, on every dollar) and barely discourages hoarding. It's actually the <em>least</em> fair option. Keep a little of it as background, but it can't be the main tool.
+- <em>"Auto-lock everyone's money so nothing is exposed"</em> — so gentle it stops working entirely: money stops circulating <em>and</em> hoards stop being discouraged. Locking should stay a <strong>voluntary savings choice</strong>, not forced on everyone.</p>
+<h2 id="the-bottom-line">The bottom line</h2>
+<p>The design should keep a carry cost on <strong>idle hoards</strong> but <strong>exempt ordinary savings</strong> — a progressive rate with a generous personal allowance gives you everything the flat rule was for, and nobody with a normal amount of savings ever feels it. What you <em>earn</em> and <em>save</em> in reasonable amounts is protected; only large piles of idle, liquid cash gently depreciate — and even that money is funding everyone's essentials floor while it does.</p>
+<h2 id="one-honest-caveat">One honest caveat</h2>
+<p>How strongly people <em>actually</em> change their behavior in response to a small carry cost is something no simulation can settle — only a real pilot can. But the "who pays what" part — that the flat rule hits ordinary savers and a progressive one spares them — is just arithmetic, and that part is solid.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v24-carry-cost-design-0.png" alt="fig_v24_carry_cost.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 10, 2026 <em>(corrected July 11 — this header previously said July 9; every file in this folder is mtime July 10, 10:37)</em>. Spec: <code>v24 SPEC - Carry-Cost Design (registered).md</code> — bars M1–M4 fixed before code <em>(provenance caveat, added July 11, Verification v4 D5: v24 is the one sim in the batch whose spec-before-code ordering cannot be confirmed from the filesystem — the SPEC's mtime (10:37:47) postdates the results (10:37:38), all six files landing within 21 seconds, consistent with a copy-in from elsewhere; flagged rather than asserted)</em>. Engine: <code>carry_cost_design_sim.py</code> (deterministic; heterogeneous population, seeds 7+11); committed: <code>results_v24.json</code>, <code>fig_v24_carry_cost.png</code>. Owner-motivated: does the flat 5%/yr demurrage punish ordinary savers, and can a gentler rule keep the benefits? Every number traces to <code>results_v24.json</code>.</strong></p>
+<p><strong>Verdict in one line: the worry is validated and fixable — the current flat 5%/yr demurrage genuinely does hit ordinary savers (a median household with ~4 months of savings pays ~$67/yr, 2.8% of its wealth, and 67% of people pay a meaningful amount), but a <em>progressive-by-size</em> or <em>generous-exemption</em> variant drops the median saver's burden to exactly zero while still deterring large hoards (~4.5%/yr on the top decile) and keeping money circulating — so EDEN can have the anti-hoarding benefit without the adoption sting.</strong></p>
+<h2 id="the-comparison-mid-elasticity-seed-averaged">The comparison (mid elasticity, seed-averaged)</h2>
+<table>
+<thead>
+<tr>
+<th>Config</th>
+<th>circulation index</th>
+<th>median saver burden</th>
+<th>median $ /yr</th>
+<th>% paying &gt;0.5%/yr</th>
+<th>top-decile hoard carry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0 none (baseline)</td>
+<td>0.103</td>
+<td>0.00%</td>
+<td>$0</td>
+<td>0%</td>
+<td>0.0%</td>
+</tr>
+<tr>
+<td><strong>A1 flat 5% (current canon)</strong></td>
+<td><strong>0.301</strong></td>
+<td><strong>2.81%</strong></td>
+<td><strong>$67</strong></td>
+<td><strong>67.5%</strong></td>
+<td>5.0%</td>
+</tr>
+<tr>
+<td><strong>A2 progressive-by-size</strong></td>
+<td>0.244</td>
+<td><strong>0.00%</strong></td>
+<td><strong>$0</strong></td>
+<td>27.7%</td>
+<td>4.8%</td>
+</tr>
+<tr>
+<td><strong>A3 generous exemption (12 mo)</strong></td>
+<td>0.241</td>
+<td><strong>0.00%</strong></td>
+<td><strong>$0</strong></td>
+<td>22.7%</td>
+<td>4.4%</td>
+</tr>
+<tr>
+<td>A4 inflation-only (~2%)</td>
+<td>0.196</td>
+<td>2.00%</td>
+<td>$48</td>
+<td><strong>100%</strong></td>
+<td>2.0%</td>
+</tr>
+<tr>
+<td>A5 auto-lock everything</td>
+<td>0.131</td>
+<td>0.77%</td>
+<td>$67</td>
+<td>57.1%</td>
+<td>0.2%</td>
+</tr>
+</tbody>
+</table>
+<p>Bars: <strong>M1</strong> (circulation beats no-carry) — <strong>four of five carry configs pass; A5 auto-lock FAILS</strong> (mid circulation 0.131 vs the required no-carry+0.03 = 0.133; <code>bar_summary.M1_circulation.A5_autolock: false</code>). <em>(Corrected July 11, Verification v4 D5: this line previously said "all five carry configs pass," contradicting the committed JSON — a failed bar reported as passing. A5's M1 failure reinforces F4: auto-locking is too gentle to move circulation.)</em> <strong>M2</strong> (ordinary earners spared, median ≤0.5% of wealth) — <strong>only A2 and A3 pass; A1 flat FAILS</strong> (and A5 fails at 0.77%). <strong>M3</strong> (hoard deterrence ≥3% on top decile) — A1, A2, A3 pass; A4, A5 fail. <strong>M4</strong> (a config satisfying all three exists) — <strong>PASS: A2 and A3 both dominate.</strong></p>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The adoption worry is real, and now quantified (A1 FAILS M2).</strong> Under the current flat rule, the median household — someone holding about four months of essentials as savings — pays <strong>~$67/year, which is 2.8% of their wealth</strong>, and <strong>two-thirds of the population</strong> pays more than 0.5%/yr. That is not catastrophic (it's roughly what inflation already does to cash), but it is a real, felt cost on ordinary earned savings, and it lands on far more than just hoarders. The instinct that "this could punish normal savers" was correct.</p>
+<p><strong>F2 — Progressive or generous-exemption fixes it completely, at almost no cost to the mechanism's purpose (A2/A3 pass all three — the recommendation).</strong> Make the carry cost <strong>zero on the first ~6–12 months of essentials worth of savings</strong> and only bite above that (A2 ramps 0%→2%→5%→8% by hoard size; A3 exempts the first 12 months flat then 5%): the <strong>median saver pays exactly $0</strong>, the fraction paying anything meaningful drops from 67% to ~23–28%, and yet the <strong>top idle decile still pays ~4.5%/yr</strong> (hoard deterrence preserved) and money still circulates (index 0.24 vs the flat rule's 0.30 vs the no-carry 0.10). The only cost is a slightly lower circulation index than flat — a small price for eliminating the ordinary-saver burden entirely. <strong>This is the actionable recommendation: switch the demurrage rule from flat to progressive-by-size (or a generous personal exemption).</strong></p>
+<p><strong>F3 — "Just use invisible inflation instead" is the <em>least</em> fair option (A4).</strong> The intuition that a ~2% ambient inflation would be gentler because it's psychologically invisible is half-right: it's invisible, but it's <strong>regressive and untargeted</strong> — 100% of people pay it (including the poorest, on every balance), and it only deters hoards at 2%/yr (below the M3 bar). So inflation-only spares no one and barely does the job; it's worse on both fairness and purpose than a progressive demurrage. Keep the mild ~2% inflation as a background circulation nudge, but it can't be the <em>primary</em> anti-hoarding tool.</p>
+<p><strong>F4 — Auto-locking everything is too gentle to work (A5).</strong> Exposing only a small transactional slice (sweeping the rest into locks) sounds ideal, but it collapses both the circulation incentive (index 0.13, barely above no-carry) and hoard deterrence (0.2%/yr) — because if almost nothing is exposed, almost nothing is nudged. Term-locks are a good <em>voluntary savings vehicle</em> (a saver can opt in to offset demurrage), but making them the automatic default defeats the mechanism. Locks should be opt-in, not the universal wrapper.</p>
+<h2 id="what-to-change-proposed-for-ratification">What to change (proposed, for ratification)</h2>
+<p>Replace the flat 5%/yr demurrage in <code>EVE — Velocity Defense v1.3</code> §8 with a <strong>progressive-by-size schedule</strong> (A2): <strong>0% on idle balances up to ~6 months of essentials, rising marginally to a small cap only on very large idle hoards</strong> — or, if simpler is preferred, a <strong>flat 5% above a generous ~12-month-essentials personal exemption</strong> (A3). Both keep the mild ~2%/yr inflation as a secondary nudge and keep term-locks as the voluntary savings vehicle. This preserves everything demurrage was for (circulation + hoard deterrence) and removes the adoption sting on ordinary earned savings. A gate/spec-amendment candidate.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>The <strong>circulation axis rests on a behavioral elasticity the vault is explicit no simulation can settle</strong> — how strongly people actually shrink idle holdings in response to a carry cost (swept low/mid/high here; mid reported). If the true elasticity is low, <em>all</em> configs circulate less and the case for any demurrage weakens (lean harder on the market-maker/reserve instead). The <strong>burden axis is robust</strong> — it's arithmetic on who holds what, largely elasticity-free — so F1/F2's core claim (flat hits ordinary savers; progressive/exemption spare them) does not depend on the behavioral guess. The wealth distribution (lognormal, median ~4 months essentials) is a stated assumption; the <em>direction</em> of the result is insensitive to it, the exact percentages are not. This is a design-comparison sim, not a forecast; the true elasticity and the right exemption threshold are pilot calibrations.</p>
+<p><em>Run and written July 10, 2026 (dateline corrected; originally mis-signed July 9), verification session (self-labeled Fable; per the owner's record this sitting ran as Opus 4.8 — see INDEX provenance note). A1 (current canon) reported as FAILing the ordinary-earner bar — a finding that motivates a proposed softening, not a defect hidden. Bars unmoved.</em></p>
+<p><em>Postscript, July 11, 2026 (Verification v4 action 6, executed by the Fable 5 verification session): the M1 bar line corrected — the committed JSON records <code>A5_autolock: false</code> under M1, and this document had reported "all five pass" (a failed bar shown as passing); the July-9 datelines corrected to July 10; and the SPEC-mtime provenance caveat added to the header (the one sim in the batch where spec-before-code is not filesystem-verifiable). No JSON value changed — this was a prose-vs-artifact reconciliation; the engine's numbers were already verified byte-reproducible.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v24-carry-cost-design-0.json" download>⬇ results_v24.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

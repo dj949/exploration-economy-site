@@ -1,0 +1,14 @@
+{
+  "Q1_Q2_mature_global": {
+    "label": "mature, all joined, global pool, leg=8%",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 0,
+    "world_topup_share_max": 0.0,
+    "world_floor_cost_share_end": 7.95,
+    "max_region_net_contrib_pct": 24.8,
+    "price_idx_end": 0.988,
+    "fraud_share_max": 0.0,
+    "failing": []
+  }
+}

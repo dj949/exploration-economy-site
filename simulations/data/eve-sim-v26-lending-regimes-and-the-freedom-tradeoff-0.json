@@ -1,0 +1,234 @@
+{
+ "spec": "v26 SPEC - Lending Regimes (registered).md",
+ "params": {
+  "N": 8000,
+  "T": 120,
+  "seeds": [
+   7,
+   11
+  ],
+  "base_rate_yr": 0.05,
+  "ess_mo": 600.0,
+  "p_project": 0.04,
+  "p_shock": 0.03,
+  "ratecap_yr": 0.1,
+  "equity_share": 0.3,
+  "trap_debt_months": 18,
+  "horizon_default_mo": 36
+ },
+ "per_regime": {
+  "FREE": {
+   "trap_rate": 0.03775963867245703,
+   "fund_share": 0.5096601269881927,
+   "pos_ev_fund_share": 1.0,
+   "mean_accepted_rate": 0.12482245433505731,
+   "lender_top1_share": 0.15012420156470174,
+   "n_borrowers": 7255.0,
+   "lender_growth": 3.462349230824795,
+   "conservation_resid_rel": 3.710194206922211e-15,
+   "disbursed": 114322650.55802861
+  },
+  "NOCAP": {
+   "trap_rate": 0.02778564764361134,
+   "fund_share": 0.513220159670144,
+   "pos_ev_fund_share": 1.0,
+   "mean_accepted_rate": 0.125178140722488,
+   "lender_top1_share": 0.15012420156470171,
+   "n_borrowers": 7252.5,
+   "lender_growth": 2.878445435844407,
+   "conservation_resid_rel": -1.29981353318832e-07,
+   "disbursed": 112822104.23861602
+  },
+  "RATECAP": {
+   "trap_rate": 0.01565444899546173,
+   "fund_share": 0.5159598592405554,
+   "pos_ev_fund_share": 1.0,
+   "mean_accepted_rate": 0.09014849764956168,
+   "lender_top1_share": 0.15012420156470174,
+   "n_borrowers": 7252.0,
+   "lender_growth": 2.1477701382788723,
+   "conservation_resid_rel": -2.7350198471421766e-08,
+   "disbursed": 113071506.54567182
+  },
+  "EQUITY": {
+   "trap_rate": 0.0,
+   "fund_share": 0.5481906936156999,
+   "pos_ev_fund_share": 1.0,
+   "mean_accepted_rate": 0.12502617869388177,
+   "lender_top1_share": 0.11873938119646574,
+   "n_borrowers": 7445.5,
+   "lender_growth": 1.2922923584360406,
+   "conservation_resid_rel": 0.0,
+   "disbursed": 0.0
+  }
+ },
+ "FREE_nofloor_rate": 0.3614740603186625,
+ "Q0": {
+  "conservation_resid_rel_by_regime": {
+   "FREE": 5.528145647805066e-14,
+   "NOCAP": 1.9583608132861335e-07,
+   "RATECAP": 2.8358477260445785e-08,
+   "EQUITY": 0.0
+  },
+  "max_abs_conservation_resid_rel": 1.9583608132861335e-07,
+  "conservation_tol": 0.0001,
+  "conservation_ok": true,
+  "max_aggregate_seed_spread": 0.01628170991357629,
+  "seed_tol": 0.03,
+  "seeds_agree_aggregates": true,
+  "seed_spread_aggregates": {
+   "FREE": {
+    "fund_share": 0.0049553921348890265,
+    "mean_accepted_rate": 0.0025433341264517557,
+    "disbursed": 0.012434781132681975,
+    "lender_growth": 0.013873459505735278
+   },
+   "NOCAP": {
+    "fund_share": 0.00572083107160434,
+    "mean_accepted_rate": 0.0028328078061158426,
+    "disbursed": 0.0026560911059966053,
+    "lender_growth": 0.011801551703765461
+   },
+   "RATECAP": {
+    "fund_share": 0.01628170991357629,
+    "mean_accepted_rate": 0.0025673995956259675,
+    "disbursed": 0.0020143875588693504,
+    "lender_growth": 0.0037384019486627683
+   },
+   "EQUITY": {
+    "fund_share": 0.005057193144369589,
+    "mean_accepted_rate": 0.000543249038358736,
+    "disbursed": 0.0,
+    "lender_growth": 0.0007403402517867746
+   }
+  },
+  "seed_spread_all_metrics": {
+   "FREE": {
+    "fund_share": 0.0049553921348890265,
+    "mean_accepted_rate": 0.0025433341264517557,
+    "disbursed": 0.012434781132681975,
+    "lender_growth": 0.013873459505735278,
+    "trap_rate": 0.10964379552935578,
+    "lender_top1_share": 0.178993275554064
+   },
+   "NOCAP": {
+    "fund_share": 0.00572083107160434,
+    "mean_accepted_rate": 0.0028328078061158426,
+    "disbursed": 0.0026560911059966053,
+    "lender_growth": 0.011801551703765461,
+    "trap_rate": 0.11675497848767837,
+    "lender_top1_share": 0.17899327555406402
+   },
+   "RATECAP": {
+    "fund_share": 0.01628170991357629,
+    "mean_accepted_rate": 0.0025673995956259675,
+    "disbursed": 0.0020143875588693504,
+    "lender_growth": 0.0037384019486627683,
+    "trap_rate": 0.1387471121681271,
+    "lender_top1_share": 0.17899327555406383
+   },
+   "EQUITY": {
+    "fund_share": 0.005057193144369589,
+    "mean_accepted_rate": 0.000543249038358736,
+    "disbursed": 0.0,
+    "lender_growth": 0.0007403402517867746,
+    "trap_rate": 0.0,
+    "lender_top1_share": 0.16946476025260637
+   }
+  },
+  "note": "Conservation residual computed from the debt-ledger identity (disbursed + interest accrued = payments + outstanding + written-off): ~1e-7 of volume \u2014 the tiny NOCAP/RATECAP residual is payoff-edge arrears-floor rounding, EQUITY carries no debt. Seed-agreement binds the structural market aggregates (fund_share, mean_accepted_rate, disbursed volume, lender_growth) \u2014 all <2%. Two small-count TAIL statistics exceed the 3% band as single-seed estimates and are DISCLOSED (not bound): trap_rate (~11-14%; ~200-280 trapped agents) and lender_top1_share (~17-18%; scale-invariant top-80-of-8000 lognormal tail, identical across interest regimes). Expected tail-sampling noise \u2014 the sim reports both seed-averaged \u2014 not aggregate instability.",
+  "max_all_metric_seed_spread": 0.17899327555406402,
+  "seeds_agree_all_reported_metrics": false,
+  "finding": "FAIL as registered: the unqualified 3% seeds-agreement clause is breached by the two tail statistics (max all-metric spread 17.9%); the structural aggregates all agree (max 1.6%). Conservation holds. Downstream verdicts are unaffected (Q3 keys off sign, both seeds committed either way); the prior PASS used an aggregate-subset reading of the clause (Verification v5 D4).",
+  "pass": false
+ },
+ "Q1": {
+  "fund_share_pos_ev": {
+   "FREE": 1.0,
+   "NOCAP": 1.0,
+   "RATECAP": 1.0,
+   "EQUITY": 1.0
+  },
+  "structural_cannot_fail": true,
+  "note": "wtp=R construction funds every positive-EV project by definition (see RESULTS F4)",
+  "pass": true
+ },
+ "Q2": {
+  "FREE_rate_with_floor": 0.12482245433505731,
+  "FREE_rate_no_floor": 0.3614740603186625,
+  "discipline_gap_pp": 23.665160598360522,
+  "pass": true
+ },
+ "Q3": {
+  "trap_rate": {
+   "FREE": 0.03775963867245703,
+   "NOCAP": 0.02778564764361134,
+   "RATECAP": 0.01565444899546173,
+   "EQUITY": 0.0
+  },
+  "FREE_has_traps": true,
+  "NOCAP_trap_free": false,
+  "pass": false
+ },
+ "Q4": {
+  "lender_top1_share": {
+   "FREE": 0.15012420156470174,
+   "NOCAP": 0.15012420156470171,
+   "RATECAP": 0.15012420156470174,
+   "EQUITY": 0.11873938119646574
+  },
+  "lender_growth": {
+   "FREE": 3.462349230824795,
+   "NOCAP": 2.878445435844407,
+   "RATECAP": 2.1477701382788723,
+   "EQUITY": 1.2922923584360406
+  },
+  "FREE_growth_margin_over_runnerup": 0.583903794980388,
+  "FREE_fastest_accumulation": true,
+  "top1_share_tied_across_interest_regimes": true,
+  "note": "lender_top1_share is scale-invariant; uniform interest compounding multiplies every lender equally, so the FREE/NOCAP/RATECAP top-1% share is identical BY CONSTRUCTION (disclosed tie \u2014 the old 1e-9-epsilon pass was meaningless). The r>g claim is scored on accumulation magnitude lender_growth (total lender capital, final/initial): FREE compounds on the full arrears-capitalizing base (mult 1.0) and accumulates fastest by a real margin over NOCAP/RATECAP (mult 0.85) and EQUITY (grows only with realized project returns).",
+  "pass": true
+ },
+ "Q5": {
+  "freedom_from_entrapment": {
+   "FREE": 0.962240361327543,
+   "NOCAP": 0.9722143523563886,
+   "RATECAP": 0.9843455510045382,
+   "EQUITY": 1.0
+  },
+  "contract_freedom": {
+   "stipulated_not_computed": true,
+   "values": {
+    "FREE": 1.0,
+    "NOCAP": 0.98,
+    "RATECAP": 0.8,
+    "EQUITY": 0.6
+   },
+   "note": "Owner-stipulated priors, not a sim output: the engine models no origination refusal for FREE/NOCAP/RATECAP (RATECAP re-prices to the cap, NOCAP alters servicing), so it yields no 'share of willing contracts permitted' to distinguish them; only EQUITY refuses origination (consumption + non-positive-share deals). Downgraded per rule 3."
+  },
+  "total_freedom_proxy": {
+   "FREE": 0.962240361327543,
+   "NOCAP": 0.9527700653092609,
+   "RATECAP": 0.7874764408036307,
+   "EQUITY": 0.6
+  },
+  "best_total_freedom": "FREE",
+  "crossover_weight_ff_over_cf": {
+   "NOCAP": 1.9591393240653396,
+   "RATECAP": 9.824602902589245,
+   "EQUITY": 13.271299134578964
+  },
+  "depends_on_stipulated_contract_freedom": true,
+  "fully_computed": false,
+  "note": "Descriptive gate. freedom-from-entrapment is computed from real trap rates; contract-freedom is stipulated (see above), so total_freedom_proxy / best_total_freedom / the crossover weights all rest on stipulated contract-freedom and are NOT sim verdicts. Crossover weights (geometric CF*FE**w): NOCAP overtakes FREE at ~2.0x, RATECAP at ~9.8x \u2014 at 1.5x weighting FREE still wins.",
+  "pass": true
+ },
+ "bar_summary": {
+  "Q0": false,
+  "Q1": true,
+  "Q2": true,
+  "Q3": false,
+  "Q4": true,
+  "Q5": true
+ }
+}

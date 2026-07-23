@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Understanding the Simulations — plain-language umbrella</title>
+<meta name="description" content="The whole simulation program in plain English: what we tested, what broke, what we fixed.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Plain-language umbrella</div>
+<h1>Understanding the Simulations</h1>
+<p class="sub">The whole testing program in plain English — what we tested, what broke, and what we fixed.</p>
+</div></header>
+<article><div class="wrap">
+<p><em>Supersedes LAYMAN REPORT v2 for everything after the v6 program began. v2 remains accurate for the closed-model era (v1–v5). Each v6 simulation also has its own plain-language companion in <code>EVE Sim v6 - Open Economy (Fiat Interface)/</code> — this is the umbrella story.</em></p>
+<h2 id="what-changed-in-july-2026">What changed in July 2026</h2>
+<p>Every simulation before v6 shared one big simplification: they modeled EDEN as a <strong>closed world</strong> — prices, demand, and the currency's value all set inside the model. An outside review made the consequence plain: some of our best results were baked into that setup (the "stretchy ruler" problem — essentials were priced off the network's own income, so the safety net could never really fail). So we rebuilt: <strong>v6 puts EDEN inside the real economy.</strong> Essentials cost dollars. People have day jobs. Data buyers have budgets and alternatives. EVE has an exchange rate set by what outsiders actually pay. Printing money now has consequences within months.</p>
+<p>Eight registered programs later (v6.0 through v6.7 — every one with pass/fail bars locked before running, failures published, and one public mid-program correction), here is what we now know.</p>
+<h2 id="the-ten-things-the-open-economy-taught-us">The ten things the open economy taught us</h2>
+<p><strong>1. You can't print customers.</strong> No matter how much EVE is minted, the real dollars inside EDEN equal what outsiders spend into it. At today's data prices, that's about <strong>$27/month for the median member</strong> — real, honestly earned, and small. (v6.0)</p>
+<p><strong>2. The fee-funded safety net is a myth — retired.</strong> Network fees cover ~$6 of a ~$563 monthly floor obligation. We said so, loudly, and replaced the claim with a <strong>funding ladder</strong>: fees → builders → governments. (v6.0)</p>
+<p><strong>3. The currency's enemy is an ordinary recession.</strong> Data budgets get cut like ad budgets; speculators run. A 30% demand dip became an 84% crash — until we installed the storm defenses, which turned it into a 36–52% dip recovering in months. The perfect storm still beat version one of the defenses (and made them <em>worse</em> than nothing — published), which is how we learned to size the reserve properly, ladder the term-locks, and add a guaranteed "grocery door" so people selling earnings to live are never rationed. (v6.0–6.2)</p>
+<p><strong>4. Judge storms by income, not price charts.</strong> Our own pass/fail bars initially graded the <em>price</em> — and the undefended economy "won" by seizing up (nobody could trade; median income $2/mo). Measured by what reaches people's pockets, the defenses deliver +53% more income through the storm and a 10× higher income floor. We rewrote the bars. (v6.2)</p>
+<p><strong>5. Using data yourself is real income.</strong> People who invest time applying data to their own lives — smarter shopping, better decisions, learned skills — generate savings worth more than the ad market pays for their attention. At a conservative $3/purposeful-hour, this "shadow income" lifted the poorest tenth past a poverty bar that cash alone missed — and no market crash can touch it. (v6.3)</p>
+<p><strong>6. Governments make the floor real — and cheap.</strong> A sponsoring government delivering the floor through EDEN's rails: every poor member above essentials for twelve straight years, zero money-printing, at <strong>26% below</strong> what traditional welfare delivery costs, with 100% take-up. The jurisdiction slice recovers only ~8% of the cost (it's a rebate, not a revenue model) — the floor is honestly tax-funded. (v6.4)</p>
+<p><strong>7. The builders change everything — this was the missing piece.</strong> Once institutions pay for <em>code</em> the way they pay for software today (we assumed EDEN captures only a modest slice), <strong>86% of builders in the model earn a viable income (median $392/mo)</strong> — in a world that pays most open-source maintainers zero. Growth stopped being an assumption: demand grew 2.5× because the ecosystem improved, and collapsed when building froze. Maintenance turns out to be load-bearing economics, exactly as the 15% maintainer share always claimed. (v6.5)</p>
+<p><strong>8. Everyone's AI agent is a tiny economy — and it's progressive.</strong> Personal agents paying micro-fees recycle 2.5× for the typical member, and the poorest tenth <em>net +$130/month</em> from the agent economy. But it also mapped the honest ceiling: passive membership tops out around <strong>$50–70/month</strong> across every channel. EDEN pays contribution, not presence — we now say so in three tiers: builders earn livings, contributors earn supplements, members earn pocket money plus storm-proof savings. (v6.6)</p>
+<p><strong>9. The floor can survive politics.</strong> We made the sponsoring government stingy (fine — the taper spreads a 40% cut survivably), flaky (not fine — fixed with an escrow clause: sponsors prefund three months), and then made it <em>leave</em> after six years of dependence. Result: <strong>nobody stranded</strong> — within a year the poorest were exactly where they'd have been if the sponsor had never come. The staged wind-down works. (v6.7)</p>
+<p><strong>10. But one sponsor is one point of failure.</strong> The exiting government had quietly become ~90% of the currency's demand; its departure crashed EVE 92%. New constitutional rules: no single payer above ~40% of demand, multiple sponsoring jurisdictions, escrow up front — and build the builder/agent economy <em>first</em>, so governments join the economy instead of becoming it. (v6.7)</p>
+<h2 id="where-that-leaves-the-whole-project">Where that leaves the whole project</h2>
+<p>The story now has an unusual shape for this genre: the <em>social</em> claims came out stronger than the <em>monetary</em> ones. People are protected through austerity and abandonment; the poorest profit from the agent economy; builders get a labor market that doesn't exist today; savings from wisdom are crash-proof. Meanwhile the currency is honestly described as small, storm-prone without its defenses, and dependent on demand diversification. Every number above has a registered simulation, public code, and a plain-language explainer behind it — and the biggest questions left (will institutions pay for data <em>and code</em>? will households pay for agents? will sponsors sign and stay?) are exactly the ones the staircase tests next, in the real world, cheaply.</p>
+<h2 id="postscript-the-hundred-year-run-v70">Postscript: the hundred-year run (v7.0)</h2>
+<p>After the ten findings above, one more simulation asked the biggest question of all: what if the whole world adopted this? A century-long "horizon model" — openly the most speculative in the program (no wars, no climate, adoption assumed) — tested whether the design's deepest promises are at least <em>coherent</em>. Four answers: <strong>(1)</strong> By year 65, the contributions of the dead — flowing through the Ancestral Dividend — plus ordinary fees fund every living person's essentials with zero money-printing, forever... <em>provided</em> humanity keeps building; stop maintaining the commons and the inheritance never matures. <strong>(2)</strong> Transparency conquers the goods market (96% of sales) — but the honest test showed the real engine isn't that transparency pays; it's that <em>reviews can't be buried</em>. Truth compounds; the payment makes it faster and profitable. <strong>(3)</strong> Growth continues without end in knowledge, quality, and — once physical limits bind — <em>free time</em>; growth in material stuff waits on the frontier. <strong>(4)</strong> Top creators earn ~2.7× the median with a 30%-per-decade changing of the guard — the run actually failed our "healthy reward" test <em>by being more equal than we demanded</em>. Plus one discovery: the world version needs a constitutional <strong>Exploration Subsidy floor</strong>, because civilizations must fund exploration before exploration can fund them. Details: <code>EVE Sim v7 - World Adoption (Horizon Model)/</code>.</p>
+<p><em>The consolidated design lives in <code>03 White Paper/EDEN White Paper v1.6 - DRAFT (Open Economy Consolidation).md</code>.</em></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

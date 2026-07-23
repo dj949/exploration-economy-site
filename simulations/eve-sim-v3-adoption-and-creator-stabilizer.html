@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Adoption &amp; Creator Stabilizer — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Adoption &amp; Creator Stabilizer.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Adoption &amp; Creator Stabilizer</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Adoption &amp; Creator Stabilizer</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>Two follow-ups to the data-demand sweep, which showed the floor is funded by a 10% slice of the human-attention mint — and that a deep data collapse is paid for by creators, not the poor. So: (A) is the floor still self-funded during the thin launch decade, when the attention mint is smallest? And (B) can a formulaic mechanism take the commoditization hit off creators?</p>
+<h2 id="part-a-no-the-launch-decade-is-not-self-funded">Part A — no, the launch decade is not self-funded</h2>
+<p>At launch the floor must cover about a quarter of all issuance (versus under 2% at maturity), exceeding the 10% pool by roughly 13–16%. The poor are protected the whole time — the 10th percentile holds at exactly 1.10× essentials throughout — so the only question is who funds the gap. Adoption speed is the dominant lever: reaching 50% adoption by year 2 instead of year 5 cuts the subsidy period from 3.4 years to 1.25. Minting the subsidy isn't inflationary (10-year inflation stays ~0%), but it quietly taxes creators by suppressing the creator mint; funding it externally — a launch treasury, founder reserve, or grant pool — is the clean choice. The recommendation: budget an explicit, time-boxed launch floor subsidy (≈10–16% of issuance, tapering over ~1–3 years), and have the white paper say "self-funded <em>at maturity</em>; the launch decade is subsidized" rather than implying self-funding from day one.</p>
+<h2 id="part-b-a-creator-stabilizer-with-a-correction-on-the-record">Part B — a creator stabilizer, with a correction on the record</h2>
+<p><strong>A correction happened here.</strong> The July 2026 verification found a unit bug: the original run sized the reserve at ~8× what the spec actually provides, so its headline — full creator protection through a −70% data-value collapse — was wrong in both units and dynamics. The corrected results, from fixed code (old JSON archived as <code>*_PRE-FIX_archive.json</code>): banking the 5% protocol slice's surplus instead of burning it — an 18-month reserve, released flat per creator when the median dips below launch — <strong>fully holds creators only through a ~50% collapse</strong>. At −70% it <strong>cushions rather than holds</strong>: creator real income bottoms at 0.92× and ends at 0.99×, versus 0.85×/0.93× unstabilized. Nothing protects against −80% or worse (the reserve empties). Inflation cost stays negligible (0.02–0.17%/yr). The spec should state the honest claim — full protection to ~−50%, meaningful cushioning at −70% — or raise the cap (~36 months buys materially more).</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The launch model's bootstrap leans on assumptions about real-world EVE acceptance and the launch money stock; a genuinely cold start sits outside what it captures well — the robust takeaway is the shape (a front-loaded floor deficit of ~15% of issuance for 1–3.5 years, shrinking with adoption speed), not the exact digits. Both mechanisms are formulaic and neither touches the poor (p10 at 1.10× in every run), but the stabilizer's cap and trigger are first-draft defaults meant to be argued with, and everything runs on the usual v1–v3 limits at N=25,000.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>The floor's self-funding is a maturity property, not a birthright — launch needs an external, time-boxed subsidy (~15% of issuance for 1–3.5 years, shrinking the faster adoption grows) — and the creator rainy-day reserve, honestly re-sized after a unit-bug correction, fully protects creators only through a ~50% data collapse and merely cushions a −70% one.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Mint / attention mint</strong> — newly created EVE; it comes only from verified live human engagement (attention), so the attention mint is the economy's money tap. <strong>Issuance</strong> — the flow of newly created money; subsidy sizes are quoted as shares of it. <strong>Floor</strong> — the guarantee that anyone can earn essentials through verified work (held at 1.10× throughout these runs). <strong>Self-funded</strong> — covered by the floor's own 10% slice of the mint with no extra money printed; the finding here is that this holds at maturity, not at launch. <strong>p10 / 10th percentile</strong> — the person poorer than 90% of people; the test's standing subject. <strong>Protocol slice</strong> — the 5% of every mint routed to system operations; its surplus is what the creator reserve banks. <strong>Median</strong> — the middle person: half earn more, half less; the stabilizer releases when the median creator dips below launch level. <strong>Commoditization</strong> — data becoming a cheap interchangeable bulk good; the collapse scenario the stabilizer exists for. <strong>Formulaic</strong> — run by a written rule, no committee or discretion. <strong>Money stock</strong> — all money in existence at once. <strong>Bootstrap</strong> — the cold-start phase where the system must grow using only what it generates itself. <strong>N=25,000</strong> — the runs simulate 25,000 people.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-adoption-and-creator-stabilizer-0.png" alt="fig_adoption.png">
+<img src="fig/eve-sim-v3-adoption-and-creator-stabilizer-1.png" alt="fig_creator_stabilizer.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Two follow-ups to the data-demand sweep, which found the floor is funded by the 10% routing slice on the </em><em>human-attention mint</em><em> (not the data economy) and that a deep data collapse is paid for by </em><em>creators</em><em>, not the poor. This brief tests the two implications: (A) is the floor still self-funded during the thin launch decade, when the attention mint is smallest? and (B) a formulaic mechanism to take the commoditization hit off creators. Both reuse the v3 engine; files in this folder.</em></p>
+<h2 id="revised-part-b-corrected-after-the-july-2026-verification-unit-bug">⚠️ REVISED — Part B corrected after the July 2026 verification (unit bug)</h2>
+<p>The original coded the reserve cap as 18 months of the <strong>c=1 reference mint's</strong> slice — ~8x the actual slice under the governor (c~0.13). The Part B headline below ("fully holds creators through a -70% collapse using ~12 of 18 reserve-months") was therefore wrong in both units and dynamics. <strong>Corrected results</strong> (fixed code; cap = 18 months of the actual trailing slice; JSON regenerated; old JSON archived as <code>*_PRE-FIX_archive.json</code>):</p>
+<ul>
+<li>An honestly-sized <strong>18-month reserve fully holds creators only through a ~50% data-value collapse</strong> (released ~15 slice-months).</li>
+<li>At <strong>-70%</strong> (the v3 reference) it <strong>cushions rather than holds</strong>: creator real income minimum <strong>0.92x</strong>, ending <strong>0.99x</strong> (vs 0.85x/0.93x unstabilized). Cumulative release ~<strong>95 slice-months</strong> — the capped stock refills monthly from the ongoing 5% flow, which is why release can exceed the cap; full protection at -70% needs ~<strong>120 slice-months</strong> cumulative (unlimited-cap diagnostic).</li>
+<li>Nothing protects against &gt;= -80% (reserve empties; as originally stated). Inflation cost remains negligible (0.02-0.17%/yr; bigger caps burn less, costing slightly more inflation).</li>
+</ul>
+<p><strong>Spec implication (v1.2 §6):</strong> state the honest claim — <em>full protection to ~-50%, meaningful cushioning at -70%</em> — or raise the cap (~36 months buys materially more). The mechanism works; the advertised strength assumed a reserve ~8x the spec. Part B prose below is preserved for the record and <strong>superseded by this section.</strong></p>
+<hr>
+<h2 id="part-a-the-floor-is-not-self-funded-during-the-launch-decade">Part A — The floor is NOT self-funded during the launch decade</h2>
+<p><strong>The question.</strong> Mature EDEN funds its floor from a 10% slice of a large attention mint. At launch the mint is tiny (few users, little to engage with) while the floor's obligation — keep everyone at 1.10× a <em>real</em> essentials basket — is full-size from day one. Does the floor still pay for itself?</p>
+<p><strong>Setup.</strong> Essentials are priced at <strong>mature / real-world value</strong> (a merchant prices bread by real cost, not relative to a 5%-adopted network's income), so thin-launch market incomes start far below the floor. Per-capita mint ramps 0.3→1.0 along an adoption S-curve; institutional data demand lags (scales with adoption¹·⁵). Same engine, criterion, and floor otherwise.</p>
+<p><strong>Findings.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Adoption speed</th>
+<th>Peak floor cost</th>
+<th>Subsidy beyond the 10% pool</th>
+<th>Years until self-funded</th>
+<th>p10 held?</th>
+<th>10-yr inflation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fast (50% by yr 2)</td>
+<td>22.5%</td>
+<td>13.3%</td>
+<td><strong>1.25 yr</strong></td>
+<td>yes, 1.10×</td>
+<td>~0%</td>
+</tr>
+<tr>
+<td>Medium (50% by yr 3.5)</td>
+<td>24.3%</td>
+<td>15.5%</td>
+<td><strong>2.4 yr</strong></td>
+<td>yes, 1.10×</td>
+<td>~0%</td>
+</tr>
+<tr>
+<td>Slow (50% by yr 5)</td>
+<td>24.5%</td>
+<td>15.8%</td>
+<td><strong>3.4 yr</strong></td>
+<td>yes, 1.10×</td>
+<td>~0%</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>At launch the floor must cover ~a quarter of all issuance</strong> (vs &lt;2% mature), exceeding the 10% verification pool by ~13–16%. So the "self-funded" property is a <em>mature-state</em> property; the launch decade runs at a deficit that closes only as adoption scales.</li>
+<li><strong>The poor are protected the whole time</strong> — the p10 sits at exactly 1.10× throughout. The floor <em>delivers</em>; the only question is who funds the gap.</li>
+<li><strong>Adoption speed is the dominant lever.</strong> Reaching 50% adoption at year 2 vs year 5 cuts the subsidy period from 3.4 years to 1.25. This is a direct, quantified argument for the awareness-and-onboarding flywheel (EdenQuest): getting to scale fast isn't just growth, it shrinks the launch subsidy.</li>
+<li><strong>Funding it by minting is <em>not</em> inflationary</strong> — even with a thin 6-month launch money stock, the governor absorbs the top-up minting (10-yr inflation stays ~0%). But it absorbs it by <strong>suppressing the creator mint</strong>, so minting the subsidy quietly taxes creators during launch. <strong>Funding the subsidy externally</strong> (a launch treasury / founder reserve / grant pool) protects creators and is the clean choice.</li>
+</ol>
+<p><strong>Honest caveat.</strong> The "non-inflationary minting" result leans on the launch money stock being sizeable relative to the subsidy. A genuinely cold start (almost no EVE in existence) is outside what this model captures well, and the real bootstrap also depends on EVE's external acceptance — which is an adoption question, not a monetary one. The robust takeaway is the <strong>shape</strong>: a front-loaded floor deficit of ~15% of issuance for 1–3.5 years, shrinking with adoption speed.</p>
+<p><strong>What to do with it.</strong> Budget an explicit, time-boxed <strong>launch floor subsidy</strong> (≈10–16% of issuance, tapering over ~1–3 years), funded externally, and treat adoption velocity as a first-class monetary parameter. Put "the floor is self-funded <em>at maturity</em>; the launch decade is subsidized" in the white paper rather than implying self-funding from day one.</p>
+<hr>
+<h2 id="part-b-a-creator-stabilizer-that-shares-the-commoditization-burden">Part B — A creator stabilizer that shares the commoditization burden</h2>
+<p><strong>The question.</strong> Under a deep data-value collapse, v3 holds the poor at 1.10× but lets median creator real income fall (0.92× at −70%, down to 0.67× at −99%). Can a formulaic mechanism share that hit?</p>
+<p><strong>The mechanism (no committee, no new minting).</strong> In the v1.0 spec the 5% protocol slice's surplus is <em>burned</em>. Replace "burn" with <strong>bank-then-release</strong>:</p>
+<ul>
+<li>Bank the slice in a <strong>reserve</strong> (capped at 18 months of the slice); burn only the overflow. The reserve is simply <em>deferred</em> burning.</li>
+<li><strong>Trigger:</strong> when median creator real income dips below its launch level, <strong>release</strong> from the reserve, flat per creator (progressive — it lifts the median, not the whales), enough to restore the median toward launch.</li>
+<li>The release is exempt from the governor's issuance target (it's recycled deferred-burn, not new mint), so the governor doesn't claw it back by cutting the creator mint.</li>
+</ul>
+<p><strong>Findings.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Data-value decline</th>
+<th>Creator real income, baseline</th>
+<th>+ Stabilizer</th>
+<th>Reserve left</th>
+<th>Inflation cost</th>
+<th>p10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>−30%</td>
+<td>1.13</td>
+<td>1.13 (min held at 1.0)</td>
+<td>full</td>
+<td>+0.04 pp</td>
+<td>1.10</td>
+</tr>
+<tr>
+<td>−50%</td>
+<td>1.03 (min 0.96)</td>
+<td><strong>1.01 (min 1.0)</strong></td>
+<td>full</td>
+<td>+0.05 pp</td>
+<td>1.10</td>
+</tr>
+<tr>
+<td><strong>−70% (v3 ref)</strong></td>
+<td>0.93 (min 0.85)</td>
+<td><strong>1.00 (min 1.0)</strong></td>
+<td>6 mo</td>
+<td>+0.08 pp</td>
+<td>1.10</td>
+</tr>
+<tr>
+<td>−80%</td>
+<td>0.86</td>
+<td><strong>0.92</strong></td>
+<td>empty</td>
+<td>+0.09 pp</td>
+<td>1.10</td>
+</tr>
+<tr>
+<td>−90%</td>
+<td>0.77</td>
+<td><strong>0.84</strong></td>
+<td>empty</td>
+<td>+0.11 pp</td>
+<td>1.10</td>
+</tr>
+<tr>
+<td>−99%</td>
+<td>0.67</td>
+<td><strong>0.74</strong></td>
+<td>empty</td>
+<td>+0.12 pp</td>
+<td>1.10</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>It fully protects creators up to a ~70% collapse</strong> — median creator real income never drops below its launch level, using about 12 of the reserve's 18 months. That covers v3's reference commoditization case with margin.</li>
+<li><strong>It substantially cushions deeper collapses</strong> (e.g., −90%: 0.84 vs 0.77) but the finite reserve can't fully offset a <em>permanent</em> ≥80% regime change — as it shouldn't, since printing into a permanent collapse would just inflate.</li>
+<li><strong>It's essentially free and harms no one.</strong> Inflation rises only from ~0.02% to ~0.1%/yr; the p10 and the floor's self-funding are untouched (top-up minting stays 0). It taxes neither the poor nor top creators — it's funded entirely by deferring burns from good years into bad ones.</li>
+</ol>
+<p><strong>Honest limits &amp; knobs.</strong> The reserve cap (18 months) and the release sizing are tunable; a bigger cap buffers deeper/longer collapses at the cost of less burning (slightly more inflation). For a <em>permanent</em> deep collapse the right answer isn't a bigger buffer but the freshness-decay already in the spec — it redirects value to new creation, i.e., it nudges creators to adapt rather than be subsidized indefinitely. The stabilizer is shock insurance, not a pension.</p>
+<p><strong>What to do with it.</strong> Adopt it as a low-risk change to the protocol slice: "burn the surplus" → "bank the surplus, release to creators when their real income dips below launch, burn the overflow." It converts a static sink into a counter-cyclical creator buffer for near-zero cost.</p>
+<hr>
+<h2 id="what-the-two-together-say">What the two together say</h2>
+<p>The data-demand sweep reframed EDEN's safety net as <em>coupled to the attention mint</em>. These two runs trace that coupling to its two real consequences and show both are manageable:</p>
+<ul>
+<li><strong>At launch</strong>, when the mint is small, the floor needs a temporary external subsidy — bounded (~15% of issuance), short (1–3.5 yr), and shrinking the faster you grow.</li>
+<li><strong>Under commoditization</strong>, when data income collapses, the burden falls on creators — and a near-free counter-cyclical reserve can absorb it up to a severe (70%) collapse.</li>
+</ul>
+<p>Neither touches the poor (the p10 holds at 1.10× in every run here), and neither requires discretion — both are formulaic. They turn two open risks from the earlier brief into specified, tested mechanisms.</p>
+<h2 id="caveats">Caveats</h2>
+<p>Same structural limits as v1–v3 (quantity-theory pricing, no behavioral feedback, no fraud, fixed population, single 15-year horizon), run at N=25,000 for speed. The adoption model's bootstrap depends on assumptions about real-world EVE acceptance and launch money stock that sit partly outside the model. The stabilizer's reserve cap and trigger are first-draft defaults meant to be argued with. All findings are existence/robustness demonstrations under stated assumptions, not forecasts.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>adoption_sim.py</code> — launch-decade stress (real-anchor pricing, adoption S-curve, external vs minted subsidy, money-stock sensitivity)</li>
+<li><code>fig_adoption.png</code> — launch subsidy size/duration; adoption speed as the lever</li>
+<li><code>creator_stabilizer_sim.py</code> — counter-cyclical reserve mechanism over the commoditization sweep</li>
+<li><code>fig_creator_stabilizer.png</code> — creator real income restored; reserve fill-and-release path</li>
+<li><code>results_adoption.json</code>, <code>results_creator_stabilizer.json</code> — all rows</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-adoption-and-creator-stabilizer-0.json" download>⬇ results_adoption.json</a><a class="dlbtn" href="data/eve-sim-v3-adoption-and-creator-stabilizer-1.json" download>⬇ results_creator_stabilizer.json</a><a class="dlbtn" href="data/eve-sim-v3-adoption-and-creator-stabilizer-2.json" download>⬇ results_creator_stabilizer_PRE-FIX_archive.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

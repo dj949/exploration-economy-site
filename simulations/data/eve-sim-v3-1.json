@@ -1,0 +1,161 @@
+{
+  "parameters": {
+    "N": 100000,
+    "T": 180,
+    "hours_mean": 4.5,
+    "hours_sd": 2.0,
+    "hours_min": 0.5,
+    "hours_max": 10.0,
+    "engagement_growth_yr": 0.03,
+    "creator_frac": 0.3,
+    "pareto_alpha": 1.1,
+    "addictive_frac": 0.1,
+    "addictive_appeal_mult": 3.0,
+    "effort_weight_passive": 0.4,
+    "avg_effort_factor": 0.64,
+    "royalty_flat_share": 0.25,
+    "creator_share": 0.6,
+    "verify_share": 0.1,
+    "protocol_share": 0.05,
+    "sharer_frac": 0.95,
+    "data_quality_sigma": 1.0,
+    "data_budget_frac": 0.1,
+    "data_growth_optimistic": 0.05,
+    "money_stock_months": 60,
+    "death_rate_yr": 0.012,
+    "bequest_uptake": 0.5,
+    "supply_growth_yr": 0.02,
+    "passthrough": 1.0,
+    "start_buffer": 0.85,
+    "floor_mult": 1.1,
+    "gov_down": 0.99,
+    "gov_up": 1.005,
+    "gov_band": 0.05
+  },
+  "verdicts": {
+    "v3-full|baseline|conservative": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "floor_cost_end": 0.3,
+      "floor_cost_max": 0.5,
+      "topup_max": 0.0,
+      "creator_real_end": 1.26
+    },
+    "v3-full|shock|conservative": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "floor_cost_end": 0.3,
+      "floor_cost_max": 0.5,
+      "topup_max": 0.0,
+      "creator_real_end": 1.25
+    },
+    "v3-full|commoditization|conservative": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "floor_cost_end": 1.9,
+      "floor_cost_max": 2.1,
+      "topup_max": 0.0,
+      "creator_real_end": 0.91
+    },
+    "v3-full|automation|conservative": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": -0.2,
+      "floor_cost_end": 0.2,
+      "floor_cost_max": 0.3,
+      "topup_max": 0.0,
+      "creator_real_end": 1.55
+    },
+    "v3-full|combined|conservative": {
+      "fails": false,
+      "longest": 1,
+      "first": null,
+      "infl": 0.0,
+      "floor_cost_end": 1.9,
+      "floor_cost_max": 2.2,
+      "topup_max": 0.0,
+      "creator_real_end": 0.89
+    },
+    "v3-full|baseline|optimistic": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "floor_cost_end": 0.1,
+      "floor_cost_max": 0.5,
+      "topup_max": 0.0,
+      "creator_real_end": 1.7
+    },
+    "v3-full|shock|optimistic": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "floor_cost_end": 0.1,
+      "floor_cost_max": 0.5,
+      "topup_max": 0.0,
+      "creator_real_end": 1.68
+    },
+    "v3-full|commoditization|optimistic": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0,
+      "floor_cost_end": 0.7,
+      "floor_cost_max": 1.2,
+      "topup_max": 0.0,
+      "creator_real_end": 1.08
+    },
+    "v3-full|automation|optimistic": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": -0.2,
+      "floor_cost_end": 0.0,
+      "floor_cost_max": 0.3,
+      "topup_max": 0.0,
+      "creator_real_end": 1.89
+    },
+    "v3-full|combined|optimistic": {
+      "fails": false,
+      "longest": 1,
+      "first": null,
+      "infl": 0.0,
+      "floor_cost_end": 0.8,
+      "floor_cost_max": 1.2,
+      "topup_max": 0.0,
+      "creator_real_end": 1.07
+    },
+    "v3-nofloor|baseline|conservative": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 0.0
+    },
+    "v3-nofloor|commoditization|conservative": {
+      "fails": true,
+      "longest": 107,
+      "first": 74,
+      "infl": 0.0
+    },
+    "v3-nofloor|combined|conservative": {
+      "fails": true,
+      "longest": 107,
+      "first": 74,
+      "infl": 0.0
+    },
+    "v3-bare|baseline|conservative": {
+      "fails": false,
+      "longest": 0,
+      "first": null,
+      "infl": 9.6
+    }
+  }
+}

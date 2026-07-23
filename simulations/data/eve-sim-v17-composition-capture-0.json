@@ -1,0 +1,82 @@
+{
+ "spec": "v17 SPEC - Composition Capture (registered).md",
+ "derived": {
+  "floor_flow_yr": 7200000000.0
+ },
+ "C0": {
+  "weight_sum": 1.0,
+  "sums_to_1": true,
+  "diverted_identity_ok": true,
+  "pass": true
+ },
+ "capture_cost": {
+  "contribution_house": 99687500.0,
+  "person_house_campaign": 25000000.0,
+  "person_house_sybil": 36000000000.0,
+  "person_house": 25000000.0,
+  "total": 124687500.0
+ },
+ "C1": {
+  "capture_cost": 124687500.0,
+  "bar": 100000000.0,
+  "pass": true
+ },
+ "C2": {
+  "benefit_yr_monopoly": 12960000.0,
+  "benefit_horizon_monopoly": 77760000.0,
+  "capture_cost": 124687500.0,
+  "cost_benefit_ratio": 1.603491512345679,
+  "roi_yr": -7821250.0,
+  "bar_ratio": 3.0,
+  "pass": false,
+  "worst_case": {
+   "category": "food",
+   "benefit_yr": 21600000.0,
+   "benefit_horizon": 129600000.0,
+   "cost_benefit_ratio": 0.9620949074074074,
+   "roi_yr": 818750.0,
+   "note": "forbidden-monopoly ceiling; C4's functional-definition defense is what stands between this and realized rent"
+  }
+ },
+ "C3": {
+  "benefit_capped_yr": 12960000.0,
+  "benefit_uncapped_yr": 129600000.0,
+  "throttle_factor": 10.0,
+  "bar_capped_below": 20000000.0,
+  "per_category_capped_yr": {
+   "food": 21600000.0,
+   "shelter": 21600000.0,
+   "energy": 12960000.0,
+   "healthcare": 8640000.0,
+   "connectivity": 6480000.0,
+   "water": 5400000.000000001,
+   "transit": 4320000.0
+  },
+  "worst_category": "food",
+  "benefit_capped_yr_worst": 21600000.0,
+  "pass_energy_only": true,
+  "pass": false
+ },
+ "C4": {
+  "competitive_rent_yr": 0.0,
+  "monopoly_rent_yr": 12960000.0,
+  "brand_insertion_feasible": false,
+  "finding": "functional categories: reweight rent ~0 for a price-taker; capture requires a forbidden monopoly satisfier. The only paying 'capture' is being genuinely cheapest = competition, not rent.",
+  "pass": true
+ },
+ "C5": {
+  "cost_naive": 62500.0,
+  "benefit_naive_yr": 129600000.0,
+  "cost_benefit_ratio_naive": 8.037551440329218e-05,
+  "capture_profitable_without_defenses": true,
+  "pass": true
+ },
+ "bar_summary": {
+  "C0": true,
+  "C1": true,
+  "C2": false,
+  "C3": false,
+  "C4": true,
+  "C5": true
+ }
+}

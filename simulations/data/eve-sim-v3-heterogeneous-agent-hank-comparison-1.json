@@ -1,0 +1,20 @@
+{
+  "poverty_rate_pct": {
+    "status_quo": 28.3,
+    "eden": 0.0
+  },
+  "consumption_gini": {
+    "status_quo": 0.144,
+    "eden": 0.105
+  },
+  "mean_assets_precautionary": {
+    "status_quo": 0.9,
+    "eden": 0.53
+  },
+  "welfare_CEV_pct": {
+    "all": 7.9,
+    "poorest_third": 12.0
+  },
+  "essentials": 0.8,
+  "eden_floor": 0.8800000000000001
+}

@@ -1,0 +1,416 @@
+{
+ "spec": "v27 SPEC - Lending Integrity (registered).md",
+ "params": {
+  "L": 10000.0,
+  "r_base": 0.05,
+  "r_market": 0.125,
+  "term_yr": 3.0,
+  "c_secured": 0.5,
+  "c_unsecured": 0.0,
+  "g_cap": 0.8,
+  "rho_rep": 0.5,
+  "phi_forgone": 0.3,
+  "d_honest": 0.08,
+  "honest_loss_frac": 0.2,
+  "seeds": [
+   7,
+   11
+  ],
+  "mc": 4000
+ },
+ "grid": {
+  "secured+earmarked": {
+   "s0.05_h0.1": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 0.0,
+    "cost_of_default": 0.53
+   },
+   "s0.05_h0.3": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 14.754228847975046,
+    "cost_of_default": 0.59
+   },
+   "s0.05_h0.6": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 721.3255081455962,
+    "cost_of_default": 0.68
+   },
+   "s0.1_h0.1": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 0.0,
+    "cost_of_default": 0.53
+   },
+   "s0.1_h0.3": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 14.754228847975046,
+    "cost_of_default": 0.59
+   },
+   "s0.1_h0.6": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 721.3255081455962,
+    "cost_of_default": 0.68
+   },
+   "s0.2_h0.1": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 0.0,
+    "cost_of_default": 0.53
+   },
+   "s0.2_h0.3": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 14.754228847975046,
+    "cost_of_default": 0.59
+   },
+   "s0.2_h0.6": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 721.3255081455962,
+    "cost_of_default": 0.68
+   }
+  },
+  "unsecured+earmarked": {
+   "s0.05_h0.1": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 1434.6550684655522,
+    "cost_of_default": 0.53
+   },
+   "s0.05_h0.3": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 2948.0371466003808,
+    "cost_of_default": 0.59
+   },
+   "s0.05_h0.6": {
+    "loss_rate": 0.020407567623870932,
+    "net_over_base": 0.20459243237612904,
+    "r_required": 0.05680252254129032,
+    "default_pays_frac": 0.142875,
+    "debt_dodged": 5348.03714660038,
+    "cost_of_default": 0.68
+   },
+   "s0.1_h0.1": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 1434.6550684655522,
+    "cost_of_default": 0.53
+   },
+   "s0.1_h0.3": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 2948.0371466003808,
+    "cost_of_default": 0.59
+   },
+   "s0.1_h0.6": {
+    "loss_rate": 0.024815135247741864,
+    "net_over_base": 0.20018486475225813,
+    "r_required": 0.05827171174924729,
+    "default_pays_frac": 0.142875,
+    "debt_dodged": 5348.03714660038,
+    "cost_of_default": 0.68
+   },
+   "s0.2_h0.1": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 1434.6550684655522,
+    "cost_of_default": 0.53
+   },
+   "s0.2_h0.3": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 2948.0371466003808,
+    "cost_of_default": 0.59
+   },
+   "s0.2_h0.6": {
+    "loss_rate": 0.03363027049548373,
+    "net_over_base": 0.19136972950451625,
+    "r_required": 0.06121009016516125,
+    "default_pays_frac": 0.142875,
+    "debt_dodged": 5348.03714660038,
+    "cost_of_default": 0.68
+   }
+  },
+  "secured+raw": {
+   "s0.05_h0.1": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 24.037035014587026,
+    "cost_of_default": 0.53
+   },
+   "s0.05_h0.3": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 958.5047232170473,
+    "cost_of_default": 0.59
+   },
+   "s0.05_h0.6": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 3358.5047232170473,
+    "cost_of_default": 0.68
+   },
+   "s0.1_h0.1": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 24.037035014587026,
+    "cost_of_default": 0.53
+   },
+   "s0.1_h0.3": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 958.5047232170473,
+    "cost_of_default": 0.59
+   },
+   "s0.1_h0.6": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 3358.5047232170473,
+    "cost_of_default": 0.68
+   },
+   "s0.2_h0.1": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 24.037035014587026,
+    "cost_of_default": 0.53
+   },
+   "s0.2_h0.3": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 958.5047232170473,
+    "cost_of_default": 0.59
+   },
+   "s0.2_h0.6": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 3358.5047232170473,
+    "cost_of_default": 0.68
+   }
+  },
+  "unsecured+raw": {
+   "s0.05_h0.1": {
+    "loss_rate": 0.0152,
+    "net_over_base": 0.2098,
+    "r_required": 0.055066666666666673,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 4358.5047232170455,
+    "cost_of_default": 0.53
+   },
+   "s0.05_h0.3": {
+    "loss_rate": 0.03215513133108161,
+    "net_over_base": 0.19284486866891837,
+    "r_required": 0.06071837711036054,
+    "default_pays_frac": 0.5297499999999999,
+    "debt_dodged": 5958.504723217047,
+    "cost_of_default": 0.59
+   },
+   "s0.05_h0.6": {
+    "loss_rate": 0.05699252361608524,
+    "net_over_base": 0.16800747638391475,
+    "r_required": 0.06899750787202842,
+    "default_pays_frac": 1.0,
+    "debt_dodged": 8358.504723217047,
+    "cost_of_default": 0.68
+   },
+   "s0.1_h0.1": {
+    "loss_rate": 0.014400000000000003,
+    "net_over_base": 0.21059999999999995,
+    "r_required": 0.05480000000000001,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 4358.5047232170455,
+    "cost_of_default": 0.53
+   },
+   "s0.1_h0.3": {
+    "loss_rate": 0.04831026266216322,
+    "net_over_base": 0.17668973733783674,
+    "r_required": 0.06610342088738774,
+    "default_pays_frac": 0.5297499999999999,
+    "debt_dodged": 5958.504723217047,
+    "cost_of_default": 0.59
+   },
+   "s0.1_h0.6": {
+    "loss_rate": 0.09798504723217048,
+    "net_over_base": 0.1270149527678295,
+    "r_required": 0.0826616824107235,
+    "default_pays_frac": 1.0,
+    "debt_dodged": 8358.504723217047,
+    "cost_of_default": 0.68
+   },
+   "s0.2_h0.1": {
+    "loss_rate": 0.0128,
+    "net_over_base": 0.2122,
+    "r_required": 0.05426666666666668,
+    "default_pays_frac": 0.0,
+    "debt_dodged": 4358.5047232170455,
+    "cost_of_default": 0.53
+   },
+   "s0.2_h0.3": {
+    "loss_rate": 0.08062052532432643,
+    "net_over_base": 0.14437947467567355,
+    "r_required": 0.07687350844144214,
+    "default_pays_frac": 0.5297499999999999,
+    "debt_dodged": 5958.504723217047,
+    "cost_of_default": 0.59
+   },
+   "s0.2_h0.6": {
+    "loss_rate": 0.17997009446434098,
+    "net_over_base": 0.04502990553565901,
+    "r_required": 0.10999003148811366,
+    "default_pays_frac": 1.0,
+    "debt_dodged": 8358.504723217047,
+    "cost_of_default": 0.68
+   }
+  }
+ },
+ "W0": {
+  "pass": true
+ },
+ "W1": {
+  "net_over_base_central": {
+   "secured+earmarked": 0.21059999999999995,
+   "unsecured+earmarked": 0.21059999999999995,
+   "secured+raw": 0.21059999999999995,
+   "unsecured+raw": 0.17668973733783674
+  },
+  "secured_earmarked_viable": true,
+  "pass": true
+ },
+ "W2": {
+  "viable_structures_central": [
+   "secured+earmarked",
+   "unsecured+earmarked",
+   "secured+raw",
+   "unsecured+raw"
+  ],
+  "pass": true
+ },
+ "W3": {
+  "default_pays_frac_central": {
+   "secured+earmarked": 0.0,
+   "unsecured+earmarked": 0.0,
+   "secured+raw": 0.0,
+   "unsecured+raw": 0.5297499999999999
+  },
+  "defended_structures_safe": true,
+  "exploit_corner_unsec_raw_high_h": 1.0,
+  "pass": true
+ },
+ "W4": {
+  "frozen_owed_5yr": 1.6250000000000004,
+  "compound_owed_5yr": 1.862216085120865,
+  "growth_is_linear": true,
+  "floor_never_touched": true,
+  "pass": true
+ },
+ "W5": {
+  "loss_rate_by_struct_over_h": {
+   "secured+earmarked": {
+    "h0.1": 0.0128,
+    "h0.3": 0.0128,
+    "h0.6": 0.0128
+   },
+   "unsecured+earmarked": {
+    "h0.1": 0.0128,
+    "h0.3": 0.0128,
+    "h0.6": 0.03363027049548373
+   },
+   "secured+raw": {
+    "h0.1": 0.0128,
+    "h0.3": 0.0128,
+    "h0.6": 0.0128
+   },
+   "unsecured+raw": {
+    "h0.1": 0.0128,
+    "h0.3": 0.08062052532432643,
+    "h0.6": 0.17997009446434098
+   }
+  },
+  "r_required_by_struct_over_h": {
+   "secured+earmarked": {
+    "h0.1": 0.05426666666666668,
+    "h0.3": 0.05426666666666668,
+    "h0.6": 0.05426666666666668
+   },
+   "unsecured+earmarked": {
+    "h0.1": 0.05426666666666668,
+    "h0.3": 0.05426666666666668,
+    "h0.6": 0.06121009016516125
+   },
+   "secured+raw": {
+    "h0.1": 0.05426666666666668,
+    "h0.3": 0.05426666666666668,
+    "h0.6": 0.05426666666666668
+   },
+   "unsecured+raw": {
+    "h0.1": 0.05426666666666668,
+    "h0.3": 0.07687350844144214,
+    "h0.6": 0.10999003148811366
+   }
+  },
+  "loss_reduction_factor_high_threat": 14.060163630026638,
+  "unsecured_raw_r_required_high_threat": 0.10999003148811366,
+  "pass": true
+ },
+ "bar_summary": {
+  "W0": true,
+  "W1": true,
+  "W2": true,
+  "W3": true,
+  "W4": true,
+  "W5": true
+ }
+}

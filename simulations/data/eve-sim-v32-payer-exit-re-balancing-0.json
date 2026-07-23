@@ -1,0 +1,57 @@
+{
+ "spec": "v32 SPEC - Payer-Exit Re-balancing (registered).md",
+ "run_date": "2026-07-11",
+ "anchors": {
+  "gap_musd_mo": 3006.6,
+  "givers_remaining_musd_mo": 3750.0,
+  "gross_recv_busd_mo": 6.7566,
+  "run_draw_total_busd": 6.6,
+  "reserve_committed_busd": 81.0792,
+  "reserve_registered_busd": 36.0,
+  "drawer_baseline_delivery": 0.894
+ },
+ "RB0": {
+  "gap_musd_mo": 3006.6,
+  "runway_committed": 24,
+  "runway_registered": 9,
+  "pass": true
+ },
+ "RB1": {
+  "bump_needed_frac_of_existing_burden": 0.80176,
+  "tolerance_anchor": 0.06,
+  "under_tolerance": false,
+  "pass": false
+ },
+ "RB2": {
+  "taper_frac_closing_gap": 0.44498712370126986,
+  "drawer_delivery": 0.9528313648876654,
+  "drawer_baseline": 0.894,
+  "pass": true
+ },
+ "RB3": {
+  "bump_at_cap_musd_mo": 225.0,
+  "residual_gap_musd_mo": 2781.6,
+  "taper_frac": 0.41168635112334606,
+  "drawer_delivery": 0.9563612467809253,
+  "pass": true
+ },
+ "RB4": {
+  "max_phase_in_months_registered": 18,
+  "max_phase_in_months_committed": 48,
+  "extra_political_runway_months": 30,
+  "pass": true
+ },
+ "RB5": {
+  "printed": 0.0,
+  "drain_vs_closed_form_ok": true,
+  "pass": true
+ },
+ "bar_summary": {
+  "RB0": true,
+  "RB1": false,
+  "RB2": true,
+  "RB3": true,
+  "RB4": true,
+  "RB5": true
+ }
+}

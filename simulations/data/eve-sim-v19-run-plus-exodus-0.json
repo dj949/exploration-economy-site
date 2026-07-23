@@ -1,0 +1,161 @@
+{
+ "spec": "v19 SPEC - Run plus Exodus (registered).md",
+ "anchors": {
+  "G0": 3000000.0,
+  "FLOAT0": 72000000.0,
+  "RESERVE0": 36000000.0,
+  "FLOOR_SELL": 2400000.0
+ },
+ "Z0": {
+  "dd_pct": 26.326633889277833,
+  "deliv_min": 1.0,
+  "v9_R0_dd_pct": 26.0,
+  "v9_R0_band": [
+   21,
+   31
+  ],
+  "dd_in_v9_band": true,
+  "delivery_holds": true,
+  "pass": true,
+  "note": "calibration-consistency check vs v9 committed R0 (v9 itself byte-verified by harness); v19 is a reduced-form composition engine"
+ },
+ "Z1": {
+  "deliv_min": 1.0,
+  "months_below": 0,
+  "max_consec": 0,
+  "pass": true
+ },
+ "Z2": {
+  "herd_sweep": {
+   "0": {
+    "RU_end": 0.9638067995117026,
+    "RU_min": 0.9638067995117026,
+    "runaway": false
+   },
+   "1": {
+    "RU_end": 0.8849132978544693,
+    "RU_min": 0.8849132978544693,
+    "runaway": false
+   },
+   "2": {
+    "RU_end": 0.7713035003927872,
+    "RU_min": 0.7713035003927872,
+    "runaway": false
+   }
+  },
+  "retained_at_h1": 0.8849132978544693,
+  "pass": true,
+  "critical_herd": null,
+  "x_max_sweep": {
+   "x0.04_h1": {
+    "RU_end": 0.8849132978544693,
+    "RU_min": 0.8849132978544693,
+    "deliv_min": 1.0,
+    "months_below": 0,
+    "max_consec": 0,
+    "reserve_end": 35219824.18722709,
+    "runaway": false
+   },
+   "x0.04_h2": {
+    "RU_end": 0.8569136484627775,
+    "RU_min": 0.8569136484627775,
+    "deliv_min": 1.0,
+    "months_below": 0,
+    "max_consec": 0,
+    "reserve_end": 35212988.857029535,
+    "runaway": false
+   },
+   "x0.08_h1": {
+    "RU_end": 0.8849132978544693,
+    "RU_min": 0.8849132978544693,
+    "deliv_min": 1.0,
+    "months_below": 0,
+    "max_consec": 0,
+    "reserve_end": 35219824.18722709,
+    "runaway": false
+   },
+   "x0.08_h2": {
+    "RU_end": 0.7713035003927872,
+    "RU_min": 0.7713035003927872,
+    "deliv_min": 1.0,
+    "months_below": 0,
+    "max_consec": 0,
+    "reserve_end": 35187884.94655056,
+    "runaway": false
+   },
+   "x0.15_h1": {
+    "RU_end": 0.8849132978544693,
+    "RU_min": 0.8849132978544693,
+    "deliv_min": 1.0,
+    "months_below": 0,
+    "max_consec": 0,
+    "reserve_end": 35219824.18722709,
+    "runaway": false
+   },
+   "x0.15_h2": {
+    "RU_end": 0.6804992279629988,
+    "RU_min": 0.6804992279629988,
+    "deliv_min": 1.0,
+    "months_below": 0,
+    "max_consec": 0,
+    "reserve_end": 35160360.3278181,
+    "runaway": false
+   }
+  }
+ },
+ "Z3": {
+  "beta_sweep": {
+   "0.5": {
+    "reserve_exhaust_mo": null,
+    "reserve_end": 35246969.9361572,
+    "deliv_min": 1.0,
+    "lane_cap_below_floor_mo": 25
+   },
+   "1.0": {
+    "reserve_exhaust_mo": null,
+    "reserve_end": 35219824.18722709,
+    "deliv_min": 1.0,
+    "lane_cap_below_floor_mo": 25
+   }
+  },
+  "reserve_months_after_shock_central": 156,
+  "pass": true
+ },
+ "Z4": {
+  "peg_deliv_min": 1.0,
+  "peg_months_below": 0,
+  "anchored_deliv_min": 1.0,
+  "anchored_months_below": 0,
+  "pass": true
+ },
+ "extension_F1_forced_exodus": {
+  "note": "F1's original prose claimed delivery holds with 88% of the base gone; no committed run performed it. This cell forces attrition (4%/mo from the shock) down to RU=0.12 and measures delivery to the remaining 12%.",
+  "RU_end": 0.11550044750580028,
+  "RU_min": 0.11550044750580028,
+  "deliv_min": 1.0,
+  "months_below": 0,
+  "max_consec": 0,
+  "reserve_end": 35261978.23274483,
+  "reserve_exhaust_mo": null,
+  "lane_cap_below_floor_mo": 25
+ },
+ "extension_F2_permanent_shock": {
+  "note": "F2's original prose claimed even a permanent price depression never empties the vault; the committed engine could only express a decaying shock. This cell holds the confidence shock at full depth for the entire horizon.",
+  "dd": 0.4000125555408298,
+  "RU_end": 0.02,
+  "deliv_min": 1.0,
+  "months_below": 0,
+  "max_consec": 0,
+  "reserve_end": 33634518.62793775,
+  "reserve_exhaust_mo": null,
+  "lane_cap_below_floor_mo": 25
+ },
+ "determinism_note": "no random draws anywhere in the reduced form; the declared seeds [7, 11] were vacuous (rng was dead code, removed July 11) \u2014 seed independence is exact",
+ "bar_summary": {
+  "Z0": true,
+  "Z1": true,
+  "Z2": true,
+  "Z3": true,
+  "Z4": true
+ }
+}

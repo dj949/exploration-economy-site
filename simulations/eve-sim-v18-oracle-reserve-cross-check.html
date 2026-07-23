@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v18 - Oracle-Reserve Cross-Check — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v18 - Oracle-Reserve Cross-Check.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v18 - Oracle-Reserve Cross-Check</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 9, 2026. Companion to <code>RESULTS - v18.0 Oracle-Reserve Cross-Check</code>.</em></p>
+<h2 id="the-problem-this-fixes">The problem this fixes</h2>
+<p>An earlier test (v14) found a soft spot: if an attacker fools the price gauge into reading essentials as <em>more</em> expensive than they really are, EDEN's safety net dutifully over-pays — protecting people, but quietly draining the emergency reserve, empty in about four months. The verdict then was: "the reserve needs a second opinion on the price." This is that second opinion, built and tested.</p>
+<h2 id="the-fix">The fix</h2>
+<p>Add an <strong>independent price estimator</strong> — the actual flow of grocery-lane commerce (real purchases, the hardest signal to fake) — and a simple rule: if the official price gauge and this independent estimator ever disagree by more than a set tolerance, pay against the <em>lower</em> of the two and flag a review. </p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>It works, and cleanly.</strong> With the second opinion switched on, an attacker who inflates the official gauge by 10% no longer drains the reserve at $19.8M a month — the drain drops to about <strong>$0.30M a month</strong> (just measurement jitter), and the reserve survives the full two-year test instead of emptying in two months. The key property: the leak is capped by the <em>tolerance you set</em>, not by how outrageously the attacker lies. They can claim prices doubled; the second opinion catches the disagreement and the floor simply pays the honest number.</p>
+<p><strong>And people still eat.</strong> Paying the "lower of two" could in theory shortchange recipients when the honest estimator is a hair low — and our first draft showed exactly that wobble. The fix turned out to already be in the design: the floor always pays <strong>110%</strong> of the measured essentials price, and that extra 10% is exactly the cushion meant to absorb measurement error. A 1–2% wobble against a 10% cushion means people still get 100% of what they need. (Nice bonus: this is the same 10% cushion another July-9 document had <em>claimed</em> was for absorbing measurement error — and here it is, doing precisely that job.)</p>
+<h2 id="the-one-honest-catch">The one honest catch</h2>
+<p>The second opinion defends against faking <em>one</em> price source. An attacker who corrupts <em>both</em> at once — inflating the official gauge <em>and</em> suppressing the real-commerce estimator in the same move — can finally nudge delivery down, by about 1% (their 10% suppression eating into the 10% cushion). But that requires capturing the single most expensive thing in the whole system to fake (real commerce, priced earlier at $310 million), <em>on top of</em> faking the official gauge. So the fix doesn't create a new hole; it raises the price of attack from "fool one gauge, drain the reserve for free" to "fool two independent gauges, and even then only dent delivery by the cushion."</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Give the safety net a second, hard-to-fake opinion on prices, and an attacker who lies about what essentials cost can no longer bleed the reserve — the damage is capped by a tolerance you choose, not by the size of their lie, and people keep eating because the floor's built-in 10% cushion soaks up the honest noise.</strong></p>
+<hr>
+<p><em>Note added July 11, 2026 (self-audit follow-up): a check of this test's own internal scoring found that one secondary question — "what exact tolerance setting is best?" — can't actually be answered by the way this particular test was set up (it only tried one attack size, and the answer just came out "as loose as allowed," which isn't informative). We've marked that as an honest gap needing a proper follow-up test, and corrected three other internal checks to measure what they were supposed to. None of this changes the headline above: the second opinion still works, and the tolerance the project uses (3%) rests on the two checks that did pass properly. We flag it rather than paper over it — that's the house rule.</em></p>
+<p><em>Second note, July 12, 2026 (fifth verification pass): one of the two checks the 3% tolerance rested on turned out to have been graded at the middle noise level only. Re-graded across the full registered range, it fails at the top of that range: if honest price-measurement noise runs at 2%, a 3% tolerance falsely quarantines the price index about one month in eight. That doesn't reopen the drain (the cap on what an attacker can bleed is a separate check, which still passes) — it means the tolerance setting needs honest noise to stay at or below about 1%, or the price feed needs the already-coded smoothing option. Filed as a failure in the test's own records, bar unmoved, same house rule.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v18-oracle-reserve-cross-check-0.png" alt="fig_v18_crosscheck.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Spec: <code>v18 SPEC - Oracle-Reserve Cross-Check (registered).md</code> — bars Y0–Y4 fixed before code. Engine: <code>oracle_reserve_crosscheck_sim.py</code> (deterministic given seeds); committed: <code>results_v18.json</code>, <code>fig_v18_crosscheck.png</code>. Closes the defensive mechanism v14's X3 finding said it owed. Every number traces to <code>results_v18.json</code>.</strong></p>
+<p><strong>Verdict in one line: the cross-check works — an independent endogenous-lane estimator plus a divergence gate bounds the reserve drain by the tolerance τ instead of by the attacker's inflation δ (monthly over-draw $0.30M with it on vs $19.8M off; the reserve survives the full 24-month horizon instead of draining in 2), delivery stays whole because the floor's 1.10× cushion absorbs honest estimator noise, and the only residue is the honest one: an attacker who corrupts <em>both</em> estimators at once (inflate the published index AND suppress the lane) converts a reserve-drain into a bounded, quarantined delivery dip — no free lunch, but no new hole either.</strong></p>
+<h2 id="bar-summary-three-pass-y4s-registered-expectation-refuted-and-y0-failing-as-registered-at-the-top-of-the-noise-sweep-both-findings">Bar summary (three pass; Y4's registered expectation refuted and Y0 failing as registered at the top of the noise sweep — both findings)</h2>
+<p><em>Gates recoded July 11 to compute their registered clauses (Backlog #4b, executed) — see the gate-tightening note at the foot. The core-result numbers are unchanged (byte-identical); the recode tightened Y0/Y1/Y2 to their registered clauses and un-vacuoused Y4 (now honestly FAILS its registered expectation). </em><em>Y0 re-scored July 12 (Verification v5 D1, action 1):</em><em> the July-11 recode still scored Y0's false-quarantine clause at the central σ_xc=0.01 only; scored across the full registered honest-noise sweep {0.5%, 1%, 2%} it </em><em>FAILS at σ=2%</em><em> — see F5.</em></p>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured (computed)</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Y0 harness / false quarantine</td>
+<td>all three clauses: &lt;5% false-quarantine months at τ=3%,δ=0, honest noise (registered sweep σ_xc ∈ {0.5%, 1%, 2%}); reserve monotone non-increasing &amp; decreases only when paying above lane; seeds agree ≤3% rel</td>
+<td><strong>σ≤1%: 0.0% fq (but seeds/monotonicity clauses vacuous there — 0-vs-0, flat reserve); σ=2%: 2–3 of 24 months = 12.5% fq, seeds disagree</strong></td>
+<td><strong>FAIL — finding (F5)</strong></td>
+</tr>
+<tr>
+<td>Y1 drain bounded by τ not δ</td>
+<td>monthly over-draw ≤ τ×lane under δ=10% (no slack)</td>
+<td><strong>$0.30M/mo</strong> (vs $19.8M off; bound $5.4M)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>Y2 reserve survival</td>
+<td>months-to-drain ≥ 3× the ~4-mo X3 baseline (=12 mo)</td>
+<td>OFF <strong>2 mo</strong> → ON <strong>≥24 mo</strong> (full horizon; 6× baseline)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>Y3 delivery protected</td>
+<td>≥1.0 every month for δ≤10%</td>
+<td><strong>1.000</strong> (cushion absorbs noise)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>Y4 τ tradeoff</td>
+<td><strong>registered expectation τ* ≈ 2–3%</strong> (interior optimum)</td>
+<td><strong>τ* = 5%; frontier τ-degenerate</strong> (drain identical at every swept τ)</td>
+<td><strong>FAIL — refuted expectation (F4)</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The cross-check caps the leak at the tolerance, not the attack size (Y1/Y2, the core result).</strong> Without it, an inflated EBI (δ=10%) makes the floor over-pay 10% of the redemption lane every month — $19.8M/mo — and the $36M reserve is gone in <strong>2 months</strong> (reproducing v14 X3's ~4-month finding, slightly faster at these dials). With the cross-check on, the floor pays against <code>min(published, lane-estimator)</code>; since the lane estimator tracks real prices, the paid index snaps back to ≈truth whenever the published index diverges by more than τ, so the monthly over-draw collapses to <strong>$0.30M</strong> (noise only) and the reserve <strong>survives the full horizon</strong>. The leak is bounded by τ×lane regardless of how far the attacker inflates — δ can be 10% or 100%, the drain is the same, because divergence past τ triggers the gate either way. That is the mechanism's whole point, and it holds.</p>
+<p><strong>F2 — Delivery is protected by the floor's own cushion, which is why the bias budget matters (Y3).</strong> Paying <code>min(published, lane)</code> means honest downward basis-noise in the lane estimator could, in principle, underpay — the first cut of this sim showed exactly that (delivery dipping to 0.981 under 1% noise). The correct model closes it: the floor pays <strong>1.10×EBI</strong>, and the 0.05 of that cushion is precisely the <strong>measurement-bias budget</strong> registered in <code>EBI Methodology Spec §5</code>. A 1–2% estimator underread against a 10% cushion still delivers &gt;100% of essentials, so delivery holds at 1.0. This is a satisfying consistency check across two July-9 artifacts: the bias budget the methodology spec <em>asserted</em> is the exact quantity that makes the cross-check safe here. (A v0.2 smoothing refinement — pay against a 3-month median of the estimator — is coded and available; with the cushion in place it is belt-and-suspenders, not required.)</p>
+<p><strong>F3 — The honest residue: a 2-of-2 estimator attack (Y3 bracket, as registered).</strong> The cross-check defends against corrupting <em>one</em> source. An attacker who simultaneously inflates the published index (+10%) <strong>and</strong> suppresses the lane estimator (−10%) — a 2-of-2 on the two independent measurements — pushes the paid index to the bottom of the divergence band, and delivery dips to <strong>0.99</strong> (the 10% suppression exactly eats the 10% cushion). This is not a hole the cross-check opens; it is the residual truth that <em>some</em> two-source corruption converts a reserve-drain into a bounded, quarantined delivery question — and corrupting the lane is the single most expensive capture in the whole oracle model ($310M, v13-Oracle O4), on top of corrupting the published index. The cross-check raises the bar from "capture one channel, drain the reserve free" to "capture two independent channels, and even then only dent delivery by the cushion." No free lunch created; the keystone (multi-source oracle integrity) is unchanged.</p>
+<p><strong>F4 — The τ tradeoff is degenerate at the registered dials; the registered τ*≈2–3% expectation is refuted (Y4, gate-tightening finding).</strong> When Y4's gate was recoded to compute the registered clause (rather than the tautological "τ<em> is somewhere in the swept set"), it failed its registered expectation honestly. The reason is structural: the registered frontier fixes the attack at δ=10% and sweeps τ ∈ {1,2,3,5}%. Because </em><em>every swept τ is well below δ</em><em>, the divergence gate trips in </em>every<em> case, so the floor always pays <code>min(pub, lane)</code> and the excess drain is </em><em>identical (τ-invariant) across the whole sweep</em><em> (<code>drain_spread ≈ 0</code>). The cost is therefore minimized purely by reducing false quarantines, which monotonically favors the </em><em>loosest</em><em> τ (5%) — not an interior 2–3% optimum. The "too loose → the drain returns" arm the SPEC anticipated only engages once τ approaches δ, which lies outside the registered sweep. </em><em>This does not weaken the drain-bounding mechanism:</em><em> canon's τ=3% is justified by Y1's divergence-bounded drain, which passes on a computed clause; but note the </em>false-quarantine<em> half of its justification is now σ-conditional — Y0's registered-sweep re-score (F5) shows τ=3% trips 12.5% of months at σ_xc=2%, so τ=3% is comfortable only if honest basis-noise stays ≤1%. Y4 shows the </em>tuning* frontier as registered can't locate an interior optimum; a proper τ-vs-δ tuning sweep (τ approaching the attack size), now jointly with the σ dimension, is the owed successor. Filed as a finding, bar unmoved (house rule).</p>
+<p><strong>F5 — Y0 fails as registered at the top of the honest-noise sweep (Verification v5 re-score, July 12).</strong> The registered clause is "&lt;5% false-quarantine months at τ=3%, δ=0, honest noise," with the honest-noise dial registered as σ_xc ∈ {0.5%, 1%, 2%}. The July-11 recode scored it at σ=1% only (0 false quarantines — PASS); this engine's own Y4 frontier, which runs at σ=2%, already recorded 3 quarantine months at τ=3%. Scored across the full registered sweep, Y0 <strong>fails</strong>: at σ=2%, 2–3 of 24 months (12.5%) are false quarantines and the two seeds disagree on the count (2 vs 3 — &gt;3% rel). Two further vacuities are now disclosed as computed diagnostics: at δ=0 over-pay is identically zero, so the reserve path is flat and the monotonicity clause holds with nothing to test (<code>monotonicity_vacuous_at_delta0</code>), and at σ≤1% the seeds-agreement clause compares 0 to 0 (<code>seeds_comparison_vacuous_0v0</code>). <strong>Design meaning, plainly:</strong> the cross-check's quarantine trigger is noise-sensitive — at 2% honest basis-noise and τ=3%, roughly one month in eight would falsely quarantine the published index. That is a calibration constraint (τ must sit comfortably above realistic basis-noise, or the estimator must be smoothed — the coded v0.2 3-month-median option), not a drain hole (Y1/Y2 unaffected). Bar unmoved; prior PASS was σ-selected (v5 D1).</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced-form (prices normalized to truth=1.0; the redemption lane, reserve, and inflation are the v9/v13-Oracle/v14 anchors, not a re-derived market). τ* = 5% lands at the top of the swept range because the frontier is τ-degenerate at δ=10% (F4) — the owed successor is a τ-vs-δ tuning sweep where τ is allowed to approach the attack size, which is where an interior optimum would live; the false-quarantine cost is modeled only against zero-mean noise, not against structural basis drift between R+M and the lane (which the EBI Methodology's chaining rules would also affect). The 2-source bracket is priced qualitatively (delivery = cushion − suppression); a full 2-of-2 capture-cost stack belongs with the oracle successors. And the cross-check inherits the whole oracle keystone: it assumes the lane estimator is itself hard to fake, which v13-Oracle priced but the live prize-funded red-team still owes.</p>
+<p><em>Run and written July 9, 2026, verification session (Fable). The mid-run model correction (adding the canon 1.10× floor cushion, which Y3 depends on) is disclosed in F2, not hidden. τ folds into the Oracle Protocol on ratification — see <code>01 Canon/EBI Cross-Check Addendum</code>.</em></p>
+<p><em>Gate-tightening EXECUTED, July 11, 2026 (Backlog #4b, Opus 4.8, against the Verification v4 D9 register). The four flagged gates now compute their registered clauses: </em><em>Y0</em><em> scores all three registered clauses (false-quarantine rate + reserve monotonicity + seeds-agreement), not just the first; </em><em>Y1</em><em> dropped the unregistered $1M slack (measured $0.30M ≪ $5.4M bound — still PASS); </em><em>Y2</em><em> scores against the registered 3× ~4-mo X3 baseline (=12 mo), not 3× the measured off-drain (drain-on ≥24 mo — still PASS); </em><em>Y4</em><em> was un-vacuoused — the tautological "τ</em> ∈ swept-set" pass is replaced by the registered interior-optimum expectation (τ<em>≈2–3%), which the computed frontier </em><em>refutes</em><em> (τ</em>=5%, drain τ-invariant), now filed as finding F4. The core-result leaves are byte-identical to the pre-recode commit (verified: only gate booleans + added diagnostic keys changed; run-to-run deterministic). No registered bar was moved; the Y4 flip is a FAIL-finding. Fresh-session verification of this recode is owed (Backlog #13).*</p>
+<p><em>Verification v5 action 1 EXECUTED, July 12, 2026 (Fable 5 verification session, against v5 D1): </em><em>Y0 re-scored across the full registered σ_xc sweep {0.5%, 1%, 2%} → FAIL-finding (F5)</em><em> — the July-11 recode had scored only the central σ=1%, a selection its own Y4 frontier contradicted. The per-σ sweep, the vacuity diagnostics (<code>monotonicity_vacuous_at_delta0</code>, <code>seeds_comparison_vacuous_0v0</code>), and a dynamically-built finding string are committed under <code>Y0.registered_sigma_sweep</code>; the Y4 finding text's "stands on Y0's floor" dependency re-worded to its σ-conditional form. Core leaves again byte-identical (only Y0 keys, the Y4 finding string, and <code>bar_summary.Y0</code> changed; run-to-run deterministic; pre/post sha256 in <code>VERIFICATION v5</code> postscript). Bar unmoved throughout. An import guard was also added (the engine previously executed on import — v9-class hazard).</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v18-oracle-reserve-cross-check-0.json" download>⬇ results_v18.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

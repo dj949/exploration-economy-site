@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Oracle (EBI) Manipulation — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Oracle (EBI) Manipulation.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Oracle (EBI) Manipulation</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Oracle (EBI) Manipulation</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>The EBI — the Essentials Basket Index — is an outlier-trimmed on-chain median of merchant-posted prices, and it sets both the earnability floor (<code>F = 1.10 × EBI</code>) and machine-pay prices. Corrupt it and you corrupt the safety net and the data economy at the same time; the design itself flagged it as the softest attack surface. A median shrugs off a few liars by construction, so the sharp question is: as an attacker controls a growing share of price <em>sources</em>, when does the index break — especially now that AI makes manufacturing a plausible fake merchant network cheap?</p>
+<h2 id="what-we-found">What we found</h2>
+<p>A threshold, not a slope. The median's statistical breakdown point is 50% of sources — below that it resists, at that point it capitulates to whatever the attacker posts. But under realistic price dispersion (σ≈0.20), a sub-majority already moves it: 25% of sources buys +9% distortion, 40% buys +21%, and ~50% is full capture (→ +50%). A naive mean moves immediately and a trimmed mean breaks even earlier (at its trim fraction), so the median is the right estimator — and the security question reduces entirely to source authenticity.</p>
+<p>The economic blast radius: the floor and every data price scale linearly with the EBI, so a +10–20% distortion is simply 10–20% inflation injected into both — defeating the governor's near-zero mandate long before anything structural breaks. Breaking the floor's self-funding is much harder (it would take roughly +355% EBI inflation — full capture plus extreme posted prices), so the realistic damage is inflation and value-transfer at sub-50% capture, not a self-funding break. At launch it's worse: the floor is already ~23% of issuance and externally subsidized, so EBI inflation raises the subsidy burden roughly 1:1 during exactly the fragile period. The mirror attack — deflating the EBI — collapses machine-pay so institutions buy everyone's data cheap: an attack on the data-dignity promise rather than the floor.</p>
+<p>What actually defends it: not trimming (that only guards against a handful of wild outliers). Source staking with slashing is the real lever — bonding each source flips the attacker's payoff negative once the bond clears break-even, and stronger detection roughly halves the bond required (in model units, ≈940/source at 50% detection vs ≈520 at 90%). A move-rate cap (e.g., 2%/period) forces the index to crawl toward the attacker's target over ~10 visible periods — time for anomaly detection, slashing, and bridge circuit-breakers to act. Breadth, independence, and external cross-checks make a fake-source majority costlier and detectable.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Verdict: SURVIVES WITH CHANGES. The merchant-posted median <em>alone</em> is exploitable once AI makes plausible fake sources cheap; the buildable fix is staked + slashed + diverse + externally cross-checked sources plus a bounded index move-rate — and a funded public red-team of the oracle remains a launch gate. The model is stylized: honest prices are i.i.d. lognormal (real prices have regional structure), the attacker posts one coordinated value, and the staking figures are shape results, not dollar figures. The robust takeaways: breakdown is ~50% of sources, so security equals source authenticity; realistic dispersion lets a sub-majority distort the index 10–20%; and staking plus move-rate caps are the defenses that bite, not trimming.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>The price index EDEN's floor hangs on is statistically the best choice — a median that holds until an attacker controls ~50% of sources — but under realistic price spread a 25–40% minority already injects 9–21% inflation into the floor and every data price, so the verdict is SURVIVES WITH CHANGES: make each source expensive to fake (stake it, slash it, cross-check it) and cap how fast the index can move.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Oracle</strong> — the system's price-measuring instrument: the thermometer the economy reads prices from; corrupt it and everything indexed to it is corrupted. <strong>Median</strong> — the middle value of all posted prices — half sit above, half below — so a few liars can't move it. <strong>Outlier-trimmed</strong> — extreme readings are thrown away before taking that middle, so a single wild fake can't budge the number. <strong>Estimator</strong> — the recipe for squeezing one official number out of many readings; mean, trimmed mean, and median are rival recipes. <strong>Trimmed mean</strong> — an average taken after discarding the extremes; it breaks earlier than the median here. <strong>Dispersion (σ, sigma)</strong> — spread: how far typical honest prices wander from the middle; σ≈0.20 is the realistic scatter that gives a lying minority room to hide in. <strong>i.i.d.</strong> — every price draw independent, same dice each time — a simplification, since real prices move together regionally. <strong>Lognormal</strong> — a bell curve for things that can't go below zero and occasionally get huge; the assumed shape of honest prices. <strong>Staking / bonding</strong> — each price source posts a security deposit to participate. <strong>Slashing</strong> — losing that posted deposit when caught lying — the lever that flips the attack into a money-loser. <strong>On-chain</strong> — recorded on the shared public ledger, visible and checkable by anyone. <strong>Machine-pay</strong> — what AIs and institutions must pay people to use their data; deflating the index makes that data artificially cheap. <strong>Red-team</strong> — friendly attackers funded to break the oracle on purpose before real ones try. <strong>Issuance</strong> — all newly created money; "~23% of issuance" sizes the launch floor bill against it.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-oracle-ebi-manipulation-0.png" alt="fig_oracle_manipulation.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Closes the item the Modeling Roadmap flagged as "the design's flagged softest attack surface" and left unbuilt. The EBI (Essentials Basket Index) is an outlier-trimmed on-chain </em><em>median</em><em> of merchant-posted prices — and it sets </em><em>both</em><em> the earnability floor (<code>F = 1.10 × EBI</code>) </em><em>and</em><em> machine-pay (<code>PRICE = P_floor × C × F</code>). So a manipulated EBI corrupts the safety net and the data economy at the same time. This run asks how far an attacker can move it, what that does economically, and which defenses actually bite. Files in this folder.</em></p>
+<hr>
+<h2 id="the-framing-which-is-the-whole-point">The framing (which is the whole point)</h2>
+<p>A trimmed median is chosen precisely because it's robust to a few liars. The right question is therefore not "can one bad merchant move the index?" (no) but: <strong>as an attacker controls a growing share of price <em>sources</em>, when does the index break — and what's it worth to break it?</strong> And in 2026 the sharp edge is that AI makes manufacturing a <em>plausible</em> fake merchant network cheap, so "share of sources an attacker can reach" is no longer naturally bounded by the cost of being a real business.</p>
+<h2 id="the-result-a-threshold-not-a-slope">The result — a threshold, not a slope</h2>
+<p>A median's statistical breakdown point is <strong>50% of sources.</strong> Below that it resists; at that point it capitulates. But <em>how</em> it resists depends on how dispersed honest prices are (essentials prices really do vary across merchants and regions). Under realistic dispersion (σ≈0.20), a sub-majority minority already moves it:</p>
+<table>
+<thead>
+<tr>
+<th>Attacker share of price <strong>sources</strong></th>
+<th style="text-align: right;">EBI distortion (median, realistic dispersion)</th>
+<th>What it means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>25%</td>
+<td style="text-align: right;"><strong>+9%</strong></td>
+<td>9% inflation in the floor and all data prices</td>
+</tr>
+<tr>
+<td>40%</td>
+<td style="text-align: right;"><strong>+21%</strong></td>
+<td>21% inflation; governor's ~0% mandate defeated</td>
+</tr>
+<tr>
+<td>~50% (breakdown)</td>
+<td style="text-align: right;"><strong>→ +50%</strong></td>
+<td>full capture — index = the attacker's posted lie</td>
+</tr>
+<tr>
+<td><em>naive mean (no trim)</em></td>
+<td style="text-align: right;"><em>moves immediately, linearly</em></td>
+<td><em>why trimming/median exist at all</em></td>
+</tr>
+<tr>
+<td><em>trimmed mean, trim = t</em></td>
+<td style="text-align: right;"><em>breaks at f = t</em></td>
+<td><em>heavier trim → robust to outliers but LOWER breakdown</em></td>
+</tr>
+</tbody>
+</table>
+<p>Two readings, both matching the design's intent and its risk:</p>
+<ol>
+<li><strong>The median is the right estimator</strong> — it has the highest breakdown point (0.5) of the options, far better than a naive mean (breaks instantly) or a trimmed mean (breaks at its trim fraction). EDEN's spec is correct to use it.</li>
+<li><strong>"Robust" still means <em>robust up to a share of sources</em> — so the security reduces to source authenticity.</strong> With tightly-curated/clustered sources the median is nearly flat until the 50% cliff; with realistic price dispersion a 25–40% source minority already distorts the index 9–21%. Either way the variable that matters is <strong>what share of sources an attacker can stand up</strong>, which is an economic question (cost per fake source), not a statistical one.</li>
+</ol>
+<h2 id="economic-blast-radius">Economic blast radius</h2>
+<p>Because floor payout and machine-pay both scale linearly with EBI, the distortion <em>is</em> the economic damage:</p>
+<ul>
+<li><strong>Inflate EBI</strong> → the floor (<code>1.10 × EBI</code>) and every data price inflate by the same percent. A +10–20% distortion is simply 10–20% inflation injected into the floor and the data economy — it defeats the governor's near-zero inflation mandate <strong>long before</strong> it threatens anything structural.</li>
+<li><strong>Breaking the floor's self-funding is much harder than doing economic harm.</strong> Mature floor cost is ~2.2% of issuance against a 10% verification pool, so forcing inflationary top-up minting needs EBI inflation of roughly <strong>+355%</strong> — i.e., full capture (f &gt; 0.5) <em>and</em> extreme posted prices. So the "self-funding never prints money" result is robust to the oracle; the realistic damage is <strong>inflation and value-transfer at sub-50% capture</strong>, not a self-funding break.</li>
+<li><strong>At launch it's worse:</strong> the floor is already ~23% of issuance and externally subsidized, so EBI inflation raises the subsidy burden roughly 1:1 during exactly the period the network is most fragile.</li>
+<li><strong>Deflate EBI</strong> (the mirror attack) → machine-pay collapses, so institutions buy everyone's data cheap and data income craters — an attack on the data-dignity promise rather than on the floor.</li>
+</ul>
+<h2 id="what-actually-defends-it-and-what-doesnt">What actually defends it (and what doesn't)</h2>
+<ul>
+<li><strong>Outlier-trimming alone doesn't raise the bar</strong> — a median already has the 0.5 breakdown; trimming only guards against a handful of wild outliers, and a <em>trimmed mean</em> actually breaks <em>earlier</em> (at its trim fraction). Don't mistake trimming for the defense.</li>
+<li><strong>Source staking/slashing is the real lever.</strong> Bonding each price source and slashing on detected manipulation flips the attacker's payoff negative once the bond clears a break-even level; stronger detection roughly halves the bond required (in model units, break-even ≈ 940/source at 50% detection vs ≈ 520 at 90%). This converts the attack from "cheap to manufacture sources" into "expensive to risk capital on each one" — directly attacking the source-share variable the median's breakdown exposes.</li>
+<li><strong>A move-rate cap buys reaction time.</strong> Capping how fast the index may move (e.g., 2%/period) doesn't stop a determined attacker reaching the target level, but forces the index to <em>crawl</em> there over ~10 visible periods — time for anomaly detection, slashing, and bridge circuit-breakers to act.</li>
+<li><strong>Breadth + independence + external cross-checks</strong> raise the cost and detectability of a fake-source majority (a synthetic merchant network that doesn't correlate with independent indices is detectable).</li>
+</ul>
+<h2 id="verdict">Verdict</h2>
+<p><strong>SURVIVES WITH CHANGES</strong>, matching Red-Team finding #5. As specified — a merchant-posted trimmed median — the oracle is statistically sound but its security rests entirely on keeping the attacker's <em>source share</em> below ~50% (and, under realistic dispersion, well below it to hold inflation near zero). The merchant-posted median <strong>alone</strong> is exploitable once AI makes plausible fake sources cheap. The buildable fix is concrete: <strong>staked + slashed + diverse + externally-cross-checked sources, plus a bounded index move-rate.</strong> A funded public red-team of the oracle remains a launch gate (White Paper v1.1 §16).</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>A stylized model. Honest prices are i.i.d. lognormal — real essentials prices have regional structure and correlation the model omits; the attacker posts a single coordinated value rather than an optimized distribution; the prize, per-source creation cost, and detection probability in the staking study are illustrative units, so the break-even bond is a <em>shape</em> result ("a finite bond flips the sign, and detection lowers it"), not a dollar figure. Trimming is modeled as symmetric tail-trimming; EDEN's exact on-chain trimming rule may differ. The robust takeaways are the ones that don't depend on calibration: <strong>(1) the median's breakdown is ~50% of sources, so security = source authenticity; (2) realistic dispersion lets a sub-majority minority distort the index 10–20%; (3) staking + move-rate caps are the defenses that bite, not trimming.</strong> Audience: anyone reviewing the floor/oracle dependency, and the pilot's oracle red-team designers.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>oracle_manipulation_sim.py</code> — estimators, the source-share sweep, the economic mapping, and the staking/move-rate defense model</li>
+<li><code>fig_oracle_manipulation.png</code> — four panels: robustness vs source-share (realistic &amp; tight dispersion), economic distortion, and the staking defense</li>
+<li><code>results_oracle_manipulation.json</code> — all figures and readouts</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-oracle-ebi-manipulation-0.json" download>⬇ results_oracle_manipulation.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

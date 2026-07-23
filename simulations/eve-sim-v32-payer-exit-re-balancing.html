@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v32 - Payer-Exit Re-balancing — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v32 - Payer-Exit Re-balancing.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v32 - Payer-Exit Re-balancing</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 11, 2026. Companion to <code>RESULTS - v32.0 Payer-Exit Re-balancing</code>.</em></p>
+<h2 id="the-cliffhanger-this-resolves">The cliffhanger this resolves</h2>
+<p>The secession test (v20) ended on a countdown: lose a big paying region and the union has a $3-billion-a-month hole, with a reserve that buys somewhere between nine months and two years (depending on a sizing rule flagged for ratification in the July 11 audit). Buys time <em>for what</em>, though? This run prices the actual fixes.</p>
+<h2 id="the-three-options-priced">The three options, priced</h2>
+<p><strong>Ask the remaining rich regions to cover it: dead.</strong> They'd need an <strong>80% increase</strong> in what they already contribute — and the political ceiling established across earlier tests is about <strong>6%</strong>. This was registered as "expected to fail" and it failed by thirteen-fold, which is the point: now it's on the record with a number, so nobody proposes it in a crisis.</p>
+<p><strong>Trim the poorer regions' top-up: surprisingly gentle.</strong> The subsidy is a bonus on top of regions that already fund ~89% of their own safety nets. Cutting it 44% — enough to close the whole hole with no help from anyone — moves their delivery from 100% to about <strong>95%</strong>. Nobody goes anywhere near where they'd be if they'd never joined.</p>
+<p><strong>Mix: cap the rich regions' extra at 6%, taper the rest.</strong> Delivery lands at ~<strong>96%</strong>. This is the recommended pre-written response.</p>
+<h2 id="what-the-reserve-size-actually-decides">What the reserve size actually decides</h2>
+<p>Here's the reframe the numbers force: the reserve isn't there to <em>pay</em> the hole (it can't, forever) — it's there to buy <strong>negotiating time</strong> while the taper phases in. The lean reserve rule ($36B) supports a phase-in of at most <strong>18 months</strong>; the big rule ($81B) supports <strong>4 years</strong>. So the flagged 9-vs-24-month ratification question is really: <em>how much diplomacy time should a payer exit come with, and at what reserve cost?</em> That's a values call — but now it's a priced one.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>You can't bill the survivors and you don't have to starve the drawers: a pre-agreed 6%-capped contribution bump plus a phased subsidy taper closes a payer-exit hole at ~4½ points of delivery — and the reserve size you ratify is simply how many months of negotiating room the phase-in gets.</strong></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v32-payer-exit-re-balancing-0.png" alt="fig_v32_rebalancing.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 11, 2026. Spec: <code>v32 SPEC - Payer-Exit Re-balancing (registered).md</code> — bars RB0–RB5 fixed before code. Engine: <code>payer_exit_rebalancing_sim.py</code> (v20's mechanism replicated verbatim — constants copied, not imported, per the v9 import-guard rule; fully deterministic). Committed: <code>results_v32.json</code>, <code>fig_v32_rebalancing.png</code>. Evidence for the 9-vs-24 reserve-sizing ratification (v20/v4) and gate-22's pre-commitment content (DR-14). Every number traces to <code>results_v32.json</code>.</strong></p>
+<p><strong>Verdict in one line: the payer-exit hole cannot be closed by asking the remaining rich to pay more (a bump alone needs +80% of their existing burden against a 6% political bar — RB1 FAILS as pre-registered), it is closed cheaply by tapering the subsidy (a 41–45% taper costs the drawers only ~4.4–4.7pp of delivery, landing at 0.953–0.956, far above their 0.894 never-joined baseline) — and the reserve-sizing choice the July 11 audit flagged turns out to be a <em>political-time</em> decision: the registered $36B reserve forces the taper to full depth within ~18 months; the committed $81.1B sizing allows a ~48-month phase-in. Buy reserve, buy negotiating room — that is the whole difference.</strong></p>
+<h2 id="bar-summary-rb1-failed-as-pre-registered-the-finding-all-others-pass">Bar summary (RB1 FAILED as pre-registered — the finding; all others pass)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RB0 regression anchor</td>
+<td>v20's committed post-exit facts exact</td>
+<td>gap <strong>$3,006.6M/mo</strong>; runways <strong>24 / 9 months</strong> (committed / registered sizing, matching v20's <code>registered_dial_probe</code>)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>RB1 slice-bump alone</td>
+<td>closes gap under the 6% tolerance anchor</td>
+<td>needs <strong>+80.2%</strong> of remaining givers' existing burden</td>
+<td><strong>FAIL (pre-registered expectation — finding F1)</strong></td>
+</tr>
+<tr>
+<td>RB2 taper alone</td>
+<td>report closing taper + humane cost</td>
+<td><strong>44.5% cut</strong> → drawer delivery <strong>0.9528</strong> (baseline 0.894)</td>
+<td><strong>PASS (descriptive)</strong></td>
+</tr>
+<tr>
+<td>RB3 mixed, bump capped 6%</td>
+<td>report residual taper + delivery</td>
+<td>6% bump = $225M/mo → <strong>41.2% taper</strong>, delivery <strong>0.9564</strong></td>
+<td><strong>PASS (descriptive)</strong></td>
+</tr>
+<tr>
+<td>RB4 phase-in windows</td>
+<td>slowest safe linear ramp per reserve rule</td>
+<td><strong>registered $36B: 18 months; committed $81.1B: 48 months (+30)</strong></td>
+<td><strong>PASS (descriptive — the 9-vs-24 evidence)</strong></td>
+</tr>
+<tr>
+<td>RB5 no-print + conservation</td>
+<td>zero printing; drain matches closed form</td>
+<td>0 printed; drain = gap·(M+1)/2 exact</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — You cannot bill the survivors (RB1, failed on schedule).</strong> Closing a departed payer's $3.0066B/mo hole from the two remaining rich regions' pockets means raising their contributions <strong>+80.2%</strong> — thirteen times the 6% political-tolerance anchor that v5.4/v21-K4 established, against members who just watched a peer walk rather than keep paying. This bar was registered expecting exactly this failure so the magnitude is on the record: <strong>slice-bumps are a rounding term (a capped 6% bump buys $225M of the $3,007M hole), not a re-balancing tool.</strong> Gate-22's pre-commitment should therefore never promise a bump-led response.</p>
+<p><strong>F2 — The taper is cheap because the subsidy is marginal (RB2/RB3, the humane arithmetic).</strong> The whole drawer subsidy is a top-up on regions that already self-fund 89.4% of their floors (v20 S1's structural fact). So cutting the subsidy 44.5% — enough to close the entire gap with no bump at all — moves drawer delivery only from 1.0 to <strong>0.9528</strong>; with the 6% bump included, 41.2% and <strong>0.9564</strong>. Nobody approaches their never-joined baseline (0.894), and by v20's S1 construction nobody <em>can</em> go below it. <strong>The honest sentence for gate-22: a payer exit costs the drawers about 4½ points of delivery, phased — not their floor.</strong></p>
+<p><strong>F3 — The 9-vs-24 reserve decision is really an 18-vs-48-month diplomacy budget (RB4, the decision evidence).</strong> A taper of this size is a treaty change; the reserve's job is to buy the time to negotiate and phase it. Under the SPEC-registered sizing ($36B, the seceding region's own obligation), the slowest linear phase-in that never exhausts the reserve is <strong>18 months</strong>; under the committed sizing ($81.1B, union volume), <strong>48 months</strong>. Neither is "right" — one is lean (cheaper to fund, forces decisive renegotiation inside two years), one is patient (a full political cycle of runway, at more than double the reserve cost). <strong>Recommendation: ratify the reserve rule as an explicit choice of phase-in budget — and write gate-22's pre-commitment as the RB3 mixed rule (6%-capped bump + taper to close, linear ramp ≤ the ratified window), so the response to a payer exit is arithmetic on treaty day, not a scramble.</strong></p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Deterministic accounting on v20's reduced form — it inherits every v20 caveat (transfers and elasticities are dials; no secession politics or contagion; single payer exits; the currency-drawdown channel is v20's, untouched here). The phase-in model is a linear ramp of the <em>funding</em> rule; it does not model drawers' consumption smoothing or a renegotiation that changes the transfer matrix itself. The 6% tolerance anchor is imported from v5.4/K4 lineage, not re-derived. One build note, per house custom: the RB5 conservation check initially failed on the <em>checker's own</em> closed-form arithmetic (an off-by-one: Σ(1−m/M) = (M+1)/2, not (M−1)/2) — the model's drain was right, the check was wrong, the check was fixed; that is what conservation bars are for.</p>
+<h2 id="plain-language">Plain language</h2>
+<p>If the union's biggest paying region walks out, three ways to plug the $3B/month hole: make the remaining rich pay more (dead on arrival — it takes an 80% raise against members who'd riot at 6%), cut the poorer regions' top-up (surprisingly gentle — even a 44% cut only moves them from 100% delivery to ~95%, because they already self-fund ~89%), or mix (cap the raise at 6%, taper the rest — ~96%). The real decision is how <em>slowly</em> you can afford to phase the cut in, and that's exactly what the reserve size buys: the lean reserve gives 18 months of runway, the big one gives 4 years. Pick the reserve by picking how much negotiating time a payer exit should buy — then write the response into the sponsor contract in advance, so the day it happens it's arithmetic, not panic.</p>
+<p><em>Run and written July 11, 2026 by the Fable 5 verification session (post-Verification-v4 evidence run, owner-directed). Spec registered before code; RB1's failure was pre-registered and is reported as the finding it is; bars unmoved. Deterministic — byte-identical on re-run.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v32-payer-exit-re-balancing-0.json" download>⬇ results_v32.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

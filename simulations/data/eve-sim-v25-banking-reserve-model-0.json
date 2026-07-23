@@ -1,0 +1,206 @@
+{
+ "spec": "v25 SPEC - Banking Reserve Model (registered).md",
+ "dials": {
+  "M0": 1.0,
+  "d": 0.6,
+  "rr_sweep": [
+   0.03,
+   0.1,
+   0.2
+  ],
+  "lock_share_sweep": [
+   0.2,
+   0.4,
+   0.6
+  ],
+  "w_sweep": [
+   0.1,
+   0.3,
+   0.5
+  ],
+  "gov_tol": 0.05
+ },
+ "N0": {
+  "full_broad_money": 1.0,
+  "full_is_M0": true,
+  "frac_multiplier_identity": {
+   "0.03": {
+    "broad_money": 20.4,
+    "identity": 20.4,
+    "broad_money_simulated": 20.399999999999995,
+    "sim_residual": 3.552713678800501e-15,
+    "matches": true
+   },
+   "0.1": {
+    "broad_money": 6.4,
+    "identity": 6.4,
+    "broad_money_simulated": 6.399999999999998,
+    "sim_residual": 2.6645352591003757e-15,
+    "matches": true
+   },
+   "0.2": {
+    "broad_money": 3.4,
+    "identity": 3.4,
+    "broad_money_simulated": 3.400000000000001,
+    "sim_residual": 8.881784197001252e-16,
+    "matches": true
+   }
+  },
+  "method": "FRAC broad money independently simulated via iterative deposit re-lending cascade and checked against the registered closed-form multiplier identity M0*(1+d*(1-rr)/rr); FULL creation computed from a 100%-reserve cascade (=0), not asserted.",
+  "pass": true
+ },
+ "N1": {
+  "full_control_ratio": 1.0,
+  "full_lock_control_ratio": 1.0,
+  "frac": {
+   "0.03": {
+    "control_ratio": 20.4,
+    "excess_pct": 1939.9999999999998,
+    "within_tol": false
+   },
+   "0.1": {
+    "control_ratio": 6.4,
+    "excess_pct": 540.0,
+    "within_tol": false
+   },
+   "0.2": {
+    "control_ratio": 3.4,
+    "excess_pct": 240.0,
+    "within_tol": false
+   }
+  },
+  "fulllock_by_lock": {
+   "0.2": {
+    "control_ratio": 1.0,
+    "within_tol": true
+   },
+   "0.4": {
+    "control_ratio": 1.0,
+    "within_tol": true
+   },
+   "0.6": {
+    "control_ratio": 1.0,
+    "within_tol": true
+   }
+  },
+  "full_within_tol": true,
+  "fulllock_within_tol": true,
+  "frac_breaches_all": true,
+  "pass": true
+ },
+ "N2": {
+  "full_price_dev_pct": 0.0,
+  "fulllock_price_dev_pct": 0.0,
+  "frac": {
+   "0.03": {
+    "price_dev_pct": 1939.9999999999998,
+    "within_5pct": false
+   },
+   "0.1": {
+    "price_dev_pct": 540.0,
+    "within_5pct": false
+   },
+   "0.2": {
+    "price_dev_pct": 240.0,
+    "within_5pct": false
+   }
+  },
+  "full_within_5pct": true,
+  "fulllock_within_5pct": true,
+  "frac_breaches_all": true,
+  "pass": true
+ },
+ "N3": {
+  "full_survives_w": {
+   "0.1": true,
+   "0.3": true,
+   "0.5": true
+  },
+  "frac_survives": {
+   "0.1": {
+    "0.03": false,
+    "0.1": true,
+    "0.2": true
+   },
+   "0.3": {
+    "0.03": false,
+    "0.1": false,
+    "0.2": false
+   },
+   "0.5": {
+    "0.03": false,
+    "0.1": false,
+    "0.2": false
+   }
+  },
+  "full_reserves_over_demand": 1.0,
+  "full_survives_at_w1p0": true,
+  "full_reserve_margin_at_w1p0": 0.0,
+  "full_survives_100pct": true,
+  "frac_run_threshold": "fails when withdrawal fraction w > reserve ratio rr",
+  "method": "static reserve-coverage (liquidity) check: survives iff reserves (reserve_ratio x demand deposits) >= withdrawn demand deposits (w x demand deposits), i.e. w <= reserve_ratio; FULL reserve_ratio=1.0 -> survives up to w=100% (zero margin at 100%).",
+  "dynamic_run_simulated": false,
+  "pass": true
+ },
+ "N4": {
+  "frac_total_capacity_over_M0": {
+   "0.03": 19.4,
+   "0.1": 5.4,
+   "0.2": 2.4
+  },
+  "frac_sound_first_round_over_M0": {
+   "0.03": 0.582,
+   "0.1": 0.54,
+   "0.2": 0.48
+  },
+  "frac_money_created_excess_over_M0": {
+   "0.03": 18.817999999999998,
+   "0.1": 4.86,
+   "0.2": 1.92
+  },
+  "full_capacity": 0.0,
+  "fulllock": {
+   "0.2": {
+    "capacity_over_M0": 0.12,
+    "recovers_frac_TOTAL_pct": 2.222222222222222,
+    "recovers_frac_SOUND_pct": 22.22222222222222
+   },
+   "0.4": {
+    "capacity_over_M0": 0.24,
+    "recovers_frac_TOTAL_pct": 4.444444444444444,
+    "recovers_frac_SOUND_pct": 44.44444444444444
+   },
+   "0.6": {
+    "capacity_over_M0": 0.36,
+    "recovers_frac_TOTAL_pct": 6.666666666666667,
+    "recovers_frac_SOUND_pct": 66.66666666666666
+   }
+  },
+  "fulllock_at_0p4_recovers_TOTAL_pct": 4.444444444444444,
+  "fulllock_at_0p4_recovers_SOUND_pct": 44.44444444444444,
+  "fulllock_at_0p6_recovers_SOUND_pct": 66.66666666666666,
+  "bar_misframed_note": "registered bar compares to FRAC TOTAL capacity, which is ~90% money creation (the N1/N2 harm); the honest denominator is FRAC's SOUND first-round intermediation (0.54xM0 at rr=10%), which FULL+LOCK recovers 44% at 40% lock and 67% at 60% lock.",
+  "pass": false,
+  "pass_on_sound_at_0p6_lock": true
+ },
+ "N5": {
+  "frac_amplitude": {
+   "0.03": 6.466666666666667,
+   "0.1": 1.8,
+   "0.2": 0.8000000000000002
+  },
+  "fulllock_gain": 1.0,
+  "fulllock_amplitude": 0.2,
+  "frac_amplitude_all_exceed_fulllock": true,
+  "frac_more_procyclical": true,
+  "pass": true
+ },
+ "bar_summary": {
+  "N0": true,
+  "N1": true,
+  "N2": true,
+  "N3": true,
+  "N4": false,
+  "N5": true
+ }
+}

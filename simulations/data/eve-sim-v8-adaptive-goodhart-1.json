@@ -1,0 +1,304 @@
+{
+  "A0_B0_regression": {
+    "G3_central": 1.32,
+    "G3_honest": 0.9784,
+    "G4_gamed_net": 0.84,
+    "G4_honest_loss_pct": 0.09,
+    "bar": "exact reproduction of committed v8.0 G3/G4 numbers",
+    "PASS": true
+  },
+  "FAMILY_A": {
+    "sweep": {
+      "k=1.0": {
+        "offline": {
+          "net": 0.84,
+          "margin": 0.0,
+          "coverage": 1.0
+        },
+        "probe_no_recon": {
+          "net": 0.84,
+          "probes": 0,
+          "flagged_share": 0.0
+        },
+        "probe_recon_d05": {
+          "net": 0.84,
+          "probes": 0,
+          "flagged_share": 0.0
+        },
+        "probe_recon_d08": {
+          "net": 0.84,
+          "probes": 0,
+          "flagged_share": 0.0
+        },
+        "attacker_best_no_recon": 0.84,
+        "attacker_best_recon_d08": 0.84,
+        "recon_value_delta": 0.0
+      },
+      "k=0.9": {
+        "offline": {
+          "net": 0.831,
+          "margin": 0.027,
+          "coverage": 1.0
+        },
+        "probe_no_recon": {
+          "net": 0.84,
+          "probes": 30,
+          "flagged_share": 0.0
+        },
+        "probe_recon_d05": {
+          "net": -1.32,
+          "probes": 30,
+          "flagged_share": 0.5
+        },
+        "probe_recon_d08": {
+          "net": -2.616,
+          "probes": 30,
+          "flagged_share": 0.8
+        },
+        "attacker_best_no_recon": 0.84,
+        "attacker_best_recon_d08": 0.831,
+        "recon_value_delta": 0.009
+      },
+      "k=0.7": {
+        "offline": {
+          "net": 0.814,
+          "margin": 0.077,
+          "coverage": 1.0
+        },
+        "probe_no_recon": {
+          "net": 0.84,
+          "probes": 30,
+          "flagged_share": 0.0
+        },
+        "probe_recon_d05": {
+          "net": -1.32,
+          "probes": 30,
+          "flagged_share": 0.5
+        },
+        "probe_recon_d08": {
+          "net": -2.616,
+          "probes": 30,
+          "flagged_share": 0.8
+        },
+        "attacker_best_no_recon": 0.84,
+        "attacker_best_recon_d08": 0.814,
+        "recon_value_delta": 0.026
+      },
+      "k=0.5": {
+        "offline": {
+          "net": 0.798,
+          "margin": 0.127,
+          "coverage": 1.0
+        },
+        "probe_no_recon": {
+          "net": 0.84,
+          "probes": 30,
+          "flagged_share": 0.0
+        },
+        "probe_recon_d05": {
+          "net": -1.32,
+          "probes": 30,
+          "flagged_share": 0.5
+        },
+        "probe_recon_d08": {
+          "net": -2.616,
+          "probes": 30,
+          "flagged_share": 0.8
+        },
+        "attacker_best_no_recon": 0.84,
+        "attacker_best_recon_d08": 0.798,
+        "recon_value_delta": 0.042
+      }
+    },
+    "delta_at_k1": 0.0,
+    "largest_k_where_recon_bites": null,
+    "bar_A1": "expected delta < 0.02x at k=1.0; report largest k with delta >= 0.10x",
+    "A1_EXPECTATION_HELD": true,
+    "A2": {
+      "localization": "cluster-level only (aggregate telemetry); no per-person intent score",
+      "honest_false_flag_extra_loss_pct_per_mo": 0.0018,
+      "note": "the privacy price of the recon defense, stated"
+    }
+  },
+  "FAMILY_B": {
+    "B1": {
+      "sweep": {
+        "q=0.6": {
+          "seed7": {
+            "c_o": 1.051,
+            "organic_share": 1.0,
+            "S": 0.0,
+            "p_det_mo": 0.0,
+            "mix": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "min_traj": 1.05
+          },
+          "seed11": {
+            "c_o": 1.051,
+            "organic_share": 1.0,
+            "S": 0.0,
+            "p_det_mo": 0.0,
+            "mix": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "min_traj": 1.05
+          }
+        },
+        "q=0.75": {
+          "seed7": {
+            "c_o": 1.051,
+            "organic_share": 1.0,
+            "S": 0.0,
+            "p_det_mo": 0.0,
+            "mix": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "min_traj": 1.051
+          },
+          "seed11": {
+            "c_o": 1.051,
+            "organic_share": 1.0,
+            "S": 0.0,
+            "p_det_mo": 0.0,
+            "mix": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "min_traj": 1.051
+          }
+        },
+        "q=0.9": {
+          "seed7": {
+            "c_o": 1.051,
+            "organic_share": 1.0,
+            "S": 0.0,
+            "p_det_mo": 0.0,
+            "mix": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "min_traj": 1.051
+          },
+          "seed11": {
+            "c_o": 1.051,
+            "organic_share": 1.0,
+            "S": 0.0,
+            "p_det_mo": 0.0,
+            "mix": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "min_traj": 1.051
+          }
+        }
+      },
+      "central_c_o": {
+        "7": 1.051,
+        "11": 1.051
+      },
+      "resulting_G3_attacker_payout": {
+        "7": 0.9,
+        "11": 0.9
+      },
+      "bar": "central endogenous c_o >= 0.71 (the G3 defense holds without assuming it)",
+      "PASS": true
+    },
+    "B2": {
+      "organic_share_of_best_response": {
+        "7": 1.0,
+        "11": 1.0
+      },
+      "note": "share of the attacker's spend that is, in substance, payment for real use by real users"
+    },
+    "B3": {
+      "q_star_detection_floor": 0.15,
+      "c_o_vs_q_curve": [
+        [
+          0.05,
+          0.39
+        ],
+        [
+          0.125,
+          0.684
+        ],
+        [
+          0.2,
+          0.861
+        ],
+        [
+          0.275,
+          1.042
+        ],
+        [
+          0.35,
+          1.05
+        ],
+        [
+          0.425,
+          1.05
+        ],
+        [
+          0.5,
+          1.05
+        ],
+        [
+          0.575,
+          1.05
+        ],
+        [
+          0.65,
+          1.05
+        ],
+        [
+          0.725,
+          1.05
+        ],
+        [
+          0.8,
+          1.05
+        ],
+        [
+          0.875,
+          1.05
+        ]
+      ],
+      "note": "q below q_star lets the ring beat the 0.71 boundary; load-bearing detection requirement, published"
+    },
+    "B4": {
+      "i_private_sample": {
+        "7": 1.051,
+        "11": 1.051
+      },
+      "ii_published_threshold": {
+        "7": 0.306,
+        "11": 0.284
+      },
+      "iii_ambient_profiler": {
+        "7": 1.051,
+        "11": 1.051
+      },
+      "honest_cost_pct": {
+        "i_private": 0.09,
+        "iii_ambient_G6_machinery": 16.8
+      },
+      "bar": "(i) beats (ii) on detection value; (i) within 10% of (iii) detection at >=2x lower honest cost",
+      "PASS": true
+    }
+  }
+}

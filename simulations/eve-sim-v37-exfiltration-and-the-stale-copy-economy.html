@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v37 - Exfiltration &amp; the Stale-Copy Economy — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v37 - Exfiltration &amp; the Stale-Copy Economy.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v37 - Exfiltration &amp; the Stale-Copy Economy</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v37.0 Exfiltration &amp; Pricing.md</code>. July 18, 2026. — v2, same day: rewritten at the owner's request to explain the mechanics in practice and define every piece of jargon with examples and analogies. v1 kept for history. Every number traces to <code>results_v37.json</code>; this is a model of the design, not a forecast.</em></p>
+<h2 id="the-two-questions">The two questions</h2>
+<p><strong>One:</strong> what stops a government or an AI lab from paying pennies to read a huge pile of EDEN data, copying it into their own database, and never paying again — draining the system's value into the outside world?</p>
+<p><strong>Two:</strong> should people set their own price for their data, and can a minimum price stop outside pressure from forcing EDEN's members to sell themselves cheap?</p>
+<p>They turned out to be one question wearing two hats. But first, the words.</p>
+<h2 id="two-different-floors-dont-mix-them-up">Two different "floors" — don't mix them up</h2>
+<p>EDEN now has two minimum-price ideas, and from here on the docs keep their names separate:</p>
+<ul>
+<li><strong>THE FLOOR</strong> (unqualified) always means the <em>essentials floor</em> — the guarantee that a person can afford basic needs (food, energy, shelter). It's about people's survival.</li>
+<li><strong>THE MINIMUM ASK</strong> is the <em>data-price</em> minimum — the lowest price anyone's data can sell for on the network. It's about people's bargaining power.</li>
+</ul>
+<p>They rhyme (both are indexed to the cost of essentials, so inflation can't quietly erode either one), but one feeds you and the other stops your data being haggled down to nothing. This note is about the second one.</p>
+<h2 id="part-1-the-copy-attack-is-real-and-cheap">Part 1 — The copy attack is real and cheap</h2>
+<p>If a buyer has permission to read data, copying it is just reading it once and keeping what you saw. In the model, copying an entire valuable archive costs about <strong>1.6% of what that archive would earn over its life</strong> — and the <em>most</em> valuable data is even cheaper to take, because of a well-meaning discount (explained below). So yes: as originally designed, a well-funded institution could lift EDEN's crown jewels for a rounding error and grow on them forever, outside the system, never paying again.</p>
+<p><strong>The accidental discount for thieves.</strong> EDEN deliberately lets a data point's price fade as it gets used more (so early sharers can't lock in a permanent lead over late sharers — a fairness feature). Side effect: the most-used, most-valuable data became the <em>cheapest</em> to vacuum up in bulk. The fix keeps the fairness and removes the loophole: the fade stays <strong>per point</strong>, but each <strong>buyer</strong> is priced on their own <em>rising</em> curve — the more one buyer pulls in total, the more their next pull costs. Think of a happy-hour discount that applies to the drink, not to the customer trying to buy the whole bar.</p>
+<h2 id="part-2-freshness-the-shield-thats-just-physics">Part 2 — "Freshness": the shield that's just physics</h2>
+<p>Every dataset in EDEN is tagged with how fast it goes stale — its <strong>freshness half-life</strong>, the time it takes for half its value to evaporate. Like groceries: fish is worthless in days, canned goods last years. Data works the same way:</p>
+<ul>
+<li><strong>Market and price data</strong> — stale in hours to days. A hedge fund that copies today's consumer-sentiment stream and cancels its subscription is, two weeks later, trading on rotten fish while its competitors trade on the fresh catch. The copy punishes itself; nobody has to enforce anything. In the model, a stolen snapshot of this class is worth <strong>0.1%</strong> of just staying subscribed.</li>
+<li><strong>Behavioral trends</strong> — stale in months. A stolen copy holds ~<strong>7%</strong> of a live subscription's value. Still a bad deal.</li>
+<li><strong>DNA and foundational science</strong> — and yes, "genome archive" means <strong>DNA data</strong>: the sequenced genetic code of the people who chose to contribute it for medical research. Your genome basically <em>never changes</em>. A copy stolen today is still ~<strong>85%</strong> as useful in ten years. Freshness protects nothing here — which is why this class gets the strictest handling (Part 4).</li>
+</ul>
+<p>The crossover lands at roughly a <strong>four-year half-life</strong>: data that spoils faster defends itself; data that spoils slower needs walls.</p>
+<h2 id="part-3-selling-data-that-leaves-the-export-license">Part 3 — Selling data that leaves: the export license</h2>
+<p>For the fast-spoiling stuff, EDEN can safely sell actual copies. That's a <strong>K1 export license</strong> — "K1" is just the label for custody class 1 (the classes run K0–K3, from "public, anyone may copy" to "locked vault"). Here's how one works in practice:</p>
+<ul>
+<li><strong>Who can buy one:</strong> only a <strong>KYC'd institution</strong>. "KYC" is bankers' shorthand for <em>Know Your Customer</em> — the same identity check a bank runs before opening your account. In EDEN, real-world identity attaches at the <strong>fiat bridge</strong> (the doorway where regular money enters and leaves the network), so an export buyer is a <em>named, legally accountable company</em> — not an anonymous account.</li>
+<li><strong>What they get:</strong> the actual files — salted with <strong>canaries</strong>. Mapmakers used to draw fake streets on their maps; if a rival's map showed the fake street, they'd proven the copying in court. Canary records work the same way: invisible-in-practice markers that identify <em>whose licensed copy</em> leaked if the data ever surfaces somewhere it shouldn't.</li>
+<li><strong>What they pay:</strong> the "forever price." Since the bytes leave and can be reused indefinitely, the license is priced near what <em>perpetual use</em> would have cost — a large multiple of the per-use rate. The price already assumes the copy is forever, so there's nothing left to steal by copying it.</li>
+<li><strong>What holds them to it:</strong> three layers. A signed contract (ordinary courts — remember, they're a named company). A posted <strong>bond</strong> — a security deposit that gets forfeited ("slashed") on breach. And permanent on-network reputation for the company and the humans anchored to it. Honest limit: catching a breach is probabilistic, not certain — which is why K1 is only offered where staleness is already doing most of the protective work.</li>
+</ul>
+<h2 id="part-4-data-that-never-leaves-the-reading-room">Part 4 — Data that never leaves: the reading room</h2>
+<p>For the slow-spoiling crown jewels — DNA archives, decades-stable scientific datasets — copies can't be sold safely at any price. So the data <strong>never leaves</strong>. This is <strong>K2, "compute-to-data"</strong>: instead of shipping the data to the buyer's computers, the buyer's <em>question</em> travels to the data.</p>
+<p>The best analogy is a <strong>rare-books reading room</strong>. You can come in, read anything, take notes, even write your book from what you learn. What you cannot do is walk out with the archive — and the librarian keeps a running count of how many pages you've photocopied, with each additional copy costing more than the last.</p>
+<p>In practice: a pharmaceutical company doesn't download a million genomes. It submits its research job — "do carriers of gene X respond differently to drug Y?" or even "train this diagnostic model" — the job runs <em>inside</em> EDEN's custody, and only the <strong>answer</strong> comes out. Every answer carries some information, so each buyer has an <strong>egress budget</strong> (egress just means "what exits"): a running meter of total information that buyer has taken out, priced on a curve that steepens as it grows. Even a trained model counts against the meter, because models can memorize their training data.</p>
+<p>Why the meter matters: a determined buyer could try to reconstruct the archive by asking millions of clever questions — the way you could theoretically photocopy a whole library one page a day. The rising curve makes that stunt cost about <strong>500× an honest subscription</strong> in the model. Not impossible — <em>ruinous</em>. And the meter is per-<em>owner</em>, not per-account: a company that splits itself into ten shell accounts to get ten budgets runs into the same ownership-registry rules that stop shell games everywhere else in EDEN.</p>
+<p>Does the reading room scare off honest customers? Barely — about <strong>90%</strong> of legitimate buying survives in the model, because the honest alternative to EDEN's consented, high-quality data is scraping the open web for unconsented junk. The only "customer" the vault stops is the one who came to empty it.</p>
+<p><strong>And one more protection for DNA specifically:</strong> individual-level genetic data can be held a step stricter still (<strong>K3, aggregate-only</strong>) — researchers get statistical answers about <em>groups</em>, never any one person's sequence, on top of the anonymization and consent choices that already govern everything in EDEN.</p>
+<h2 id="part-5-subscriptions-how-paying-for-living-data-actually-works">Part 5 — Subscriptions: how paying for living data actually works</h2>
+<p>"Subscription" here doesn't mean a Netflix-style flat fee (though bundles like that exist too). It means <strong>ongoing, metered access to data that keeps refreshing</strong> — and the key facts are:</p>
+<ul>
+<li><strong>Prices are posted, not surprises.</strong> Every data type has a protocol price built from three published pieces: the <strong>minimum ask</strong> × a type multiplier × a freshness factor (fresher costs more). Your software can compute the exact cost of any access <em>before</em> making it — like a cloud-computing price sheet or a taxi meter with the rates printed on the door. For bigger jobs, you get a quote up front, the way a contractor bids a project.</li>
+<li><strong>Your agent handles it.</strong> Nobody clicks "buy" a thousand times a second. Each participant — buyer and seller — has an <strong>ADAM</strong> (their software agent, think of it as a broker-librarian) that negotiates, transacts, and keeps receipts automatically under rules and budgets its owner set. A buyer's ADAM might have standing instructions like "keep my model updated with fresh sentiment data, budget 500 EVE a month, alert me at 80%."</li>
+<li><strong>Payment and delivery are automatic and simultaneous.</strong> Each access triggers an instant EVE transfer that <strong>splits automatically</strong> among everyone entitled — the contributors whose data it is (always the largest share, anchored to them by rule), and the coordinator's capped cut if a company organized the dataset. There's no invoice, no collections, no "we'll pay you in 90 days." The receipt lands on the public ledger.</li>
+<li><strong>Sellers set asks; the network sets the bottom.</strong> Anyone can price their data <em>above</em> the minimum ask and accept selling less often (a boutique, not a supermarket). Nobody — including you, in a desperate month — can be pushed <em>below</em> the minimum ask. And the recommended "fair market rate" the owner asked about? The network <em>publishes</em> it as advice, like a Kelley Blue Book for data, but never <em>enforces</em> it — because any committee that could set binding prices would become the juiciest thing in the system to capture.</li>
+</ul>
+<h2 id="part-6-why-the-minimum-ask-exists-and-what-it-cant-do-alone">Part 6 — Why the minimum ask exists (and what it can't do alone)</h2>
+<p>Without a minimum, data prices race to the bottom, because a buyer doesn't need <em>your</em> data — they need <em>enough people's</em> data, and someone desperate will always sell for less. In the model, unrestricted price competition collapsed the going rate to about <strong>5%</strong> of what the market would genuinely bear, and roughly <strong>90% of sellers would have undercut the minimum if allowed</strong> — under money pressure, almost everyone breaks ranks. That's why the minimum ask is <strong>non-waivable</strong>: it's a collective bargaining position, the same way you can't sell your EDEN account itself. (For the curious: the model also suggests the current minimum is set conservatively — the revenue-sweet-spot is roughly <strong>13× higher</strong> — but the honest deliverable is the <em>method</em> for calibrating it against real-world demand, which the pilot will measure. Don't quote the 13× as a promise.)</p>
+<p><strong>But here's the twist that ties the whole note together:</strong> a minimum price, <em>by itself</em>, makes theft <strong>more</strong> attractive, not less. A high honest price is a fat margin for whoever undercuts it with a stolen copy — raise the floor price and you fatten the thief's markup. In the model the thief's profit <em>rises</em> with every step up in the honest price… until custody enters. With the reading-room rules in place, the thief's cost to rebuild the archive exceeds anything they could resell it for, and their margin goes <strong>negative at every price level</strong>.</p>
+<p>So: <strong>the minimum ask protects the price of the honest, living stream. Custody destroys the value of the stolen copy. Freshness decides which one has to do the work.</strong> Any one alone fails; together, in the model, they keep EDEN's builder economy at full strength (~$426/month for the median builder) instead of collapsing toward the $60-world where only the charity-funded essentials floor survives.</p>
+<h2 id="words-used-here-quick-reference">Words used here (quick reference)</h2>
+<p><strong>The floor</strong> — the essentials guarantee for people. <strong>The minimum ask</strong> — the lowest allowed price for data. <strong>KYC ("Know Your Customer")</strong> — the bank-style identity check; applies to institutions at the fiat bridge. <strong>Fiat bridge</strong> — the doorway between EVE and ordinary money, where real-world identity attaches. <strong>K0–K3 custody classes</strong> — how tightly data is held, from public (K0), to export-licensed copies (K1), to the reading room (K2), to aggregate-answers-only (K3). <strong>Compute-to-data</strong> — the question travels to the data; the data never travels to the questioner. <strong>Egress budget</strong> — a buyer's running meter of information taken out, priced on a rising curve. <strong>Canary</strong> — a hidden marker (the mapmaker's fake street) that proves whose copy leaked. <strong>Bond</strong> — a security deposit forfeited on cheating. <strong>Freshness half-life</strong> — how long until data loses half its value. <strong>ADAM</strong> — your software agent/broker that transacts on your behalf under your rules. <strong>Anchored</strong> — every business and dataset ties back to one accountable, verified human on the ownership registry (accountable doesn't mean public: the network verifies it's one real, unique, living person without needing their name — names attach only where the outside legal world does, at the bridge and on export licenses).</p>
+<p><em>Written July 18, 2026 (Fable 5, owner-directed; v2 same day at owner request — jargon defined, mechanics made concrete). Every claim traces to <code>results_v37.json</code>; honest limits (stylized model — real willingness-to-pay, real audit costs, and real copy-resistance are pilot questions) are in the RESULTS file. Note: the custody/pricing rule set is DR-20, PROPOSED — evidence in hand, awaiting owner ratification.</em></p>
+<p><strong><em>Superseded by <code>PLAIN LANGUAGE - v37.0 Exfiltration &amp; Pricing — v2 (July 2026)</code> (July 18 — rewritten with all jargon defined and the mechanics made concrete, at owner request). Kept for history.</em></strong></p>
+<p><em>Companion to <code>RESULTS - v37.0 Exfiltration &amp; Pricing.md</code>. July 18, 2026. No jargon version.</em></p>
+<h2 id="the-two-questions">The two questions</h2>
+<p><strong>One:</strong> what stops a government or an AI lab from paying pennies to read a huge pile of EDEN data, copying it into their own database, and never paying again — draining the system's value into the outside world?</p>
+<p><strong>Two:</strong> should people be able to set their own price for their data, and would a minimum price stop outside pressure from forcing EDEN to sell cheap?</p>
+<p>They turned out to be the same question wearing two hats. Here's what the simulation found.</p>
+<h2 id="the-copy-attack-is-real-and-its-cheap">The copy attack is real and it's cheap</h2>
+<p>If someone has normal permission to read data, copying it is just... reading it once and keeping it. In the model, copying an entire valuable corpus costs about <strong>1.6% of what that corpus is actually worth</strong> over its life — and for the <em>most</em> valuable data (the stuff that gets reused constantly) it's even cheaper, a fraction of a percent. So yes: as it stands, a well-funded institution could lift EDEN's crown jewels for a rounding error and grow on them forever, outside the system. Your instinct was right to worry.</p>
+<p>And there's a nasty twist we found along the way: EDEN's current pricing actually gives a <em>volume discount</em> the more a piece of data gets used. That discount was designed for fairness (so no one hoards an early lead), but it means the most valuable, most-used data is the <em>cheapest</em> to copy. That needs a targeted fix, and it's in the proposal.</p>
+<h2 id="your-read-it-but-dont-replicate-it-instinct-is-the-right-idea-with-one-honest-catch">Your "read it but don't replicate it" instinct is the right idea — with one honest catch</h2>
+<p>The catch: any bits that leave can be copied. A summary is a partial copy, and enough questions can rebuild the original. So we can't promise "no copying ever." What we <em>can</em> do is make the copy the wrong product — and the key that decides how is <strong>how fast the data goes stale.</strong></p>
+<ul>
+<li><strong>Fast-spoiling data</strong> (market prices, live behavioral streams): a stolen copy is worthless in days. In the model it's worth <strong>0.1%–7%</strong> of just subscribing fresh. So here we don't need heavy protection — sell an export license priced fairly, and let the copy rot. It defends itself.</li>
+<li><strong>Slow-spoiling data</strong> (genomics, foundational science): a copy is still <strong>85%</strong> as good a decade later. Freshness protects nothing. This is exactly where your instinct has to be enforced by architecture: the data <strong>never leaves</strong> — questions come in, answers go out, and there's a running "how much have you extracted" budget per buyer that gets expensive fast. Trying to rebuild the whole corpus that way costs <strong>~500× a normal subscription</strong>. That's the "reads to summarize but can't replicate" idea, made real.</li>
+</ul>
+<p>The dividing line lands at about a <strong>4-year freshness half-life</strong>: faster than that, a license is enough; slower than that, the data has to stay home.</p>
+<p>Does locking down the slow data annoy legitimate buyers? Barely — <strong>90%</strong> still prefer paying EDEN for real, consented data over scraping junk off the web. The only "buyer" who gets stopped is the one who was planning to take it and leave.</p>
+<h2 id="the-floor-you-already-have-it-and-its-doing-exactly-what-you-hoped">The floor: you already have it, and it's doing exactly what you hoped</h2>
+<p>Your second idea — a minimum price so outside pressure can't force EDEN to sell cheap — is <strong>already ratified canon</strong> (ADAM Protocol Spec §3): a non-waivable minimum price, tied to the cost of essentials so inflation can't erode it. The simulation shows why it's essential:</p>
+<ul>
+<li><strong>Without a floor,</strong> because a buyer needs <em>some</em> data points, not <em>your specific</em> ones, sellers get pitted against each other and the price crashes to about <strong>5%</strong> of what the market could actually bear — the most desperate seller sets the price for everyone. That's the race to the bottom.</li>
+<li><strong>~90% of people would undercut</strong> the fair price if they were allowed to, under money pressure. So making the floor non-waivable isn't bossing people around — it's a collective bargaining position. You can't sell below it for the same reason you can't sell your own account.</li>
+<li><strong>Above the floor, you already can set your own price.</strong> Ask more, sell less often — that trade is real and already yours. The system should also <em>publish</em> a recommended fair rate as a guide (we found the honest fair rate is roughly 13× the current floor — the floor is set conservatively) — but that rate should be advice, never a forced price, because any price-setting oracle can be captured. Inform, don't dictate.</li>
+</ul>
+<h2 id="the-punchline-the-floor-and-the-lock-are-one-system">The punchline: the floor and the lock are one system</h2>
+<p>Here's the part that ties both your questions together. A minimum price, <em>by itself</em>, actually makes theft <strong>more</strong> tempting — a higher honest price means a fatter margin for someone reselling a stolen copy. In the model, the thief's profit <em>rises</em> as the floor rises. The floor sets a good price for the <em>real, living</em> data stream; it does nothing about the <em>stolen copy</em>.</p>
+<p>What kills the copy's value is custody (the lock on slow-spoiling data). With that in place, the thief's cost to rebuild the corpus is higher than anything they could resell it for — profit goes negative at every price level.</p>
+<p>So: <strong>the floor protects the price of the honest stream, the lock protects against the stolen copy, and freshness decides which one is doing the work.</strong> Neither alone is enough. Together they keep EDEN's builder economy at full strength (about $426/mo per builder in the model) instead of collapsing to the "$60 world" where the builder economy breaks and only the charity-backed safety floor survives.</p>
+<h2 id="bottom-line">Bottom line</h2>
+<p>Both instincts were sound, and the simulation sharpened them: your price floor already exists and is load-bearing (just needs calibrating); your "read-don't-replicate" idea is exactly right for the data that doesn't go stale, and for the data that does, freshness already does the job. The one thing to <em>add</em> is making custody class a real setting on every dataset, matched to how fast it spoils — and fixing the volume discount so bulk copiers don't ride it. All of it is written up as the DR-20 proposal.</p>
+<p><em>Written July 18, 2026 (Fable 5, owner-directed). Every claim traces to <code>results_v37.json</code>; the honest limits (this is a stylized model — real copy-resistance, real willingness-to-pay, and real enforcement are pilot questions) are in the RESULTS file.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v37-exfiltration-and-the-stale-copy-economy-0.png" alt="fig_v37_exfiltration_pricing.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 18, 2026. Spec: <code>v37 SPEC - Exfiltration &amp; Pricing (registered).md</code> — bars XF0–XF8 fixed before code. Engine: <code>exfiltration_pricing_sim.py</code> (deterministic; the only RNG is seller-reservation and buyer-WTP draws, seeds 7 + 11; import-guarded). Committed: <code>results_v37.json</code>, <code>fig_v37_exfiltration_pricing.png</code>. The builder-economy chassis is a two-point reduced-form transfer function anchored EXACTLY on the committed v16 endpoints (μ=1.0: median builder $426.65, share ≥$200 0.8854, endog coverage 0.1323; μ=0.1: $45.30, 0.0277, 0.0717) plus a registered monotone power-law interpolation. <em>(Correction, July 18 verification pass — VERIFICATION v6 D1: the low endpoint was first transcribed rounded (45.33/0.028/0.0717); the engine now carries the committed v16 values at full precision (45.30022…/0.0276594…/0.0717283…), artifacts re-committed, all bars and headlines unchanged at reported precision. The SPEC's anchor table retains the original rounded transcription — annotated there rather than edited, per bars-don't-move.)</em> Every number below traces to <code>results_v37.json</code>. Produced by Claude Fable 5, owner-directed [FABLE] cell.</strong></p>
+<p><strong>Verdict in one line: the exfiltration attack is real and cheap — copying a whole corpus costs ~1.6% of its living-stream value at central reuse — and the owner's pricing instinct was half-right in a load-bearing way: the non-waivable EBI-indexed floor already in canon (ADAM §3) is exactly the collective-bargaining defense against outside price pressure (without it, abundant substitutable supply collapses the clearing price to ~5% of the revenue-optimal reserve, and ~90% of sellers would undersell it if allowed), BUT a floor alone does not stop exfiltration and in fact makes theft <em>more</em> profitable (a higher honest price is a fatter margin for a stolen copy); what stops exfiltration is custody matched to freshness half-life — for short-lived data the copy goes stale before it amortizes so an export license suffices, for long-lived data (genomics-class) only compute-to-data with a per-buyer egress budget holds, and that stack keeps the effective-WTP multiplier at 1.0 and the builder economy at its full $426/mo instead of collapsing to the $60-world. Pricing and custody are one system: the floor holds the price of the living stream, custody holds the price of the stolen copy, and freshness (τ* ≈ 4.3 yr) decides which one binds. 9/9 bars PASS.</strong></p>
+<h2 id="bar-summary-9-pass">Bar summary (9 PASS)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured (seed 7; seed 11 in JSON)</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XF0 anchors</td>
+<td>transfer fn reproduces both v16 endpoints exactly; decay ladder + floor reproduce</td>
+<td>μ=1.0 → 426.65 / 0.8854 / 0.1323 <strong>exact</strong>; μ=0.1 → 45.30 / 0.0277 / 0.0717 <strong>exact vs the committed JSON</strong> (post-D1 correction); ×0.1 step, disc 5e-5, floor 1e-4</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>XF1 threat real</td>
+<td>full-corpus extraction ÷ living-stream PV ≤ 0.05 at central H</td>
+<td><strong>0.0158</strong> (H=100); ranges 0.158 (H=10) → 0.0016 (H=1000)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>XF2 custody bounds leak</td>
+<td>K2 steal-ratio ≥ 5× (genomics); monotone in β↑, φ_r↓</td>
+<td><strong>509.9×</strong> central; β: 173→510→5527; φ_r: 8438→510→114→53; both monotone</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>XF3 freshness boundary</td>
+<td>K1 suffices short-τ, K2 required long-τ; τ* interior</td>
+<td>market <strong>0.0014</strong>, behavioral <strong>0.072</strong> (K1 ok); genomics <strong>0.845</strong> (K2); <strong>τ* = 4.35 yr</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>XF4 economy protected</td>
+<td>custody keeps μ ≥ 0.5; no-custody ≤ 0.2</td>
+<td>with custody <strong>μ=1.00</strong> ($426/mo); no custody <strong>μ=0.16</strong> ($73/mo)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>XF5 participation</td>
+<td>K2 friction keeps buyer index ≥ 0.60</td>
+<td><strong>0.900</strong> (seed 11: 0.901)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>XF6 pricing regime</td>
+<td>(a) no-floor clearing ≤ 0.1× F*; (c) waiver share ≥ 0.5</td>
+<td>(a) <strong>0.048×</strong>; (c) <strong>0.895</strong>; (b) F* = <strong>13.5× canon</strong>; (d) 18% ask at floor</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>XF7 floor × theft</td>
+<td>(a) margin non-decreasing in floor w/o custody; (b) F*+K2 joint holds</td>
+<td>(a) <strong>rises</strong> 0.0004→0.008; (b) K2 margins <strong>all &lt; 0</strong> (−0.036→−0.028); joint holds</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>XF8 harness</td>
+<td>byte-identical double run; seeds agree</td>
+<td><strong>three byte-identical runs</strong> (2 dev + committed vault, sha256); seeds agree ≤ 1.1%</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — Copying a corpus is pennies on the dollar (XF1).</strong> A buyer with legitimate read access pays the floor per access and keeps what it reads; one read per point copies the corpus. At central reuse (H=100 honest machine-uses per point over its life), full-corpus extraction costs <strong>1.6%</strong> of the corpus's living-stream PV (<code>xf1_threat.central_ratio</code>). The ratio is 1/(H × discount), so it worsens as data is more valuable: at H=1000 (heavily-reused foundational data — the crown jewels) extraction is <strong>0.16%</strong> of value. The owner's fear is confirmed quantitatively: under current per-access terms with no custody, an institution can lift EDEN's most valuable corpora for a rounding error and grow on them outside the system forever. (The §2b usage-decay ladder makes this <em>worse</em>, not modeled as a separate bar but noted: heavily-used points are the cheapest to read, so the most valuable corpora are the cheapest to steal — the decay-ladder repair in DR-20 addresses this.)</p>
+<p><strong>F2 — Compute-to-data with a per-buyer egress budget bounds the leak by orders of magnitude (XF2).</strong> Under K2 (corpus never leaves; queries answered; per-buyer cumulative egress priced on a rising convex curve), reconstructing the full corpus costs <strong>509.9×</strong> the honest bounded-use cost at central dials (<code>xf2_custody.central</code>). The defense strengthens with budget-curve steepness β (173× → 5527× across β ∈ {1,2,4}) and with lower reconstruction efficiency (φ_r=0.1 → 8438×; φ_r=0.9 → still 53×). This is the demand-side rhyme of v36's beneficial-owner aggregation: the budget must aggregate across commonly-owned buyer accounts or a buyer splits the reconstruction across shells (the DR-19 machinery, reused — flagged, not re-simulated here).</p>
+<p><strong>F3 — Freshness decides which custody class you need, and the boundary is ~4 years (XF3).</strong> A stolen copy loses value at the data's freshness half-life; the question is whether it goes stale before it pays for itself. Stolen-copy value as a fraction of always-fresh subscription value: market data (τ=0.01yr) <strong>0.14%</strong>, behavioral streams (τ=0.5yr) <strong>7.2%</strong> — for both, the copy is worthless fast, so <strong>K1 (export-licensed, priced at perpetual-use PV) suffices</strong>: let the bytes leave, they rot. Genomics-class (τ=20yr) <strong>84.5%</strong> — a decade-old copy is barely stale, so <strong>K1 fails and only K2 holds</strong>. The custody-class boundary sits at <strong>τ* = 4.35 years</strong> (<code>xf3_freshness.tau_star_yr</code>): below it freshness is the moat, above it the bytes must not leave at bulk. This is the design rule DR-20 encodes — custody class is chosen against <code>freshness_domain</code>, not one-size-fits-all.</p>
+<p><strong>F4 — Custody is what keeps the builder economy alive (XF4).</strong> Routed through the committed v16 transfer function: with no custody, exfiltration drives the effective-WTP multiplier to <strong>μ = 0.16</strong> — median builder <strong>$73/mo</strong>, share ≥$200 collapsing toward the $60-world (<code>xf4_economy.builder_no_custody</code>). With the K1/K2 stack applied per the τ* boundary, residual leak is bounded (F2) and <strong>μ = 1.00</strong> — the full <strong>$426/mo</strong> builder economy survives. Exfiltration is not an edge leak; it is the mechanism that <em>produces</em> the v16 $60-world where builder/self-funding promises break (the safety floor survives either way, sponsor-backed — consistent with v16). Custody is the difference between EDEN's builder economy existing and not.</p>
+<p><strong>F5 — Compute-to-data does not scare off legitimate buyers (XF5).</strong> K2 friction (no raw bulk export; query-metered) retains <strong>90.0%</strong> of frictionless-bulk buyer participation (<code>xf5_participation.central</code>; seed 11: 0.901), because the honest buyer's counterfactual is scraped/synthetic substitutes (Pre-Mortem grave #2) that are lower-quality and unconsented — metered access to real consented data still wins. The AI lab that wanted to <em>use</em> the data is barely inconvenienced; only the lab that wanted to <em>take</em> it is stopped. (Honest dependency: this rides the assumed substitute-cost and WTP dispersion — pilot must supply the real ones.)</p>
+<p><strong>F6 — The owner's floor instinct is right, and canon already has it — but it is uncalibrated (XF6).</strong> (a) Remove the floor and let sellers freely compete under abundant substitutable supply, and the clearing price collapses to <strong>4.8%</strong> of the revenue-optimal reserve (<code>xf6_pricing.central.clearing_over_fstar</code>) — the most desperate sellers set the market, exactly the race-to-zero the owner feared; the collapse deepens as buyers need fewer of many sellers' points (clearing/F* = 0.048 at N_need=10%, 0.22 at 50%, and only above 1.0 when a buyer must buy <em>everyone</em>, <code>xf6_pricing.by_N_need</code>). (b) The revenue-optimal reserve F* sits at <strong>13.5× canon's asserted 1e-4</strong> — canon's floor is <em>conservative</em> (safe, leaves some revenue on the table), and the deliverable is that F* is computable from the WTP distribution, not that this number is final (it rides the assumed WTP median — the pilot must supply it; the method is the product, not the magic number). (c) <strong>90%</strong> of sellers would undercut the floor if it were waivable under income pressure (<code>xf6_pricing.central.waiver_share</code>) — so non-waivability is load-bearing, not paternalism; it is EDEN's collective-bargaining position, the precedent being A2 (you cannot sell your account either). (d) Above the floor, sellers price freely: 18% ask exactly at the floor (the long tail), the rest ask higher and sell less — the volume/price trade the owner anticipated, already permitted by ADAM §3. <strong>The "recommended fair rate" should be published as information (F*), never as a binding oracle</strong> — ADAM §4 flags the price oracle as an open hard problem and v13-oracle/v23 show how such oracles get captured; the safe design informs asks, it does not set them.</p>
+<p><strong>F7 — The floor alone feeds theft; only custody starves it — pricing and custody are one system (XF7).</strong> The registered safe-to-refute expectation is confirmed as the finding: <strong>a floor does not deter exfiltration, it worsens it.</strong> A thief reselling stolen copies just under the honest price earns a margin that <em>rises</em> with the floor — 0.0004 → 0.008 across honest-price multiples 0.5×–8× of F* (<code>xf7_floor_theft.margin_no_custody</code>), because a higher floor is a fatter resale margin for a copy that cost pennies to make. Add K2 and the thief's acquisition cost (convex egress at the fair rate) dominates: resale margins go <strong>negative at every floor level</strong> (−0.036 → −0.028, <code>xf7_floor_theft.margin_with_k2</code>). The joint bar holds: F* + K2-central keeps the XF2 steal-ratio ≥ 5× and the XF4 multiplier ≥ 0.5 simultaneously. This is the load-bearing synthesis of both owner questions: <strong>the floor prices the living stream, custody prices the stolen copy, freshness picks the binding one</strong> — neither instrument alone is sufficient, and a floor without custody is actively counterproductive against the exfiltration vector.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>The builder-economy chassis is a <strong>two-point transfer function</strong> — the committed v16 anchor and $60-world endpoints plus a registered monotone power-law interpolation — not a re-run of the v6.8 federation engine; it reproduces both endpoints exactly by construction and inherits every v16 caveat, and intermediate μ magnitudes carry interpolation error (the ordering and the τ*/custody boundary are the deliverables, not intermediate point values). The leak/reconstruction model is information-theory-flavored: φ_r is a dial, not a measured ML-distillation rate, and the analog hole (a screen photographed in a locked room) is out of scope by construction — this cell measures <em>rates and prices</em>, not absolute prevention (proposal §2's honest limit). F* is computed against the <em>theoretical</em> lognormal WTP (a distribution property, seed-independent) whose median is an assumption, not a measurement — the number 13.5× moves with the real WTP distribution the pilot must supply; only the <em>method</em> and the <em>existence</em> of an interior optimum are claimed. License enforcement (K1) and breach-catch are hazard rates, not courts. Buyer-side collusion (pooling egress budgets across accounts) is bounded by the DR-19 aggregation assumption, reused demand-side but not re-simulated. Seller-reservation and buyer-WTP distributions are stated lognormals. Findings are existence / ordering / boundary-location under stated dials, not forecasts.</p>
+<h2 id="recommendation-for-the-owner-to-react-to">Recommendation (for the owner to react to)</h2>
+<p><strong>Adopt the pricing-and-custody system as one mechanism (DR-20 candidate).</strong> (1) <strong>Keep the non-waivable EBI-indexed floor</strong> (canon ADAM §3) — it is confirmed load-bearing against outside price pressure (F6a/c); (2) <strong>calibrate the floor toward the computed F*</strong> — canon's level is conservative by ~13× at central assumptions, but ship the <em>calibration method</em> against the pilot's measured WTP, not a fixed number (F6b); (3) <strong>publish the recommended fair rate as information, never as a binding oracle</strong> (F6, oracle-capture per v13/v23); (4) <strong>make custody class a first-class asset term chosen against freshness half-life</strong> — K1 export-license below τ* ≈ 4yr, K2 compute-to-data with per-buyer egress budgets above it, K0 for public commons (F3); (5) <strong>fix the decay-ladder interaction</strong> so bulk extraction by one buyer rides a rising per-buyer curve, not the anti-concentration discount meant for creator fairness (F1); (6) <strong>aggregate egress budgets across commonly-owned buyer accounts</strong> (reuse DR-19's beneficial-owner machinery, demand-side). What the owner's "AI reads but never replicates" instinct becomes in practice: <strong>K2 for the crown jewels</strong> (long-lived, high-reuse corpora) — the corpus never leaves, queries come in and bounded answers go out, and the egress budget makes reconstruction cost hundreds of times an honest subscription. Successor cells named: buyer-side budget-aggregation sim (demand-side v36), real WTP distribution from the field experiment (feeds F* and μ), and an ML-extraction-rate calibration for φ_r. Roads not taken and the decision framing: <code>00 DECISION RECORD</code> <strong>DR-20</strong>.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>v37 SPEC - Exfiltration &amp; Pricing (registered).md</code> — bars XF0–XF8 before code</li>
+<li><code>exfiltration_pricing_sim.py</code> — transfer function + threat + custody + pricing + floor×theft (import-guarded, deterministic)</li>
+<li><code>results_v37.json</code> — every number above; <code>fig_v37_exfiltration_pricing.png</code> — four panels</li>
+<li><code>PLAIN LANGUAGE - v37.0 Exfiltration &amp; Pricing — v2 (July 2026).md</code> — the plain-English companion (v2, jargon-defined; v1 kept for history)</li>
+</ul>
+<p><em>Run and written July 18, 2026, by Claude Fable 5 (owner-directed [FABLE] cell). Verification: the transfer function reproduces both committed v16 endpoints exactly (XF0); the engine ran three times — twice in the development sandbox, once committed in this folder — all three byte-identical by sha256 (JSON + figure); numbering checked against the folder max (v36) before registration. All 9 bars pass; XF7(a) is the registered safe-to-refute expectation confirmed as the finding. Bars unmoved.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v37-exfiltration-and-the-stale-copy-economy-0.json" download>⬇ results_v37.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

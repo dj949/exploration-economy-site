@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v23 - Sponsorship-Agenda Capture — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v23 - Sponsorship-Agenda Capture.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v23 - Sponsorship-Agenda Capture</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v23.0 Sponsorship-Agenda Capture.md</code>. Same numbers, no jargon.</em></p>
+<h2 id="why-this-run-exists">Why this run exists</h2>
+<p>v22 gave you a clean answer about wealthy early adopters: their money can't compound, can't buy votes, can't buy reputation, and melts to below-average influence within a generation. But it left one channel untested, and we said so: <strong>a rich sponsor can still fund research</strong> — and whoever funds research picks the <em>questions</em>, even if the researchers get all the credit and pay. In today's world that channel built the tobacco institutes and the sugar-industry studies: fund only the questions likely to come out your way, bury the ones that don't, and let a compounding endowment do it forever. v23 asks whether EDEN actually closes that playbook, or just claims to. We wrote down the pass/fail lines first, then ran it. Four of seven came back FAIL — and those failures are the useful part, because each one corrects something we believed.</p>
+<h2 id="what-we-expected-and-what-we-got">What we expected, and what we got</h2>
+<p><strong>We expected steering researchers to cost 3× more inside EDEN. It costs about 2×.</strong> Inside EDEN, researchers run at full capacity on their own data income, so a sponsor has to outbid a good living rather than rescue an idle lab. That premium is real — but thinner than we registered, and it comes <em>entirely</em> from the researchers' data income (kill that in the model and the premium disappears). Plain consequence: the WTP experiment isn't just about revenue; it's about how expensive EDEN makes corruption.</p>
+<p><strong>We expected sponsor influence to fade to nothing within 50 years. Mostly true — but a big, patient fortune can outlast the clock.</strong> The deep rule held perfectly: outside, an endowment spending less than its yield steers <em>forever</em> (we ran it — the influence line literally rises across 50 years); inside, with no yield, total influence is strictly metered — about <strong>15 percentage-point-years of agenda tilt per month-of-economy spent</strong>, prepaid, and then it's gone. But "finite" isn't "fast": the largest endowment we tested, spent carefully, held a 10-point tilt for the <em>entire</em> 50 years. EDEN abolishes the perpetual foundation; it does not abolish patience.</p>
+<p><strong>We expected the unburiable registry to force the truth out. It's the finiteness of the money that forces the truth; the registry just speeds it up.</strong> This was our biggest public correction. In the harm-domain game (a sponsor floods a field with favorable-question studies to keep "society knows" from happening): outside EDEN, ignorance is simply <em>purchasable</em> — zero of eighteen scenarios ever reached the truth in 50 years. Inside, ~89% of scenarios reach the truth anyway (typically around year 22), because the sponsor's pot dies and honest evidence keeps accumulating. But even letting the sponsor bury results inside only bought them ~5 extra years — and conversely, in ~11% of corners (huge endowment, patient spending, carefully selected questions) the fog held for the whole 50 years. <strong>The one tested fix that closes every corner: weight evidence by funder-independence.</strong> Discount sponsored studies in evidence synthesis and 100% of scenarios reach the truth, with the typical deception window cut from ~22 years to ~12. We're recommending that as a canon rule.</p>
+<p><strong>What passed without caveats: you can't do any of this in secret, and it doesn't buy anything downstream.</strong> A sponsor who <em>hides</em> the steering — disguising top-ups as ordinary usage payments — gets caught by EDEN's own accounting in <strong>14 months</strong> (payments to a domain stop matching the gains anyone can verify from it), with zero false alarms even when we threw a legitimate demand shock at the detector. And the whole pipeline dead-ends: even a fully sponsor-funded evidence campaign can't make rigging the essentials basket profitable (still a losing trade, per v17's defenses). Steering also carries a visible price tag for society — about <strong>6% of knowledge output</strong> while a 10-point tilt is held — computable by anyone from public flows.</p>
+<h2 id="the-honest-scorecard-one-line-each">The honest scorecard, one line each</h2>
+<p>Money inside EDEN can: point research somewhere for a long time, if there's a lot of it. Money inside EDEN cannot: do it forever, do it secretly, do it cheaply while researchers are well-paid, bury what the research finds, keep society fooled in ~9 out of 10 corners, or convert the tilt into rigged definitions of what counts as essential.</p>
+<p>Money outside EDEN can: all of it, forever, invisibly, on compound interest.</p>
+<h2 id="what-to-actually-do-about-the-residue">What to actually do about the residue</h2>
+<p>Two concrete items came out of the run, both cheap: <strong>(1) ratify provenance-weighted evidence</strong> (the funder-independence discount — it's the only mechanism that closed the last 11% of corners), and <strong>(2) stand up the agenda-drift dashboard</strong> (the pay-vs-verified-gains statistic that caught laundering in 14 months — it can run continuously on public flows). With those two in place, the sentence we'd defend to a hostile reviewer is: <em>in EDEN, wealth can point the flashlight; it cannot turn off the lights.</em></p>
+<h2 id="the-standing-caveat">The standing caveat</h2>
+<p>Same as always, and it bites here specifically: everything about researchers being expensive to steer assumes institutions really do pay for data (H1, the field experiment). One sponsor, one domain at a time; coalitions of sponsors are the natural next cell if you want it.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v23-sponsorship-agenda-capture-0.png" alt="fig_v23_agenda_capture.png">
+<img src="fig/eve-sim-v23-sponsorship-agenda-capture-1.png" alt="fig_v23_sweeps.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026.</strong> SPEC registered before first execution; bars B0–B6 unchanged. Code: <code>agenda_capture_sim.py</code>; raw outputs: <code>results_v23.json</code>; figures: <code>fig_v23_*.png</code>. Seeds 7 + 11 on Poisson study draws. Plain-language companion: <code>PLAIN LANGUAGE - v23.0 Buying the Agenda.md</code>. REPRODUCES: byte-identical re-run. Discharges v22's named successor cell: <strong>can wealth steer <em>what gets researched</em> when credit, reputation, and data income all accrue to the doers?</strong></p>
+<h2 id="scoreboard">Scoreboard</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered test</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B0 Sanity</td>
+<td>conservation exact; zero-sponsor = organic allocation; cost seed-invariance</td>
+<td>all exact; stochastic medians published (6.3% seed gap, informative)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>B1 Steering price ≥3×</td>
+<td>+10pp/decade costs ≥3× inside vs outside; starve ablation &lt;1.5×</td>
+<td><strong>1.93×</strong> (ε-sweep 1.26–3.88; ≥3 only at ε=1); starved <strong>0.78×</strong> ✓</td>
+<td><strong>FAIL</strong> (instructive)</td>
+</tr>
+<tr>
+<td>B2 No perpetual foundation</td>
+<td>inside → ~0 by yr50 all policies; outside sustainable = perpetual; yield-on ablation flips</td>
+<td>outside perpetual ✓ (14.0→14.3pp, <em>grows</em>); yield-ablation flips ✓; <strong>but</strong> slow-burn holds 1.7–3.5pp and controller/T0=48 holds <strong>9.9pp through year 50</strong></td>
+<td><strong>FAIL</strong> (instructive)</td>
+</tr>
+<tr>
+<td>B3 Questions, not answers</td>
+<td>inside crossing 100% of cells; outside never ≥50%; registry-off never ≥50%</td>
+<td>inside <strong>88.9%</strong> (median yr 21.7); outside <strong>0%</strong> ever cross ✓; registry-off <strong>77.8% still cross</strong> ✗; discount → <strong>100%</strong></td>
+<td><strong>FAIL</strong> (the run's headline)</td>
+</tr>
+<tr>
+<td>B4 Laundering detectable</td>
+<td>≤24 mo, zero false positives</td>
+<td>detected month <strong>14</strong>; <strong>0</strong> false flags incl. organic-shock control</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>B5 Displacement cost ≤5%</td>
+<td>knowledge-output loss from +10pp steering</td>
+<td><strong>5.68%</strong> (KL 0.0585 nats)</td>
+<td><strong>FAIL</strong> (marginal)</td>
+</tr>
+<tr>
+<td>B6 Composed attack loses</td>
+<td>agenda-subsidized composition capture cost/benefit ≥1</td>
+<td><strong>1.52 / 1.44 / 1.20</strong> at evidence-fraction 5/10/25%</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Three of seven pass. The four failures are the content — four registered expectations were wrong (corrected July 11; B1/B2/B3/B5) in public, and each failure sharpens what actually defends EDEN.</p>
+<h2 id="finding-1-the-steering-premium-is-real-but-half-of-what-was-registered-b1-fail">Finding 1 — The steering premium is real but half of what was registered (B1 FAIL)</h2>
+<p>Holding +10pp of research effort in a pet domain costs <strong>1.9×</strong> more inside EDEN-mature than outside (0.058 vs 0.030 economy-months/month) — not the registered 3×. The premium is elasticity-sensitive (3.9× at ε=1, 1.3× at ε=2) and formalization-sensitive (an absolute-mass variant of the outside cost even inverts it to 0.9×). What survives all of that is the <strong>ablation</strong>: starve inside researchers to outside funding levels and the premium vanishes entirely (0.78×) — <em>the entire inside premium is v22's self-funding momentum.</em> Corrected claim for the white paper: <strong>researchers with full data income are roughly twice as expensive to steer, and the defense is the income, not the architecture.</strong> One more consequence, honest both ways: if H1 (WTP) disappoints, this defense thins with it.</p>
+<h2 id="finding-2-no-perpetual-foundation-but-a-big-ice-cube-outlasts-the-clock-b2-fail">Finding 2 — No perpetual foundation — but a big ice cube outlasts the clock (B2 FAIL)</h2>
+<p>The structural halves hold exactly as canon claims: outside, a ≤-yield endowment steers <strong>forever</strong> (displacement 14.0pp at year 10, 14.3pp at year 50 — it <em>grows</em>); grant the same sponsor a 4% yield inside (ablation) and the perpetual machine reappears — <strong>non-compounding is the load-bearing defense, proven by ablation.</strong> Inside, total influence is metered: ≤ <strong>~15 pp-years of agenda displacement per treasury-month</strong>, full stop. What failed is my registered "decays to ~0 within the horizon": a patient sponsor with T0=48 months-of-economy running the efficient controller holds <strong>9.9pp for the entire 50 years</strong> (cost is only ~0.058/mo), and slow-burn policies still hold 1.7–3.5pp at year 50. The honest restatement: <strong>EDEN converts perpetual agenda power into a finite, metered, pre-paid quantity — but "finite" can still span a human lifetime if the pot is big and the spending is patient.</strong> What keeps that tolerable is Finding 4: it is never secret.</p>
+<h2 id="finding-3-you-can-rent-ambiguity-not-own-ignorance-and-the-tail-needs-the-provenance-discount-b3-fail-the-headline">Finding 3 — You can rent ambiguity, not own ignorance — and the tail needs the provenance discount (B3 FAIL, the headline)</h2>
+<p>The harm-domain evidence game (sponsor floods a domain with selected-question studies to keep the balance below the society-knows threshold):</p>
+<ul>
+<li><strong>Outside: ignorance is purchasable outright.</strong> 0 of 18 cells ever cross in 50 years — burial (85%) plus a compounding treasury pins the evidence balance forever. This is the tobacco-institute equilibrium, reproduced.</li>
+<li><strong>Inside: 88.9% of cells cross anyway</strong> (median year ~21.7). Finite treasuries die, evidence decays and recovers, and attention feedback grows the organic study flow. But <strong>6 of 54 cells never cross</strong>: the <em>patient controller × strong question-selection × large endowment</em> corner rents ambiguity past the horizon in one narrow domain.</li>
+<li><strong>Registry-off ablation: my registered expectation was wrong in public.</strong> Allowing 85% burial inside still yields 77.8% crossing (median 323 vs 260 months — burial rents about <strong>+5 years</strong>, not permanence). Unburiability shortens the rental; what forces truth is the treasury's death. The defense hierarchy I registered (unburiability decisive) inverts to: <strong>finiteness &gt; recovery dynamics &gt; unburiability &gt; price.</strong></li>
+<li><strong>The provenance discount closes the tail.</strong> Weighting sponsored studies at 0.3 in evidence synthesis converts crossing to <strong>100% of cells</strong> and cuts the median from 260 to 150 months. At the reference cell it trims only 15% (the registered ≥50% stretch fails — the discount's value is not the average case), but it is the <em>only tested mechanism that eliminates the never-cross corner</em>. → <strong>Gate candidate: provenance-weighted evidence synthesis</strong> (funder-independence weighting as a canon rule for any EDEN-native evidence process). Purchased delay at the reference cell, for scale: a 24-month endowment burned over a decade rents <strong>~17.7 years</strong> of ambiguity in one rank-12 domain.</li>
+</ul>
+<h2 id="finding-4-the-transparency-dividend-is-real-steering-is-never-secret-b4-pass">Finding 4 — The transparency dividend is real: steering is never secret (B4 PASS)</h2>
+<p>Tagged sponsorship is visible by construction. <em>Laundered</em> steering (top-ups disguised as reuse income, at v8-class markup 1.3×) is caught by the claimed-pay vs verified-gains audit in <strong>14 months</strong>, with <strong>zero false positives</strong> — including the organic-demand-shock control, which moves payments and gains together and correctly stays silent. Combined with Finding 2, the worst case becomes: a sponsor <em>can</em> hold a 10pp tilt for decades, but the whole economy can watch them do it, priced to the month. Recommend the drift statistic (pay-share vs verified-gains-share divergence) as a standing protocol dashboard item.</p>
+<h2 id="finding-5-displacement-costs-6-of-knowledge-output-just-over-the-registered-line-b5-fail-marginal">Finding 5 — Displacement costs ~6% of knowledge output, just over the registered line (B5 FAIL, marginal)</h2>
+<p>A +10pp steer into a rank-8 domain costs <strong>5.68%</strong> of aggregate knowledge production (KL divergence from the organic allocation, Cobb-Douglas aggregator) — registered ≤5%, honest miss by 0.7pp. The number is target-pinned (invariant to ε by construction, so the sweep is uninformative — stated). Read jointly with B5's legibility half: the loss is computable from public flows, so society can price exactly what a sponsor's tilt costs it.</p>
+<h2 id="finding-6-agenda-capture-does-not-compose-into-composition-capture-b6-pass">Finding 6 — Agenda capture does not compose into composition capture (B6 PASS)</h2>
+<p>Even with the <em>entire</em> evidence budget of a v17-style basket-reweight campaign subsidized by agenda steering, composition capture stays losing: cost/benefit <strong>1.52 / 1.44 / 1.20</strong> at evidence fractions 5/10/25% (v17 anchor: 1.6× losing vs a monopolist). The two-house + functional-definition + rate-cap stack absorbs a fully-funded evidence pipeline. The upstream tilt buys <em>presence</em> in the debate, not victory.</p>
+<h2 id="build-notes-disclosure">Build notes (disclosure)</h2>
+<p>Four corrections between first execution and final; <strong>no bar thresholds changed</strong>: (1) society-knows latch required a minimum evidence body (N_min=20 weighted studies) — first run let two outside cells "cross" on 2-study noise at month 4; (2) B0's first implementation over-scored the seed check against Poisson crossing <em>medians</em>; corrected to the registered wording ("headline costs", deterministic) with the median gap (6.3%) still published above; (3) pp-years bound normalized per-cell T0 (was divided by a fixed 48); (4) the allocation response was implemented as share ∝ v·(1+x/(v·M))^ε — the spec's <code>share ∝ (m+b)^ε</code> shorthand contradicts B0's organic-allocation requirement at ε≠1; the multiplier form satisfies it and reduces to the pool form at ε=1.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Calculator-grade: one sponsor, one pet domain, one harm domain; sponsor <em>coalitions</em>, cross-domain portfolios, and effect-size gaming (subtler than question selection) are open. The outside counterfactual is stylized from standing anchors (burial 0.85, scarcity 0.4, r=4%). The monitor imports v8's conclusion that wash-gains are auditable at markup — if that arms race goes worse than v8 found, B4's 14 months stretches. The provenance-discount weight (0.3) and attention feedback are [X] guesses; the discount's <em>tail-closing</em> property is the robust part (it converts 100% of never-cross cells at every tested strength ≥ baseline). And the inherited hinge cuts both ways here: <strong>H1 failure would shrink the steering-price defense (B1) — the WTP experiment is also an anti-capture experiment.</strong></p>
+<h2 id="bottom-line">Bottom line</h2>
+<p><strong>Outside EDEN, wealth can own ignorance: a compounding endowment plus burial pins inconvenient evidence forever, invisibly. Inside EDEN, wealth can only rent attention — metered (~15 pp-years per treasury-month), priced (~6% of knowledge output while held), visible within 14 months even when laundered, mortal in ~89% of tested corners, and unable to convert into basket capture downstream.</strong> The registered defenses ranked differently than expected — the price premium is thinner (1.9×), unburiability rents rather than forces truth, and a patient fortune can hold one narrow domain ambiguous past the horizon. The fix the run itself surfaces: ratify <strong>provenance-weighted evidence synthesis</strong> (closes the last 11% of corners, cuts median deception years by 42%) and stand up the <strong>agenda-drift dashboard</strong>. With those two, the honest sentence to the owner's original question becomes: <em>early money can point the flashlight; it cannot turn off the lights.</em></p>
+<p><em>Run and written by the July 9, 2026 session (Fable), owner-directed successor cell to v22. Spec registered before code; four registered expectations falsified in public (count corrected July 11) per house rules; REPRODUCES under re-run byte-identity.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v23-sponsorship-agenda-capture-0.json" download>⬇ results_v23.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

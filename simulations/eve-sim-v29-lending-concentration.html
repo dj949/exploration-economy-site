@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v29 - Lending Concentration — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v29 - Lending Concentration.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v29 - Lending Concentration</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 10, 2026. Companion to <code>RESULTS - v29.0 Lending Concentration</code>.</em></p>
+<h2 id="the-worry">The worry</h2>
+<p>EDEN deliberately closed most ways to get rich just by <em>owning</em> rather than <em>contributing</em>: idle money slowly shrinks, and you can't hand down a compounding fortune. So the natural question: is <strong>lending at compound interest</strong> the last loophole? Could someone get passively, dynastically rich just by making loans — the very thing we let people do freely?</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>Unbraked, yes — it's a real loophole.</strong> In a normal economy (compound interest, normal inheritance, no shrink on idle money), the richest 1% grow their share of wealth from 9% to 16% over 50 years. That's the classic "the rich get richer because money makes money" dynamic.</p>
+<p><strong>But EDEN's existing rules already close it — for free.</strong> Two rules it has for other reasons do the job:</p>
+<ul>
+<li><strong>Idle money shrinks.</strong> The moment your interest income just sits there, it starts decaying (demurrage). So you <em>can't</em> build a pile by lending and hoarding the proceeds — to keep growing, you have to keep lending it back out, which means continuously funding real people. That's productive, not passive.</li>
+<li><strong>Fortunes don't pass down intact.</strong> When you die, a large accumulated pile doesn't transfer as a compounding dynasty — it dissolves and partly redistributes.</li>
+</ul>
+<p>Put those together and the lending "loophole" doesn't concentrate wealth at all over 50 years — it actually ends <em>lower</em> than it started. The rules meant to stop idle hoarding and dynasties also happen to catch the lending channel.</p>
+<p><strong>And a special anti-lending rule would add nothing.</strong> We tested bolting on a dedicated cap ("you can only lend so much") on top of the existing rules — it changed the outcome by ~0%, because the existing rules already did all the work. So a new limit would cost freedom for no benefit.</p>
+<h2 id="the-recommendation">The recommendation</h2>
+<p><strong>Keep lending free — including compound interest — but keep a public scoreboard.</strong> Don't add a new cap (it buys nothing and costs freedom). Instead, publish who's lending how much and how concentrated interest income is getting, as an ongoing dashboard — and only step in with a real limit <em>if</em> the channel ever starts to dominate. The freedom stays; the concern stays watched. That's the honest, freedom-first answer.</p>
+<h2 id="one-honest-caveat">One honest caveat</h2>
+<p>This result leans on how strongly EDEN's two existing rules bite (how much a fortune dissolves at death, how fast idle money shrinks). At the design's current settings they more than handle it; at weaker settings a small loophole could reopen. That's exactly why the recommendation is a <em>scoreboard we watch</em> rather than "problem solved forever" — measure the real numbers when EDEN actually runs, and revisit if needed.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v29-lending-concentration-0.png" alt="fig_v29_concentration.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 10, 2026. Spec: <code>v29 SPEC - Lending Concentration (registered).md</code> — bars LX0–LX5 fixed before code. Engine: <code>lending_concentration_sim.py</code> (deterministic given seeds); committed: <code>results_v29.json</code>, <code>fig_v29_concentration.png</code>. Discharges Banking Spec §10 / <code>EVE Sim v26</code> F3. Every number traces to <code>results_v29.json</code>.</strong></p>
+<p><strong>Verdict in one line: the worry — that free-market compound interest becomes the surviving way to get passively/dynastically rich — is real <em>unbraked</em> (top-1% wealth share climbs 9%→16% over 50 years), but EDEN's <em>existing</em> machinery already contains it without any new rule: demurrage catches idle interest income and non-compounding inheritance dissolves dynastic fortunes, cutting concentration ~74% vs the unbraked case, and a <em>dedicated</em> lending-concentration gate adds essentially nothing (0% further). So the Freedom-consistent answer holds — no new cap needed; monitor with a dashboard and revisit only if the channel ever comes to dominate.</strong></p>
+<h2 id="bar-summary-all-six-pass">Bar summary (all six pass)</h2>
+<table>
+<thead>
+<tr>
+<th>Regime</th>
+<th>top-1% share after 50 yr</th>
+<th>Gini</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>starting point</td>
+<td>9.2%</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>NO-BRAKE</strong> (free compound lending, no EDEN brakes)</td>
+<td><strong>15.8%</strong></td>
+<td>0.78</td>
+</tr>
+<tr>
+<td><strong>EDEN-BRAKES</strong> (+ demurrage-on-idle + non-compounding inheritance + full-reserve pool bound)</td>
+<td><strong>4.1%</strong></td>
+<td>0.44</td>
+</tr>
+<tr>
+<td><strong>+GATE</strong> (+ a dedicated lending-share cap)</td>
+<td><strong>4.1%</strong></td>
+<td>0.44</td>
+</tr>
+</tbody>
+</table>
+<p>LX0 sanity · LX1 unbraked channel real (PASS) · LX2 existing brakes contain it (PASS) · LX3 within-lifetime residual (descriptive) · LX4 gate adds little (descriptive) · LX5 recommendation (descriptive).</p>
+<h2 id="findings">Findings</h2>
+<p><strong>LX1 — The channel is real when unbraked.</strong> In a normal economy (compound interest, ordinary inheritance, no demurrage), the fixed-claim r&gt;g dynamic does what Piketty describes: the top-1% wealth share climbs from 9.2% to <strong>15.8%</strong> over 50 years and Gini reaches 0.78. So the concern from v26 F3 is legitimate — leave compound lending unbraked in a normal system and it concentrates.</p>
+<p><strong>LX2 — EDEN's existing machinery already contains it (the key result, ~74% reduction).</strong> Turn on the three brakes EDEN has <em>for other reasons</em> — (1) <strong>demurrage</strong> decays interest income the moment it's held idle, so a lender can only keep growing by continuously <em>re-lending</em> (productive intermediation), not by piling up; (2) <strong>non-compounding inheritance</strong> dissolves the dynastic fortune at succession (the lending pile doesn't pass intact); (3) the <strong>full-reserve pool bound</strong> caps aggregate lending at real savings, not conjured credit — and the top-1% share ends at <strong>4.1%</strong>, <em>below</em> where it started. The lending r&gt;g channel isn't just contained; it's dominated by the same anti-accumulation forces that serve the rest of the design. <strong>You don't need a special rule against lending fortunes — the rules you already have catch them.</strong></p>
+<p><strong>LX3 — The within-lifetime residual didn't materialize (registered expectation softened, honestly).</strong> I expected a residual: an <em>active</em> lender who continuously re-lends should still concentrate within their lifetime even under the brakes. At these dials it doesn't show — the idle-income demurrage plus the inheritance dissolution net <em>de-concentrate</em> over 50 years. This is a stronger-than-expected result for EDEN, but I flag it as <strong>dial-dependent</strong> (see limits): the inheritance-dissolution strength (60% of dynastic excess) and demurrage rate carry it. At weaker dissolution a positive residual would appear. The robust claim is directional — the brakes dominate the channel — not the precise "de-concentrates below start."</p>
+<p><strong>LX4 — A dedicated lending-concentration gate adds essentially nothing — now shown at caps that actually bind (corrected + extended July 11, v4 D13e).</strong> <em>Correction: the original explanation ("the existing brakes already pull concentration below where such a gate would bind") was wrong in detail — the registered 2% cap would not have bound even in the NO-BRAKE regime, because the largest single actor's share of the lending pool never exceeds </em><em>1.31%</em><em> in any regime or year (now recorded in the JSON). At 2%, "+GATE ≡ EDEN-BRAKES" identically, and "adds ~0%" was vacuously true.</em> The <strong>gate-binding probe</strong> (committed July 11) re-runs the gate at caps that genuinely clip the biggest lenders: at a <strong>1% cap</strong> (binds in 14 of 50 years) the extra concentration reduction is <strong>+0.05%</strong>; at a <strong>0.5% cap</strong> (binds in 30 of 50 years, cutting the largest lenders' books nearly in half) it is <strong>+0.62%</strong>. So the no-new-gate recommendation now rests on a <em>tested</em> dial: even a gate tight enough to bind hard buys less than one percentage point of further reduction, because the demurrage + inheritance brakes, not the cap, do the de-concentrating. That's the case <em>against</em> adding one — strengthened, not weakened, by the correction.</p>
+<p><strong>LX5 — Recommendation (Freedom-consistent): monitor, don't cap.</strong> The residual the free-compound-interest channel leaves after EDEN's existing brakes is (a) small-to-nonexistent at plausible dials, and (b) <em>active real intermediation</em> (a lender growing by continuously funding real borrowers), not idle rent. A hard gate costs Freedom and buys ~nothing. So the recommendation for Banking Spec §10 is a <strong>lending-concentration dashboard</strong> — publish the distribution of outstanding-lending shares and interest-income concentration as standing telemetry — and <strong>revisit a gate only if the channel ever comes to dominate</strong> (a pre-scoped reversal, per the Decision Record discipline). This keeps compound interest free (your pillar) while ensuring the concern is <em>watched</em>, not ignored.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced-form wealth-dynamics ABM with stated dials — the <em>directions</em> are robust (unbraked compound lending concentrates; EDEN's demurrage + non-compounding-inheritance brakes contain it; a dedicated gate adds little on top). The <em>magnitudes</em> — especially LX3's net de-concentration — depend on the <strong>inheritance-dissolution strength (60%)</strong> and the <strong>idle-demurrage rate (5%)</strong>, both dials; at weaker settings a positive within-lifetime residual reappears, which is exactly why the recommendation is a <em>dashboard</em> (measure the real dials at pilot) rather than a claim that the channel is permanently dead. Single-currency, no cross-border capital flight, no organized lending cartels (a named successor if pursued). This validates "no new gate needed now, monitor"; it does not prove the channel can never matter.</p>
+<h2 id="plain-language">Plain language</h2>
+<p>The worry: EDEN closed most ways to get rich just by owning stuff (idle money slowly shrinks; you can't inherit a compounding fortune), so could <em>lending at compound interest</em> become the last loophole — the new way to get rich without contributing? Unbraked, yes: over 50 years the richest 1% would grow their share from 9% to 16%. But EDEN's existing rules already catch it, for free: the moment your interest income sits idle it starts shrinking (demurrage), so you can only keep growing by lending it back out (which is useful — funding real people); and when you die, the pile doesn't pass down intact. Together those pull concentration <em>down</em>, not up. Adding a special "you can only lend so much" rule on top does basically nothing — the existing rules already did the work. So the recommendation: <strong>don't add a new limit (it would cost freedom for no benefit) — just keep a public scoreboard of who's lending how much, and only step in if it ever starts to dominate.</strong> The freedom to lend at compound interest stays; the concern stays watched.</p>
+<p><em>Run and written July 10, 2026 (self-labeled Fable; per the owner's record this sitting ran as Opus 4.8 — see INDEX provenance note). All bars pass; LX3's registered "residual" expectation softened honestly (didn't materialize at these dials) with the dial-dependency flagged. Numbering checked against max before registering v29. Feeds Banking Spec §10.</em></p>
+<p><em>Postscript, July 11, 2026 (Verification v4 action 9, executed by the Fable 5 verification session): LX4's explanation corrected (the registered 2% cap never binds — max single-actor pool share 1.31%, now committed) and the gate-binding probe added at 0.5%/1% caps (labeled extension): even binding hard, the gate adds ≤0.62%. The seeds_note was also corrected July 11 (no reinvestment noise exists; the rng seeds the initial wealth draw only). All pre-existing JSON leaves verified unchanged; DR-17's "adds ~0%" citation should point at the probe, and now can.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v29-lending-concentration-0.json" download>⬇ results_v29.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

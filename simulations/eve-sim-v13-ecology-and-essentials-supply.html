@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v13 - Ecology &amp; Essentials Supply — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v13 - Ecology &amp; Essentials Supply.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v13 - Ecology &amp; Essentials Supply</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v13.0 Ecology &amp; Essentials Supply (PROVISIONAL)</code>. </em><em>Read the provisional warning first: this drill's trustworthiness check failed, and the engine hasn't been independently reviewed. What's below is an honest reading of what the model produced, not a settled result.</em>**</p>
+<h2 id="the-question-nobody-had-tested">The question nobody had tested</h2>
+<p>Every EDEN simulation so far quietly assumed the world can always <em>make</em> enough essentials — food, energy, materials — and only asked whether people could afford them. This drill removed that assumption. What happens when the physical pie itself shrinks — a drought, an energy shock, a decade of resource degradation? And does EDEN's core trick — paying people for <em>time and contribution</em> rather than for <em>how much stuff they move</em> — actually help the planet, or just sound like it does?</p>
+<h2 id="what-the-model-seemed-to-say-provisional">What the model seemed to say (provisional)</h2>
+<p><strong>The good, and it's a big claim if it holds:</strong> when we cut essentials supply by 10%, 25%, even 40%, EDEN kept the <strong>poorest tenth of people fully fed at every level of shortage</strong> — while a normal "pay-for-throughput" economy, hit by the identical shortage, <strong>left them with essentially nothing</strong>. The reason is structural: EDEN mints money for an hour of human attention whether or not that hour burned through raw materials, so its money doesn't dry up when the mines and fields do. A growth-for-growth's-sake economy, by contrast, stops paying people exactly when it stops producing.</p>
+<p><strong>The catch, and it rhymes with an earlier finding:</strong> EDEN seems to hold everyone's <em>groceries</em> steady only by letting its <em>currency inflate</em> (prices rising ~15%, the money-printer running through the whole storm). That's the same trade the project made once before under a market crash — <strong>protect the people, let the price take the hit.</strong> Whether that's the real behavior or a flaw in this particular (unreviewed) model is exactly what we can't yet say.</p>
+<p><strong>The honest disappointment:</strong> the drill could <em>not</em> clearly show that EDEN reduces how much raw material the whole economy chews through — the "greener by design" claim came out almost a tie. If that survives review, it's the most important result here: EDEN may protect people <em>during</em> ecological stress without actually <em>causing</em> less ecological stress. Those are different promises, and the project should only make the one it can keep.</p>
+<h2 id="the-one-line-verdict-provisional">The one-line verdict (provisional)</h2>
+<p><strong>On this first, unvalidated look, EDEN keeps the poorest fed even as the physical pie shrinks — where a throughput economy starves them — but it appears to do so by inflating its currency, and it did <em>not</em> clearly prove it makes the economy greener; all of this waits on a real review of the model before anyone should believe it.</strong></p>
+<p><em>Usual honesty, doubled: calculator-grade drill, dials not forecasts — AND the trustworthiness gate failed and the engine is unreviewed, so this is filed as provisional, not as a result. Run and written by Claude Fable 5, July 9, 2026.</em></p>
+<p><em>July 11, 2026. Companion to <code>RESULTS - v13.1 Ecology with Staged-Activation Funding</code>.</em></p>
+<h2 id="where-we-left-off">Where we left off</h2>
+<p>The ecology simulation (v13.0) was the vault's one flagged-provisional result: its safety-net math only "worked" because the model quietly printed money every month — 2,163× prices over fifty years. The diagnosis said the real fix was to port in the funding machinery the rest of EDEN uses: build a reserve first, turn the floor on only when the money's actually there, never print. That rebuild was spec'd with pass/fail bars written down in advance. Now it's built — with a safety check proving the rebuilt engine reproduces every one of the old engine's 68 numbers exactly when the new machinery is switched off, so any change in results is the machinery, not a typo.</p>
+<h2 id="the-answer">The answer</h2>
+<p><strong>The floor in this world cannot be paid for. Not late — never.</strong> Three stages, each on the record:</p>
+<ol>
+<li><strong>Waiting doesn't work.</strong> The funding streams (slices of verification, settlement, and legacy flows) cover <strong>2–5%</strong> of what the floor owes. The "turn on when funded" gate never comes close to opening — in any of the 18 scenarios, over fifty years.</li>
+<li><strong>Jump-starting doesn't work either.</strong> Maybe it's a chicken-and-egg problem — the unfunded floor depresses the economy that would fund it? We tested that: switched the floor on at day one, seeded reserve and all. It paid 8% of what it owed in year one, sliding to 2% forever. There's no healthy equilibrium hiding behind a bootstrap problem.</li>
+<li><strong>The arithmetic is structural.</strong> In this model, what the floor owes eventually <em>exceeds the entire volume of transactions it could ever be funded from</em>. A 100% tax on everything wouldn't cover it. The model describes a poor world (median income ~2× the essentials basket, so half of everyone needs top-ups) carrying a rich promise (110% of the whole basket, guaranteed).</li>
+</ol>
+<p>Two genuinely good numbers came out: <strong>zero months of money-printing anywhere</strong> (the machinery works exactly as designed), and inflation stays ~7%/yr — the old 2,163× horror really was pure printing, now impossible.</p>
+<h2 id="what-this-means">What this means</h2>
+<p>The old result's flag changes from "provisional — something's wrong, unclear what" to "<strong>answered — the promise doesn't fit the purse in this world.</strong>" And that hands you a real design decision instead of a lingering doubt. Three honest ways forward, all of which are choices about canon, not more simulation: grow the purse (world-scale settlement slices, ~10× larger than this model carried — with the evasion that invites), shrink the promise (a partial floor sized to what's measurably fundable), or name the subsidy (make sponsor funding a permanent, bounded feature of hard-pressed worlds — not just a launch bootstrap). That's a ratification-queue item now.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>With printing forbidden and the real funding machinery installed, the ecology world's floor turns out to owe more than its whole economy transacts — the fix isn't better simulation, it's choosing between a bigger purse, a smaller promise, or an honest permanent subsidy.</strong></p>
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Spec: <code>v13 SPEC - Ecology &amp; Essentials Supply (registered).md</code> — bars E0–E6 fixed before code. Engine: <code>ecology_sim_v13.py</code>; committed: <code>results_v13.json</code>, seeds 7+11.</strong></p>
+<blockquote>
+<h2 id="provisional-read-this-before-any-number-below">⚠️ PROVISIONAL — read this before any number below</h2>
+<p>This run is filed at <strong>lower confidence than the rest of the program</strong>, for two reasons stated up front per house discipline:</p>
+<ol>
+<li><strong>The E0 harness-trust gate FAILED — diagnosed AND a recalibration attempted (July 9); root cause is structural, fix is a rebuild not a patch.</strong> The books balance to machine precision (no accounting bug), but the no-shock BASE economy is not price-stable (prices 2,163× over 50 years). A disciplined recalibration (two principled fixes, original archived, no bar moved) traced this through the c_min subsidy floor to the <strong>dominant driver: a floor-printing wage-price spiral</strong> — the floor prints every month, violating v1.4's "the floor never prints." Enforcing no-print stops the spiral but reveals the floor is <strong>structurally underfunded</strong> (delivery collapses to ~9%): the program's known funding-base mismatch, which the ecology engine never resolved. <strong>The complete fix is porting the v5/v6 staged-activation + funding machinery in — a substantial rebuild, owed.</strong> Full record in <strong>E0 DIAGNOSIS</strong> and <strong>RECALIBRATION ATTEMPT</strong> below.</li>
+<li><strong>The engine is single-author AI code written in an interrupted session and never independently validated.</strong> It was completed and executed post-interruption by the main thread, not re-derived. Per the in-family-discount principle, that is weak evidence even by this program's standards.</li>
+</ol>
+<p><strong>Nothing in v13 should enter canon, move a score, or be cited as a result until the engine is reviewed and E0 is either passed or its failure explained.</strong> What follows is an honest reading of what the engine produced, flagged throughout.</p>
+</blockquote>
+<hr>
+<h2 id="what-the-run-appears-to-show-provisional">What the run appears to show (provisional)</h2>
+<p><strong>The central ecology thesis (E1, E2) reads strongly positive.</strong> Under acute essentials-supply shocks of 10%, 25%, and even 40%, EDEN's floor delivered <strong>full essentials to the poorest decile (fill = 1.000) at every shock depth</strong>, while the GDP-coupled counterfactual (GROW — rewards proportional to material throughput) <strong>collapsed to fill ≈ 1.2×10⁻⁵ — effectively total floor failure</strong> (<code>pub_gap_by_depth</code> = {A10: 1.0, A25: 1.0, A40: 1.0}). If it holds up, this is the measured version of the claim in <code>EDEN's Ecological Case</code> that has never been tested: <strong>time-based minting, decoupled from material throughput, keeps the poor fed when the physical basket contracts, precisely where a throughput-coupled economy starves them.</strong> E2's no-lane cell (removing the essentials-redemption lane) did <em>not</em> fail as the spec expected — flagged for engine review.</p>
+<p><strong>But the EDEN side pays for that delivery in monetary stability (E3a, E6 provisional fails), and the pattern is coherent.</strong> Holding real delivery through a contracting basket appears to require the governor to run hot: base 5-year inflation <strong>15.9%</strong>, and under the storm the model prints in <strong>every</strong> month (<code>storm_printed_frac = 1.0</code>). Read charitably, this is the <strong>ecology-era echo of "protect people, concede price"</strong> (the v9 posture): when the real pie shrinks, EDEN keeps the poorest decile's <em>consumption</em> whole and lets the <em>currency</em> absorb the damage. Read skeptically, printing-every-month may be an engine artifact. <strong>Both readings are live until the engine is reviewed</strong> — which is exactly why this is provisional.</p>
+<p><strong>Free time did not rise (E5 provisional fail).</strong> The spec registered an expectation that growth converts to rising free time at the physical cap; the run shows free-time <em>declining</em> over the decades (80 → 71) under sustained ecological stress. If real, it qualifies the v7 "growth becomes free time" claim: <em>under binding ecological contraction, there is no growth to convert</em> — an honest and unsurprising limit. If an artifact, it dies with the engine review.</p>
+<p><strong>The GDP counterfactual failed catastrophically across every ecology cell</strong> (600/600 months below basket, unemployment → ~100% under chronic degradation). This is the most robust-looking signal in the run and the least surprising: an economy that pays for throughput cannot pay when throughput is constrained.</p>
+<h2 id="provisional-bar-readings-not-findings-pending-e0-resolution">Provisional bar readings (NOT findings — pending E0 resolution)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Reading</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>E0 harness (seed agreement + base sanity)</td>
+<td>books balance (~1e-16) but inflation ceiling / seed bar breached</td>
+<td><strong>FAIL — invalidates the rest until explained</strong></td>
+</tr>
+<tr>
+<td>E1 delivery gap under 25% shock</td>
+<td>EDEN fill 1.000 vs GROW 1.2e-5</td>
+<td>provisional PASS</td>
+</tr>
+<tr>
+<td>E2 delivery under 40% shock + no-lane</td>
+<td>EDEN fill 1.000; no-lane did not fail as expected</td>
+<td>provisional MIXED</td>
+</tr>
+<tr>
+<td>E3a inflation under contraction</td>
+<td>15.1% (bar breached)</td>
+<td>provisional FAIL (may be the real "concede price" result)</td>
+</tr>
+<tr>
+<td>E3b governor floor c_min=0.25 holds</td>
+<td>c_y20 = 0.25</td>
+<td>provisional PASS</td>
+</tr>
+<tr>
+<td>E4c low-throughput reward tilt</td>
+<td>erased-frac 0.8%; adv 0.187 vs 0.185</td>
+<td>provisional FAIL (decoupling not clearly structural — the honest open question)</td>
+</tr>
+<tr>
+<td>E5 free time rises</td>
+<td>declined 80→71</td>
+<td>provisional FAIL</td>
+</tr>
+<tr>
+<td>E6 storm: deliver without printing</td>
+<td>delivered (fill 1.0) but printed every month</td>
+<td>provisional FAIL on printing</td>
+</tr>
+</tbody>
+</table>
+<h2 id="e0-diagnosis-july-9-2026-root-cause-found-not-yet-resolved">E0 DIAGNOSIS (July 9, 2026 — root cause found; NOT yet resolved)</h2>
+<p>A direct probe of the BASE-EDEN (no-shock) cell isolates <em>why</em> E0 failed, and it is more serious than the headline 15.9% suggested <em>(clarifier, July 9 verification pass: 15.9% is the BASE cell's max trailing-5-yr inflation, JSON <code>E0_infl_base_max5yr</code>; the E3a bar row's 15.1% is the C2 contraction cell, <code>E3a_infl_tr5_max_C2</code> — two real cells, not one number inconsistently rendered; the 16.6%/yr and 2,163× figures below are the BASE cell's 50-year average and cumulative)</em>:</p>
+<ul>
+<li>the mint governor drives the coefficient <code>c</code> to its <strong>c_min = 0.25 floor and holds it there 77% of the months</strong> — the floor is binding almost the whole run;</li>
+<li><strong>output per capita <em>declines</em> 18%</strong> over 50 years in a no-shock base (Y_pc 133.8 → 110.3) — a healthy base should grow with knowledge, so the base output dynamics are themselves mis-formed;</li>
+<li>consequently the price level runs <strong>2,163× over 50 years (16.6%/yr average, 23.1% max trailing-5yr)</strong> — the floor-mint keeps issuing while output stagnates/declines.</li>
+</ul>
+<p><strong>This is a base-economy calibration failure, not a subtle shock artifact — and it is not a one-line fix.</strong> Two coupled root causes, both real model work: (1) the <strong>Exploration Subsidy floor c_min = 0.25 is inflationary when it binds against low/negative output growth</strong> — exactly the "index c_min to supply, or add a contraction carve-out" canon question E3 pre-registered as possibly failing; and (2) the <strong>base knowledge→output growth is too weak to keep Y rising</strong> without a shock, so c_min binds even in the base case it was only meant to catch during a bootstrap.</p>
+<p><strong>Why this is left diagnosed-but-unresolved (house discipline):</strong> the fix is a genuine recalibration (index c_min to realized essentials-supply growth; repair base output growth so a no-shock economy is stable), and hacking parameters until E0 turns green would be <em>fitting the model to the bar</em> — forbidden. A rushed in-family patch would be no more trustworthy than the original. So E0 stands <strong>failed</strong>, v13 stands <strong>provisional</strong>, and the recalibration is <strong>owed work</strong>, not done work.</p>
+<p><strong>Consequence for the E1/E2 "ecology thesis" reading:</strong> the "EDEN delivers essentials while GDP-coupling craters" result partly rides on the <em>indexed floor keeping pace with a 2,163× inflation</em> on a base that should never have inflated that way. Until the base is stable, the delivery-vs-GDP gap is <strong>confounded with the base mis-calibration</strong> and cannot be cited. The GDP-counterfactual's catastrophic failure (600/600 months below basket) is the most robust-looking signal and least dependent on EDEN's own governor — but even it awaits a clean base.</p>
+<h2 id="recalibration-attempt-july-9-2026-two-principled-fixes-deeper-root-cause-found-e0-still-fails">RECALIBRATION ATTEMPT (July 9, 2026 — two principled fixes, deeper root cause found; E0 still fails)</h2>
+<p>A genuine recalibration was attempted, in the open, under discipline (original archived; the attempt is preserved as <code>ecology_sim_v13_1_RECAL_attempt.py</code>; the committed <code>ecology_sim_v13.py</code> is restored to its registered original; <strong>no bar moved, no parameters hacked to force E0 green</strong>). Two principled fixes were applied and each taught something:</p>
+<p><strong>Fix 1 — c_min as a maturity-released bootstrap subsidy (design-faithful).</strong> The Exploration Subsidy floor was applied on the governor's <em>down-throttle</em>, so a mature economy that over-issued could not cut below 0.25. Fix: fade c_min to ~0 as knowledge-pay (the thing it bootstraps toward) becomes a real share of the mint pool. <strong>Result: the fix works for its part</strong> — <code>c</code> correctly releases to ~0.002 once knowledge-pay matures (86% of value). <strong>But base inflation barely moved (still ~23% trailing-5yr)</strong> — so c_min was <em>never the dominant driver</em>. Lesson: the subsidy floor is a real (minor) design flaw, now understood, but not the cause of E0.</p>
+<p><strong>Fix 2 — enforce v1.4's "the floor never prints" (canon-faithful).</strong> Direct instrumentation revealed the dominant driver: <strong>the floor prints every single month (600/600)</strong>, and because the floor is EBI/P_e-indexed, that printing raises prices, which raises the nominal floor, which prints more — a <strong>floor-driven wage-price spiral</strong> (the 2,163× base inflation). An always-printing floor <strong>violates v1.4 canon</strong> (staged activation: the floor activates only to the extent funding covers it; zero printing). Fix: ration the floor to available funding, <code>printed := 0</code>. <strong>Result: the spiral stops</strong> (prices 2,163× → 7.9×, printing 0) — <strong>but it exposes the true structural problem: the floor is grossly underfunded.</strong> Rationed to real funding (slice + ancestral), the poorest decile's essentials delivery <strong>collapses to ~9%</strong> and output falls to 0.24×.</p>
+<p><strong>The real finding, now solid: v13's base economy is structurally unfunded.</strong> It can <em>either</em> print (inflation spiral, non-canon) <em>or</em> ration (floor collapses to 9% delivery) — neither is stable. This is the program's own <strong>funding-base mismatch</strong> (v5.2: the floor is sized to the whole cost of living but fed from a slice of digital flow) appearing in acute form, because the ecology engine <strong>never implemented the machinery the rest of the program uses to resolve it</strong> — v1.4 staged activation (a reserve that must cover obligations before the floor turns on), the settlement-slice sizing, and the mature funding ladder. The original engine hid the mismatch behind printing; the recalibration surfaced it honestly.</p>
+<p><strong>Consequence:</strong> the complete fix is not a patch — it is <strong>porting the v5/v6 floor-funding machinery (staged activation + reserve + slice sizing) into the ecology engine</strong>, then re-running E0–E6. That is a substantial rebuild and remains <strong>owed work</strong>. Until then v13 stays <strong>PROVISIONAL</strong>, and the E1/E2 "delivery vs GDP-coupling" thesis stays confounded (its "delivery 1.0" rode on the very floor-printing that fails E0).</p>
+<h2 id="what-must-happen-before-v13-is-anything-more-than-provisional">What must happen before v13 is anything more than provisional</h2>
+<ol>
+<li><strong>Port staged activation + reserve + slice-sizing</strong> (v1.4 / v5.3b / v6 machinery) into the ecology engine so the base floor is funded without printing and without collapse — the recalibration proved a two-line patch cannot do this.</li>
+<li><strong>Re-run</strong> the full E0–E6 battery on the funded base; re-establish (or retire) the E1/E2 ecology thesis on it.</li>
+<li><strong>Independent engine review</strong> before any result leaves provisional status.</li>
+<li>The two fixes from this attempt (c_min maturity-release; no-print floor) are <strong>correct in direction</strong> and should be carried into the rebuild — they are necessary but, as measured, not sufficient.</li>
+</ol>
+<h2 id="honest-limits-from-the-spec-carried-and-now-compounded">Honest limits (from the spec, carried — and now compounded)</h2>
+<p>No real climate model (shock dials, not projections); resource-intensity parameters stylized; ecology is a constraint surface, not an earth-system model; a real integrated-assessment coupling is future work. <strong>On top of all that: unvalidated engine, failed harness gate, provisional throughout.</strong> The one thing worth carrying forward regardless of engine fate is the <em>question sharpened</em>: does EDEN's throughput-decoupled minting actually reduce economy-wide material intensity, or does it merely protect delivery while the currency inflates? E4c's near-tie (0.187 vs 0.185) suggests the decoupling may <strong>not</strong> be structural — which would be the most important honest result here, if it survives review.</p>
+<hr>
+<p><em>Status: PROVISIONAL, not canon. The SPEC (registered before code) stands as a legitimate registration; the RUN awaits engine validation. Filed this way deliberately — the program's rule is that failures are findings and weak evidence is labeled weak. Run and written by Claude Fable 5, July 9, 2026. Do not cite without the provisional flag.</em></p>
+<p><strong>Run: July 11, 2026. Spec: <code>v13.1 REBUILD SPEC - Ecology with Staged-Activation Funding (registered).md</code> (July 9) — bars R-E0…R-E6 fixed before code. Engine: <code>ecology_sim_v13_1.py</code> (v13.0's physics untouched; the always-printing floor surgically replaced by the v5 staged-activation machinery; batch/assemble; <code>--full</code>). Committed: <code>results_v13_1.json</code>. v13.0's engine and <code>results_v13.json</code> stay committed, untouched, as the investigation trail. Assignment note, per house rules: the BACKLOG earmarked this build for Opus; the owner reassigned it to the Fable 5 verification session July 11.</strong></p>
+<p><strong>Verdict in one line: the rebuild worked and the answer is NO — with printing structurally removed and the canon funding machinery properly ported, the ecology world's floor is unfundable at the registered dials: the funding streams cover 2–5% of obligations, the staged-activation gate correctly never opens (all 18 cells), and a labeled jump-start probe proves it is not a bootstrap gap — even force-activated at t=0 with the reserve seeded, the floor pays ~8% of obligations in year 1 and decays to ~2% forever. Zero months of printing anywhere; 0 of 7 registered bars pass; the regression gate passes exactly (68/68 committed v13.0 bar values reproduced by this engine in legacy mode). v13.0's "provisional" economics were an artifact of printing; the true finding is that this model describes a rich promise in a poor world, and fixing that is a canon-level design decision, not a simulation bug.</strong></p>
+<h2 id="the-regression-gate-first-the-trust-anchor-spec-3-mandatory">The regression gate first (the trust anchor — SPEC §3, mandatory)</h2>
+<p>Run in <code>legacy_mode</code> (the v13.0 committed floor path, verbatim), this engine re-derives <strong>all 68 committed bar values in <code>results_v13.json</code> with zero differences</strong> (recursive compare at 1e-9). The port changed exactly one mechanism and nothing else. Everything below is therefore attributable to the funding machinery, not to a porting accident.</p>
+<h2 id="bar-summary-0-of-7-pass-every-failure-is-the-honest-answer-the-spec-anticipated">Bar summary (0 of 7 pass — every failure is the honest answer the SPEC anticipated)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-E0 harness trust</td>
+<td>infl ≤ ±10%/yr, no-print invariant, ledger exact, reserve ≥ 0, seeds agree</td>
+<td>inflation <strong>7.2%</strong> ✓, printing <strong>0 in all 10,800 EDEN months</strong> ✓, ledger ≤ 1e-16 ✓, reserve ≥ 0 ✓ — but <strong>seeds disagree on the governor endpoint</strong> (c_end 0.45 vs 0.36; the depressed equilibrium is seed-sensitive)</td>
+<td><strong>FAIL (seed clause)</strong></td>
+</tr>
+<tr>
+<td>R-E1 acute shock delivery</td>
+<td>A25 p10 fill ≥ 0.90 in window; ≥ GROWTH + 0.15</td>
+<td>EDEN <strong>0.082</strong> vs GROWTH 0.00001 (gap +0.08; the lane still beats the market, but both are catastrophic without a funded floor)</td>
+<td><strong>FAIL</strong></td>
+</tr>
+<tr>
+<td>R-E2 fair-share under scarcity</td>
+<td>fill ≥ 0.95 × fair share</td>
+<td><strong>0.20</strong> — and diagnostically: <em>fair share physically exists</em>; the poor simply cannot afford it. A funding failure, not a rationing failure</td>
+<td><strong>FAIL</strong></td>
+</tr>
+<tr>
+<td>R-E3 governor + reserve in reverse</td>
+<td>C2 infl ≤ 12% no-print ✓; c ≤ 0.30 ✗; shortfall ≤ 10% of window ✗</td>
+<td>infl 8.6% ✓ zero-print ✓; c_y20 0.45; floor never activates → no payout months at all</td>
+<td><strong>FAIL</strong></td>
+</tr>
+<tr>
+<td>R-E4 decoupling carryover</td>
+<td>v13.0 bars re-scored under correct funding</td>
+<td>ratio 0.26 — <em>not comparable to v13.0's:</em> EDEN's Y is depression-suppressed, which flatters intensity; flagged as confounded, not claimed</td>
+<td><strong>FAIL (as comparable evidence)</strong></td>
+</tr>
+<tr>
+<td>R-E5 constraint → time</td>
+<td>afford ≥ 1.0 after yr 3, no-print</td>
+<td>afford_p10 <strong>0.081</strong></td>
+<td><strong>FAIL</strong></td>
+</tr>
+<tr>
+<td>R-E6 storm</td>
+<td>fill ≥ 0.85, zero printing, shortfall ≤ 10%</td>
+<td>fill 0.082; printing 0 ✓</td>
+<td><strong>FAIL</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-finding-in-three-stages-each-committed">The finding, in three stages (each committed)</h2>
+<p><strong>Stage 1 — Organic staging never gets there (all 18 cells).</strong> The ported funding streams — verification slice (10% of pool), settlement slice (2% with v5.2 leakage), legacy-young stream (1%), plus the ecology's endogenous ancestral flow — deliver <strong>2–5% of floor obligations</strong>, every cell, every year. The solvency gate (reserve ≥ 24 months AND inflow ≥ obligations) is never approached: by year 49 the reserve holds 9.5 months of obligations and inflow covers 2%. The floor never turns on; the poorest live at 8–18% of the basket on wages alone; prices stabilize at ~9.6× (trailing inflation 7%/yr — <em>inside</em> the ±10% bar; the 2,163× spiral really was pure printing).</p>
+<p><strong>Stage 2 — It is not a bootstrap gap (the labeled jump-start extension).</strong> The obvious objection: the gate can't open because the unfunded floor depresses the very economy that funds it — maybe a funded equilibrium exists that organic accumulation can't reach, and exogenous seeding (the real roadmap's sponsor bootstrap) would jump the gap. <strong>Tested: force-activate at t=0.</strong> The floor immediately drains everything and pays <strong>8.4% of obligations in year 1, decaying to ~2%</strong>, with delivery shortfall in all 600 months (BASE and C2 alike). There is no funded equilibrium at these dials to jump to. The payments are too small a share of the need to lift incomes → demand → settlement volume enough to close the loop.</p>
+<p><strong>Stage 3 — Why, exactly (the arithmetic that makes it structural).</strong> In the no-floor equilibrium, obligations (≈ N × max(0, 1.1·P_e·basket − 0.5·income)) reach ~$5.2M/mo by year 10 while <em>total nominal settlement volume</em> is ~$4M/mo — <strong>the promise exceeds the entire transaction base it would be funded from; even a 100% settlement tax could not carry it.</strong> Contrast v5.2's world model, where the same machinery works: there the settlement slice ran at 15–25% (not 2%) of a commerce volume that dwarfed a floor which was a <em>marginal top-up</em>. v13's dials describe the opposite: a median income ~2× the basket, so roughly half the population draws topups on a 1.10×-whole-basket promise — a deep welfare state promised out of a thin digital-slice purse. That is the v5.1/v5.2 funding-base mismatch, confirmed at steady state in its strongest form, exactly as the SPEC's R-E0 expectation named.</p>
+<h2 id="what-this-earns-the-status-flip-honestly">What this earns (the status flip, honestly)</h2>
+<p>The ecology cell's flag moves from <strong>PROVISIONAL (E0 failed, cause unknown)</strong> to <strong>RESOLVED-NEGATIVE (funding question answered): the registered floor cannot be funded in this model without printing or external subsidy — permanently, not transitionally.</strong> The design consequences go to canon, not to more simulation: either (a) <strong>grow the funding base</strong> (world-scale settlement slices à la v5.2's 15–25%, which is 10× what ecology carried — with the off-ledger leakage that implies), or (b) <strong>shrink the promise</strong> (a staged <em>partial</em> floor — essentials-lane-only, or a lower multiplier — sized to the measurable purse), or (c) <strong>name the subsidy</strong> (an explicit, bounded sponsor stream as a permanent feature of ecology-constrained worlds, not just a launch bootstrap). Choosing among these is a ratification-tier decision; v13.1's contribution is that the choice can no longer be deferred by pointing at a provisional sim.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Everything v13.0 disclosed still applies (stylized ecology, dials not projections). The depressed equilibrium is seed-sensitive at the governor endpoint (reported in R-E0's failure). The E4 decoupling comparison is confounded by the demand collapse and is <em>not</em> claimed either direction. The funding mapping (settlement = P_e·Y; ancestral = the ecology's endogenous stream) is stated in the engine docstring; alternative mappings change magnitudes, not the two orders of magnitude between purse and promise. And the three canon options above are design directions, not tested cells — sizing any of them is future registered work.</p>
+<p><em>Run and written July 11, 2026 by the Fable 5 verification session, owner-directed. Bars R-E0…R-E6 registered July 9 before code; 0/7 pass, all filed as findings per the SPEC's own instruction ("the whole value of this rebuild is that it can finally ask the question honestly"). Regression gate: 68/68 committed v13.0 bars reproduced. No parameter was tuned toward any bar. REPRODUCES: byte-identical on re-assembly; full physics re-execution via <code>--full</code>.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v13-ecology-and-essentials-supply-0.json" download>⬇ results_v13.json</a><a class="dlbtn" href="data/eve-sim-v13-ecology-and-essentials-supply-1.json" download>⬇ results_v13_1.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

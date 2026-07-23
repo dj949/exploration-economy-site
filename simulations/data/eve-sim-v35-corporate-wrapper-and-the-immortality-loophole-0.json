@@ -1,0 +1,549 @@
+{
+ "spec": "v35 SPEC - Corporate Wrapper (registered).md",
+ "params": {
+  "NLIN": 20000,
+  "NGEN": 6,
+  "YRS": 25,
+  "rho_labor": 0.4,
+  "sigma_lab": 0.8,
+  "save_rate": 0.15,
+  "floor": 0.6,
+  "y_stream": 0.04,
+  "lam_W_annual": 0.004214420626313051,
+  "r_cap": 0.04,
+  "B_off": 0.85,
+  "phi_wrap": 0.5,
+  "phi_heir": 0.25,
+  "L_founder": 30.0,
+  "reinvest": 1.0,
+  "central": {
+   "c": 0.25,
+   "T": 30.0,
+   "s": 0.9,
+   "kappa": 0.6,
+   "h": 0.1,
+   "L": 45.0,
+   "m": 2.0,
+   "theta": 0.7
+  },
+  "sweeps": {
+   "c": [
+    0.1,
+    0.25,
+    0.4,
+    0.6,
+    0.8
+   ],
+   "T": [
+    20.0,
+    30.0,
+    40.0,
+    60.0,
+    100.0
+   ],
+   "s": [
+    0.0,
+    0.5,
+    0.9,
+    0.99
+   ],
+   "kappa": [
+    0.3,
+    0.6,
+    0.9
+   ],
+   "h": [
+    0.02,
+    0.05,
+    0.1,
+    0.2
+   ],
+   "m": [
+    1.25,
+    1.5,
+    2.0,
+    3.0,
+    5.0
+   ],
+   "theta": [
+    0.4,
+    0.7,
+    0.9
+   ],
+   "phi": [
+    0.25,
+    0.5,
+    0.75
+   ],
+   "haircut": [
+    0.3,
+    0.6,
+    0.9
+   ]
+  },
+  "seeds": [
+   7,
+   11
+  ],
+  "eden_v13_triple": {
+   "R": 0.0,
+   "D": 0.5,
+   "B": 0.5
+  },
+  "eden_market_triple": {
+   "R": 0.04,
+   "D": 0.1,
+   "B": 0.6
+  }
+ },
+ "anchors": {
+  "committed": {
+   "eden_v13": 10.4,
+   "eden_synthetic": 10.2,
+   "eden_market": 67.7,
+   "today": 79.2
+  },
+  "isolated_rerun": {
+   "eden_v13": 10.4,
+   "eden_synthetic": 10.2,
+   "eden_market": 67.7,
+   "today": 79.2
+  },
+  "rerun_exact": true
+ },
+ "regimes": {
+  "R0_baseline": {
+   "seed7": {
+    "persistence_pct": 10.4,
+    "gini_end": 0.385,
+    "top1_end": 6.3,
+    "v_wrap_share_top10": 0.0,
+    "diag": {}
+   },
+   "seed11": {
+    "persistence_pct": 10.1,
+    "gini_end": 0.386,
+    "top1_end": 6.5,
+    "v_wrap_share_top10": 0.0,
+    "diag": {}
+   }
+  },
+  "eden_market_mimic": {
+   "seed7": {
+    "persistence_pct": 68.0,
+    "gini_end": 0.467,
+    "top1_end": 8.5,
+    "v_wrap_share_top10": 0.0,
+    "diag": {}
+   },
+   "seed11": {
+    "persistence_pct": 68.2,
+    "gini_end": 0.469,
+    "top1_end": 8.9,
+    "v_wrap_share_top10": 0.0,
+    "diag": {}
+   }
+  },
+  "R1_naive": {
+   "seed7": {
+    "persistence_pct": 77.1,
+    "gini_end": 0.734,
+    "top1_end": 13.1,
+    "v_wrap_share_top10": 0.9637,
+    "diag": {}
+   },
+   "seed11": {
+    "persistence_pct": 76.9,
+    "gini_end": 0.736,
+    "top1_end": 13.2,
+    "v_wrap_share_top10": 0.9622,
+    "diag": {}
+   }
+  },
+  "R2_synthesis_attacked": {
+   "seed7": {
+    "persistence_pct": 10.5,
+    "gini_end": 0.364,
+    "top1_end": 5.8,
+    "v_wrap_share_top10": 0.0637,
+    "diag": {
+     "capture": 0.22446010549753675,
+     "L": 45.0,
+     "S_kick": 0.37410017582922794,
+     "cap_fake": 0.03741001758292278,
+     "cap_true": 0.22446010549753675,
+     "attacker_prefers": "true_kickback"
+    }
+   },
+   "seed11": {
+    "persistence_pct": 10.1,
+    "gini_end": 0.364,
+    "top1_end": 5.9,
+    "v_wrap_share_top10": 0.0643,
+    "diag": {
+     "capture": 0.22446010549753675,
+     "L": 45.0,
+     "S_kick": 0.37410017582922794,
+     "cap_fake": 0.03741001758292278,
+     "cap_true": 0.22446010549753675,
+     "attacker_prefers": "true_kickback"
+    }
+   }
+  },
+  "R2_no_attack": {
+   "seed7": {
+    "persistence_pct": 10.5,
+    "gini_end": 0.367,
+    "top1_end": 5.9,
+    "v_wrap_share_top10": 0.0187,
+    "diag": {
+     "capture": 0.0,
+     "L": 45.0
+    }
+   },
+   "seed11": {
+    "persistence_pct": 10.1,
+    "gini_end": 0.367,
+    "top1_end": 6.0,
+    "v_wrap_share_top10": 0.0188,
+    "diag": {
+     "capture": 0.0,
+     "L": 45.0
+    }
+   }
+  },
+  "R3_permissive_stack": {
+   "seed7": {
+    "persistence_pct": 11.5,
+    "gini_end": 0.358,
+    "top1_end": 5.8,
+    "v_wrap_share_top10": 0.1296,
+    "diag": {}
+   },
+   "seed11": {
+    "persistence_pct": 10.6,
+    "gini_end": 0.359,
+    "top1_end": 6.0,
+    "v_wrap_share_top10": 0.1301,
+    "diag": {}
+   }
+  }
+ },
+ "attacks": {
+  "runs": {
+   "A3_corp_as_heir_only": {
+    "persistence_pct": 10.5,
+    "gini_end": 0.361,
+    "top1_end": 5.7,
+    "v_wrap_share_top10": 0.0487,
+    "diag": {
+     "capture": 0.0,
+     "L": 45.0
+    }
+   },
+   "A1_nominee_kickback_only": {
+    "persistence_pct": 10.4,
+    "gini_end": 0.369,
+    "top1_end": 5.9,
+    "v_wrap_share_top10": 0.0337,
+    "diag": {
+     "capture": 0.22446010549753675,
+     "L": 45.0,
+     "S_kick": 0.37410017582922794,
+     "cap_fake": 0.03741001758292278,
+     "cap_true": 0.22446010549753675,
+     "attacker_prefers": "true_kickback"
+    }
+   },
+   "A1_A2_youngest": {
+    "persistence_pct": 10.4,
+    "gini_end": 0.37,
+    "top1_end": 5.9,
+    "v_wrap_share_top10": 0.0353,
+    "diag": {
+     "capture": 0.2109313269386792,
+     "L": 60.0,
+     "S_kick": 0.3515522115644653,
+     "cap_fake": 0.03515522115644652,
+     "cap_true": 0.2109313269386792,
+     "attacker_prefers": "true_kickback"
+    }
+   },
+   "A6_ladder": {
+    "persistence_pct": 10.5,
+    "gini_end": 0.364,
+    "top1_end": 5.8,
+    "v_wrap_share_top10": 0.068,
+    "diag": {
+     "capture": 0.22446010549753675,
+     "L": 45.0,
+     "S_kick": 0.37410017582922794,
+     "cap_fake": 0.03741001758292278,
+     "cap_true": 0.22446010549753675,
+     "attacker_prefers": "true_kickback"
+    }
+   }
+  },
+  "increments": {
+   "A3_increment_pp": 0.0,
+   "A1_increment_pp": -0.1,
+   "A2_increment_over_A1_pp": 0.0,
+   "A6_ladder_value_ratio": 1.068
+  },
+  "note": "paired seed-7 comparisons; chassis draws identical across configs"
+ },
+ "sweeps": {
+  "c": {
+   "0.1": 10.4,
+   "0.25": 10.5,
+   "0.4": 10.4,
+   "0.6": 10.2,
+   "0.8": 10.3
+  },
+  "T": {
+   "20.0": 10.3,
+   "30.0": 10.5,
+   "40.0": 10.6,
+   "60.0": 10.4,
+   "100.0": 10.4
+  },
+  "s": {
+   "0.0": 10.4,
+   "0.5": 10.5,
+   "0.9": 10.5,
+   "0.99": 10.5
+  },
+  "kappa": {
+   "0.3": 10.5,
+   "0.6": 10.5,
+   "0.9": 10.4
+  },
+  "h": {
+   "0.02": 10.4,
+   "0.05": 10.4,
+   "0.1": 10.5,
+   "0.2": 10.5
+  },
+  "phi": {
+   "0.25": 10.4,
+   "0.5": 10.5,
+   "0.75": 10.9
+  },
+  "R3_haircut": {
+   "0.3": 13.0,
+   "0.6": 11.5,
+   "0.9": 11.0
+  }
+ },
+ "stacked_extreme_diagnostic": {
+  "dials": {
+   "c": 0.8,
+   "T": 100.0,
+   "s": 0.0,
+   "kappa": 0.9,
+   "h": 0.02,
+   "L": 60.0
+  },
+  "persistence_pct": 17.2,
+  "v_wrap_share_top10": 0.2666,
+  "engine_diag": {
+   "capture": 0.60692663887394,
+   "L": 60.0,
+   "S_kick": 0.60692663887394,
+   "cap_fake": 0.60692663887394,
+   "cap_true": 0.546233974986546,
+   "attacker_prefers": "fake_puppet"
+  },
+  "closed_form": {
+   "lam": 0.03088,
+   "S_kick": 0.6069,
+   "delta_dyn": 0.03686,
+   "net_growth_per_yr": 0.00597,
+   "naive_net_growth_per_yr": 0.03579
+  },
+  "note": "labeled extension, not a bar: the only region where the wrapper compounds at all (delta > lambda) needs every dial at its extreme at once; compare its net growth to the naive corp's before concluding anything moves at the 150-yr horizon"
+ },
+ "boundaries": {
+  "c_star_persist_gt20": null,
+  "s_star_persist_gt30": null,
+  "T_star_persist_gt20": null
+ },
+ "participation": {
+  "m_breakeven": {
+   "R1": 1.0,
+   "R2": 1.757,
+   "R3_top": 1000000000.0,
+   "R3_mid": 2.0
+  },
+  "by_m": {
+   "1.25": {
+    "R1": 0.6723,
+    "R2": 0.2481,
+    "R3_top": 0.0,
+    "R3_mid": 0.1736,
+    "R2_index_vs_R1": 0.369
+   },
+   "1.5": {
+    "R1": 0.7913,
+    "R2": 0.3761,
+    "R3_top": 0.0,
+    "R3_mid": 0.2825,
+    "R2_index_vs_R1": 0.4753
+   },
+   "2.0": {
+    "R1": 0.9172,
+    "R2": 0.6024,
+    "R3_top": 0.0,
+    "R3_mid": 0.5,
+    "R2_index_vs_R1": 0.6568
+   },
+   "3.0": {
+    "R1": 0.986,
+    "R2": 0.8578,
+    "R3_top": 0.0,
+    "R3_mid": 0.7913,
+    "R2_index_vs_R1": 0.87
+   },
+   "5.0": {
+    "R1": 0.9994,
+    "R2": 0.9818,
+    "R3_top": 0.0,
+    "R3_mid": 0.9666,
+    "R2_index_vs_R1": 0.9824
+   }
+  },
+  "theta_sweep": {
+   "0.4": 0.3652,
+   "0.7": 0.6568,
+   "0.9": 0.7962
+  },
+  "index_central": {
+   "R2_vs_R1": 0.6568,
+   "R2_at_m3": 0.87
+  }
+ },
+ "cw7_shells": {
+  "pool_gini": 0.9253,
+  "pool_top10": 0.892,
+  "committed_reference": {
+   "gini": 0.9264,
+   "top10": 0.8687
+  },
+  "per_node_cap_mult": 20.0,
+  "top_owner_natural_over_cap": 1532.56,
+  "share_single_node": 0.00055,
+  "share_25_shells_no_aggregation": 0.01361,
+  "share_25_shells_with_aggregation": 0.00055,
+  "evasion_factor": 24.67,
+  "aggregation_ratio": 1.0
+ },
+ "bars": {
+  "CW0": {
+   "committed_rerun_exact": true,
+   "r0_seed7": 10.4,
+   "r0_within_2pp_of_10p4": true,
+   "market_mimic_seed7": 68.0,
+   "market_within_3pp_of_67p7": true,
+   "pass": true
+  },
+  "CW1": {
+   "R1_persistence_seed7": 77.1,
+   "bar_min": 50.0,
+   "vs_eden_market_committed": 67.7,
+   "vs_today_committed": 79.2,
+   "pass": true
+  },
+  "CW2": {
+   "R2_attacked_seed7": 10.5,
+   "bar_max": 15.0,
+   "gap_vs_R0_pp": 0.1,
+   "gap_bar_pp": 5.0,
+   "pass": true
+  },
+  "CW3": {
+   "A3_increment_pp": 0.0,
+   "A3_bar": 1.0,
+   "A1_increment_pp": -0.1,
+   "A1_bar": 5.0,
+   "A2_increment_pp": 0.0,
+   "A2_bar": 3.0,
+   "A6_value_ratio": 1.068,
+   "A6_bar": 1.1,
+   "pass": true
+  },
+  "CW4": {
+   "boundaries": {
+    "c_star_persist_gt20": null,
+    "s_star_persist_gt30": null,
+    "T_star_persist_gt20": null
+   },
+   "all_boundaries_interior": false,
+   "central_dials_safe_by_margins": true,
+   "pass": false
+  },
+  "CW5": {
+   "R2_index_central": 0.6568,
+   "bar_min": 0.6,
+   "R2_index_at_m3": 0.87,
+   "bar_min_m3": 0.8,
+   "monotone_in_m": true,
+   "pass": true
+  },
+  "CW6": {
+   "R3_persistence_seed7": 11.5,
+   "R2_attacked": 10.5,
+   "R1_naive": 77.1,
+   "bar_max": 35.0,
+   "ordering_R2_le_R3_le_R1": true,
+   "pass": true
+  },
+  "CW7": {
+   "evasion_factor": 24.67,
+   "evasion_bar_min": 10.0,
+   "aggregation_ratio": 1.0,
+   "aggregation_bar_max": 1.1,
+   "pass": true
+  },
+  "CW8": {
+   "seeds_agreement": {
+    "R0_baseline": {
+     "ok": true,
+     "rel": 0.0288,
+     "abs_pp": 0.3
+    },
+    "R1_naive": {
+     "ok": true,
+     "rel": 0.0026,
+     "abs_pp": 0.2
+    },
+    "R2_synthesis_attacked": {
+     "ok": true,
+     "rel": 0.0381,
+     "abs_pp": 0.4
+    },
+    "R2_no_attack": {
+     "ok": true,
+     "rel": 0.0381,
+     "abs_pp": 0.4
+    },
+    "R3_permissive_stack": {
+     "ok": true,
+     "rel": 0.0783,
+     "abs_pp": 0.9
+    }
+   },
+   "pass": true
+  }
+ },
+ "bar_summary": {
+  "CW0": true,
+  "CW1": true,
+  "CW2": true,
+  "CW3": true,
+  "CW4": false,
+  "CW5": true,
+  "CW6": true,
+  "CW7": true,
+  "CW8": true
+ }
+}

@@ -1,0 +1,50 @@
+{
+  "Q4_global_shock40": {
+    "label": "global pool, region-30 supply -40%",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 1,
+    "world_topup_share_max": 0.0,
+    "world_floor_cost_share_end": 8.72,
+    "max_region_net_contrib_pct": 24.8,
+    "price_idx_end": 0.991,
+    "fraud_share_max": 0.0,
+    "failing": []
+  },
+  "Q4_isolated_shock40": {
+    "label": "isolated pool, region-30 supply -40%",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 1,
+    "world_topup_share_max": 1.32,
+    "world_floor_cost_share_end": 8.77,
+    "max_region_net_contrib_pct": 24.8,
+    "price_idx_end": 0.991,
+    "fraud_share_max": 0.0,
+    "failing": []
+  },
+  "Q4_global_shock60": {
+    "label": "global pool, region-30 supply -60%",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 1,
+    "world_topup_share_max": 0.0,
+    "world_floor_cost_share_end": 8.72,
+    "max_region_net_contrib_pct": 24.8,
+    "price_idx_end": 0.991,
+    "fraud_share_max": 0.0,
+    "failing": []
+  },
+  "Q4_isolated_shock60": {
+    "label": "isolated pool, region-30 supply -60%",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 1,
+    "world_topup_share_max": 1.4,
+    "world_floor_cost_share_end": 8.77,
+    "max_region_net_contrib_pct": 24.8,
+    "price_idx_end": 0.991,
+    "fraud_share_max": 0.0,
+    "failing": []
+  }
+}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Discovery &amp; Attention — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Discovery &amp; Attention.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Discovery &amp; Attention</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Discovery &amp; Attention</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>ADAM introduces the one genuinely new risk in EDEN: whoever shapes what surfaces shapes who gets seen — and since EDEN pays on use, who gets paid. The design's answer is that there is no central ranker to capture: every search starts from a raw state the user chooses, and any ranking "lens" a user adopts is itself a swappable, EVE-earning asset. So the real question becomes: with user-sovereign discovery and a market of lenses, how concentrated does attention actually get — and where does the residual risk live?</p>
+<h2 id="what-we-found">What we found</h2>
+<p>Diversity is the whole game. With fully diverse lenses, the top 10% of assets capture ~39% of attention (Gini 0.52) — the long tail gets seen — versus ~84–94% under a single global feed like today's platforms. But concentration climbs smoothly as people pile onto one popular default lens: 50% captured when 20% of users are on it, 72% at 60%, and by 80–100% adoption EDEN has reproduced today's feed (83–94%, Gini 0.87–0.95). So the lever is diversity in actual use, not the mere right to choose. Three design forces defend it: lenses are EVE-earning assets, so there's a standing market incentive to build better and more niche ones; every lens must disclose how it ranks, so a biased default is detectable; and there's no lock-in, so a dominant lens holds users only as long as it serves them. Even the worst case only <em>matches</em> a platform feed — and stays contestable rather than captive, where a platform's algorithm is concentration with no exit.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The residual risk is default-stickiness: most people never change defaults, and if everyone drifts onto one popular template, discovery quietly collapses back toward a single feed. And this is a stylized model — the contestability dynamic (biased lenses losing users) is argued rather than fully simulated, and it doesn't model adversarial self-dealing lenses or the network effects that make defaults sticky. The robust takeaway is the shape of the curve, not the exact numbers.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>Nobody in EDEN is handed a feed, and as long as many different discovery lenses are genuinely in use, attention spreads far wider than under a single algorithm — but the protection is diversity people actually exercise, not the right to choose, so the design must keep investing in varied defaults and frictionless switching.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>ADAM</strong> — EDEN's AI layer: the personal agent that searches, ranks, and fetches for each user individually — doing what a platform's feed algorithm does for everyone at once. <strong>Gini</strong> — a 0-to-1 lopsidedness score: 0 means attention spread perfectly evenly, 1 means one asset takes it all; 0.52 is a broad spread, 0.87–0.95 is winner-take-all territory. <strong>Long tail</strong> — the huge crowd of niche items that each draw a little attention; "the long tail gets seen" means small creators still surface. <strong>Contestable</strong> — always open to challenge: a dominant lens can be displaced the moment it stops serving users, where a platform's algorithm cannot. <strong>Network effects</strong> — things get more valuable, and stickier, the more people already use them — the force that makes defaults snowball. <strong>Stylized</strong> — deliberately simplified to the parts that matter for this question; trust the shape of the curve, not the exact digits.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-discovery-and-attention-0.png" alt="fig_discovery.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Models the one genuinely new risk ADAM introduces — whoever shapes what surfaces shapes who gets seen, and (since EDEN pays on use) who gets paid. Built around the design's actual answer: </em><em>discovery is user-sovereign.</em><em> Files in this folder.</em></p>
+<hr>
+<h2 id="the-framing-which-is-the-whole-point">The framing (which is the whole point)</h2>
+<p>In EDEN there is no imposed global feed. Every search starts from a <strong>raw state the user chooses</strong>, and any third-party ranking template a user adopts to make ADAM behave how they like is <strong>itself an EVE-earning asset</strong> they freely pick and can swap — one point on a spectrum that runs from a light parameter-template up to a fully custom ADAM. The user always holds the controls. So the question isn't "can a central ranker capture attention?" — there is no central ranker. The question is: <strong>given user-sovereign discovery plus a competitive market of swappable lenses, how concentrated does attention actually get, and where is the residual risk?</strong></p>
+<h2 id="the-result">The result</h2>
+<p>We measured how concentrated attention across assets becomes as a function of <strong>how many users just use the single most popular default lens</strong> (<code>g</code>) instead of their own/diverse lens — with a single global engagement-feed (today's platform dynamic) as the reference.</p>
+<table>
+<thead>
+<tr>
+<th>Users on the one default lens</th>
+<th style="text-align: right;">Top-10% of assets capture</th>
+<th style="text-align: right;">Attention Gini</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0% (full diversity)</td>
+<td style="text-align: right;"><strong>39%</strong></td>
+<td style="text-align: right;"><strong>0.52</strong></td>
+</tr>
+<tr>
+<td>20%</td>
+<td style="text-align: right;">50%</td>
+<td style="text-align: right;">0.61</td>
+</tr>
+<tr>
+<td>40%</td>
+<td style="text-align: right;">61%</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+<tr>
+<td>60%</td>
+<td style="text-align: right;">72%</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr>
+<td>80%</td>
+<td style="text-align: right;">83%</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+<tr>
+<td>100% (everyone on one lens)</td>
+<td style="text-align: right;">94%</td>
+<td style="text-align: right;">0.95</td>
+</tr>
+<tr>
+<td><em>single-feed / platform baseline</em></td>
+<td style="text-align: right;"><em>~84%</em></td>
+<td style="text-align: right;"><em>~0.95</em></td>
+</tr>
+</tbody>
+</table>
+<p>Two things stand out, and both match the design's intent:</p>
+<ol>
+<li><strong>User-sovereign, diverse discovery keeps concentration far below a single feed.</strong> When lenses are diverse, the top 10% of assets capture ~39% of attention (Gini 0.52) — the long tail gets seen — versus ~84–94% under a single global feed. The structural reason: diverse users surface assets that fit their varied interests, so attention spreads across the whole library instead of funneling to a handful of viral winners.</li>
+<li><strong>The lever is <em>diversity</em>, not the <em>right</em> to choose.</strong> Concentration climbs smoothly toward the platform baseline as more people default to one popular lens. By <code>g ≈ 80–100%</code> it has reproduced today's feed. So the right to choose is necessary but not sufficient — what actually protects the ecosystem is that people <em>exercise</em> it, i.e., that many distinct lenses are genuinely in use.</li>
+</ol>
+<h2 id="so-what-protects-diversity-and-whats-the-residual-risk">So what protects diversity — and what's the residual risk</h2>
+<p>The residual risk is <strong>default-stickiness</strong>: most people don't change defaults (the same reason most never switch browser settings). If everyone drifts onto one popular template, EDEN's discovery quietly collapses back toward a single feed. Three forces in the design push the other way:</p>
+<ul>
+<li><strong>A competitive market of lenses.</strong> Because templates/custom ADAMs are EVE-earning assets, there's a standing incentive to build better, niche, and specialized lenses — which fragments attention by serving varied tastes. (Your "anyone can design or promote their own ADAM" instinct is exactly this engine, and it's already what the ADAM Protocol Spec allows.)</li>
+<li><strong>Transparency.</strong> Every lens must disclose how it ranks, so a default that becomes biased or self-dealing is <em>detectable</em> — and a detected bias is a reason to switch.</li>
+<li><strong>Contestability / no lock-in.</strong> Portability means a popular default holds users only as long as it serves them; the moment a better lens appears, users (and their assets and reputation) can move. Unlike a platform's locked-in algorithm, a dominant EDEN lens sits on an <em>unstable</em> throne.</li>
+</ul>
+<p>The crucial contrast: a single platform feed is concentration with <strong>no exit</strong> — you get the algorithm you're given. EDEN's worst case (everyone-on-one-default) only <em>matches</em> that, and even then it's contestable rather than captive. The design implication is concrete: <strong>invest in lens diversity</strong> — sensible varied defaults, frictionless switching, surfacing alternatives, and a healthy template market — because diversity, not the mere right to choose, is what keeps discovery fair.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>A stylized model: niches and per-user idiosyncrasy stand in for real interest structure; the diverse and default lenses are simplified to a within-niche quality spread vs. a global popularity funnel; and the contestability dynamic (biased lenses losing users) is argued rather than fully simulated. It doesn't model adversarial lenses that try to surface their creators' own assets (a self-dealing attack the transparency rule targets) or the network effects that make defaults sticky. The robust takeaways are the <em>shape</em> — diversity keeps concentration well below a single feed, and default-stickiness is the thing to watch — not the exact numbers. Audience: anyone worried ADAM becomes a new attention gatekeeper.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>discovery_sim.py</code> — the user-sovereign discovery model and the default-adoption sweep</li>
+<li><code>fig_discovery.png</code> — attention concentration vs. default-lens adoption, against the single-feed baseline</li>
+<li><code>results_discovery.json</code> — all figures</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-discovery-and-attention-0.json" download>⬇ results_discovery.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

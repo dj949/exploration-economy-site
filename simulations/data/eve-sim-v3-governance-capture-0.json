@@ -1,0 +1,34 @@
+{
+  "thresholds": {
+    "block": 0.3333333333333333,
+    "pass_": 0.6666666666666666
+  },
+  "sybils_needed_x_honest_population": {
+    "det50": {
+      "sybils_to_block": 1.0,
+      "sybils_to_pass": 4.0
+    },
+    "det90": {
+      "sybils_to_block": 5.0,
+      "sybils_to_pass": 20.0
+    },
+    "det95": {
+      "sybils_to_block": 10.0,
+      "sybils_to_pass": 40.0
+    },
+    "det99": {
+      "sybils_to_block": 50.0,
+      "sybils_to_pass": 200.0
+    }
+  },
+  "weighted_house": {
+    "pct_of_holders_to_block": 3.3,
+    "pct_of_holders_to_pass": 16.6,
+    "top10pct_weight_share": 55.0
+  },
+  "timelock_survival_pct": {
+    "resp2pct_per_mo": 61.6,
+    "resp5pct_per_mo": 29.2,
+    "resp10pct_per_mo": 8.0
+  }
+}

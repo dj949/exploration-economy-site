@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v31 - Austerity Floor &amp; Escrow — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v31 - Austerity Floor &amp; Escrow.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v31 - Austerity Floor &amp; Escrow</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 11, 2026. Companion to <code>RESULTS - v31.0 Austerity Floor &amp; Escrow</code>.</em></p>
+<h2 id="the-question-you-were-about-to-decide-blind">The question you were about to decide blind</h2>
+<p>The shake test (v16, two days ago) found that EDEN's storm survival depends on one contract term: how much sponsors keep paying during a recession. The verification audit then showed the safe threshold was blurrier than first reported — one test-world was fine at 50%, the other broke. That left you two candidate fixes to ratify between, with no evidence to choose by: <strong>raise the floor to 60%</strong>, or <strong>keep 50% and require a bigger security deposit (escrow)</strong>. This run prices both, together, on the same committed storm.</p>
+<h2 id="the-answer">The answer</h2>
+<p><strong>Raise the floor. The deposit can't do this job — at all.</strong> We swept every combination of floor (45–60%) and deposit size (6, 9, 12 months). The deposit's effect on recession breaches was <em>zero</em> — not small, zero, to three decimal places. The reason is structural: a deposit pays out when a sponsor <em>leaves</em> (it bridges the hand-off gap, which it genuinely does well — that result stands). A sponsor who stays in their seat but underpays all winter never triggers it. Underpayment is a leak, month after month; a deposit is a bucket you get to pour once.</p>
+<p>The floor, by contrast, works exactly as hoped: at <strong>60%</strong> — and even at 55% — nobody misses essentials in either test-world. At 50%, one world shows a five-month gap for the poorest. So the real cliff edge sits between 50% and 55%, and <strong>ratifying 60% puts you one comfortable step back from it.</strong></p>
+<h2 id="what-to-do-with-this">What to do with this</h2>
+<p>The gate-20 decision stops being a coin flip: <strong>require sponsors to contract for ≥60% of their obligations through recessions, and leave the deposit at its measured 6 months</strong> — deposits guard the door, the floor guards the winter. The alternative ("50% plus a deeper deposit") is now formally dead, with the receipts committed.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>Same caveats as the shake test it extends: two test-worlds, stated dials, and a sponsor who underpays <em>but stays</em>. The threshold's exact position inherits those assumptions; the structural finding — deposits can't substitute for commitment — doesn't.</p>
+<p><strong>One line: a bigger deposit can't buy back a smaller promise — raise the recession floor to 60% and keep the deposit for what it's actually for.</strong></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v31-austerity-floor-and-escrow-0.png" alt="fig_v31_austerity_escrow.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 11, 2026. Spec: <code>v31 SPEC - Austerity Floor &amp; Escrow (registered).md</code> — bars AB0–AB5 fixed before code. Engine: <code>austerity_escrow_sweep.py</code> (sweeps the committed v6.8 <code>run_fed</code> as committed, v16's exact path and storm; deterministic; seeds 7+11; batched partials + assemble). Committed: <code>results_v31.json</code>, <code>fig_v31_austerity_escrow.png</code>. Decision-support for DR-14's gate-20 re-ratification. Every number traces to <code>results_v31.json</code>.</strong></p>
+<p><strong>Verdict in one line: the re-ratification question is answered clean — candidate A wins and candidate B is dead: a 0.60 austerity floor holds delivery in both seeds at the committed 6-month escrow (troughs 1.06–1.09), while at a 0.50 floor <em>no swept escrow depth (6, 9, or 12 months) prevents the seed-11 sustained breach</em> — because escrow turns out to be almost perfectly inert against austerity (identical breach profiles at every depth, troughs move ≤0.001): escrow pays out at <em>exits</em>, bridging the step-up lag, and a sponsor underpaying every month of a recession never triggers it. Bonus precision: floor 0.55 also holds both seeds, so the measured hold-line is in (0.50, 0.55] — ratifying ≥0.60 buys a half-step of margin above the measured edge.</strong></p>
+<h2 id="bar-summary-all-six-pass-ab3ab4s-registered-uncertains-resolved-negative-the-finding">Bar summary (all six pass; AB3/AB4's registered UNCERTAINs resolved negative — the finding)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AB0 regression anchor</td>
+<td>E=6 column reproduces v16's committed isolation slices exactly, both seeds</td>
+<td>exact (months_below, max_consec, troughs to 1e-9)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>AB1 frontier monotone</td>
+<td>higher floor / deeper escrow never worsens</td>
+<td>monotone everywhere (escrow's effect ≈ 0)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>AB2 candidate A</td>
+<td>floor 0.60 @ escrow 6: no sustained breach, either seed</td>
+<td><strong>0 months below in both seeds</strong> (troughs 1.088 / 1.062)</td>
+<td><strong>PASS — candidate A priced and clean</strong></td>
+</tr>
+<tr>
+<td>AB3 candidate B</td>
+<td>minimal escrow E′ at floor 0.50 holding both seeds</td>
+<td><strong>none — E′ does not exist at any swept depth</strong> (s11: 6 months below, max-consec 5, at E=6, E=9, <em>and</em> E=12)</td>
+<td><strong>PASS (descriptive) — the finding: candidate B is dead</strong></td>
+</tr>
+<tr>
+<td>AB4 below the floor</td>
+<td>any escrow rescue at 0.45?</td>
+<td><strong>none</strong> (11–12 months below at every depth)</td>
+<td><strong>PASS (descriptive) — escrow does not substitute for commitment</strong></td>
+</tr>
+<tr>
+<td>AB5 no-print invariant</td>
+<td>zero EVE printed, all 24 cells</td>
+<td>0.0</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — Escrow is the wrong tool for austerity (the mechanism, and the run's core lesson).</strong> Across the entire grid, deepening escrow from 6 to 12 months changes the breach profile by <em>nothing</em> (max-consec identical in every cell; p10 troughs move by ≤0.001). The committed v6.8 escrow is severance machinery: it advances a member's <em>missed obligations at exit</em> and bridges the 6-month step-up lag. A sponsor who stays in the federation while paying 45–50% of obligations through a recession never trips it — the shortfall is a <em>flow</em> problem, month after month, and escrow is a <em>stock</em> answer sized for transitions. v16's F2 already said "price the austerity floor, not just the exit lag"; v31 sharpens it: <strong>the austerity floor and the escrow are not substitutes at any priced depth — the floor must carry itself.</strong> (This kills the "≥50% + escrow sized to the residual gap" variant Verification v4 floated as candidate B: at these dials there is no such sizing ≤ 12 months.)</p>
+<p><strong>F2 — The hold-line is (0.50, 0.55], and 0.60 buys real margin.</strong> Floor 0.55 holds delivery in both seeds (troughs 1.03–1.04); 0.50 breaches on seed 11 (5 consecutive months); 0.45 breaches on both seeds. So the true breach threshold sits between 0.50 and 0.55 — tighter than the (0.45, 0.60) bracket the committed v16 slices gave — and a ≥0.60 contract floor stands one half-step above the measured edge with troughs comfortably above 1.0. <strong>Recommendation for DR-14: ratify gate-20 at ≥0.60</strong> (margin over the measured 0.55 hold-line, robust in both seeds), and retire the escrow-compensation variant with this run as the reason.</p>
+<p><strong>F3 — What escrow is still for (so nobody over-corrects).</strong> Nothing here weakens the v6.8/E*=6 result: escrow ≥ the step-up lag remains load-bearing for <em>exits</em> (v6.8 J3a: E=0 → 4 months below floor at a storm exit). The design consequence is a clean division of labor: <strong>escrow prices departures; the austerity floor prices commitment while staying.</strong> Contracts need both, at their own measured levels — 6 months of escrow, ≥60% recession payments.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Same reduced form and dials as v16 (this is deliberately v16's machinery pointed at two dials jointly); the 0.55 hold-line is a two-seed result on the committed storm, not a distributional statement — the <em>ordering</em> (floor decisive, escrow inert against austerity) is structural, the exact threshold inherits v16's dial-dependence. Escrow depths beyond 12 months were not swept (registered grid); nothing suggests 15+ would behave differently given the zero gradient from 6→12, but that extrapolation is stated, not measured. The sponsor here underpays but stays; a sponsor who underpays <em>and then exits</em> compounds the two channels — v6.8's storm cell covers that composition at the committed dials.</p>
+<h2 id="plain-language">Plain language</h2>
+<p>Two fixes were on the table for the "sponsors must keep paying in a recession" rule: raise the required share from 50% to 60%, or keep 50% but make sponsors post a bigger security deposit. We priced both. The deposit idea simply doesn't work — a deposit pays out when someone <em>leaves</em>, and a sponsor who stays-but-underpays never touches it; doubling the deposit changed nothing at all, in any scenario. Raising the floor works: at 60% (and even 55%) the poorest never miss essentials in either random world; at 50% one world shows a five-month gap. So the recommendation is the simple one: <strong>60% floor, deposit unchanged</strong> — the deposit guards the door, the floor guards the winter.</p>
+<p><em>Run and written July 11, 2026 by the Fable 5 verification session (post-Verification-v4 evidence run, owner-directed). Spec registered before code; AB3/AB4's registered expectations resolved as negative findings, bars unmoved. REPRODUCES: assemble is deterministic from committed partials; cells regenerate from the committed v6.8 engine.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v31-austerity-floor-and-escrow-0.json" download>⬇ results_v31.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

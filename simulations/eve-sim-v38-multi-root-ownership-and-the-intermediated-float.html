@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v38 - Multi-Root Ownership &amp; the Intermediated Float — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v38 - Multi-Root Ownership &amp; the Intermediated Float.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v38 - Multi-Root Ownership &amp; the Intermediated Float</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v38.0 Multi-Root Ownership.md</code>. July 18, 2026. Written jargon-compliant from birth under the July-18 house rule: every term defined, with analogies. Every number traces to <code>results_v38.json</code>; this is a model of the design, not a forecast.</em></p>
+<h2 id="the-question-in-one-sentence">The question in one sentence</h2>
+<p>EDEN's new ownership rule says "follow the chain of who-owns-whom up to the actual humans" — but what happens when the chain leads to a publicly traded company with a million shareholders trading by the second, or to an index fund that owns 6% of everything, which is owned by a pension, which is owned by ten million savers? Follow the chain and you drown; stop following it and you've built a hiding place. This simulation tested three ways to draw that line — and let pre-written pass/fail bars pick the winner, so the rule is chosen by evidence, not taste.</p>
+<h2 id="the-three-candidate-rules-and-who-theyre-named-for">The three candidate rules (and who they're named for)</h2>
+<ul>
+<li><strong>T — "stop at the fund."</strong> Once the chain reaches a licensed, deposit-backed fund (a <strong>qualified intermediary</strong>: think of a registered brokerage or index fund that has passed the same identity checks a bank runs), stop. The fund itself is the accountable owner-of-record.</li>
+<li><strong>L — "look through everything."</strong> Never stop. Every fund must reveal its holders, and their holders, all the way down to every last human saver.</li>
+<li><strong>H — "look through the big fish only."</strong> A fund must name any <em>ultimate</em> owner who holds <strong>5% or more</strong> of a company (with a registered link, same as any big owner). The ocean of tiny holders below 5% — the "float," the mass of small churning positions — stops at the fund, which is itself bonded and identified.</li>
+</ul>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>1. The threat is real: the shell game goes public (11×).</strong> In v36 we showed a hidden owner using 25 empty shell companies to multiply their income cap 25 times, and we closed it. Here's the public-market version: a whale who wants secret <em>control</em> of 25 real companies buys each one in six slices of 4.9% — each slice just under the 5% disclosure line, each held by a <strong>nominee</strong> (a straw owner — someone paid to pretend the stake is theirs). No slice ever registers. The whale then runs the companies through <strong>officer-nominees</strong> (straw executives). If officer registrations are the <em>revocable</em> kind — reassignable at will, like a parking permit — the whale captures <strong>11.14×</strong> their lawful cap. Same disease as v36, new suit.</p>
+<p><strong>2. The single most important design choice: officer registrations must be deeds, not permits.</strong> v36's central lesson was that an ownership registration must <em>be</em> the legal title — so a straw owner can walk off with what they're fronting, which is exactly why nobody fronts. This run shows the same rule must apply to <strong>officers</strong> (the people registered as running a company). Make the officer registration a <em>deed to the controls</em> — a defecting straw executive legally keeps the helm — and the whale's whole empire scheme stops paying <strong>even with zero detection effort</strong>: the fear of your own puppets, plus the sheer cost of buying six slices per company, kills the margin on its own. With permit-style officer registrations instead, you'd need to catch empires at a 1-in-6-per-year rate just to break even. One word in the rulebook — <em>title</em> — does the work of an entire audit department.</p>
+<p><strong>3. The winner is H, "look through the big fish only."</strong> Judged on two pre-written bars — <em>does it stop the cheating?</em> and <em>will honest funds actually show up?</em> — only H passed both:</p>
+<ul>
+<li><strong>T ("stop at the fund") failed on cheating</strong> — not the way you'd guess. A real fund holding many companies hides nothing: the cap-counting simply treats the fund as the owner and adds its holdings together (stopping the chain doesn't break the counting — it just re-roots it at the fund). The hole is <em>fake</em> funds: a whale who sets up one sham "fund" per company gets <strong>3.3×</strong> at normal audit levels, and <strong>7.2×</strong> if fund audits are weak. T's safety is a bet on how good fund inspection is. Bad bet.</li>
+<li><strong>L ("look through everything") failed on participation</strong> — forcing funds to expose their entire client books is a privacy demand real institutions won't wear: modeled participation fell to <strong>0.41</strong>, far below the bar. You'd win the battle and lose the capital.</li>
+<li><strong>H passed both</strong>: cheating held at <strong>1.00×</strong> (nothing gained), participation at <strong>0.60</strong> (above the bar even when we doubled how much funds hate disclosure). It also matches how the real world already works — most securities law already forces disclosure at about the 5% line, so EDEN isn't asking institutions for anything stranger than what regulators already ask.</li>
+</ul>
+<p><strong>4. Where exactly to put the line?</strong> We swept the disclosure threshold. At 1%, a would-be hider needs <strong>30 slices per company</strong> (very expensive); at 10%, only 3. But lower thresholds also force more honest holders to register. At 5% the model is comfortable — though we're honest that our pretend shareholder lists understate how concentrated real markets are (real index funds sit at 5–10% of nearly everything), so the final number should be calibrated against real holder data during the pilot, not against this model.</p>
+<p><strong>5. Wolf packs: measured, and deliberately left alone.</strong> What about five <em>genuinely different</em> rich people agreeing to act together — no hidden ownership, just coordination? Measured result: they gain <strong>exactly nothing</strong> against the ownership caps, because they already lawfully hold five separate caps; agreeing doesn't mint a sixth. Could their coordination be harmful anyway? Possibly — as a <em>governance</em> or <em>market-power</em> problem, which EDEN's governance defenses (the jury systems, the voting caps — tested back in v15/v17) exist to handle. What we will <em>not</em> do is aim the ownership gate at the <em>behavior</em> of real individuals — EDEN's constitution forbids building profiles of people, and "you two agreed too much" is a profile. Same honest pattern as dropping the search-logging idea: measure it, say what it isn't, hand it to the layer that owns it.</p>
+<p><strong>6. The money that leaks around the edge goes somewhere accountable.</strong> Even a hidden empire can't get paid <em>inside</em> EDEN (no registration, no payout — that rule is doing exactly what it was built for). Its profits can only exit as ordinary dividends through the <strong>fiat bridge</strong> — the doorway between EVE and regular money, where companies are fully identified and dividends are legally traceable. In other words: what evades EDEN's registry lands in the lap of ordinary securities law, which has spent ninety years learning to follow exactly that money. EDEN doesn't have to catch everything; it has to make sure everything uncaught surfaces where someone else can.</p>
+<p><strong>7. And the dynasty wall still doesn't care.</strong> Fourth simulation in a row: we fed the worst capture rate this attack can generate into the inheritance model, and family-fortune persistence stayed at the pure-chance level (~10%). Assets still die with their human anchor and their fixed term. Hiding <em>control</em> was never a way around mortality.</p>
+<h2 id="the-bottom-line">The bottom line</h2>
+<p>Public companies and funds don't break the ownership rule — they just tell you where to stop following the chain: <strong>at 5% owners (who must register, through any number of layers) and at bonded, identified funds (for the small stuff below the line)</strong>. Make officer registrations deeds rather than permits, keep a statistical eye out for suspiciously synchronized company empires, and let securities law keep the residual it already owns. All of it is now written up as the DR-21 proposal for the owner to ratify.</p>
+<h2 id="words-used-here-quick-reference">Words used here (quick reference)</h2>
+<p><strong>The float</strong> — the mass of small, constantly traded shares of a public company; no single meaningful owner. <strong>Qualified intermediary (QI)</strong> — a licensed, deposit-backed, identity-checked fund or brokerage that can stand as an accountable owner-of-record. <strong>Nominee / straw owner</strong> — a person paid to pretend a stake is theirs. <strong>Officer-nominee</strong> — the same trick applied to running the company: a straw executive. <strong>Title vs revocable registration</strong> — a deed (whoever holds it <em>is</em> the owner/controller; only they can pass it on) vs a permit (the company can reassign it at will). Deeds make straw men dangerous <em>to their principals</em> — that's the defense. <strong>Disclosure threshold (θ)</strong> — the ownership percentage above which you must register; 5% here, rhyming with existing securities law. <strong>Empire/concert detection</strong> — the aggregate-level statistical flag for many companies moving in suspicious lockstep; it re-weights audits, it never profiles individuals. <strong>Fund-washing</strong> — laundering control through sham "funds" to exploit a stop-at-the-fund rule. <strong>Wolf pack</strong> — genuinely separate people coordinating without shared ownership. <strong>Fiat bridge</strong> — the identity-checked doorway between EVE and ordinary money, where dividends become legally traceable. <strong>Cap</strong> — the per-person limit on royalty-pool capture (20× the median), counted across everything one human controls. <strong>Aggregation</strong> — counting all commonly-controlled entities as one for that cap. <strong>Anchored</strong> — tied to one accountable, verified, living human (the v36 tournament-wristband idea: unique and mortal, name not required).</p>
+<p><em>Written July 18, 2026 (Fable 5, owner-directed). Honest limits: control here is a simple threshold, not a shareholder-voting model; audit and detection rates are price dials whose real-world costs only a pilot can supply; our shareholder lists are stylized. Status: the rule set is DR-21, PROPOSED — evidence in hand, awaiting owner ratification.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v38-multi-root-ownership-and-the-intermediated-float-0.png" alt="fig_v38_multiroot.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 18, 2026. Spec: <code>v38 SPEC - Multi-Root Ownership (registered).md</code> — bars MR0–MR7 fixed before code. Engine: <code>multiroot_ownership_sim.py</code> (deterministic; RNG = pool, holder-size, and chassis draws, seeds 7 + 11; import-guarded). Committed: <code>results_v38.json</code>, <code>fig_v38_multiroot.png</code>. Anchors: the committed v36 cell re-ran in isolation with its full chain (v36 → v35 → multigen) and reproduced 1.197 / 0.1723 / 24.67 exactly; the v38 pool/gate re-implementation equals blind 24.67 and share 0.00055 exactly; the v35 chassis port equals 10.5 exactly; the participation machinery reproduces the committed 0.6568 at zero disclosure. kL follows the committed v36 fork convention (title 0.6 / revocable 0.1). Every number below traces to <code>results_v38.json</code>. Produced by Claude Fable 5, owner-directed [FABLE] cell.</strong></p>
+<p><strong>Verdict in one line: the public-scale shell game is real (a whale assembling hidden control of 25 public entities from sub-threshold nominee pieces captures 11.1× the single cap when officer links are revocable and nothing watches for empires) — and the fork picked the hybrid: threshold look-through (H) is the only closure variant that passes both bars (evasion 1.00×, participation 0.597), with terminate-at-QI (T) failing on fund-washing (3.3× at central, 7.2× when the institutional audit weakens) and full look-through (L) failing on institutional participation (0.412); the load-bearing discovery is that </strong>officer links must be title-class<strong> — with title officers the on-ledger channel closes at </strong>zero<strong> empire-detection (piece-assembly costs plus officer title-risk do all the work, a_c* = 0.0), while revocable officers need 0.162/yr of empire detection to compensate; wolf packs of genuine humans multiply nothing the ownership gate polices (increment 0.0 — a governance/market-power question, filed as the scope boundary); and the dynasty wall doesn't move (−0.2pp at the worst-variant capture). 8/8 bars PASS.</strong></p>
+<h2 id="bar-summary-8-pass">Bar summary (8 PASS)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured (seed 7; seed 11 in JSON)</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MR0 anchors</td>
+<td>v36 isolated re-run exact; pool/gate exact; v35 chassis exact; participation regression</td>
+<td><strong>1.197 / 0.1723 / 24.67 exact</strong>; blind <strong>24.67</strong>, share <strong>0.00055</strong> exact; R2 <strong>10.5</strong> exact; part. <strong>0.6568</strong> ✓</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>MR1 threat real</td>
+<td>H at θ=0.05, a_c=0, revocable officers: ratio ≥ 10×</td>
+<td><strong>11.14×</strong> (seed 11: 11.14) — plus an off-protocol residual of 16.1× cap-flow handed to the bridge/legal layer</td>
+<td><strong>PASS</strong> (threat demonstrated)</td>
+</tr>
+<tr>
+<td>MR2 closure</td>
+<td>title officers + a_c=0.15: ratio ≤ 1.1×; boundary reported</td>
+<td><strong>1.000×</strong>; <strong>a_c*(title) = 0.0</strong> — closed with no empire detection at all; a_c*(rev) = <strong>0.1621</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>MR3 the fork</td>
+<td>≥1 variant passes evasion ≤1.1× AND participation ≥0.5568</td>
+<td><strong>T: 3.335× / 0.634 — fails evasion. L: 1.0× / 0.412 — fails participation. H: 1.000× / 0.597 — passes both.</strong></td>
+<td><strong>PASS — H survives, as registered</strong></td>
+</tr>
+<tr>
+<td>MR4 threshold</td>
+<td 0.01_0.10="0.01–0.10">workable region interior to θ ∈</td>
+<td>pieces per entity 30 / 6 / 3; forced linkers 1 / 0 / 0; H holds ≤1.1× at every θ (title)</td>
+<td><strong>PASS</strong> (with the honest caveat in F5)</td>
+</tr>
+<tr>
+<td>MR5 wolf pack</td>
+<td>coordination increment ≤ +0.1× over k lawful caps</td>
+<td><strong>0.0</strong> at k ∈ {5, 10, 25} — scope boundary filed</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>MR6 dynasty</td>
+<td>worst-variant capture into committed R2: ≤ +0.5pp vs 10.5</td>
+<td>capture 0.578 → <strong>10.3 / 10.0</strong> (−0.2 / −0.5pp)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>MR7 harness</td>
+<td>byte-identical double run; seeds agree</td>
+<td><strong>three byte-identical runs</strong> (2 dev + committed vault, sha256); pool gap 0.0000, chassis gap 0.3pp</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The public-scale shell game is real, and it's the v36 attack wearing a stock certificate (MR1).</strong> A whale wanting control (30%) of each of 25 public entities assembles it from 6 nominee-held pieces per entity, each at 4.9% — just under the disclosure threshold, so no piece ever links. Control is exercised through officer-nominees; with <em>revocable</em> officer links and no empire detection, the whale's on-ledger capture is <strong>11.14×</strong> the single cap (<code>mr1_threat</code>), and the undetected empire's off-protocol dividend flow (16.1× cap-flow, g-discounted) routes through the KYC'd bridge where it is legally attributable — reported, not counted, because the bridge/legal layer owns that residual. The mechanism is identical to v36's nominee finding: what the threshold exempts from linking, nominees can hold invisibly.</p>
+<p><strong>F2 — Officer-link title semantics carry the entire load (MR2, the design discovery).</strong> With officer links <strong>title-class</strong> (a defecting officer-nominee keeps the coordination rights — the v36 deed logic applied to control instead of ownership), the whale's per-entity net goes negative at central dials <em>even with zero empire detection</em>: <strong>a_c*(title) = 0.0</strong> (<code>mr2_closure</code>). Two costs do it: the officer-nominee's title-risk price (κ_L = 0.6, the committed v36 convention) and the structural piece-assembly cost (6 pieces × f_p). Revocable officer governance re-opens the hole and needs <strong>0.162/yr</strong> of empire detection to compensate — the v36 lesson, re-learned at the control layer: <strong>revocable anything is the vulnerability; title semantics are the defense.</strong> DR-21 should extend DR-19's title rule from owner links to officer/controller links explicitly. (The empire/concert audit still matters — it is what bounds the off-protocol residual, 16.1× undetected → 3.6× at central a_c — but it is belt-and-suspenders for the on-ledger channel, not its keystone.)</p>
+<p><strong>F3 — The fork picked H: threshold look-through, as registered (MR3).</strong> <strong>T (terminate-at-QI) fails on fund-washing:</strong> closure that stops at any bonded intermediary re-roots aggregation at the fund, so a whale needs one captured QI per entity — and at central dials that costs less than it yields (<strong>3.335×</strong>; the captured QI's own governance is the weak point, since the whale controls it through the same nominee machinery). T is also fragile exactly where it shouldn't be: at a_QI = 0.05 the ratio climbs to <strong>7.15×</strong> (<code>mr3_variants.T.fragility_rev_by_aQI</code>) — its safety is an assumption about institutional audit quality, not a structure. <strong>L (full look-through) fails on participation:</strong> requiring funds to expose their full holder graphs prices institutional disclosure aversion at d_med = 0.20 → index <strong>0.412</strong>, far under the 0.5568 bar — you keep the gate and lose the capital. <strong>H passes both</strong> (evasion <strong>1.000×</strong> with title officers; participation <strong>0.597</strong>, holding ≥ 0.532 even at 2× disclosure aversion): intermediaries must name ultimate holders at ≥ θ per entity, the sub-θ float terminates at the (bonded, KYC'd) intermediary, and the empire attack against the exempt float is priced out by F2's machinery.</p>
+<p><strong>F4 — Termination does not break aggregation; it re-roots it (the T analysis's useful by-product).</strong> A single intermediary holding controlling stakes in many entities does not multiply caps under any variant — the entities aggregate to the intermediary's node. Fund-washing therefore requires <em>one intermediary per entity</em>, which is why it is expensive and auditable. This clears up a natural confusion: the danger of terminate-at-QI is not "funds hide empires" (they can't — aggregation follows them) but "<em>fake</em> funds are cheaper than real audit coverage."</p>
+<p><strong>F5 — The threshold trade is real but lopsided at these dials (MR4, honest caveat).</strong> Lowering θ from 0.10 to 0.01 raises the attacker's assembly from 3 to <strong>30 pieces per entity</strong> (structural cost ×10) while the honest burden barely moves (forced linkers per entity: 1 / 0 / 0 across θ under the stated lognormal holder distribution — <code>mr4_threshold</code>). The interior-trade bar passes formally, but the burden axis is weak <em>at these dials</em>: a real public float has institutional holders at 5–10% (index funds), which the stated σ_h = 1.5 / 10,000-holder distribution understates. The honest reading: θ = 0.05 is comfortable and rhymes with real-world disclosure law; θ = 0.01 buys extra assembly cost nearly free <em>in this model</em> but would force-link every index fund position in reality — calibrate against real holder data at the pilot, not against this distribution.</p>
+<p><strong>F6 — Wolf packs multiply nothing this gate polices (MR5, the scope boundary).</strong> k genuinely distinct humans coordinating hold exactly the k caps they lawfully own — coordination adds strategic direction, not cap multiplication (increment <strong>0.0</strong> at k ∈ {5, 10, 25}). Filed per the read-logging-severance pattern: concert-of-genuine-humans is a <strong>governance and market-power</strong> question (v15/v17 own that layer), and chasing it with the ownership gate would require person-level behavioral aggregation — constitutionally off-limits (§6.5). The ownership gate polices <em>hidden common ownership</em>; it should refuse to police <em>agreement</em>.</p>
+<p><strong>F7 — The dynasty wall doesn't move (MR6).</strong> The worst equilibrium capture any v38 arm produces (0.578 — revocable officers, zero detection) wired into the committed v35 chassis: persistence <strong>10.3 / 10.0</strong> (−0.2 / −0.5pp vs the committed 10.5). Fourth consecutive cell confirming v35's defense-in-depth: the term + mortal-anchor runoff outruns every capture rate the ownership layer can generate. Cap enforcement and dynasty prevention remain independent walls.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced-form throughout, as registered: control is a threshold event (stake ≥ c_ctl ⇒ control), not a voting model; officer-nominee, empire-detection, QI-audit, and piece-carrying economics are hazard rates and price dials (the committed v36 forms), not strategic games; <strong>a_c and a_QI are design candidates whose real-world cost no desk run can price</strong> — the boundaries (0.0 / 0.1621 / the T fragility curve) are the deliverables, and audit-economics remains the named v12-class successor; the off-protocol residual is reported but its legal-layer disposition (13D/G-analog enforcement at the KYC'd bridge) is asserted context, not modeled; the holder-size distribution is a stated lognormal that understates real institutional concentration (F5); real fund regulation, custody law, and acting-in-concert doctrine are outside the protocol surface; wolf-pack governance/market-power harms are explicitly not addressed here. Findings are existence/ordering/boundary-location under stated dials, not forecasts.</p>
+<h2 id="recommendation-for-the-owner-to-react-to-dr-21-candidate">Recommendation (for the owner to react to — DR-21 candidate)</h2>
+<p><strong>Adopt H — threshold look-through — as the closure rule for intermediated ownership, with officer links promoted to title-class.</strong> Concretely: (1) <strong>qualified intermediaries</strong> (bonded, KYC'd funds) must pass through — name, with links — any ultimate beneficial holder at <strong>≥ θ = 5%</strong> of an entity; the sub-threshold float terminates at the intermediary, which is a legitimate accountable root (F3/F4); (2) <strong>officer/controller links are title records</strong> — DR-19's deed semantics extended from owning to controlling; this single choice closes the on-ledger empire channel at zero marginal audit cost (F2); (3) fund the <strong>empire/concert flag</strong> at the aggregate level anyway — it is what compresses the off-protocol residual (16× → 3.6×) that the bridge's legal layer then owns; (4) set <strong>θ = 5%</strong> now (rhymes with real disclosure law; comfortable in-model) and <strong>calibrate against real holder data at the pilot</strong> (F5's honest caveat); (5) record the <strong>wolf-pack scope boundary</strong> explicitly: coordination among genuine humans is governance/market-power territory — the ownership gate refuses it by design (F6). Roads not taken (T, L, revocable officers, θ endpoints) with reasons in <strong>DR-21</strong>. Successor cells: audit-economics pricing (standing, v12-class), real holder-distribution calibration (pilot), and a voting-power model if the pilot's governance layer wants control modeled as more than a threshold.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>v38 SPEC - Multi-Root Ownership (registered).md</code> — bars MR0–MR7 before code</li>
+<li><code>multiroot_ownership_sim.py</code> — anchor chain + empire/QI/wolf-pack modules (import-guarded, deterministic)</li>
+<li><code>results_v38.json</code> — every number above; <code>fig_v38_multiroot.png</code> — four panels</li>
+<li><code>PLAIN LANGUAGE - v38.0 Multi-Root Ownership.md</code> — jargon-compliant companion (house rule, from birth)</li>
+</ul>
+<p><em>Run and written July 18, 2026, by Claude Fable 5 (owner-directed [FABLE] cell). Verification: the committed v36 cell re-ran exactly in isolation with its full anchor chain (MR0a); the engine ran three times — twice in the development sandbox, once committed in this folder — all three byte-identical by sha256 (JSON + figure); numbering checked against the folder max (v37) before registration. All 8 bars pass; MR3's registered expectations (T fails evasion, L fails participation, H survives) were confirmed rather than refuted. Bars unmoved.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v38-multi-root-ownership-and-the-intermediated-float-0.json" download>⬇ results_v38.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

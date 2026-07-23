@@ -1,0 +1,604 @@
+{
+ "bars": {
+  "B0": {
+   "conservation_dev": 0.0,
+   "cost_seed_gap": 0.0,
+   "frac_crossed_by_seed": {
+    "s11": 0.888889,
+    "s7": 0.888889
+   },
+   "median_crossing_gap_informative": 0.063406,
+   "median_crossing_s11": 258.5,
+   "median_crossing_s7": 276.0,
+   "test": "conservation exact; zero-sponsor allocation = organic (machine \u03b5); seeds within 5% on headline costs (deterministic); stochastic medians reported",
+   "verdict": "PASS",
+   "zero_sponsor_dev": 0.0
+  },
+  "B1": {
+   "eps_sweep": {
+    "eps=1": 3.884615,
+    "eps=1.5": 1.932873,
+    "eps=2": 1.261238
+   },
+   "inside": 0.058081,
+   "massbased_variant_ratio": 0.89355,
+   "outside": 0.030049,
+   "ratio": 1.932873,
+   "starved_ratio": 0.776923,
+   "test": "inside/outside steering cost \u22653\u00d7 for +10pp decade; organic-starve ablation <1.5\u00d7",
+   "verdict": "FAIL"
+  },
+  "B2": {
+   "inside_end_ok": false,
+   "outside_perpetual": true,
+   "pp_years_per_treasury_month": 14.918188,
+   "test": "inside: displacement \u2192 <1pp by yr50 all policies, pp-years bounded; outside sustainable: perpetual; yield-on ablation: perpetual appears inside",
+   "verdict": "FAIL",
+   "yield_ablation_perpetual": true
+  },
+  "B3": {
+   "discount": {
+    "frac_crossed": 1.0,
+    "max_crossing_month": 373.0,
+    "median_crossing_month": 150.5,
+    "n_cells": 54,
+    "n_crossed": 54
+   },
+   "inside": {
+    "frac_crossed": 0.888889,
+    "max_crossing_month": 546.0,
+    "median_crossing_month": 260.5,
+    "n_cells": 54,
+    "n_crossed": 48
+   },
+   "outside": {
+    "frac_crossed": 0.0,
+    "max_crossing_month": null,
+    "median_crossing_month": null,
+    "n_cells": 18,
+    "n_crossed": 0
+   },
+   "ref_delay_discount": 180.0,
+   "ref_delay_months": 212.5,
+   "registry_off": {
+    "frac_crossed": 0.777778,
+    "max_crossing_month": 594.0,
+    "median_crossing_month": 323.5,
+    "n_cells": 54,
+    "n_crossed": 42
+   },
+   "stretch_discount_halves": false,
+   "test": "(i) inside crossing in 100% cells vs outside never-cross \u226550%; registry-off ablation never-cross \u226550%; (ii) delay reported; stretch: discount halves it",
+   "verdict": "FAIL",
+   "verdict_ablation": "FAIL",
+   "verdict_i": "FAIL"
+  },
+  "B4": {
+   "detection_month": 14,
+   "false_flags": 0,
+   "test": "laundered \u22655pp steering detected \u226424mo; zero false positives on organic-shock control",
+   "verdict": "PASS"
+  },
+  "B5": {
+   "eps_sweep": {
+    "eps=1": 0.0568,
+    "eps=1.5": 0.0568,
+    "eps=2": 0.0568
+   },
+   "kl_nats": 0.058477,
+   "loss": 0.0568,
+   "test": "knowledge-output loss from +10pp steering \u22645%",
+   "verdict": "FAIL"
+  },
+  "B6": {
+   "cells": {
+    "evid_frac=0.05": {
+     "benefit_pv": 62500000.0,
+     "cost": 95000000.0,
+     "cost_benefit": 1.52
+    },
+    "evid_frac=0.1": {
+     "benefit_pv": 62500000.0,
+     "cost": 90000000.0,
+     "cost_benefit": 1.44
+    },
+    "evid_frac=0.25": {
+     "benefit_pv": 62500000.0,
+     "cost": 75000000.0,
+     "cost_benefit": 1.2
+    }
+   },
+   "test": "agenda-subsidized composition capture still losing (cost/benefit \u22651) across evidence-fraction sweep",
+   "verdict": "PASS"
+  }
+ },
+ "params": {
+  "M_in": 1.0,
+  "M_out": 0.4,
+  "T0": 24.0,
+  "U_ref": 20.0,
+  "audit_lag": 12,
+  "bury_out": 0.85,
+  "d_harm": 11,
+  "d_star": 7,
+  "eps": 1.5,
+  "evid_decay": 0.01,
+  "evid_frac": 0.1,
+  "flood_cap_x": 20.0,
+  "idle_out": 0.6,
+  "k_attn": 0.5,
+  "lam": 1.3,
+  "mon_gap": 0.02,
+  "mon_persist": 3,
+  "n_dom": 20,
+  "n_min": 20.0,
+  "ovh_in": 0.01,
+  "ovh_out": 0.3,
+  "p_unfav_org": 0.75,
+  "p_unfav_spon": 0.25,
+  "persist": 3,
+  "r_out": 0.04,
+  "reserve_out": 0.5,
+  "shock_dom": 4,
+  "shock_month": 120,
+  "shock_mult": 2.0,
+  "stud_per_effort": 25.0,
+  "sustain_rate": 0.0033,
+  "target_pp": 0.1,
+  "thresh": 0.3,
+  "v17_benefit_pv": 62500000.0,
+  "v17_cost": 100000000.0,
+  "w_tag": 0.3,
+  "zipf_s": 1.0
+ },
+ "registered": "2026-07-09",
+ "scenarios": {
+  "composed_v17": {
+   "evid_frac=0.05": {
+    "benefit_pv": 62500000.0,
+    "cost": 95000000.0,
+    "cost_benefit": 1.52
+   },
+   "evid_frac=0.1": {
+    "benefit_pv": 62500000.0,
+    "cost": 90000000.0,
+    "cost_benefit": 1.44
+   },
+   "evid_frac=0.25": {
+    "benefit_pv": 62500000.0,
+    "cost": 75000000.0,
+    "cost_benefit": 1.2
+   }
+  },
+  "displacement_loss": {
+   "eps_sweep": {
+    "eps=1": 0.0568,
+    "eps=1.5": 0.0568,
+    "eps=2": 0.0568
+   },
+   "kl_nats": 0.058477,
+   "loss_frac": 0.0568
+  },
+  "evidence": {
+   "delay_reduction": 0.152941,
+   "inside": {
+    "frac_crossed": 0.888889,
+    "max_crossing_month": 546.0,
+    "median_crossing_month": 260.5,
+    "n_cells": 54,
+    "n_crossed": 48
+   },
+   "inside_discount": {
+    "frac_crossed": 1.0,
+    "max_crossing_month": 373.0,
+    "median_crossing_month": 150.5,
+    "n_cells": 54,
+    "n_crossed": 54
+   },
+   "inside_registry_off": {
+    "frac_crossed": 0.777778,
+    "max_crossing_month": 594.0,
+    "median_crossing_month": 323.5,
+    "n_cells": 54,
+    "n_crossed": 42
+   },
+   "no_flood_baseline": {
+    "s11": 38,
+    "s7": 34
+   },
+   "outside_sustain": {
+    "frac_crossed": 0.0,
+    "max_crossing_month": null,
+    "median_crossing_month": null,
+    "n_cells": 18,
+    "n_crossed": 0
+   },
+   "ref_delay_discount_months": 180.0,
+   "ref_delay_months": 212.5
+  },
+  "evidence_cells_inside": {
+   "burn10|T0=12|sel=0.15|s11": {
+    "crossing": 246,
+    "spent": 12.0
+   },
+   "burn10|T0=12|sel=0.15|s7": {
+    "crossing": 251,
+    "spent": 12.0
+   },
+   "burn10|T0=12|sel=0.25|s11": {
+    "crossing": 222,
+    "spent": 12.0
+   },
+   "burn10|T0=12|sel=0.25|s7": {
+    "crossing": 220,
+    "spent": 12.0
+   },
+   "burn10|T0=12|sel=0.35|s11": {
+    "crossing": 150,
+    "spent": 12.0
+   },
+   "burn10|T0=12|sel=0.35|s7": {
+    "crossing": 158,
+    "spent": 12.0
+   },
+   "burn10|T0=24|sel=0.15|s11": {
+    "crossing": 281,
+    "spent": 24.0
+   },
+   "burn10|T0=24|sel=0.15|s7": {
+    "crossing": 292,
+    "spent": 24.0
+   },
+   "burn10|T0=24|sel=0.25|s11": {
+    "crossing": 256,
+    "spent": 24.0
+   },
+   "burn10|T0=24|sel=0.25|s7": {
+    "crossing": 241,
+    "spent": 24.0
+   },
+   "burn10|T0=24|sel=0.35|s11": {
+    "crossing": 201,
+    "spent": 24.0
+   },
+   "burn10|T0=24|sel=0.35|s7": {
+    "crossing": 227,
+    "spent": 24.0
+   },
+   "burn10|T0=48|sel=0.15|s11": {
+    "crossing": 307,
+    "spent": 48.0
+   },
+   "burn10|T0=48|sel=0.15|s7": {
+    "crossing": 338,
+    "spent": 48.0
+   },
+   "burn10|T0=48|sel=0.25|s11": {
+    "crossing": 261,
+    "spent": 48.0
+   },
+   "burn10|T0=48|sel=0.25|s7": {
+    "crossing": 300,
+    "spent": 48.0
+   },
+   "burn10|T0=48|sel=0.35|s11": {
+    "crossing": 223,
+    "spent": 48.0
+   },
+   "burn10|T0=48|sel=0.35|s7": {
+    "crossing": 231,
+    "spent": 48.0
+   },
+   "controller|T0=12|sel=0.15|s11": {
+    "crossing": 546,
+    "spent": 12.0
+   },
+   "controller|T0=12|sel=0.15|s7": {
+    "crossing": 521,
+    "spent": 12.0
+   },
+   "controller|T0=12|sel=0.25|s11": {
+    "crossing": 348,
+    "spent": 12.0
+   },
+   "controller|T0=12|sel=0.25|s7": {
+    "crossing": 423,
+    "spent": 12.0
+   },
+   "controller|T0=12|sel=0.35|s11": {
+    "crossing": 79,
+    "spent": 0.92
+   },
+   "controller|T0=12|sel=0.35|s7": {
+    "crossing": 308,
+    "spent": 12.0
+   },
+   "controller|T0=24|sel=0.15|s11": {
+    "crossing": null,
+    "spent": 8.88
+   },
+   "controller|T0=24|sel=0.15|s7": {
+    "crossing": null,
+    "spent": 17.84
+   },
+   "controller|T0=24|sel=0.25|s11": {
+    "crossing": 191,
+    "spent": 1.88
+   },
+   "controller|T0=24|sel=0.25|s7": {
+    "crossing": 25,
+    "spent": 0.28
+   },
+   "controller|T0=24|sel=0.35|s11": {
+    "crossing": 61,
+    "spent": 0.36
+   },
+   "controller|T0=24|sel=0.35|s7": {
+    "crossing": 477,
+    "spent": 24.0
+   },
+   "controller|T0=48|sel=0.15|s11": {
+    "crossing": null,
+    "spent": 14.6
+   },
+   "controller|T0=48|sel=0.15|s7": {
+    "crossing": null,
+    "spent": 17.4
+   },
+   "controller|T0=48|sel=0.25|s11": {
+    "crossing": null,
+    "spent": 25.16
+   },
+   "controller|T0=48|sel=0.25|s7": {
+    "crossing": 67,
+    "spent": 0.8
+   },
+   "controller|T0=48|sel=0.35|s11": {
+    "crossing": 25,
+    "spent": 0.96
+   },
+   "controller|T0=48|sel=0.35|s7": {
+    "crossing": null,
+    "spent": 43.44
+   },
+   "sustain|T0=12|sel=0.15|s11": {
+    "crossing": 326,
+    "spent": 7.928
+   },
+   "sustain|T0=12|sel=0.15|s7": {
+    "crossing": 255,
+    "spent": 6.851
+   },
+   "sustain|T0=12|sel=0.25|s11": {
+    "crossing": 240,
+    "spent": 6.59
+   },
+   "sustain|T0=12|sel=0.25|s7": {
+    "crossing": 220,
+    "spent": 6.22
+   },
+   "sustain|T0=12|sel=0.35|s11": {
+    "crossing": 185,
+    "spent": 5.511
+   },
+   "sustain|T0=12|sel=0.35|s7": {
+    "crossing": 29,
+    "spent": 1.133
+   },
+   "sustain|T0=24|sel=0.15|s11": {
+    "crossing": 436,
+    "spent": 18.339
+   },
+   "sustain|T0=24|sel=0.15|s7": {
+    "crossing": 390,
+    "spent": 17.41
+   },
+   "sustain|T0=24|sel=0.25|s11": {
+    "crossing": 344,
+    "spent": 16.327
+   },
+   "sustain|T0=24|sel=0.25|s7": {
+    "crossing": 399,
+    "spent": 17.603
+   },
+   "sustain|T0=24|sel=0.35|s11": {
+    "crossing": 284,
+    "spent": 14.644
+   },
+   "sustain|T0=24|sel=0.35|s7": {
+    "crossing": 260,
+    "spent": 13.872
+   },
+   "sustain|T0=48|sel=0.15|s11": {
+    "crossing": 473,
+    "spent": 37.982
+   },
+   "sustain|T0=48|sel=0.15|s7": {
+    "crossing": 476,
+    "spent": 38.081
+   },
+   "sustain|T0=48|sel=0.25|s11": {
+    "crossing": 412,
+    "spent": 35.744
+   },
+   "sustain|T0=48|sel=0.25|s7": {
+    "crossing": 403,
+    "spent": 35.374
+   },
+   "sustain|T0=48|sel=0.35|s11": {
+    "crossing": 272,
+    "spent": 28.531
+   },
+   "sustain|T0=48|sel=0.35|s7": {
+    "crossing": 322,
+    "spent": 31.497
+   }
+  },
+  "evidence_cells_outside": {
+   "sustain|T0=12|sel=0.15|s11": {
+    "crossing": null,
+    "spent": 23.92
+   },
+   "sustain|T0=12|sel=0.15|s7": {
+    "crossing": null,
+    "spent": 23.92
+   },
+   "sustain|T0=12|sel=0.25|s11": {
+    "crossing": null,
+    "spent": 23.92
+   },
+   "sustain|T0=12|sel=0.25|s7": {
+    "crossing": null,
+    "spent": 23.92
+   },
+   "sustain|T0=12|sel=0.35|s11": {
+    "crossing": null,
+    "spent": 23.92
+   },
+   "sustain|T0=12|sel=0.35|s7": {
+    "crossing": null,
+    "spent": 23.92
+   },
+   "sustain|T0=24|sel=0.15|s11": {
+    "crossing": null,
+    "spent": 47.839
+   },
+   "sustain|T0=24|sel=0.15|s7": {
+    "crossing": null,
+    "spent": 47.839
+   },
+   "sustain|T0=24|sel=0.25|s11": {
+    "crossing": null,
+    "spent": 47.839
+   },
+   "sustain|T0=24|sel=0.25|s7": {
+    "crossing": null,
+    "spent": 47.839
+   },
+   "sustain|T0=24|sel=0.35|s11": {
+    "crossing": null,
+    "spent": 47.839
+   },
+   "sustain|T0=24|sel=0.35|s7": {
+    "crossing": null,
+    "spent": 47.839
+   },
+   "sustain|T0=48|sel=0.15|s11": {
+    "crossing": null,
+    "spent": 95.679
+   },
+   "sustain|T0=48|sel=0.15|s7": {
+    "crossing": null,
+    "spent": 95.679
+   },
+   "sustain|T0=48|sel=0.25|s11": {
+    "crossing": null,
+    "spent": 95.679
+   },
+   "sustain|T0=48|sel=0.25|s7": {
+    "crossing": null,
+    "spent": 95.679
+   },
+   "sustain|T0=48|sel=0.35|s11": {
+    "crossing": null,
+    "spent": 95.679
+   },
+   "sustain|T0=48|sel=0.35|s7": {
+    "crossing": null,
+    "spent": 95.679
+   }
+  },
+  "monitor": {
+   "detection_month": 14,
+   "false_flags_laundered": 0,
+   "false_flags_organic_shock": 0
+  },
+  "pp_years_per_treasury_month_bound": 14.918188,
+  "steering_price": {
+   "eps_sweep": {
+    "eps=1": 3.884615,
+    "eps=1.5": 1.932873,
+    "eps=2": 1.261238
+   },
+   "inside_per_month": 0.058081,
+   "outside_massbased_variant": 0.065,
+   "outside_per_month": 0.030049,
+   "ratio": 1.932873,
+   "ratio_vs_massbased": 0.89355,
+   "starved_inside": 0.023346,
+   "starved_ratio": 0.776923
+  },
+  "treasury_policies": {
+   "in_yield_ablation|sustain|T0=24": {
+    "end_pp": 14.290208,
+    "yr10_pp": 14.047671
+   },
+   "in|burn10|T0=12": {
+    "end_pp": 0.0,
+    "peak_pp": 17.901826,
+    "pp_years": 179.018257
+   },
+   "in|burn10|T0=24": {
+    "end_pp": 0.0,
+    "peak_pp": 34.955019,
+    "pp_years": 349.55019
+   },
+   "in|burn10|T0=48": {
+    "end_pp": 0.0,
+    "peak_pp": 57.637338,
+    "pp_years": 576.373381
+   },
+   "in|controller|T0=12": {
+    "end_pp": 0.0,
+    "peak_pp": 9.892095,
+    "pp_years": 171.936633
+   },
+   "in|controller|T0=24": {
+    "end_pp": 0.0,
+    "peak_pp": 9.892095,
+    "pp_years": 343.955356
+   },
+   "in|controller|T0=48": {
+    "end_pp": 9.892095,
+    "peak_pp": 9.892095,
+    "pp_years": 494.604773
+   },
+   "in|sustain|T0=12": {
+    "end_pp": 0.806805,
+    "peak_pp": 6.579281,
+    "pp_years": 136.103569
+   },
+   "in|sustain|T0=24": {
+    "end_pp": 1.655198,
+    "peak_pp": 13.988128,
+    "pp_years": 287.699213
+   },
+   "in|sustain|T0=48": {
+    "end_pp": 3.454013,
+    "peak_pp": 28.314877,
+    "pp_years": 603.422942
+   },
+   "out|sustain|T0=24": {
+    "end_pp": 14.290208,
+    "pp_years": 706.933808,
+    "yr10_pp": 14.047671,
+    "yr50_pp": 14.290208
+   }
+  }
+ },
+ "seeds": [
+  7,
+  11
+ ],
+ "spec": "v23 SPEC - Sponsorship-Agenda Capture (registered).md",
+ "sweeps": {},
+ "verdict_summary": {
+  "B0": "PASS",
+  "B1": "FAIL",
+  "B2": "FAIL",
+  "B3": "FAIL",
+  "B4": "PASS",
+  "B5": "FAIL",
+  "B6": "PASS"
+ }
+}

@@ -1,0 +1,53 @@
+{
+  "default_adoption_sweep": {
+    "g0": {
+      "top10_share": 38.7,
+      "gini": 0.52
+    },
+    "g10": {
+      "top10_share": 44.2,
+      "gini": 0.563
+    },
+    "g20": {
+      "top10_share": 49.7,
+      "gini": 0.606
+    },
+    "g30": {
+      "top10_share": 55.1,
+      "gini": 0.649
+    },
+    "g40": {
+      "top10_share": 60.6,
+      "gini": 0.692
+    },
+    "g50": {
+      "top10_share": 66.2,
+      "gini": 0.735
+    },
+    "g60": {
+      "top10_share": 71.7,
+      "gini": 0.778
+    },
+    "g70": {
+      "top10_share": 77.2,
+      "gini": 0.822
+    },
+    "g80": {
+      "top10_share": 82.8,
+      "gini": 0.865
+    },
+    "g90": {
+      "top10_share": 88.4,
+      "gini": 0.908
+    },
+    "g100": {
+      "top10_share": 93.9,
+      "gini": 0.952
+    }
+  },
+  "platform_baseline": {
+    "top10_share": 84.0,
+    "gini": 0.95
+  },
+  "note": "attention concentration across assets; g = fraction of users who use the single popular default template instead of their own/diverse lens. g=0 is full user sovereignty/diversity; g=1 collapses toward a single global feed."
+}

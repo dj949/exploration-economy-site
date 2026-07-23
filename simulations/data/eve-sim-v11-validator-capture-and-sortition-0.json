@@ -1,0 +1,392 @@
+{
+ "spec": "v11 SPEC - Validator Capture & Sortition (registered).md",
+ "params": {
+  "R": 5000000,
+  "H": 20000,
+  "H_sweep": [
+   5000,
+   10000,
+   20000,
+   50000
+  ],
+  "k": 201,
+  "k_sweep": [
+   101,
+   201,
+   501,
+   1001
+  ],
+  "epochs_10y": 87600,
+  "epochs_1y": 8760,
+  "bond": 5000.0,
+  "F": 600.0,
+  "cost_manufacture": 72000.0,
+  "rent_per_month": 2000.0,
+  "rent_months": 12,
+  "f_central": 0.02,
+  "f_sweep": [
+   0.005,
+   0.02,
+   0.05,
+   0.1,
+   0.15,
+   0.2,
+   0.25
+  ],
+  "npv_participation": 36000.0,
+  "q_safety": 0.95,
+  "q_liveness": 0.3,
+  "bribe_premium": 1.5,
+  "cap_cohort": 0.15,
+  "pos_cap_young": 100000000.0,
+  "pos_cap_mature": 1000000000.0,
+  "pos_impact": 1.5,
+  "poa_institutions": [
+   2,
+   2,
+   2,
+   2,
+   1,
+   1,
+   1,
+   1
+  ],
+  "crash": 0.718,
+  "safety_horizon_prob": 0.5,
+  "liveness_epoch_prob": 0.05,
+  "seeds": [
+   7,
+   11
+  ],
+  "mc_epochs_safety": 2000000,
+  "mc_epochs_liveness": 100000
+ },
+ "V0": {
+  "safety_target_per_epoch": 7.912607742688316e-06,
+  "A_safety_op": 21143,
+  "A_liveness_op": 7719,
+  "cells": {
+   "safety_op": {
+    "A": 21143,
+    "t": 134,
+    "n": 2000000,
+    "p_exact": 7.919039985963984e-06,
+    "expected": 15.838079971927968,
+    "counts": {
+     "7": 18,
+     "11": 18
+    },
+    "three_sigma": 11.939078312242295,
+    "seeds_within_3sigma": true,
+    "seeds_agree_3sigma": true
+   },
+   "liveness_op": {
+    "A": 7719,
+    "t": 67,
+    "n": 100000,
+    "p_exact": 0.05003387496882978,
+    "expected": 5003.387496882978,
+    "counts": {
+     "7": 4918,
+     "11": 5049
+    },
+    "three_sigma": 206.82707195140088,
+    "seeds_within_3sigma": true,
+    "seeds_agree_3sigma": true
+   }
+  },
+  "pass": true
+ },
+ "V1": {
+  "channels": {
+   "rental_mix": {
+    "seats": 21143,
+    "budget": 613147000.0,
+    "rented": 21143,
+    "manufactured": 0
+   },
+   "manufacture": {
+    "seats": 21143,
+    "budget": 1628011000.0
+   },
+   "bribery": {
+    "seats": 10286,
+    "budget": 1656303149.9999998
+   }
+  },
+  "cheapest": "rental_mix",
+  "budget": 613147000.0,
+  "seats": 21143,
+  "bar_min_budget": 300000000.0,
+  "pass": true
+ },
+ "V2": {
+  "101": {
+   "A_25pct": 6667,
+   "t_liveness": 34,
+   "censored_epoch_frac": 0.03160352629291618,
+   "censored_epochs_per_year": 276.8468903259457
+  },
+  "201": {
+   "A_25pct": 6667,
+   "t_liveness": 67,
+   "censored_epoch_frac": 0.004827898251013739,
+   "censored_epochs_per_year": 42.29238867888036
+  },
+  "501": {
+   "A_25pct": 6667,
+   "t_liveness": 167,
+   "censored_epoch_frac": 1.507200604017657e-05,
+   "censored_epochs_per_year": 0.13203077291194676
+  },
+  "1001": {
+   "A_25pct": 6667,
+   "t_liveness": 334,
+   "censored_epoch_frac": 9.178987024762169e-10,
+   "censored_epochs_per_year": 8.04079263369166e-06
+  },
+  "bar_frac": 0.01,
+  "pass_k201": true,
+  "fail_k101_expected": true
+ },
+ "V3": {
+  "budget_vs_f": {
+   "0.005": {
+    "budget": 613147000.0,
+    "cheapest": "rental_mix"
+   },
+   "0.02": {
+    "budget": 613147000.0,
+    "cheapest": "rental_mix"
+   },
+   "0.05": {
+    "budget": 613147000.0,
+    "cheapest": "rental_mix"
+   },
+   "0.1": {
+    "budget": 613147000.0,
+    "cheapest": "rental_mix"
+   },
+   "0.15": {
+    "budget": 613147000.0,
+    "cheapest": "rental_mix"
+   },
+   "0.2": {
+    "budget": 613147000.0,
+    "cheapest": "rental_mix"
+   },
+   "0.25": {
+    "budget": 613147000.0,
+    "cheapest": "rental_mix"
+   }
+  },
+  "budget_vs_H_bond_only": {
+   "5000": {
+    "seats": 5310,
+    "budget": 26550000.0
+   },
+   "10000": {
+    "seats": 10587,
+    "budget": 52935000.0
+   },
+   "20000": {
+    "seats": 21143,
+    "budget": 105715000.0
+   },
+   "50000": {
+    "seats": 52810,
+    "budget": 264050000.0
+   },
+   "4000": {
+    "seats": 4254,
+    "budget": 21270000.0
+   },
+   "3000": {
+    "seats": 3199,
+    "budget": 15995000.0
+   },
+   "6000": {
+    "seats": 6365,
+    "budget": 31825000.0
+   },
+   "7000": {
+    "seats": 7421,
+    "budget": 37105000.0
+   },
+   "8000": {
+    "seats": 8476,
+    "budget": 42380000.0
+   }
+  },
+  "p_star_vs_k": {
+   "101": {
+    "A": 16713,
+    "p": 0.4552338408738049
+   },
+   "201": {
+    "A": 21143,
+    "p": 0.5138905767688307
+   },
+   "501": {
+    "A": 26714,
+    "p": 0.5718628248490817
+   },
+   "1001": {
+    "A": 30172,
+    "p": 0.601371282787212
+   }
+  },
+  "H_star": 5500,
+  "bar_a_rent0_at_H20k": {
+   "budget": 105715000.0,
+   "bar": 100000000.0
+  },
+  "bar_a_pass": true,
+  "bar_b_pass": true
+ },
+ "V4": {
+  "cap": 0.15,
+  "min_cohorts_liveness": 3,
+  "min_cohorts_safety": 5,
+  "single_34pct_cohort_captures_liveness_without_caps": true,
+  "bar": {
+   "liveness": 3,
+   "safety": 5
+  },
+  "pass": true
+ },
+ "V5": {
+  "pos_young_safety": 100000000.0,
+  "pos_young_liveness": 50000000.0,
+  "pos_mature_safety": 1000000000.0,
+  "civic_safety_budget": 613147000.0,
+  "civic_liveness_budget": 223851000.0,
+  "civic_liveness_channels": {
+   "rental_mix": {
+    "seats": 7719,
+    "budget": 223851000.0,
+    "rented": 7719,
+    "manufactured": 0
+   },
+   "manufacture": {
+    "seats": 7719,
+    "budget": 594363000.0
+   },
+   "bribery": {
+    "seats": 5571,
+    "budget": 283285349.99999994
+   }
+  },
+  "civic_liveness_cheapest": "rental_mix",
+  "ratio_safety": 6.13147,
+  "ratio_liveness": 4.47702,
+  "pass_safety_5x": true,
+  "pass_liveness_3x": true,
+  "poa": {
+   "institutions": 12,
+   "jurisdictions": 8,
+   "orders_liveness": 2,
+   "orders_safety": 4,
+   "note": "permissioned chain cannot be forked away from captors (A11)"
+  }
+ },
+ "V6": {
+  "civic_pre": 613147000.0,
+  "civic_post": 537243630.0,
+  "civic_drop_pct": 12.379310344827587,
+  "pos_young_post": 28200000.0,
+  "ratio_post": 19.051192553191488,
+  "pass_drop_le_25pct": true,
+  "pass_ratio_10x": true
+ },
+ "gate15_candidates": {
+  "capture_budget_table": {
+   "rental_mix": {
+    "seats": 21143,
+    "budget": 613147000.0,
+    "rented": 21143,
+    "manufactured": 0
+   },
+   "manufacture": {
+    "seats": 21143,
+    "budget": 1628011000.0
+   },
+   "bribery": {
+    "seats": 10286,
+    "budget": 1656303149.9999998
+   }
+  },
+  "H_star": 5500,
+  "p_star_vs_k": {
+   "101": {
+    "A": 16713,
+    "p": 0.4552338408738049
+   },
+   "201": {
+    "A": 21143,
+    "p": 0.5138905767688307
+   },
+   "501": {
+    "A": 26714,
+    "p": 0.5718628248490817
+   },
+   "1001": {
+    "A": 30172,
+    "p": 0.601371282787212
+   }
+  },
+  "censorship_curve": {
+   "101": {
+    "A_25pct": 6667,
+    "t_liveness": 34,
+    "censored_epoch_frac": 0.03160352629291618,
+    "censored_epochs_per_year": 276.8468903259457
+   },
+   "201": {
+    "A_25pct": 6667,
+    "t_liveness": 67,
+    "censored_epoch_frac": 0.004827898251013739,
+    "censored_epochs_per_year": 42.29238867888036
+   },
+   "501": {
+    "A_25pct": 6667,
+    "t_liveness": 167,
+    "censored_epoch_frac": 1.507200604017657e-05,
+    "censored_epochs_per_year": 0.13203077291194676
+   },
+   "1001": {
+    "A_25pct": 6667,
+    "t_liveness": 334,
+    "censored_epoch_frac": 9.178987024762169e-10,
+    "censored_epochs_per_year": 8.04079263369166e-06
+   },
+   "bar_frac": 0.01,
+   "pass_k201": true,
+   "fail_k101_expected": true
+  },
+  "coalition_counts": {
+   "cap": 0.15,
+   "min_cohorts_liveness": 3,
+   "min_cohorts_safety": 5,
+   "single_34pct_cohort_captures_liveness_without_caps": true,
+   "bar": {
+    "liveness": 3,
+    "safety": 5
+   },
+   "pass": true
+  }
+ },
+ "bar_summary": {
+  "V0": true,
+  "V1": true,
+  "V2_k201": true,
+  "V2_k101_expected_fail": true,
+  "V3a": true,
+  "V3b": true,
+  "V4": true,
+  "V5_safety": true,
+  "V5_liveness": true,
+  "V6_drop": true,
+  "V6_ratio": true
+ }
+}

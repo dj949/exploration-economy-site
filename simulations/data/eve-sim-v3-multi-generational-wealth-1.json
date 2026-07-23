@@ -1,0 +1,55 @@
+{
+  "regimes": {
+    "eden_v13": {
+      "R": 0.0,
+      "D": 0.5,
+      "B": 0.5
+    },
+    "eden_synthetic": {
+      "R": 0.04,
+      "D": 0.8,
+      "B": 0.5
+    },
+    "eden_market": {
+      "R": 0.04,
+      "D": 0.1,
+      "B": 0.6
+    },
+    "today": {
+      "R": 0.0666,
+      "D": 0.0,
+      "B": 0.85
+    }
+  },
+  "results": {
+    "eden_v13": {
+      "persistence_pct": 10.4,
+      "gini_end": 0.385,
+      "top1_end": 6.3,
+      "gini_start": 0.388,
+      "top1_start": 6.2
+    },
+    "eden_synthetic": {
+      "persistence_pct": 10.2,
+      "gini_end": 0.404,
+      "top1_end": 6.8,
+      "gini_start": 0.444,
+      "top1_start": 8.0
+    },
+    "eden_market": {
+      "persistence_pct": 67.7,
+      "gini_end": 0.471,
+      "top1_end": 8.4,
+      "gini_start": 0.443,
+      "top1_start": 7.6
+    },
+    "today": {
+      "persistence_pct": 79.2,
+      "gini_end": 0.668,
+      "top1_end": 16.4,
+      "gini_start": 0.499,
+      "top1_start": 10.5
+    }
+  },
+  "note": "scalar-regime framework as original multigen; illustrative; ordering is the finding"
+}

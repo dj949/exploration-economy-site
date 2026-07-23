@@ -1,0 +1,300 @@
+{
+ "spec": "v37 SPEC - Exfiltration & Pricing (registered).md",
+ "params": {
+  "v16_anchors": {
+   "mu_hi": 1.0,
+   "mu_lo": 0.1,
+   "med_hi": 426.65222543624617,
+   "med_lo": 45.30022058674609,
+   "share_hi": 0.8854039788875356,
+   "share_lo": 0.02765935850588713,
+   "endog_hi": 0.13230930161897794,
+   "endog_lo": 0.07172832070856511
+  },
+  "decay_step": 0.1,
+  "disc_each": 5e-05,
+  "floor": 0.0001,
+  "r": 0.04,
+  "central": {
+   "H": 100.0,
+   "phi_r": 0.3,
+   "beta": 2.0,
+   "sigma_w": 1.0,
+   "sigma_r": 1.2,
+   "g": 0.25,
+   "a_L": 0.15,
+   "rho_honest": 0.05,
+   "T_horizon": 10.0,
+   "wtp_med": 0.001,
+   "res_med": 0.0003,
+   "c_sub": 0.5,
+   "phi_k": 0.2,
+   "f_exf": 0.85
+  },
+  "sweeps": {
+   "H": [
+    10,
+    30,
+    100,
+    300,
+    1000
+   ],
+   "phi_r": [
+    0.1,
+    0.3,
+    0.6,
+    0.9
+   ],
+   "beta": [
+    1.0,
+    2.0,
+    4.0
+   ],
+   "sigma_w": [
+    0.5,
+    1.0,
+    1.5
+   ],
+   "sigma_r": [
+    0.8,
+    1.2,
+    1.6
+   ],
+   "g": [
+    0.1,
+    0.25,
+    0.5
+   ],
+   "a_L": [
+    0.0,
+    0.05,
+    0.15,
+    0.3
+   ],
+   "tau": {
+    "market": 0.01,
+    "behavioral": 0.5,
+    "genomics": 20.0
+   },
+   "N_need_frac": [
+    0.1,
+    0.5,
+    1.0
+   ]
+  },
+  "Q": 100000,
+  "seeds": [
+   7,
+   11
+  ]
+ },
+ "xf0_anchors": {
+  "at_mu1": {
+   "med_builder": 426.65222543624617,
+   "share_ge200": 0.8854039788875356,
+   "endog_cov": 0.13230930161897794
+  },
+  "at_mu01": {
+   "med_builder": 45.300220586746086,
+   "share_ge200": 0.02765935850588713,
+   "endog_cov": 0.07172832070856511
+  },
+  "committed_mu1": {
+   "med": 426.65222543624617,
+   "share": 0.8854039788875356,
+   "endog": 0.13230930161897794
+  },
+  "committed_mu01": {
+   "med": 45.30022058674609,
+   "share": 0.02765935850588713,
+   "endog": 0.07172832070856511
+  },
+  "exact": true,
+  "decay_reproduce": true
+ },
+ "xf1_threat": {
+  "central_ratio": 0.01582,
+  "by_H": {
+   "10": 0.1582,
+   "30": 0.05273,
+   "100": 0.01582,
+   "300": 0.00527,
+   "1000": 0.00158
+  },
+  "by_phi_r": {
+   "0.1": 0.01582,
+   "0.3": 0.01582,
+   "0.6": 0.01582,
+   "0.9": 0.01582
+  },
+  "bar_max": 0.05,
+  "pass": true
+ },
+ "xf2_custody": {
+  "central": 509.9,
+  "by_beta": {
+   "1.0": 173.4,
+   "2.0": 509.9,
+   "4.0": 5526.8
+  },
+  "by_phi_r": {
+   "0.1": 8437.7,
+   "0.3": 509.9,
+   "0.6": 114.0,
+   "0.9": 53.3
+  },
+  "bar_min": 5.0,
+  "monotone_rising_in_beta": true,
+  "monotone_falling_in_phi_r": true,
+  "pass": true
+ },
+ "xf3_freshness": {
+  "by_class": {
+   "market": {
+    "tau": 0.01,
+    "steal_over_fresh": 0.0014,
+    "K1_suffices": true,
+    "needs_K2": false
+   },
+   "behavioral": {
+    "tau": 0.5,
+    "steal_over_fresh": 0.0721,
+    "K1_suffices": true,
+    "needs_K2": false
+   },
+   "genomics": {
+    "tau": 20.0,
+    "steal_over_fresh": 0.8451,
+    "K1_suffices": false,
+    "needs_K2": true
+   }
+  },
+  "T_horizon": 10.0,
+  "boundary_threshold": 0.5,
+  "tau_star_yr": 4.35,
+  "boundary_interior": true,
+  "pass": true
+ },
+ "xf4_economy": {
+  "mu_no_custody": 0.163,
+  "mu_with_custody": 0.998,
+  "builder_no_custody": {
+   "med_builder": 73.10100456921818,
+   "share_ge200": 0.057947873665569534,
+   "endog_cov": 0.0817386375298616
+  },
+  "builder_with_custody": {
+   "med_builder": 425.9594719392862,
+   "share_ge200": 0.8831830768682785,
+   "endog_cov": 0.13225061727988352
+  },
+  "mu_bar_min": 0.5,
+  "pass": true
+ },
+ "xf5_participation": {
+  "by_seed": {
+   "seed7": 0.8995,
+   "seed11": 0.9008
+  },
+  "bar_min": 0.6,
+  "central": 0.8995,
+  "by_c_sub": {
+   "0.3": 0.9436,
+   "0.5": 0.8995,
+   "0.7": 0.8634
+  },
+  "pass": true
+ },
+ "xf6_pricing": {
+  "by_seed": {
+   "seed7": {
+    "clearing_no_floor": 6.497608783896624e-05,
+    "f_star": 0.0013522765992676448,
+    "f_star_over_canon": 13.52,
+    "clearing_over_fstar": 0.048,
+    "waiver_share": 0.8952,
+    "mean_ask": 0.0006192885551999492,
+    "vol_at_floor": 0.1795
+   },
+   "seed11": {
+    "clearing_no_floor": 6.391420599188525e-05,
+    "f_star": 0.0013522765992676448,
+    "f_star_over_canon": 13.52,
+    "clearing_over_fstar": 0.0473,
+    "waiver_share": 0.8948,
+    "mean_ask": 0.00062267536022889,
+    "vol_at_floor": 0.1806
+   }
+  },
+  "bars": {
+   "clearing_max": 0.1,
+   "waiver_min": 0.5
+  },
+  "by_N_need": {
+   "0.1": 0.048,
+   "0.5": 0.2212,
+   "1.0": 29.0252
+  },
+  "central": {
+   "clearing_no_floor": 6.497608783896624e-05,
+   "f_star": 0.0013522765992676448,
+   "f_star_over_canon": 13.52,
+   "clearing_over_fstar": 0.048,
+   "waiver_share": 0.8952,
+   "mean_ask": 0.0006192885551999492,
+   "vol_at_floor": 0.1795
+  },
+  "pass_a_collapse": true,
+  "pass_c_waiver": true,
+  "pass": true
+ },
+ "xf7_floor_theft": {
+  "margin_no_custody": {
+   "0.5": 0.000407,
+   "1.0": 0.000914,
+   "2.0": 0.001928,
+   "4.0": 0.003957,
+   "8.0": 0.008014
+  },
+  "margin_with_k2": {
+   "0.5": -0.035721,
+   "1.0": -0.035213,
+   "2.0": -0.034199,
+   "4.0": -0.032171,
+   "8.0": -0.028114
+  },
+  "margin_nondecreasing_in_floor_no_custody": true,
+  "all_margins_negative_with_k2": true,
+  "joint_holds": true,
+  "pass_a_finding": true,
+  "pass_b_joint": true,
+  "pass": true
+ },
+ "xf8_harness": {
+  "participation_agree": [
+   true,
+   0.0014
+  ],
+  "waiver_agree": [
+   true,
+   0.0004
+  ],
+  "fstar_agree": [
+   true,
+   0.0
+  ],
+  "determinism": "verified externally by double run (byte-identical)",
+  "pass": true
+ },
+ "bar_summary": {
+  "XF0": true,
+  "XF1": true,
+  "XF2": true,
+  "XF3": true,
+  "XF4": true,
+  "XF5": true,
+  "XF6": true,
+  "XF7": true,
+  "XF8": true
+ }
+}

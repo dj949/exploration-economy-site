@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v35 - Corporate Wrapper &amp; the Immortality Loophole — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v35 - Corporate Wrapper &amp; the Immortality Loophole.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v35 - Corporate Wrapper &amp; the Immortality Loophole</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v35.0 Corporate Wrapper.md</code> (July 12, 2026). Every number here comes from the committed results file.</em></p>
+<h2 id="the-problem-in-one-paragraph">The problem in one paragraph</h2>
+<p>EDEN's whole defense against permanent aristocracy runs on one fact: <strong>people die.</strong> When you die, your assets stop paying your heirs and start funding the shared floor — so nobody can inherit a money machine, and in our 150-year simulations the old-money elite dissolves to roughly the level pure chance would give (about 10%, where "the same families always stay on top" would be 100%). But a <strong>corporation never dies.</strong> If a company can own EDEN income the way a person can, you just put your assets in a company and hand your kids the shares. Death never comes; the brake never fires. This test measures exactly how bad that would be, and whether a set of proposed rules fixes it.</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>1. The loophole is fully loaded.</strong> Let corporations own EDEN income like people and, after 150 simulated years, <strong>77% of the original wealthy families are still on top</strong> — essentially the same as today's economy (79%), and even worse than the "what if you could buy income streams" nightmare case (68%) this vault tested earlier. Worse, by the end nearly all top-tier wealth (96%) is just corporate shells holding streams. The immortality loophole doesn't dent EDEN's core promise — it deletes it.</p>
+<p><strong>2. The proposed fix closes it — completely, at these dials.</strong> The four rules tested: income always belongs to the <strong>actual people who did the work</strong> (verified the same way all human earning is verified — a company can't pass a liveness test); the company can organize the work and keep a <strong>bounded cut</strong> (we tested 25%) as its coordination fee; company-commissioned assets get a <strong>fixed commercial term</strong> (like a patent — we tested 30 years), after which they fund the floor no matter who's alive; and outside investors get <strong>time-limited revenue shares</strong>, not permanent tradeable shares of the income. Under those rules — <em>with every cheat we could think of switched on</em> — the original elite's persistence is <strong>10.5%, statistically identical to the 10.4% no-corporations baseline.</strong> And here's the beautiful part of the mechanism: a company under these rules can only keep earning by <strong>continuously hiring living people to do new work</strong>. That's not a dynasty. That's just… a company.</p>
+<p><strong>3. The cheats don't pay.</strong> We attacked our own fix: hiring puppet "contributors" who kick the money back (<strong>fails</strong> — the puppet legally owns the stream and can walk away with it; the kickback contract is unenforceable, and our attacker's expected haul was ~22% of a stream that's melting anyway; net effect on dynasties: zero); registering babies or hiring only 20-year-olds to stretch the clock (<strong>fails</strong> — the commercial term expires first); assigning your own assets to your family company (<strong>fails</strong> — the income is still anchored to <em>you</em>, and you still die); dissolving and re-registering the same asset to restart the term (<strong>fails</strong> — you have to pay for real new work, and the expired original now competes with you for free from the commons). We even cranked <em>every</em> dial to its worst at once — an 80% cut, a 100-year term, zero verification, near-perfect kickbacks — and the elite still only reached <strong>17%</strong> after 150 years, versus 77% for the do-nothing case. No single rule is carrying the load; they multiply. That was the run's biggest surprise: we <em>registered</em> an expectation that we'd find danger thresholds on individual dials, and we were wrong — there aren't any. Filed as a failed expectation, in public, per house rules.</p>
+<p><strong>4. Companies still show up.</strong> The fear was that closing the loophole kills corporate participation and stunts the network. Measured: if putting an asset into EDEN reaches about twice the audience of keeping it private, roughly <strong>two-thirds</strong> of the corporate volume that would join under no-rules <em>still joins</em> under the strict rules — rising to ~90% as EDEN's reach grows. And the surprising economics: the coordinator's <strong>cut isn't really what companies pay</strong> — in a competitive hiring market, giving builders their income stream just lowers the wage the company owes them. What companies actually give up is the <em>term</em> — earning for 30 years instead of forever. One honest caveat: this assumes builders mostly value their streams like money when negotiating pay; if they heavily discount them, participation drops — that's a thing to measure in a pilot, not assume.</p>
+<p><strong>5. The "softer" alternative is a trap dressed as a compromise.</strong> We also tested the permissive route: let companies own income outright, but subject corporate holdings to EDEN's existing anti-hoarding taxes and inheritance haircuts. It <em>does</em> hold dynasties near 11% — but only because the top tax band (5%/yr) exceeds what the assets yield (4%/yr), so <strong>no large company would ever hold the position at all.</strong> It "works" by quietly confiscating, which means it's really exclusion — the thing we were trying to avoid — plus it hands corporate critics their best talking point. The strict-but-fair rules beat it on both goals at once.</p>
+<p><strong>6. One new rule is genuinely needed: count shells together.</strong> EDEN caps how much of the shared royalty pool any one node can take. We showed a single owner splitting into 25 shell companies multiplies its take <strong>~25×</strong> — the cap is per-shell, and shells are free. Fix: apply the cap to the <strong>beneficial owner</strong> — the human(s) or parent who ultimately controls the shells — same principle as EDEN's one-person-one-account. That's this run's new rule candidate for ratification.</p>
+<p><em>(Status update, July 18, 2026: ratified. The whole rule set here became </em><em>DR-18, ratified</em><em> — 30-year term, 25% coordinator's cut, and the count-shells-together rule adopted as a gate. The follow-up question this note leaves open — how does EDEN ever</em> learn <em>who the beneficial owner is? — was answered and tested the same week: see <code>EVE Sim v36 - Owner Linkage</code> and </em><em>DR-19, also ratified</em><em> — registering ownership is the only way a company can hold income at all, and the registration itself is the deed.)</em></p>
+<h2 id="the-bottom-line">The bottom line</h2>
+<p><strong>A corporation in EDEN should be a coordinator, never an owner.</strong> Anchor income to mortal humans, put a clock on commissioned works, cap the middleman's cut, and count shells as one owner — and corporate immortality stops being a loophole while companies keep every reason to participate. The one thing no rule here can stop: company shares still trade in the <em>traditional</em> economy, so a well-run coordinator is still worth owning — but what's being owned is a fee on ongoing living work (about 6% of top-tier wealth in our runs), not a perpetual claim on the dead's gardens. That's not a dynasty; that's a business.</p>
+<p><em>Honest limits, briefly: this is a stylized 150-year model — the numbers are orderings and mechanisms, not forecasts; the kickback attack is modeled as expected value, not a full cat-and-mouse game; and two dials (how builders price their streams into wages, how often kickback puppets defect) can only be measured in the real world. All bars were registered before the code ran; the one expectation the run refuted is filed as a failure, not rewritten.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v35-corporate-wrapper-and-the-immortality-loophole-0.png" alt="fig1.png">
+<img src="fig/eve-sim-v35-corporate-wrapper-and-the-immortality-loophole-1.png" alt="fig_v35_corporate_wrapper.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 12, 2026. Spec: <code>v35 SPEC - Corporate Wrapper (registered).md</code> — bars CW0–CW8 fixed before code (one pre-code addendum: the wage-offset θ in the participation model, filed before the engine existed; no bar threshold changed). Engine: <code>corporate_wrapper_sim.py</code> (deterministic; the only RNG is the chassis's labor/initial draws, seeds 7 + 11; import-guarded). Committed: <code>results_v35.json</code>, <code>fig_v35_corporate_wrapper.png</code>. Extends the committed purchase-channel chassis (<code>EVE Sim v3 - Multi-Generational Wealth</code>), whose four committed anchors this engine re-ran in an isolated copy and reproduced exactly (10.4 / 10.2 / 67.7 / 79.2). Every number below traces to <code>results_v35.json</code>. Produced by Claude Fable 5, owner-directed [FABLE] cell — see the INDEX provenance note.</strong></p>
+<p><strong>Verdict in one line: the immortality loophole is real and fully loaded — a corporation allowed to own EVE income the way a human does rebuilds dynasties at 77.1% persistence, <em>worse</em> than the 67.7% buyable-catalog counterfactual and nearly at today's 79.2%, because corporate shares never meet a succession event at all — and the owner's four-rule synthesis (contributor-anchor + commercial term + bounded coordinator's cut + revenue-share financing) closes it to 10.5% against the committed 10.4% mobility line even with the full attack battery running, at two-thirds of naive corporate participation; no single dial reopens the loophole (the registered boundary expectation was refuted in the safe direction — a defense-in-depth finding), the strongest attack (true-contributor kickback) adds ~0pp, and the permissive alternative (tradeable equity under the v29 brake stack) also contains dynasties (11.5%) but only by making large corporate holdings uneconomic — it closes the loophole by confiscation-in-effect where the synthesis closes it by anchoring.</strong></p>
+<h2 id="bar-summary-8-pass-cw4-fails-its-registered-expectation-as-a-finding-the-safe-direction">Bar summary (8 PASS; CW4 FAILS its registered expectation as a finding — the safe direction)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured (seed 7; seed 11 in JSON)</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CW0 anchor/regression</td>
+<td>committed engine re-runs exact; R0 within ±2pp of 10.4; market-mimic within ±3pp of 67.7</td>
+<td>committed rerun <strong>exact</strong> (all four); R0 <strong>10.4</strong> (Δ 0.0); mimic <strong>68.0</strong> (Δ 0.3)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>CW1 the loophole is real</td>
+<td>R1 naive-corp ≥ 50%</td>
+<td><strong>77.1%</strong> (seed 11: 76.9) — above buyable-catalogs 67.7, near today 79.2; wrapper = <strong>96.4%</strong> of top-decile wealth</td>
+<td><strong>PASS</strong> (threat demonstrated)</td>
+</tr>
+<tr>
+<td>CW2 the synthesis closes it</td>
+<td>R2 attacked ≤ 15% and within 5pp of R0</td>
+<td><strong>10.5%</strong> (seed 11: 10.1), gap vs R0 <strong>0.1pp</strong>; wrapper = 6.4% of top-decile wealth</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>CW3 attack battery</td>
+<td>A3 ≤ 1pp; A1 ≤ 5pp; A2 ≤ 3pp; ladder ratio ≤ 1.1×</td>
+<td>A3 <strong>0.0pp</strong>; A1 <strong>−0.1pp</strong>; A2 <strong>0.0pp</strong>; ladder <strong>1.068×</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>CW4 dial boundaries</td>
+<td>single-dial boundaries interior + central dials safe by margins</td>
+<td><strong>No boundary exists in any single-dial sweep</strong> (c, T, s, κ, h all stay 10.2–10.6%); central dials safe</td>
+<td><strong>FAIL — refuted expectation (F4)</strong></td>
+</tr>
+<tr>
+<td>CW5 participation (Q2)</td>
+<td>R2 index ≥ 0.60 of naive at m=2; ≥ 0.80 at m=3; monotone in m</td>
+<td><strong>0.657</strong>; <strong>0.870</strong>; monotone ✓ (θ-sensitive — see F5)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>CW6 permissive alternative</td>
+<td>R2 ≤ R3 ≤ R1 and R3 ≤ 35%</td>
+<td><strong>11.5%</strong> (10.5 ≤ 11.5 ≤ 77.1) — far below the ≤35 expectation</td>
+<td><strong>PASS</strong> (with the participation sting, F6)</td>
+</tr>
+<tr>
+<td>CW7 shells vs the cap</td>
+<td>evasion ≥ 10× at 25 shells; aggregation restores ≤ 1.1×</td>
+<td>evasion <strong>24.7×</strong>; with beneficial-owner aggregation <strong>1.0×</strong></td>
+<td><strong>PASS</strong> (gate candidate)</td>
+</tr>
+<tr>
+<td>CW8 harness</td>
+<td>deterministic; seeds within 3% rel or 1.5pp</td>
+<td>double-run <strong>byte-identical</strong> (JSON + figure); max seed gap 0.9pp (R3)</td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The loophole is worse than "buyable catalogs" (CW1).</strong> Give a corporation human-style ownership of EVE income and dynastic persistence lands at <strong>77.1%</strong> (<code>regimes.R1_naive.seed7.persistence_pct</code>; seed 11: 76.9) — <em>above</em> the committed 67.7% buyable-catalog counterfactual and statistically adjacent to today's 79.2% r&gt;g world. The mechanism is exactly the one the multigen sim's honesty note feared, plus one turn of the screw: a purchased catalog still suffers succession friction when the buyer dies (the committed eden_market triple loses ~46% of the stock per generation to transfer decay and bequest), but <strong>corporate shares held offshore never meet a succession event at all</strong> — the wrapper stock compounds at +3.6%/yr (<code>stacked_extreme_diagnostic.closed_form.naive_net_growth_per_yr</code> = 0.0358 is the same arithmetic) and passes intact. By generation 5, wrapper claims are <strong>96.4%</strong> of top-decile wealth (<code>v_wrap_share_top10</code> = 0.9637): the economy's top tier is no longer people who earn — it is shells that hold. This is the quantified case that EDEN <strong>cannot</strong> treat a corporation as an ownership-person; the Legacy mechanic's entire anti-dynasty force runs through mortality, and a corporation has none.</p>
+<p><strong>F2 — The owner's synthesis closes it, and not by excluding corporations (CW2).</strong> With income anchored to verified contributors (canon §2a's liveness-verified human minting event — a corporation cannot pass it), a bounded coordinator's cut (central 25%), a fixed commercial term (central 30yr), and capital via time-limited revenue shares folded into the cut, dynastic persistence with the <strong>full attack battery running</strong> is <strong>10.5%</strong> vs the same-seed baseline's 10.4% (<code>bars.CW2</code>: gap 0.1pp; seed 11: 10.1 vs 10.1). The structural reason is worth stating precisely, because it is the design insight of the cell: under the synthesis the wrapper's runoff hazard (λ = freshness 0.42% + term 3.33% + contributor mortality 2.22% ≈ <strong>5.97%/yr</strong>) exceeds even the attack-boosted capture rate (δ ≈ <strong>1.67%/yr</strong> at central dials — <code>regimes.R2_synthesis_attacked.seed7.diag</code>), so the corporate asset base <em>decays</em> unless the corp keeps commissioning <strong>new real work</strong>. A structure that must continuously buy living contribution to stay alive is a <strong>firm</strong>, not a dynasty — corporate participation stays (F5), corporate <em>immortality</em> stops mattering, because nothing the corp holds outlives the humans who did the work by more than the term.</p>
+<p><strong>F3 — The registered attacks don't pay (CW3).</strong> Measured as persistence increments over no-attack R2 on paired draws (<code>attacks.increments</code>): <strong>corp-as-heir +0.0pp</strong> — routing your own assets through a family corp changes nothing, the mint-anchor is still your mortal self and the stream still dies at <code>min(your death, term)</code>; <strong>nominee/kickback −0.1pp</strong> (noise-level) — at central dials the attacker's best variant is the <em>true-contributor kickback</em> (capture = κ·S_kick = 0.6 × 0.374 = <strong>0.224</strong> of the contributor share; the fake-puppet variant is worse, 0.037, because 90% of fake anchors fail attestation), and 22% of three-quarters of a decaying stream does not build a fortune; <strong>youngest-life +0.0pp</strong> — hiring 20-year-olds lengthens the contributor's life but the 30-year term binds first, and the kickback still decays at the defection hazard; <strong>term-laddering 1.068×</strong> ≤ the 1.1 bar — re-commissioning a half-strength "v2" at half cost at each expiry is economically ordinary reinvestment (and the commons-ified v1 competes with it for free). The one honest asymmetry: at <em>zero</em> anchoring strictness the attacker flips to fake puppets (<code>stacked_extreme_diagnostic.engine_diag.attacker_prefers</code> = "fake_puppet") — anchoring strictness is what forces the attacker down into the low-yield kickback game, which defection then erodes.</p>
+<p><strong>F4 — REFUTED REGISTERED EXPECTATION (CW4 FAIL, the finding): no single dial reopens the loophole.</strong> The SPEC registered the expectation that the sweeps would locate interior danger boundaries (c*, s*, T*). They do not exist: across coordinator cut 0.10→<strong>0.80</strong>, term 20→<strong>100 years</strong>, anchoring strictness 0.99→<strong>0.0</strong>, kickback 0.3→0.9, and defection 0.20→<strong>0.02</strong>, R2 persistence never leaves <strong>10.2–10.6%</strong> (<code>sweeps.*</code>) — even φ (the share of elite savings thrown at the wrapper) at 0.75 only reaches 10.9%. The closed-form reason: dynastic compounding requires capture δ &gt; runoff λ, capture is bounded by the 4%/yr stream yield times a fraction, and λ always contains 1/T + 1/L — so <strong>no single dial's extreme can cross the wall; it takes all of them at once</strong>. The labeled stacked-extreme diagnostic (not a bar) runs that corner — cut 0.80, term 100yr, zero anchoring, κ 0.9, defection 2%/yr, youngest hires — and even there the machine compounds at only <strong>+0.60%/yr</strong> (vs naive's +3.58%) and reaches <strong>17.2%</strong> persistence at the 150-year horizon (<code>stacked_extreme_diagnostic</code>). The registered expectation was wrong in the safe direction: the synthesis is not a dial-tuned defense but a <strong>defense-in-depth</strong> — term, anchoring, and defection multiply, and the failure region is a five-dial conspiracy, not a threshold. (Bar unmoved; FAIL filed as registered.)</p>
+<p><strong>F5 — Participation survives the rules, and the cut is not the price — the term is (CW5).</strong> At the central reach multiple (EDEN usage = 2× traditional for the same asset), <strong>65.7%</strong> of the corporate check-in volume of the naive regime still opts in under the synthesis (<code>participation.index_central.R2_vs_R1</code>), rising to <strong>87.0%</strong> at m=3 and monotone in m. Two design insights fall out of the closed form: (a) the coordinator-cut barely appears in the participation condition — in a competitive builder market the corp recovers the contributor's stream share as a <strong>wage offset</strong> (θ), so the cut is a <em>split of surplus</em>, not a tax; what the corp actually pays for is the <strong>term</strong> (a 30-year truncated stream is worth 73.5% of a perpetual one at these rates — breakeven reach m = 1.757 vs the naive 1.0, <code>participation.m_breakeven</code>); and (b) this makes the cut ceiling nearly free as policy: sweeping c from 0.10 to 0.80 moves <em>dynasty</em> persistence by 0.3pp (F4), so the ceiling's real function is labor protection and optics, not dynasty defense. <strong>Honest dependency:</strong> θ is load-bearing for this bar — at θ=0.4 (contributors heavily discount their stream share) the index falls to <strong>0.365</strong> (<code>participation.theta_sweep</code>), below the registered 0.60. If real builders won't price their streams into wages, participation is materially worse than headline; θ belongs on the pilot-measurement list.</p>
+<p><strong>F6 — The permissive alternative "works," but by a mechanism the owner should see before choosing it (CW6).</strong> Tradeable corporate equity in EVE income under the existing v29 stack (progressive demurrage on the equity's value at the v1.4 bands + 60%-of-excess non-compounding succession + freshness decay) holds persistence to <strong>11.5%</strong> (seed 11: 10.6; haircut sweep 0.3/0.6/0.9 → 13.0/11.5/11.0) — ordering R2 ≤ R3 ≤ R1 as registered, and far below the ≤35% the SPEC expected. But the participation panel shows <em>how</em>: at the top demurrage band, <strong>5%/yr on equity value exceeds the 4%/yr stream yield — negative carry</strong> — so the breakeven reach multiple for large corporate holders is effectively infinite (<code>participation.m_breakeven.R3_top</code>; small mid-band holders break even at m=2.0). R3 contains dynasties <strong>by making large corporate EVE positions uneconomic to hold</strong>, which is exclusion wearing a market mechanism's clothes — it would suppress the asset inflow Q2 exists to protect and hand the opposition its talking point. R2 dominates R3 on the joint (Q1, Q2) objective. <em>(Also noted: demurrage-on-equity is a design-under-test here, not canon — canon demurrage binds idle cash.)</em></p>
+<p><strong>F7 — The per-node royalty cap does not bite corporate holders without a beneficial-ownership rule (CW7).</strong> On a royalty pool calibrated to the committed dependency-graph concentration (fitted Gini <strong>0.9253</strong> vs committed 0.9264; top-10% 0.892 vs 0.8687 — close, disclosed), a single beneficial owner who splits its position across <strong>25 shells multiplies its capped pool share 24.7×</strong> (<code>cw7_shells.evasion_factor</code>) — the per-node 20× cap is per-<em>node</em>, and shells are free. Applying the cap at the <strong>beneficial-owner level</strong> restores the bound exactly (ratio 1.0). This is the corporate-flavored rhyme of A2 one-person-one-account, and it is the cell's concrete <strong>gate candidate</strong>: caps and W_age must aggregate across common beneficial ownership, or they are shell-theater.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Everything the committed chassis discloses is inherited here (one child per lineage, stylized savings, wealth = stock + 10×income proxy, 6×25-yr generations; ordering robust, magnitudes illustrative). The wrapper layer is closed-form: kickback defection is an <em>expectation</em> (S = λ/(λ+h)), not a strategic game — a clever contract-enforcement technology (reputation staking, escrowed kickbacks) would raise capture above it, though it would have to beat the term and mortality hazards that do most of the work; the offshore share market is a capitalization multiple (δ·A/r), not a traded market with sentiment; REINVEST=1.0 gives the attacker maximal compounding. Participation is an NPV screen with lognormal reach heterogeneity, and <strong>θ (wage offset) is a load-bearing assumption measured nowhere</strong> — registered central 0.7, swept 0.4–0.9, and honestly flagged: at 0.4 the CW5 index fails. R3's demurrage-on-equity applies the v1.4 <em>cash</em> bands to equity value by design hypothesis. The 150-year horizon understates truly patient capital (the stacked extreme's +0.6%/yr would eventually matter at 300 years — but so would three centuries of politics). The pool fit for CW7 overshoots committed top-10% by 2.3pp. No number here is a forecast; the deliverables are the ordering, the mechanism, and the boundary geography.</p>
+<h2 id="recommendation-for-the-owner-to-react-to">Recommendation (for the owner to react to)</h2>
+<p><strong>Adopt the synthesis (R2) as the canon candidate for corporate participation — it closes the immortality loophole at the least cost to legitimate corporate function measured in this cell.</strong> Specifically: (1) <strong>contributor-anchoring is the keystone</strong> — the mint-anchor must pass the existing §2a liveness-verified human-minting test, which a corporation structurally cannot; enforcement strictness matters mainly at the registration step (it forces attackers from full-capture puppetry into defection-eroded kickbacks); (2) <strong>the commercial term is the participation price, set it consciously</strong> — anywhere in 20–40yr the dynasty numbers are indistinguishable (10.3–10.6%), so the choice is a Q2/politics dial, not a Q1 dial; (3) <strong>the coordinator-cut ceiling is a backstop, not a defense</strong> — persistence moves 0.3pp across c ∈ [0.1, 0.8]; set the ceiling for labor-protection optics (25% reads well) and let the builder market do the rest; (4) <strong>do not take the permissive-equity road</strong> (R3): it reaches a similar persistence number by making large corporate holdings uneconomic — exclusion with extra steps, and it forfeits the participation the opt-in boundary is supposed to buy; (5) <strong>new gate candidate: beneficial-owner aggregation</strong> for the per-node royalty cap and W_age (CW7's 24.7× shell evasion is otherwise free); (6) pilot-measure <strong>θ</strong> (do builders actually price their stream share into wages?) and the real-world <strong>defection rate h</strong> — the two dials this cell cannot know. Roads not taken and the full decision framing are recorded in <code>00 DECISION RECORD</code> <strong>DR-18</strong>.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>v35 SPEC - Corporate Wrapper (registered).md</code> — bars CW0–CW8 before code; one pre-code addendum (wage offset θ)</li>
+<li><code>corporate_wrapper_sim.py</code> — chassis + wrapper engine (import-guarded, deterministic)</li>
+<li><code>results_v35.json</code> — every number above; <code>fig_v35_corporate_wrapper.png</code> — four panels</li>
+<li><code>PLAIN LANGUAGE - v35.0 Corporate Wrapper.md</code> — the business-owner companion</li>
+</ul>
+<p><em>Run and written July 12, 2026, by Claude Fable 5 (owner-directed [FABLE] cell; per the standing INDEX provenance rule, the signature is the owner's record, not model evidence). Verification: the committed purchase-channel engine re-ran exactly in an isolated copy (CW0a); the v35 engine double-runs byte-identically (JSON + figure) and seeds 7/11 agree within 0.9pp on every headline; numbering checked against the folder max (v34) before registration. CW4's FAIL is a refuted registered expectation filed as a finding — bar unmoved. Housekeeping: four zero-byte scratch files (<code>run1.json</code>, <code>run1.log</code>, <code>run2.log</code>, <code>fig1.png</code>) from the determinism double-run could not be deleted from the sandbox (mount-blocked, the standing v3-D10 class) — owner: delete in Finder at will.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v35-corporate-wrapper-and-the-immortality-loophole-0.json" download>⬇ results_v35.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

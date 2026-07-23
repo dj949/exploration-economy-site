@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v2 — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v2.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Core monetary model (v1–v4)</div>
+<h1>v2</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - EVE Sim v2</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>v1 showed the bare design needs a patch. v2 asks whether the patched design actually holds. Same population, same horizon, same pre-registered bar (10th-percentile income below essentials for 3+ consecutive months = fail) — but every run now uses the pessimistic finite-data-demand assumption, plus a new kitchen-sink scenario stacking a drought-and-boom on top of data commoditization.</p>
+<h2 id="an-honest-correction-first">An honest correction first</h2>
+<p>v1's governor burned money from the stock without specifying who paid — too generous, because a transaction-fee burn can't raise enough early on. The implementable, committee-free version is a <strong>mint-rate governor</strong>: the EVE-per-hour coefficient is itself a slow protocol formula. The real price of monetary stability without demurrage (which Devan has ruled out): <strong>"1 hour = 1 EVE" becomes "1 hour = c_t EVE"</strong> — still neutral, still formulaic, no human dials, but the time-to-currency rate is a protocol variable, not an eternal constant.</p>
+<h2 id="what-we-found">What we found</h2>
+<p>The two patches fix different leaks, and only both together close the boat. Bare EDEN fails all 5 scenarios from around month 18, with ~10%/yr inflation halving creators' real income (0.49×). Governor-only gets inflation to 0.1%/yr but still fails commoditization and the combined scenario (month 85) — stable prices can't help when data income itself collapses. Floor-only passes all 5 but leaves ~10%/yr inflation that halves creator income anyway, and costs 9–15% of issuance permanently. The full patch — governor + floor + effort-weighting — <strong>passes all 5</strong> with 0.1%/yr inflation, creators <em>gaining</em> 27–73% in real terms, and a floor that costs 0% of issuance in normal times and at most 3.9% under the kitchen sink. Stable prices are what make the floor nearly free — and the full patch is the only configuration where creators get richer.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>The floor's one-month indexation lag causes a single-month dip to ~0.99 at drought onset — it passes under the 3-consecutive-month criterion, but a faster index or small buffer would remove it entirely. The v1 limits carry forward (quantity-theory pricing, no savings buffers, uniform data income, no fraud, fixed population), plus new ones: floor task capacity is assumed unlimited, the governor was tested at one adjustment speed, and the variable mint rate complicates the book's "time as universal constant" narrative and needs framing work.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>With both patches — a formulaic mint-rate governor for prices and a modest earnability floor for incomes — the design passes every scenario under pessimistic assumptions, with near-zero inflation, creators gaining 27–73% in real terms, and a floor costing at most 3.9% of issuance; each patch alone leaves a channel open, since the governor still fails commoditization and the floor still lets inflation halve creators' income.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Pre-registered</strong> — the pass/fail bar was written down before the runs, so results can't be graded on a curve afterward. <strong>10th percentile</strong> — the person poorer than 90% of people; the test asks whether their income covers essentials. <strong>Issuance</strong> — newly created money entering circulation. <strong>Governor</strong> — an automatic, formula-driven limiter with no human dials; here it slowly adjusts the mint rate itself to keep prices stable. <strong>Coefficient (c_t)</strong> — the number you multiply by: how many EVE one hour of engagement creates, which the governor tunes over time. <strong>Demurrage</strong> — a small holding fee on idle money, like a parking meter for cash (ruled out here, which is why the mint-rate governor is the price paid instead). <strong>Indexation</strong> — automatically re-pegging a payment to current prices; the floor updates with a one-month lag, hence the brief dip at drought onset. <strong>Real terms / real income</strong> — what money actually buys after inflation, not the raw number. <strong>Quantity theory</strong> — the pricing rule assumed: more money chasing the same goods means higher prices. <strong>Effort-weighting</strong> — paying active engagement more than passive consumption, so low-effort farming mints less. <strong>Commoditization</strong> — data turning into an interchangeable bulk good whose price collapses.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v2-0.png" alt="fig5_combined_stress.png">
+<img src="fig/eve-sim-v2-1.png" alt="fig6_price_by_design.png">
+<img src="fig/eve-sim-v2-2.png" alt="fig7_full_patch_internals.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Same population, horizon, and pre-registered criterion as v1 (10th-percentile income below essentials for 3+ consecutive months = fail). All runs below use </em><em>finite data demand</em><em> — the pessimistic assumption — and include a new "combined" scenario: drought + engagement boom (yr 8) AND data commoditization (yrs 5–10) together.</em></p>
+<h2 id="a-correction-from-v1-honest-accounting">A correction from v1 (honest accounting)</h2>
+<p>v1's governor burned EVE from the money stock without specifying who paid. That was too generous: a transaction-fee burn can't raise enough early on, because most minting accumulates in large creator balances while spending flows are far smaller. The implementable, committee-free version is a <strong>mint-rate governor</strong>: the EVE-per-hour coefficient <code>c_t</code> is itself a slow protocol formula that keeps net issuance tracking essentials supply growth. Consequence for the design: <strong>"1 hour = 1 EVE" becomes "1 hour = c_t EVE."</strong> Still neutral, still formulaic, no human dials — but the time-to-currency rate is a protocol variable, not an eternal constant. That is the real price of monetary stability without demurrage. (The alternative that preserves a fixed rate is demurrage on large balances, which Devan has ruled out.)</p>
+<h2 id="verdicts-finite-data-demand-all-scenarios">Verdicts — finite data demand, all scenarios</h2>
+<table>
+<thead>
+<tr>
+<th>Design</th>
+<th>Passes all 5 scenarios?</th>
+<th>Inflation (yrs 1–10)</th>
+<th>Median creator real income at yr 15</th>
+<th>Floor cost (end, % of issuance)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bare EDEN (death burn only)</td>
+<td><strong>No — fails all 5</strong> (from month ~18)</td>
+<td>~10%/yr</td>
+<td><strong>0.49×</strong> (halved by inflation)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>+ Governor only</td>
+<td>No — fails commoditization &amp; combined (mo. 85)</td>
+<td><strong>0.1%/yr</strong></td>
+<td>1.38×</td>
+<td>—</td>
+</tr>
+<tr>
+<td>+ Floor only</td>
+<td><strong>Yes — all 5</strong></td>
+<td>~10%/yr</td>
+<td>0.51× (halved)</td>
+<td>9–15%</td>
+</tr>
+<tr>
+<td><strong>Full patch (governor + floor + effort-wt)</strong></td>
+<td><strong>Yes — all 5</strong></td>
+<td><strong>0.1%/yr</strong></td>
+<td><strong>1.27–1.73×</strong></td>
+<td><strong>0–3.9%</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-four-findings">The four findings</h2>
+<p><strong>1. The patches are complements, not alternatives — each fixes a channel the other can't.</strong> The governor fixes the <em>price</em> channel (inflation) but is helpless against the <em>income</em> channel: when data commoditizes, the bottom decile's income collapses regardless of how stable prices are (fails at month 85). The floor fixes the income channel by construction but does nothing about inflation (~10%/yr forever), which silently halves creators' real income — an inflation tax that just moves the victim. Only together do both channels close.</p>
+<p><strong>2. With stable prices, the floor is nearly free.</strong> This is the most encouraging result. Under the full patch, the floor costs <strong>0% of issuance in normal times</strong> and peaks at <strong>3.9% even under the kitchen-sink scenario</strong>. Stable prices mean market data income usually clears the floor on its own; the floor is cheap insurance that activates only in genuine stress. (Floor-only, by contrast, runs at 9–15% of issuance permanently, because inflation keeps dragging market income below the line.) An honest caveat: the floor's one-month indexation lag causes a single-month dip to ~0.99 at drought onset — under the 3-consecutive-month criterion this passes, but a faster index or small buffer would remove it entirely.</p>
+<p><strong>3. The full patch is the only configuration where creators get <em>richer</em> in real terms.</strong> Bare EDEN and floor-only halve the median creator's purchasing power over 15 years — the system's own inflation eats the people it's designed to reward. Under the full patch, median creator real income rises 27–73% depending on scenario. Monetary discipline isn't a tax on creators; it's their protection.</p>
+<p><strong>4. Bare EDEN's failure is structural, not parametric.</strong> Across every scenario including the automation tailwind, bare EDEN goes underwater by month 18–22 and never recovers. The death burn is simply too slow relative to time-bounded minting. v1's sensitivity analysis already showed soft monetary assumptions can rescue it — but a system whose core promise depends on parameters nobody controls is not the system the book describes.</p>
+<h2 id="what-the-patched-eden-looks-like-spec-summary">What the patched EDEN looks like (spec summary)</h2>
+<ol>
+<li><strong>Mint rule:</strong> 1 engaged hour mints <code>c_t</code> EVE to the asset owner, with effort-weighting (passive engagement at 0.3×) and 15% dependency royalties.</li>
+<li><strong>Governor:</strong> <code>c_t</code> adjusts by ≤1%/month, automatically, to keep net issuance tracking essentials supply growth. Formula constitutional; no committee.</li>
+<li><strong>Earnability floor:</strong> any verified person can earn up to 1.1× the essentials basket via protocol-priced baseline contributions (validation, sensing, public-benefit data), indexed to the basket. Top-up only; costs ~0–4% of issuance.</li>
+<li><strong>Death burn + Legacy Assets:</strong> unchanged — kept for its values and long-run discipline, no longer asked to carry short-run stability.</li>
+</ol>
+<p>Under the pre-registered criterion, this configuration <strong>passes every scenario tested, under pessimistic data-demand assumptions, with near-zero inflation and rising creator real incomes.</strong></p>
+<h2 id="limitations-carried-forward">Limitations carried forward</h2>
+<p>Same as v1 (quantity-theory pricing, no savings buffers, uniform data income, no fraud, fixed population), plus: floor task capacity assumed unlimited (in reality useful baseline tasks must exist at scale); governor tested with one adjustment speed (±1%/mo band); the c_t variable rate may complicate the book's "time as universal constant" narrative and needs framing work. v3 candidates: adoption-phase dynamics (the launch decade), heterogeneous data value, an explicit test of the "data self-corrects harmful content" hypothesis, governance capture dynamics.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>eve_sim_v2.py</code> — full model, rerunnable</li>
+<li><code>fig5_combined_stress.png</code> — all four designs under the kitchen-sink scenario</li>
+<li><code>fig6_price_by_design.png</code> — price stability comparison (log scale)</li>
+<li><code>fig7_full_patch_internals.png</code> — mint coefficient, floor cost, creator real income</li>
+<li><code>results_v2.json</code> — all verdicts</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v2-0.json" download>⬇ results_v2.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

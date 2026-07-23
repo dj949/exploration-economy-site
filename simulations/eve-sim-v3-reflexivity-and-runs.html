@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v3 - Reflexivity &amp; Runs — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v3 - Reflexivity &amp; Runs.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Robustness, governance &amp; the ADAM layer (v3 battery)</div>
+<h1>v3 - Reflexivity &amp; Runs</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - Reflexivity &amp; Runs</code>. Companion added July 11, 2026 — the v1–v5-era runs predate the plain-language convention; written from the committed RESULTS as it stands today (including any verification-pass corrections already applied in that file), with no reinterpretation.</em></p>
+<h2 id="the-question">The question</h2>
+<p>Every new currency meets the same critique: "it's a reflexive asset — in a panic it death-spirals to zero, like Terra." This run answers with a simulation instead of an argument: hit a Terra-like design and an EDEN-like design with the identical confidence shock and momentum-driven selling, and see what the structure does.</p>
+<h2 id="read-the-correction-first">Read the correction first</h2>
+<p>A July 2026 verification pass corrected this file's original claim, and the correction governs. The original table and prose said the EDEN-like design "recovers" even at high speculative shares; the committed data says otherwise, and the data is right: recovery within the horizon holds at speculative shares up to ~70% — at 90–95%, the ~90% drawdown does not recover within the simulated window. And "never zero" is a property of the assumed price-insensitive real-demand bid — an assumption the pilot must validate, not a simulation discovery. If EVE's holder base becomes dominantly speculative, this model predicts Terra-adjacent outcomes. Keeping real (machine-pay and floor) demand dominant is a design requirement, not a given.</p>
+<h2 id="what-we-found">What we found</h2>
+<p>Within that boundary, the structural contrast is stark. The same shock that collapses the Terra-like design to zero (5% real demand) leaves EDEN at a 30% speculative share with a ~26% dip that settles back to 1.0×. Two missing ingredients explain why. First, EDEN's demand has a real, counter-cyclical anchor: institutions must pay EVE to use data and people must hold EVE to buy essentials — demand denominated in real terms, so a falling price makes it want <em>more</em> EVE, not less. Terra's demand was almost entirely speculative and yield-chasing. Second, EDEN's issuance ignores price: the governor tracks essentials supply, so a falling price triggers no new minting — while Terra minted more as its price fell, pouring supply onto a falling market and guaranteeing the spiral.</p>
+<p>The depth of the worst case is essentially the speculative share itself: roughly a 7% drop at 10% speculative, ~26% at 30%, ~50% at 50%, ~70% at 70%, ~90% at 90% — with the correction above setting the honest limit on what "recovers" means at the top of that table. The same adoption that drives real machine-pay and floor usage is what makes EVE run-resistant.</p>
+<h2 id="the-honest-catch">The honest catch</h2>
+<p>This is a stylized single-price model: sentiment persistence and momentum are calibrated, not estimated; it omits fiat bridges, order-book microstructure, leverage, and coordinated derivative attacks; and it assumes the real-demand anchor stays genuinely sticky in a panic — if machine-pay buyers also fled, the floor would sit lower (though issuance would still be inert).</p>
+<h2 id="one-line">One line</h2>
+<p><strong>The same panic that takes a Terra-like coin to zero leaves EDEN with a bounded ~26% dip that recovers at a realistic 30% speculative share — because real demand anchors the price and issuance never reacts to it — but the July 2026 correction stands: recovery holds only up to ~70% speculative share, so keeping machine-pay and floor demand dominant is a design requirement, not a given.</strong></p>
+<hr>
+<p><em>Words used here (added July 18, 2026 — plain-language house rule; the text above is unchanged).</em> <strong>Reflexive</strong> — a price that feeds on itself: falling prices trigger selling that causes further falls, belief becoming reality. <strong>Terra</strong> — the algorithmic stablecoin whose 2022 death-spiral to zero erased tens of billions of dollars; the ghost this run interrogates. <strong>Speculative share</strong> — the fraction of holders who own EVE only hoping to sell it higher, with no use for it; the model's key dial. <strong>Drawdown</strong> — the peak-to-bottom drop; a ~26% drawdown means the price fell about a quarter before turning. <strong>Momentum</strong> — selling because the price is falling (and buying because it's rising) — trend-chasing behavior. <strong>Counter-cyclical</strong> — pushing against the cycle: EDEN's real users need <em>more</em> EVE when the price falls, because data and essentials are priced in real terms — which cushions the fall. <strong>Governor</strong> — the automatic mint-rate rule; it tracks essentials supply and ignores price, so a crash triggers no panic-printing. <strong>Issuance</strong> — the creation of new money; "issuance ignores price" is the second structural difference from Terra. <strong>Machine-pay</strong> — institutions must pay people in EVE to use their data — a real demand source assumed not to flee in a panic (an assumption the run flags honestly). <strong>Fiat</strong> — ordinary government money (dollars, euros); fiat bridges are the crossings between it and EVE, left out here. <strong>Order-book microstructure</strong> — the fine mechanics of the standing list of buy and sell offers on an exchange; omitted, so panic plumbing is simplified. <strong>Leverage</strong> — trading with borrowed money, which forces selling in a crash; also omitted. <strong>Calibrated, not estimated</strong> — behavior dials set by hand to plausible values, not measured from data.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v3-reflexivity-and-runs-0.png" alt="fig_reflexivity.png">
+<p class="eyebrow">Technical results</p>
+<p><em>Answers the criticism every new currency faces — "it's a reflexive asset that will death-spiral to zero in a panic, like Terra" — with a simulation instead of an argument. Files in this folder.</em></p>
+<h2 id="correction-july-2026-verification-recovery-is-share-dependent-not-universal">⚠️ CORRECTION (July 2026 verification) — recovery is share-dependent, not universal</h2>
+<p>The table/prose below say the EDEN-like design "recovers" even at high speculative shares; the committed JSON says <code>eden_recovers_at_all_shares: false</code>. The artifact is right: <strong>recovery within the horizon holds at speculative shares up to ~70%; at 90-95% the drawdown (~90%) does not recover within the simulated window.</strong> The defensible claims are: (1) the crash <em>floor</em> scales with the real-demand share (machine-pay + floor demand), so EDEN-at-30%-speculative dips ~26% and recovers where a Terra-like design (5% real) goes to ~zero; and (2) "never zero" is a property of the assumed price-insensitive real-demand bid — an assumption the pilot must validate, not a simulation discovery. If EVE's holder base becomes dominantly speculative, this model predicts Terra-adjacent outcomes; keeping real (machine-pay/floor) demand dominant is a design requirement, not a given.</p>
+<hr>
+<h2 id="the-result">The result</h2>
+<p>A confidence shock that <strong>collapses a Terra-like design to zero</strong> makes EDEN <strong>dip ~26% and recover.</strong> Same shock, same momentum-driven selling; the difference is entirely structural.</p>
+<table>
+<thead>
+<tr>
+<th>After an identical confidence shock</th>
+<th style="text-align: right;">Terra-like design</th>
+<th style="text-align: right;">EDEN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Price trough</td>
+<td style="text-align: right;">→ 0 (death spiral)</td>
+<td style="text-align: right;">0.74× (a 26% dip)</td>
+</tr>
+<tr>
+<td>Where it settles</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">back to 1.0×</td>
+</tr>
+<tr>
+<td>Why</td>
+<td style="text-align: right;">no real demand + issuance mints <em>more</em> as price falls</td>
+<td style="text-align: right;">real-demand price floor + issuance that ignores price</td>
+</tr>
+</tbody>
+</table>
+<h2 id="why-eden-cant-death-spiral">Why EDEN can't death-spiral</h2>
+<p>A reflexive collapse needs two ingredients, and EDEN is missing both:</p>
+<ol>
+<li><strong>EDEN's demand has a real, counter-cyclical anchor.</strong> A large share of demand for EVE is <em>non-speculative</em>: institutions must pay EVE to use data (machine-pay), and people must hold EVE to buy essentials (the floor). This demand exists regardless of price — and because it's denominated in <em>real</em> terms, a falling price makes it want <em>more</em> EVE, not less (an institution needing $1m of data buys more EVE as EVE gets cheaper). That sets a hard price floor at the real-demand level. Terra's demand was almost entirely speculative/yield-chasing, with no such floor.</li>
+<li><strong>EDEN's issuance ignores price.</strong> The governor adjusts issuance to track essentials supply, <em>not</em> the EVE price. So a falling price triggers <strong>no</strong> new minting. Terra did the opposite — it minted more when the price fell (to "defend the peg"), which poured supply onto a falling market and guaranteed the spiral.</li>
+</ol>
+<p>With a real floor under demand and an inert money supply, a panic can only push the price down to where real users re-anchor it; momentum can frighten speculators, but it cannot manufacture the runaway supply or evaporate the real demand needed to reach zero.</p>
+<h2 id="the-honest-boundary-panic-resistance-scales-with-real-demand">The honest boundary: panic-resistance scales with <em>real</em> demand</h2>
+<p>EDEN's worst case is a <strong>bounded</strong> dip to its real-demand floor — and the depth of that dip is essentially the <strong>speculative share of demand</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Speculative share of demand</th>
+<th style="text-align: right;">Max price drop in the panic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10%</td>
+<td style="text-align: right;">~7%</td>
+</tr>
+<tr>
+<td>30%</td>
+<td style="text-align: right;">~26%</td>
+</tr>
+<tr>
+<td>50%</td>
+<td style="text-align: right;">~50%</td>
+</tr>
+<tr>
+<td>70%</td>
+<td style="text-align: right;">~70%</td>
+</tr>
+<tr>
+<td>90%</td>
+<td style="text-align: right;">~90% (but <strong>not</strong> zero — and it recovers)</td>
+</tr>
+</tbody>
+</table>
+<p>So an EVE whose demand is mostly real (machine-pay + floor usage) barely flinches in a panic; an EVE that has become mostly a speculative chip takes a deep — but still bounded and recoverable — hit. <strong>The same adoption that drives real machine-pay and floor usage is also what makes EVE run-resistant.</strong> The design implication is to cultivate real utility demand and not let EVE become predominantly a speculative instrument; at no speculative share does it reach zero, because issuance never reacts to price.</p>
+<h2 id="what-this-validates">What this validates</h2>
+<p>This is the criticism most likely to be leveled by crypto-native skeptics, and it's now answered structurally rather than rhetorically: <strong>EVE is not a reflexive asset.</strong> Its two anti-reflexive properties (real-anchored, counter-cyclical demand; price-inert issuance) are exactly the two things Terra lacked, and the simulation shows the same shock that destroys the reflexive design leaves EDEN with a recoverable dip.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>A stylized single-price dynamic model. Sentiment persistence and the momentum gain are calibrated, not estimated. It doesn't model the actual fiat bridges, order-book microstructure, leverage, or a sophisticated coordinated attack using derivatives — and it assumes the real-demand anchor is genuinely sticky (if machine-pay buyers <em>also</em> fled in a panic, the floor would sit lower, though issuance would still be inert). The robust, structural claims are the two that don't depend on calibration: <strong>no spiral to zero</strong> (because issuance ignores price and real demand is positive) and <strong>drawdown bounded by the speculative share.</strong> Audience: crypto reviewers and anyone invoking the Terra comparison.</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>reflexivity_sim.py</code> — the demand/price dynamic, EDEN vs Terra-like, and the speculative-share sweep</li>
+<li><code>fig_reflexivity.png</code> — price paths after a shock; max drawdown vs speculative share</li>
+<li><code>results_reflexivity.json</code> — all figures</li>
+</ul>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v3-reflexivity-and-runs-0.json" download>⬇ results_reflexivity.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

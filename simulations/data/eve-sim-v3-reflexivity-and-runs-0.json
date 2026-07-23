@@ -1,0 +1,30 @@
+{
+  "headline": {
+    "eden_trough": 0.737,
+    "eden_recovered_to": 1.0,
+    "terra_final": 0.0,
+    "eden_real_anchor_floor": 0.7
+  },
+  "drawdown_by_speculative_share": {
+    "10pct": 7.0,
+    "15pct": 10.8,
+    "20pct": 15.4,
+    "25pct": 20.6,
+    "30pct": 26.3,
+    "35pct": 32.5,
+    "40pct": 40.0,
+    "44pct": 45.0,
+    "50pct": 50.0,
+    "54pct": 55.0,
+    "60pct": 60.0,
+    "64pct": 65.0,
+    "70pct": 70.0,
+    "74pct": 75.0,
+    "80pct": 80.0,
+    "84pct": 85.0,
+    "89pct": 90.0,
+    "95pct": 95.0
+  },
+  "eden_recovers_at_all_shares": false,
+  "why": "EDEN can't spiral to zero for two structural reasons: real demand (machine-pay + the essentials floor) sets a price floor V_real/M, and issuance does not react to price (the governor tracks essentials supply, not price). Terra had neither \u2014 demand was speculative and issuance was reflexive \u2014 so the same shock collapsed it."
+}

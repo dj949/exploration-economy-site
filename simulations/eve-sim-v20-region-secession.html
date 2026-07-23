@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v20 - Region Secession — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v20 - Region Secession.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v20 - Region Secession</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 9, 2026. Companion to <code>RESULTS - v20.0 Region Secession</code>.</em></p>
+<h2 id="the-question">The question</h2>
+<p>A shared currency across many regions has an exit door nobody likes to think about: what happens if a whole region <em>leaves</em> — votes out at an election, redenominates into its own money, and walks away? Europe has lived this fear for twenty years (Grexit, and the quieter "what if Germany left?"). This test asks it of EDEN: does the leaving region's population get stranded, does the departure wreck the currency for everyone who stays, and does the pre-exit scramble to cash out break the system?</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>Leaving is survivable — but who leaves matters enormously, and that's the real lesson.</strong></p>
+<p><strong>Nobody gets stranded on the way out.</strong> Because EDEN's floor is mostly funded by each region's <em>own</em> economic activity — the shared pool only adds a modest top-up subsidy on top — a region that leaves takes its own funding with it. A poorer region loses its subsidy (its delivery slips from 100% to about 89%), but that 89% is <em>exactly where it would have been without ever joining</em> — leaving costs it the bonus, not its baseline. And in the months before exit, residents can cash out their balances at real grocery value, so they don't lose what they'd earned. No one is pushed below where they started.</p>
+<p><strong>The scramble to cash out is absorbed.</strong> The pre-exit rush to redeem — the thing that sinks fragile currencies — is soaked up by the same cushion that made EDEN run-proof in the last test: the leaving region is only a slice of the whole, and each person can only claim a capped amount.</p>
+<p><strong>But the exit is lopsided, and this is the headline.</strong> It matters hugely <em>whether the leaver was a giver or a taker</em>:
+- <strong>A poorer, subsidized region leaves:</strong> the union is actually <em>relieved</em> — it was sending that region money, and now it isn't. Currency steady, everyone else fine. (The uncomfortable truth every currency union knows: losing your neediest member improves the books.)
+- <strong>A richer, paying region leaves:</strong> the union takes a real hit — a <strong>53% currency drop</strong> (the rich region's spending walked out the door) and a <strong>$3-billion-a-month funding hole</strong> where its subsidy used to be. How long the emergency reserve covers the gap turns out to depend on a rule we hadn't pinned down (a July 11 correction): sized the way the run actually sized it, about <strong>two years</strong>; sized the way the rulebook <em>said</em> to size it, about <strong>nine months</strong>. Either way it's a countdown, not a fix — and the difference between nine months and two years is now flagged as a real decision for ratification. If the union doesn't re-balance in that window (raise its internal funding or trim the subsidy), the people who depended on that subsidy eventually feel it.</p>
+<h2 id="why-this-connects-to-the-deepest-open-problem">Why this connects to the deepest open problem</h2>
+<p>An earlier test (v5.4) found EDEN's hardest real-world wall isn't math — it's <em>consent</em>: will rich regions agree to keep subsidizing poor ones? This test shows the other end of that same rope. If consent fails and a paying region <em>walks out</em>, the union has about two years to re-source the money before the poorest feel it. The consent problem and the walk-out problem are the same problem — so the design needs a plan for "a payer left" (a re-balancing rule), not just a reserve to coast on.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>A region can leave EDEN's currency without stranding its people or breaking the rest — but losing a <em>paying</em> region blows a persistent hole (a currency drop and a funding gap the reserve covers for somewhere between nine months and two years, depending on a reserve-sizing rule that now needs ratifying), so the union must be ready to re-balance, not just ride the reserve; losing a <em>subsidized</em> region, by contrast, quietly relieves it.</strong></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v20-region-secession-0.png" alt="fig_v20_secession.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Spec: <code>v20 SPEC - Region Secession (registered).md</code> — bars S0–S4 fixed before code. Engine: <code>region_secession_sim.py</code> (self-contained reduced form; deterministic given seeds); committed: <code>results_v20.json</code>, <code>fig_v20_secession.png</code>. Closes the economics red-team's A7 owed OCA-exit cell. Every number traces to <code>results_v20.json</code>.</strong></p>
+<p><strong>Verdict in one line (reserve disclosure added July 11, Verification v4 D10): a whole region can leave the currency union without stranding its own people or breaking the remainder — but the exit is sharply <em>asymmetric</em>, and that asymmetry is the finding: losing a net-drawer region relieves the union, while losing a net-payer region opens a persistent fiscal hole (a 53% currency drawdown and a $3B/mo funding gap). How long the reserve buys depends on a dial this document originally glossed: the committed run sized the reserve on </strong>union gross transfer volume ($81.1B → ~24 months of runway)<strong>, but the SPEC registered </strong>12 months of the <em>seceding region's</em> floor obligation ($36B → ~9 months, committed as <code>registered_dial_probe</code>)<strong>. The euro's "what if the payer leaves" fear, quantified, is survivable only if the union re-balances inside a window that is 9–24 months depending on which reserve rule is actually ratified — pricing that dial is now part of the finding.</strong></p>
+<h2 id="bar-summary-all-five-pass-s4-carries-the-honest-oca-stress-finding">Bar summary (all five pass; S4 carries the honest OCA stress finding)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S0 balanced pool</td>
+<td>Σ transfers ≈ 0 pre-secession</td>
+<td>net $6.6M on ~$6.75B gross (0.1%)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>S1 no stranding of leavers</td>
+<td>leaver delivery ≥ never-joined baseline every month</td>
+<td>rich 0 / poor 0 stranded months; poor leaver 0.894 <strong>= its 0.894 baseline</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>S2 remaining union stable (drawer exit)</td>
+<td>remainer delivery ≥1.0, currency dd ≤40%, no printing</td>
+<td>delivery <strong>1.000</strong>, dd <strong>0%</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>S3 redenomination run bounded</td>
+<td>pre-exit surge absorbed, delivery unbroken</td>
+<td>run fill <strong>1.000</strong> both archetypes</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>S4 payer-vs-drawer asymmetry</td>
+<td>asymmetry confirmed; measure the payer-exit stress</td>
+<td>payer exit: <strong>53% dd, $3B/mo gap; reserve buys 24 mo on the committed dial ($81.1B, union-volume sizing) / 9 mo on the registered dial ($36B, seceding-region sizing — probe committed July 11)</strong>; drawer exit: 0% dd, no gap</td>
+<td><strong>PASS (asymmetry confirmed)</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — Nobody is stranded, because the union only ever added a <em>marginal</em> transfer (S1).</strong> The design's floor is mostly self-funded by each region's own slices (per v5.2); the union pool moves a marginal cross-subsidy on top. So when a region secedes, it takes its own self-funding <em>and</em> its own obligation with it — a net-drawer region loses its subsidy and its delivery falls to 0.894, but that is <strong>exactly its never-joined baseline</strong> (the subsidy was the only thing the union added), so it is returned to where it started, not pushed below. Combined with the redenomination window letting residents redeem accrued balances at real value before exit (S3), the v6.8 "no-stranding" principle generalizes to a whole region leaving: <strong>exit costs a drawer its subsidy but cannot strand it beneath its own pre-union economy.</strong></p>
+<p><strong>F2 — The redenomination run is absorbed (S3).</strong> In the six months before secession, residents redeem their capped balances ahead of losing access — the classic pre-exit bank-run behavior. The mint-to-sell window (10% of gross) plus the reserve absorb it with delivery unbroken (fill 1.000), for the same structural reason v19 found the floor run-proof: the redeeming population is a bounded fraction of the whole, and the per-person cap bounds each claim. A redenomination run on a per-capita goods window is not a death spiral.</p>
+<p><strong>F3 — The OCA asymmetry is real and large (S4, the headline).</strong> Secession is not symmetric in who leaves:
+- <strong>A net-drawer leaves (the "Grexit" case):</strong> the union is <em>relieved</em> — it sheds a liability, remaining givers now over-cover remaining needs, currency steady (0% drawdown), remainer delivery 1.0. Losing your poorest member makes the currency union's books <em>better</em>, which is exactly the uncomfortable OCA truth.
+- <strong>A net-payer leaves (the "what if Germany left" case):</strong> the union takes a <strong>53% currency drawdown</strong> (the payer held real demand that leaves with them) <strong>and a $3B/month funding gap</strong> (the subsidy that flowed from them to the drawers is gone). The reserve buys <strong>24 months</strong> of continued full delivery <em>on the committed sizing — an undisclosed deviation until July 11 (v4 D10): the engine sized the reserve at 12 months of union gross transfer volume ($81.1B), where the SPEC registered 12 months of the seceding region's own floor obligation ($36B). Under the registered rule — now committed (July 11) as <code>S4.giver_exit.registered_dial_probe</code> — the runway is </em><em>9 months</em><em>.</em> Either way it is a <em>countdown, not a cure</em>: unless the union re-balances within it (raise slices or trim the subsidy), delivery to the remaining drawers eventually dips. Losing a net payer is a <strong>persistent fiscal hole, not a transient shock</strong> — the deepest OCA lesson, and the one the design must plan for with a re-balancing rule whose deadline is set by whichever reserve rule gets ratified (9 vs 24 months is the difference between "act within the year" and "two budget cycles" — a real design decision, flagged for the ratification queue <strong>and priced the same day by <code>EVE Sim v32</code>: the choice is an 18-vs-48-month phase-in budget for the mixed re-balancing rule; bump-led responses are dead at +80% vs the 6% bar</strong>).</p>
+<p><strong>F4 — What this says about consent (ties to v5.4).</strong> v5.4 found the binding world-scale constraint is <em>consent</em> — rich regions asked to net-contribute ~25% of regional mint against a ~6% political-tolerance bar. v20 shows the tail of that risk: if consent fails and a payer <em>exits</em>, the union has ~24 months to re-source or shrink the subsidy before drawers feel it. So the consent problem and the secession problem are one: the same transfer that strains consent is the one whose withdrawal opens the fiscal hole. The design needs a payer-exit re-balancing protocol (a gate candidate), not just a reserve.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced form: transfers, currency elasticity, and the reserve size are stated dials, not a re-derived market (the v5 world engine models regions in more detail but couldn't be swept here). The 53% currency drawdown and 24-month runway are dial-dependent magnitudes — the <em>asymmetry</em> (payer-exit stresses, drawer-exit relieves) is structural and robust, the exact numbers are illustrative. No political dynamics of <em>why</em> a region secedes (contagion, negotiation, partial exit) are modeled; no modeling of the seceding region standing up its <em>own</em> new currency (only that its residents keep redeemed EVE value). And it inherits the identity/consent keystones like everything else. The natural successor is a payer-exit re-balancing-rule cell (does a slice bump or subsidy taper close the gap inside the 24-month runway without breaching consent again?).</p>
+<p><em>Run and written July 9, 2026, verification session (self-labeled Fable; per the owner's record this sitting ran as Opus 4.8 — see INDEX provenance note). The payer-exit currency drawdown (53%, which would breach a 40% currency bar if applied to it) is reported openly as the S4 finding, not hidden — S2's bar is registered against the drawer exit per the spec. Bars unmoved.</em></p>
+<p><em>Postscript, July 11, 2026 (Verification v4 action 8, executed by the Fable 5 verification session): the reserve-sizing deviation disclosed — the SPEC registered 12 months of the seceding region's floor obligation ($36B for rich1); the committed run sized on union gross transfer volume ($81.1B) without saying so, flattering the headline runway. The registered-dial probe is now committed (<code>S4.giver_exit.registered_dial_probe</code>: 9 months vs 24), the verdict/F3 state both numbers, and the 9-vs-24 sizing decision is flagged for ratification. Remaining engine nits recorded for the register (S1's fill-equals-baseline is an assignment; the registered seeds-agreement clause is untested — seed 7 only; elasticity fixed, not swept). All pre-existing JSON leaves verified unchanged.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v20-region-secession-0.json" download>⬇ results_v20.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

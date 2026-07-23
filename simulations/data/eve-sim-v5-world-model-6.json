@@ -1,0 +1,47 @@
+{
+  "v51_tau10_all": {
+    "label": "v5.1 tau=10.0y adopt=all",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 0,
+    "world_topup_share_max": 20.47,
+    "world_floor_cost_share_end": 23.34,
+    "max_region_net_contrib_pct": 20.3,
+    "price_idx_end": 0.823,
+    "fraud_share_max": 0.0,
+    "failing": [],
+    "corrected_net_contrib_max_pct": 46.0,
+    "corrected_net_contrib_end_pct": 18.7,
+    "months_to_corrected_below_6pct": null
+  },
+  "v51_tau5_all": {
+    "label": "v5.1 tau=5.0y adopt=all",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 0,
+    "world_topup_share_max": 19.38,
+    "world_floor_cost_share_end": 19.75,
+    "max_region_net_contrib_pct": 20.3,
+    "price_idx_end": 0.762,
+    "fraud_share_max": 0.0,
+    "failing": [],
+    "corrected_net_contrib_max_pct": 44.0,
+    "corrected_net_contrib_end_pct": 14.9,
+    "months_to_corrected_below_6pct": null
+  },
+  "v51_tau20_all": {
+    "label": "v5.1 tau=20.0y adopt=all",
+    "any_region_fails_3mo": false,
+    "n_regions_failing": 0,
+    "worst_breach_months": 0,
+    "world_topup_share_max": 21.24,
+    "world_floor_cost_share_end": 28.49,
+    "max_region_net_contrib_pct": 20.4,
+    "price_idx_end": 0.887,
+    "fraud_share_max": 0.0,
+    "failing": [],
+    "corrected_net_contrib_max_pct": 47.3,
+    "corrected_net_contrib_end_pct": 23.9,
+    "months_to_corrected_below_6pct": null
+  }
+}

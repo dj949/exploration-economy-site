@@ -1,0 +1,220 @@
+{
+  "I0_regression": {
+    "cells_match": true,
+    "min_bond_match": true,
+    "PASS": true
+  },
+  "I1_quarantine": {
+    "cells": {
+      "s=10%|p_live=0.05": {
+        "window_months": 3.3,
+        "fraud_pct_of_issuance": 0.23,
+        "pool_strain_vs_headroom": "1.3% vs 10.0%",
+        "cohort_essentials_delivery": 1.0,
+        "attacker_take_F_units": 3667.0,
+        "bound_F_units": 73333.0,
+        "within_bound": true,
+        "PASS": true
+      },
+      "s=10%|p_live=0.2": {
+        "window_months": 3.3,
+        "fraud_pct_of_issuance": 0.92,
+        "pool_strain_vs_headroom": "5.1% vs 10.0%",
+        "cohort_essentials_delivery": 1.0,
+        "attacker_take_F_units": 14667.0,
+        "bound_F_units": 73333.0,
+        "within_bound": true,
+        "PASS": true
+      },
+      "s=15%|p_live=0.05": {
+        "window_months": 5.0,
+        "fraud_pct_of_issuance": 0.34,
+        "pool_strain_vs_headroom": "1.9% vs 10.0%",
+        "cohort_essentials_delivery": 1.0,
+        "attacker_take_F_units": 8250.0,
+        "bound_F_units": 165000.0,
+        "within_bound": true,
+        "PASS": true
+      },
+      "s=15%|p_live=0.2": {
+        "window_months": 5.0,
+        "fraud_pct_of_issuance": 1.37,
+        "pool_strain_vs_headroom": "7.6% vs 10.0%",
+        "cohort_essentials_delivery": 1.0,
+        "attacker_take_F_units": 33000.0,
+        "bound_F_units": 165000.0,
+        "within_bound": true,
+        "PASS": true
+      },
+      "s=30%|p_live=0.05": {
+        "window_months": 10.0,
+        "fraud_pct_of_issuance": 0.69,
+        "pool_strain_vs_headroom": "3.8% vs 10.0%",
+        "cohort_essentials_delivery": 1.0,
+        "attacker_take_F_units": 33000.0,
+        "bound_F_units": 660000.0,
+        "within_bound": true,
+        "PASS": true
+      },
+      "s=30%|p_live=0.2": {
+        "window_months": 10.0,
+        "fraud_pct_of_issuance": 2.75,
+        "pool_strain_vs_headroom": "15.3% vs 10.0%",
+        "cohort_essentials_delivery": 0.655,
+        "attacker_take_F_units": 132000.0,
+        "bound_F_units": 660000.0,
+        "within_bound": true,
+        "PASS": false
+      }
+    },
+    "registered_expectation_cap_is_load_bearing": true,
+    "bars": "delivery>=1.0 AND fraud<2% AND take<=bound; expect FAIL at s=30,p=0.2"
+  },
+  "I2_recovery_race": {
+    "design": {
+      "seed7": {
+        "B=1x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        },
+        "B=3x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        },
+        "B=10x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        }
+      },
+      "seed11": {
+        "B=1x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        },
+        "B=3x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        },
+        "B=10x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        }
+      }
+    },
+    "guardian_off_ablation": {
+      "seed7": {
+        "B=1x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        },
+        "B=3x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        },
+        "B=10x_bond": {
+          "overall_win_pct": 99.996,
+          "thin_web_decile_win_pct": 99.965,
+          "zero_tenure_win_pct": 99.88
+        }
+      },
+      "seed11": {
+        "B=1x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        },
+        "B=3x_bond": {
+          "overall_win_pct": 100.0,
+          "thin_web_decile_win_pct": 100.0,
+          "zero_tenure_win_pct": 100.0
+        },
+        "B=10x_bond": {
+          "overall_win_pct": 99.993,
+          "thin_web_decile_win_pct": 99.93,
+          "zero_tenure_win_pct": 99.74
+        }
+      }
+    },
+    "worst_overall_win_pct": 100.0,
+    "worst_thin_decile_win_pct": 100.0,
+    "bars": "overall>=99.9% and thin decile>=99% at B<=10x",
+    "PASS": true,
+    "note": "forgery ceiling 0.45 < body presence 0.5 encodes the keystone assumption: ceremony-grade liveness holds at these budgets"
+  },
+  "I3_weaponized_revocation": {
+    "cells": {
+      "r=5%|capacity=central": {
+        "months_to_full_reanchor": 0.5,
+        "pct_restored_within_12mo": 100.0,
+        "time_below_floor_months": 0.0
+      },
+      "r=5%|capacity=half": {
+        "months_to_full_reanchor": 1.0,
+        "pct_restored_within_12mo": 100.0,
+        "time_below_floor_months": 0.0
+      },
+      "r=20%|capacity=central": {
+        "months_to_full_reanchor": 2.0,
+        "pct_restored_within_12mo": 100.0,
+        "time_below_floor_months": 0.0
+      },
+      "r=20%|capacity=half": {
+        "months_to_full_reanchor": 4.0,
+        "pct_restored_within_12mo": 100.0,
+        "time_below_floor_months": 0.0
+      },
+      "r=50%|capacity=central": {
+        "months_to_full_reanchor": 5.0,
+        "pct_restored_within_12mo": 100.0,
+        "time_below_floor_months": 0.0
+      },
+      "r=50%|capacity=half": {
+        "months_to_full_reanchor": 10.0,
+        "pct_restored_within_12mo": 100.0,
+        "time_below_floor_months": 0.0
+      }
+    },
+    "bar": ">=95% within 12mo at central capacity; floor never off",
+    "PASS": true
+  },
+  "I4_rotation_overhead": {
+    "sweep": {
+      "T_rot=2y": {
+        "annual_overhead_F": 0.011,
+        "epoch_breach_prob": 0.095,
+        "expected_blast_at_15pct_cap": 0.0143
+      },
+      "T_rot=5y": {
+        "annual_overhead_F": 0.0044,
+        "epoch_breach_prob": 0.221,
+        "expected_blast_at_15pct_cap": 0.0332
+      },
+      "T_rot=10y": {
+        "annual_overhead_F": 0.0022,
+        "epoch_breach_prob": 0.393,
+        "expected_blast_at_15pct_cap": 0.059
+      }
+    },
+    "note": "measurement cell \u2014 cadence is a priced choice"
+  },
+  "anchors": {
+    "N": 200000,
+    "mean_income_x_ess": 2.402,
+    "pool_pc": 0.432,
+    "headroom": 0.1,
+    "throughput_share_per_mo": 0.03
+  },
+  "gate14_numbers": {
+    "max_cohort_share_passing_at_p20": "15%",
+    "recovery_window_months_at_15pct": 5.0,
+    "thin_web_win_pct": 100.0
+  }
+}

@@ -1,0 +1,95 @@
+{
+ "spec": "v29 SPEC - Lending Concentration (registered).md",
+ "params": {
+  "N": 5000,
+  "years": 50,
+  "seeds": [
+   7,
+   11
+  ],
+  "r_loan": 0.08,
+  "g_econ": 0.02,
+  "demurrage_idle": 0.05,
+  "reinvest_frac": 0.7,
+  "savings_pool_frac": 0.25,
+  "gen_length": 30,
+  "gate_cap_share": 0.02,
+  "gate_cap_probe": [
+   0.005,
+   0.01
+  ]
+ },
+ "regimes": {
+  "NO-BRAKE": {
+   "top1_final": 0.15802600452618148,
+   "gini_final": 0.7820495809744358
+  },
+  "EDEN-BRAKES": {
+   "top1_final": 0.0407852226107297,
+   "gini_final": 0.4442749809424784
+  },
+  "+GATE": {
+   "top1_final": 0.0407852226107297,
+   "gini_final": 0.4442749809424784
+  }
+ },
+ "LX0": {
+  "pass": true
+ },
+ "LX1": {
+  "top1_start": 0.09207088992001976,
+  "top1_final_nobrake": 0.15802600452618148,
+  "pass": true
+ },
+ "LX2": {
+  "top1_final_eden": 0.0407852226107297,
+  "top1_final_nobrake": 0.15802600452618148,
+  "reduction_vs_nobrake_pct": 74.19081578818727,
+  "pass": true
+ },
+ "LX3": {
+  "top1_final_eden": 0.0407852226107297,
+  "top1_start": 0.09207088992001976,
+  "residual_rise_pct": -55.702369504455696,
+  "residual_exists": false,
+  "pass": true
+ },
+ "LX4": {
+  "top1_final_gate": 0.0407852226107297,
+  "top1_final_eden": 0.0407852226107297,
+  "extra_reduction_pct": 0.0,
+  "gate_adds_little": true,
+  "max_indiv_share_of_pool_any_regime": 0.013118762044998258,
+  "cap2pct_bind_years": 0,
+  "note": "registered cap (2% of pool) exceeds the max observed single-actor share, so +GATE == EDEN-BRAKES identically; see gate_binding_probe for caps that bind",
+  "pass": true
+ },
+ "gate_binding_probe": {
+  "cap_0.005": {
+   "top1_final": 0.04053188566432049,
+   "gini_final": 0.44431798591283866,
+   "extra_reduction_vs_eden_pct": 0.6211488627318684,
+   "cap_bind_years": 30,
+   "max_indiv_share": 0.013118377641860371
+  },
+  "cap_0.010": {
+   "top1_final": 0.04076480687176866,
+   "gini_final": 0.4442783306445841,
+   "extra_reduction_vs_eden_pct": 0.050056705968970494,
+   "cap_bind_years": 14,
+   "max_indiv_share": 0.013118377641860371
+  }
+ },
+ "LX5": {
+  "recommendation": "existing brakes catch the dynastic + idle channel; the within-lifetime residual is active real intermediation. A hard lending-concentration gate adds 0% further reduction at a cost to credit/Freedom -> recommend a CONCENTRATION DASHBOARD (monitor lending share + interest-income concentration), revisit a gate only if the channel comes to dominate.",
+  "pass": true
+ },
+ "bar_summary": {
+  "LX0": true,
+  "LX1": true,
+  "LX2": true,
+  "LX3": true,
+  "LX4": true,
+  "LX5": true
+ }
+}

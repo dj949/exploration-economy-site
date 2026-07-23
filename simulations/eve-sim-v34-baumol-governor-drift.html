@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v34 - Baumol Governor Drift — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v34 - Baumol Governor Drift.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v34 - Baumol Governor Drift</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>Companion to <code>RESULTS - v34.0 Baumol Governor Drift.md</code>. This cell answers a classic economist's objection (the "Baumol" one) on the same hundred-year "Horizon" world we built in v7. Like v7, it's a thought experiment with discipline, not a forecast — the most speculative kind of model we run, and it says so.</em></p>
+<h2 id="what-cost-disease-is-in-one-breakfast">What "cost disease" is (in one breakfast)</h2>
+<p>Some things get cheaper every year because machines get better at making them — TVs, solar panels, software. Other things stubbornly don't, because they <em>are</em> human time: a haircut, a nursing shift, a music lesson, childcare, an hour of therapy. This is <strong>Baumol's cost disease</strong>: over decades, the stuff that can't be automated gets more and more expensive <em>relative</em> to the stuff that can. A TV that cost a week's wages now costs an afternoon's; an hour of eldercare costs more than it used to. Nobody did anything wrong — it's just that productivity races ahead in one place and crawls in another.</p>
+<p>Now here's the sharp question for EDEN. EDEN's currency has a <strong>"governor"</strong> — an automatic rule that decides how much new money to create, aimed at keeping prices stable. But <em>which</em> prices? If the governor watches the <strong>whole economy's average</strong> productivity, the average is dragged upward by the fast, cheapening tech sector. Tune the money supply to that racing average, and you'll quietly let the <em>slow</em> things — the care, the essentials — keep getting more expensive, because you were watching the wrong dial. Over a century, could that drift break EDEN's promise: the floor, the funding, or price stability?</p>
+<h2 id="first-we-checked-our-own-ruler-bm0">First, we checked our own ruler (BM0)</h2>
+<p>Before testing anything new, we re-ran the <em>actual</em> v7 engine and reproduced its headline exactly — the generational floor funds itself at <strong>year 65</strong> (year 64 on the second random seed; the two agree). And we confirmed that when we switch the cost-disease split <strong>off</strong>, our new two-sector model collapses back to a plain one-sector world with zero drift. Our ruler is straight. (Everything here is deterministic — same inputs, same answer every time; we checked the output file is byte-for-byte identical across two runs.)</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>1. The drift is real, and the governor is blind to it.</strong> With a fast sector growing 2.5%/yr and a slow "care" sector growing 0.5%/yr, EDEN's whole-economy governor lets the price of essentials climb to <strong>3.74×</strong> over the century — versus <strong>2.17×</strong> if the governor had watched the slow sector instead. The unsettling part: the governor's <em>own</em> dashboard says "prices are stable" the entire time. The average holds flat only because cheap tech is falling exactly as fast as care is rising. It's a genuine blind spot — exactly the objection the economist raised.</p>
+<p><strong>2. But it does not hurt the people — because of a choice EDEN already made.</strong> Here's the reassuring result. EDEN doesn't tie its safety-net floor to a headline "average price." It ties the floor to the <strong>essentials basket itself</strong> (the EBI — the real cost of food, shelter, care). So when care gets dear, the floor automatically rises to match, and the floor's <em>promise</em> tracks a <strong>full basket of essentials, every single month, for the whole century</strong> — the drift and all. (One honest footnote, added July 12: that's the promise the floor is <em>indexed</em> to. What actually gets paid out equals that promise times how funded the floor is — and in this century-scale run the floor's own self-funding bottoms out near <strong>12%</strong> for decades before the economy matures around year 92, with sponsors covering the rest, same as every other run in this vault. Baumol doesn't cause that — it's the already-known bootstrap-funding question — but a reader should not take this paragraph as "delivery was never rationed.") To show how load-bearing that choice is, we tried the naive alternative — pegging the floor to the <em>average</em> price instead. It <strong>fell below a full basket within 9 years and delivered only a fifth of one by year 100.</strong> Same world, one indexing decision, opposite outcomes for vulnerable people. Tying the floor to essentials — not to an average — is exactly what disarms cost disease where it counts.</p>
+<p><strong>3. The real bill Baumol sends is <em>time</em>, not hunger.</strong> The one thing the cost disease genuinely delays is the beautiful v7 result — "by year 65 the accumulated work of the dead pays for every living person's essentials." Because care stays expensive, low earners lean on the essentials floor for longer, so that self-funding moment slides from <strong>year 46 to year 92</strong> in this model — nearly off the edge of the century. The dream still arrives; cost disease just makes humanity wait longer for it. That's an honest cost, and we report it.</p>
+<p><strong>4. The fix — and why it takes two hands, not one.</strong> The obvious repair is to make the governor watch the <strong>essentials</strong> sector (the same basket the floor already uses) instead of the whole-economy average. That helps a lot — it cuts the drift by nearly two-thirds — but it doesn't finish the job, because of a second rule tugging the other way. v7 has a "<strong>never let the mint dry up</strong>" floor (the Exploration Subsidy that funds dreamers during the early decades). At century scale that guarantee keeps money growing a bit faster than the slow sector, so essentials still creep up. The clean fix needs <strong>both</strong> levers, and v7 already anticipates both: point the governor at essentials, <strong>and</strong> let the early-decades subsidy sunset once the knowledge economy can pay its own way (v7 always expected this). Do both, and the drift vanishes entirely — essentials go flat. Neither lever alone is enough; together they work.</p>
+<h2 id="so-did-baumol-win">So, did Baumol win?</h2>
+<p>Partly — and EDEN partly conceded on purpose. The cost disease is real, the governor as written is blind to it, and money-printing for essentials does drift. <strong>But the design chose its side of this fight in advance:</strong> protect <em>people</em> by pegging the floor to real essentials, and accept that "average price stability" is the wrong target when tech and care pull apart. That choice holds up over a simulated century — the poorest are never short a basket. What's left is a to-do list, not a wound: aim the governor at essentials too, retire the early subsidy on schedule, and remember that cost disease makes the generational safety net take longer to pay for itself.</p>
+<h2 id="what-this-run-is-and-isnt">What this run is, and isn't</h2>
+<p>It isn't a forecast — a hundred-year model with cost disease dialed in by hand and world adoption assumed is a disciplined thought experiment, not a crystal ball. It's a reduced-form extension of v7 ("reduced-form" just means deliberately simplified down to the parts that matter for this one question — here, two sectors, with everything irrelevant to cost disease turned off), and it leans on v7 — the tested engine it's built on top of, what we call the "chassis," like building a new test rig on a proven car frame — for the parts it doesn't re-derive; which is why we re-ran v7's real engine to anchor it. What it <em>is</em>: a pre-registered, reproducible check of whether one of economics' oldest objections breaks EDEN's promises — with the failures printed at the same size as the wins, and the fix named where we found one.</p>
+<p><em>Filed July 11, 2026 — discharging the economics red-team's Baumol objection (A10) on the v7 Horizon chassis. Every claim traces to <code>results_v34.json</code>; both pre-registered failures reported in full.</em></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v34-baumol-governor-drift-0.png" alt="fig_v34_baumol.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 11, 2026.</strong> SPEC registered before execution; bars BM0–BM4 unchanged. Code: <code>baumol_governor_sim.py</code>; outputs: <code>results_v34.json</code>, <code>fig_v34_baumol.png</code>. <strong>Deterministic</strong> (no Monte Carlo — relative-price drift is a deterministic phenomenon; verified byte-identical across two runs, MD5 <code>1653ec06…</code>). Seeds 7 + 11 used <strong>only</strong> for the BM0(a) re-run of the committed v7 engine, where they agree. Plain-language companion: <code>PLAIN LANGUAGE - v34.0 Baumol Governor Drift.md</code>. Discharges economics red-team <strong>A10 (Baumol / cost disease)</strong>. <strong>Built on the v7 Horizon chassis</strong> — v7's governor, constant-velocity essentials-price rule, EBI-indexed floor, and committed parameters, with a two-sector productivity split bolted on. Inherits v7's stated humility: the Horizon model is <strong>the program's most speculative</strong> — existence/robustness under stated dials, not a forecast.</p>
+<h2 id="scoreboard">Scoreboard</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Test</th>
+<th>Result</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BM0</strong> Regression anchor</td>
+<td>Baumol-split OFF reproduces v7; seeds agree</td>
+<td>v7 crossover <strong>784 mo / yr 65.3</strong> (seed 7), <strong>764 mo / yr 63.7</strong> (seed 11) — <strong>agree</strong>; gap=0 → drift <strong>0.000</strong>, delivery <strong>1.10</strong>, rel-price <strong>1.000000</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>BM1</strong> Governor drift</td>
+<td>aggregate-tuned governor over-mints vs slow-sector prices; drift ≥ 1.5×</td>
+<td>essentials price ends <strong>3.74×</strong> (aggregate gov) vs <strong>2.17×</strong> (essentials-tuned) → <strong>drift 1.72×</strong>; sign = <strong>over-mint</strong> (essentials inflation) while the aggregate deflator is held ~flat (ends 0.69, −0.6%/yr)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>BM2</strong> Does it break the floor?</td>
+<td>delivery ≥ 1.0 AND funding covered in steady state</td>
+<td>delivery-by-indexing <strong>1.10× held all century</strong> (drift absorbed); drift does <strong>not</strong> worsen funding (agg coverage 1.13× the essentials-tuned) — <strong>but Baumol delays the generational-floor crossover from yr 46 (OFF) to yr 92 (ON)</strong>, so "funded by yr 20" fails</td>
+<td><strong>FAIL</strong> (informative)</td>
+</tr>
+<tr>
+<td><strong>BM3</strong> Baumol classic + EBI tracks</td>
+<td>rel-price ≥ 3×; EBI floor ≥ 1.0; aggregate-CPI floor &lt; 1.0</td>
+<td>slow/fast relative price <strong>7.36×</strong>; <strong>EBI-indexed floor delivers 1.10× throughout</strong>; <strong>aggregate-CPI-indexed floor breaches 1.0 at yr 8.8, collapses to 0.20× by yr 100</strong></td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><strong>BM4</strong> Governor fix</td>
+<td>essentials-tuned governor holds essentials ±15% AND cuts drift ≥ 90%</td>
+<td>reduces drift <strong>62%</strong> (2.17× vs 3.74×) but essentials still <strong>+81%</strong> — the <strong><code>c_min</code> Exploration-Subsidy floor</strong> forces money &gt; slow-sector growth all century (c pinned at 0.25). <strong>Finding: essentials-index + post-bootstrap subsidy sunset removes it entirely (drift −100%, essentials flat)</strong></td>
+<td><strong>FAIL</strong> (informative → constructive fix found)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Three of five pass. The two failures are the cell's findings</strong> — both refute a pre-registered PASS expectation in public (the program's most valuable kind of result), and BM4's failure comes with the fix that works.</p>
+<h2 id="the-answer-to-a10-baumol-in-four-parts">The answer to A10 (Baumol), in four parts</h2>
+<p><strong>1. Does the aggregate-tuned governor drift against the slow sector? — Yes, and it can't see it (BM1).</strong> With a fast sector at 2.5%/yr and a slow (care/essentials) sector at 0.5%/yr productivity, EDEN's v7 governor — which targets <em>aggregate</em> (Divisia real-GDP) productivity growth — steers money growth to the aggregate rate. That is <strong>too fast for the slow sector</strong>: the essentials price ends the century at <strong>3.74×</strong> its start, versus <strong>2.17×</strong> under a governor tuned to the slow sector — a <strong>1.72× governor-choice drift</strong>. The trap is that the governor <em>is</em> achieving price stability <em>by its own gauge</em>: the aggregate GDP deflator ends flat-to-falling (0.69×, −0.6%/yr). Cheapening tech goods (P_fast ends <strong>0.51×</strong>) mask rising care inside the stabilized basket. The governor believes it has price stability; essentials do not. <strong>This is exactly the registered objection.</strong></p>
+<p><strong>2. Does the drift break the floor? — No, on delivery; but Baumol delays the funding (BM2).</strong> The thing that actually matters — real essentials delivered to recipients — is <strong>protected</strong>: because the floor is indexed to the EBI (the essentials basket), delivery holds at <strong>1.10× essentials every month of the century</strong>, entirely governor-independent (the drift is <em>absorbed</em> on the delivery side). And the drift does <strong>not</strong> starve the floor — the aggregate governor's over-minting actually leaves funding <strong>1.13× higher</strong> than the essentials-tuned governor at year 100. <strong>What Baumol breaks is the <em>timing</em> of the generational-floor crossover.</strong> Because essentials get relatively dearer, low earners' <em>essentials</em> purchasing power grows at only the slow rate (0.5%/yr), so they stay on the essentials floor far longer; the crossover where Ancestral-Dividend + slices fully fund the floor slides from <strong>year 46 (Baumol OFF) to year 92 (Baumol ON)</strong> — nearly off the century. The floor is still eventually self-funded (coverage ends 1.16×), but at an essentials-heavy world (50% essentials share) Baumol pushes the v7 crown result — "the generations become the sponsor by year 65" — out to the century's very edge. <em>(BM2 was pre-registered to PASS "absorbed"; the delivery half is confirmed, the funding-timing half fails — informative.)</em></p>
+<p><strong>3. The Baumol classic, and what protects recipients (BM3 PASS — the load-bearing result).</strong> The slow-to-fast relative price rises <strong>7.36×</strong> over the century (and scales exponentially with the gap: <strong>2.71×</strong> at 1%/yr, <strong>7.36×</strong> at 2%, <strong>19.96×</strong> at 3%). Care gets dear against tech, exactly as Baumol says. <strong>The EBI-indexed floor tracks it and delivers 1.10× essentials throughout</strong> — recipients are protected even as the governor mis-sets aggregate mint. The contrast makes the mechanism unmistakable: a floor indexed to an <strong>aggregate CPI</strong> instead (the Boskin / index-number error — red-team A3) <strong>breaches 1.0× at year 8.8 and collapses to 0.20× by year 100</strong>, because the aggregate CPI is held flat by the very tech-cheapening that hides the care inflation. <strong>EDEN's choice to index the floor to the essentials basket — not a headline CPI — is precisely what defuses Baumol on the side that matters.</strong></p>
+<p><strong>4. The fix, and why one lever isn't enough (BM4 FAIL → constructive).</strong> Indexing the <em>governor</em> to the essentials sector (the same EBI the floor uses) instead of aggregate output cuts the drift by <strong>62%</strong> — but does not remove it. The reason is a collision between two canon mechanisms: v7's <strong><code>c_min = 0.25</code> Exploration-Subsidy floor</strong> guarantees a minimum mint, which at century scale is a <strong>~1.7–2.6%/yr money-growth floor</strong> — faster than the slow sector's 0.5%/yr real growth — so essentials still inflate <strong>+81%</strong> and the mint coefficient sits pinned at <code>c_min</code> for the whole century. <strong>The full fix needs both levers, and both are already anticipated by v7:</strong> index the governor to essentials <strong>and</strong> sunset the Exploration Subsidy once endogenous machine-pay matures (v7's own RESULTS note c rising above <code>c_min</code> after ~3 decades). Retiring the subsidy over years 30→40 with the essentials-tuned governor drives the residual drift to <strong>zero</strong> — essentials price flat after the sunset (Δln P ≈ 0, drift reduction <strong>−100%</strong>). <em>(v5 registration note, July 12: the sunset window (months 360→480) is a hardcoded, un-swept constructive lever — the SPEC anticipated sunsetting in prose but registered no bar for it, so read the −100% as a demonstrated existence proof of a fix, not a registered result; the registered BM4 clause (essentials-governor alone, ≥90% drift cut) honestly FAILS at 62%. The post-sunset flatness is also partly structural: this cell's governor is an idealized direct rule — see Honest limits.)</em> <em>Neither indexing the governor nor sunsetting the subsidy alone suffices; aligned, they eliminate the drift.</em></p>
+<h2 id="canon-implications-candidates-not-decisions">Canon implications (candidates, not decisions)</h2>
+<p>Two one-line amendments, in the spirit of v7's <code>c_min</code> discovery:
+- <strong>Index the mint governor to the EBI (essentials), not to aggregate output</strong> — the same basket the floor already uses. (Removes the governor-choice drift, BM1/BM4.)
+- <strong>Sunset the Exploration-Subsidy floor (<code>c_min</code>) once machine-pay matures</strong> — otherwise it becomes a permanent floor under essentials inflation. (v7 already expects <code>c</code> to rise above <code>c_min</code>; make the retirement explicit.)
+- <strong>Keep indexing the <em>floor</em> to the essentials basket, never an aggregate CPI</strong> — BM3 shows this is the single mechanism that protects recipients from Baumol (and from Boskin/A3). This is already canon; v34 is its century-scale stress test, and it holds.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p><strong>Reduced-form, disclosed (SPEC "Honest limits").</strong> Productivity is exogenous (v7's is endogenous via the knowledge stock) — we split growth around v7's realized aggregate rate. The floor <strong>funding</strong> path uses v7's routing (10% slice + Ancestral Dividend) with a <em>deterministic</em> steady-state ancestral share, not v7's stochastic demography — so the <strong>literal v7 crossover (year 65) is anchored in BM0(a) by re-running the committed engine</strong>, while this cell's own Baumol-OFF crossover (year 46) is a reduced-form baseline; <strong>the BM2 finding is the Baumol <em>delay</em> relative to that baseline (46 → 92), not the absolute year.</strong> The transparency/firm game is omitted (orthogonal to Baumol). At the registered essentials-heavy share (s_slow0 = 0.50) the floor inherits the <strong>v5.1/v13.1 funding-base mismatch</strong> independent of Baumol (coverage stays &lt; 1 until late even Baumol-OFF) — v34 does not solve that; it shows Baumol <em>worsens the timing</em> and that delivery-by-indexing survives it. Canon <strong>v1.4 (floor never prints)</strong> is enforced — the underfunded floor is rationed, not printed (an early build without this reproduced v13.1's floor-print wage-price spiral; corrected to canon, disclosed here rather than buried). Price-inelastic essentials demand is an assumption; the Divisia value-weighted aggregate is the primary governor input (a fixed-basket aggregate would drift <em>more</em>, noted not swept exhaustively). Constant velocity (v6/v7 caveat). <strong>Governor fidelity (v5 note):</strong> this cell re-implements v7's governor as an idealized direct rule (net mint tracks the indexed growth target exactly; v7's <code>gov_tol</code> tolerance band, <code>c0</code>, and <code>burn_fr</code> are carried in <code>params</code> for provenance but are dead dials here) — so BM4's "essentials perfectly flat post-sunset" is partly a property of the direct rule; v7's real feedback controller would leave residual wobble inside its tolerance band. The BM0(a) regression runs the committed v7 engine itself, so the chassis anchor is unaffected. <strong>Every number above traces to <code>results_v34.json</code>.</strong> Treat all magnitudes as shape, not forecast.</p>
+<h2 id="bottom-line">Bottom line</h2>
+<p>On the v7 Horizon chassis, with pre-registered bars and two published failures: <strong>Baumol is real and the governor is genuinely blind to it</strong> — tuned to aggregate productivity, EDEN's mint over-issues against the slow essentials sector and lets essentials inflate 1.72× more than a slow-tuned governor would, all while its aggregate price gauge reads "stable." <strong>But the objection lands on price stability, not on the people:</strong> because EDEN indexes the <em>floor</em> to the essentials basket (not an aggregate CPI), the floor's <em>promise</em> tracks real essentials prices undiminished across the whole century, drift and all — where an aggregate-CPI floor's promise would have eroded to a fifth of a basket by year 100. (Precisely: what recipients <em>receive</em> is that indexed promise <strong>times the funding coverage</strong> — and Baumol does not starve the funding; it only <em>delays</em> the generational-floor crossover (BM2). The rationing of actual delivery during the bootstrap era is the separate, already-known v5.1/v13.1 funding-base question, not a Baumol effect — so this is a statement about the <em>indexing</em>, which is what disarms Baumol for recipients, not a claim that delivery is un-rationed.) The costs Baumol does impose are (a) essentials-price instability, fixable by indexing the <em>governor</em> to essentials too <strong>and</strong> sunsetting the Exploration Subsidy — both already anticipated in v7 — and (b) a delayed generational-floor crossover (year 46 → 92), the honest reminder that a slow essentials sector keeps the poor dependent on the floor longer. <strong>EDEN chose its side of Baumol consciously (protect people via essentials-indexing); v34 confirms the choice holds at the horizon, names the two governor amendments that also buy price stability, and prices the delay Baumol imposes on the dream of the generations funding the floor.</strong></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v34-baumol-governor-drift-0.json" download>⬇ results_v34.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

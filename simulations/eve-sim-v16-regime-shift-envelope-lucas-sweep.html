@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v16 - Regime-Shift Envelope (Lucas Sweep) — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v16 - Regime-Shift Envelope (Lucas Sweep).">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v16 - Regime-Shift Envelope (Lucas Sweep)</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 9, 2026. Companion to <code>RESULTS - v16.0 Regime-Shift Envelope</code>.</em></p>
+<h2 id="what-we-did">What we did</h2>
+<p>Every simulation so far used our best guesses for how people and institutions behave — wages, software budgets, how flaky sponsors get in a recession. A famous economics objection (the Lucas critique) says: the moment you change the system, the guesses change too, so test whether your conclusions survive <em>wrong guesses</em>. So we shook all nine of the most important guesses at once — each one anywhere from half to one-and-a-half times our estimate, in every combination — and re-ran the headline tests inside the shaken worlds.</p>
+<h2 id="what-survived-the-shaking">What survived the shaking</h2>
+<p><strong>The peacetime safety net: everything.</strong> In all 38 shaken worlds, a big sponsor quitting caused no missed groceries and no money-printing. That headline is solid no matter how wrong our guesses are (within reason).</p>
+<p><strong>The governance cap: everything, to machine precision.</strong> Across 400 shaken worlds — including every setting of its own dials the constitution allows — no contributor ever exceeded their voting ceiling, and buying a majority always took at least twice the required minimum of colluders. (We also learned the earlier single-pass version of the cap would have leaked in about 1 world in 13 — the fix adopted this morning genuinely matters.)</p>
+<p><strong>The jury system: holds right up to a sharp wall.</strong> Packing 201-person juries stays under a 1%-of-the-time nuisance as long as attackers control up to 25% of the pool — exactly the design's assumption — then breaks fast at 28%. Three points of margin. Good to know precisely where the cliff is.</p>
+<h2 id="what-did-not-survive">What did not survive</h2>
+<p><strong>The storm test.</strong> Our committed run — recession, two sponsors quitting, one chronically late — passed on a thin margin. Shaken, it holds in only about <strong>half</strong> the worlds. The follow-up experiments found the exact reason, and it's one dial: <strong>how much sponsors keep paying during the recession itself.</strong> (Those follow-ups are now properly saved in the results file — a July 11 fix; they'd originally been quoted from unsaved probes, and saving them properly changed the story at one point.) Keep paying 60% of their commitment: fine, in both random worlds we test. 50%: <strong>the two worlds disagree</strong> — one shows a single close call, the other shows half a year under the line. 45% or less: the poorest go under the essentials line for months — over a year in the worst world. So 50% isn't a safe floor; it's the edge of the cliff. (Notably, the system never printed money to paper over it — it failed <em>honestly</em>, by rationing, exactly as designed.)</p>
+<p><strong>One of our own predictions also flopped, usefully:</strong> we bet that a slow handover with a too-shallow deposit would cause missed groceries even in <em>calm</em> times. It never did — calm times absorb the gap. The deposit rule matters <em>in storms</em>, which is precisely why nobody should weaken it during the good years when it looks unnecessary.</p>
+<h2 id="the-one-line-takeaway">The one-line takeaway</h2>
+<p><strong>Shake every assumption at once and the design's promises hold — except one, which turns out to be a promise someone else has to keep: sponsors must contractually commit to keep paying most of their share even in a recession — 60% is safe, 50% is the edge of the cliff — or the storm math doesn't work. That's now a proposed contract term (gate-20 candidate) with the safety margin priced in, not an assumption.</strong></p>
+<hr>
+<h2 id="update-july-11-three-more-machines-shaken-and-the-two-hardest-questions">Update (July 11): three more machines shaken, and the two hardest questions</h2>
+<p>Earlier the shake test could only rattle <em>some</em> of our machines; three of the toughest (the ones for data-batcher collusion, price-oracle capture, and multi-layer attacks) were written in a way we couldn't shake without rebuilding them first. That rebuild is now done, so we shook them too — same "half to one-and-a-half times every guess" treatment.</p>
+<p><strong>What held up:</strong> the batcher-collusion machine's conclusions all survived cleanly — cheating still loses money in every shaken world. The oracle machine's headline (capturing the price feed costs ~$100M and can only <em>break</em> things, never <em>profit</em>) held in every world. And the cross-layer fix — one combined cap instead of four separate ones — worked in every single shaken world. <strong>What turned out to be more fragile than we'd said:</strong> two things we already <em>knew</em> were close calls got confirmed as close calls (the oracle's worst-case delivery, and whether the essentials "lane" is really 5× the priciest thing to fake — sometimes yes, sometimes only 1.5×). And one new hairline: in exactly one shaken world out of 32, a captured oracle running high inflation dropped delivery a whisker below our 0.95 promise (0.9498). We're reporting it rather than rounding it away.</p>
+<p><strong>The recession-floor cliff, pinned down.</strong> A companion run (v31) had put the danger zone between 50% and 55%. We zoomed in with a finer ruler (1% steps) and found the real edge: the cliff is between <strong>51% and 52%</strong>, and you need <strong>53%</strong> before <em>nobody</em> misses any groceries. So the recommendation to write <strong>60%</strong> into the sponsor contract isn't just safe — it sits a comfortable eight-or-nine points above the true edge.</p>
+<p><strong>The billion-dollar question: what if people won't pay for their data?</strong> Our whole revenue story rests on people and firms valuing data/software/machine-access at certain levels (~$600, ~$900, ~$240 a year). Our sharpest critic says those could be <em>ten times too high</em>. So we ran the "$60 world" — every one of those guesses cut to a tenth. The result is clarifying:
+- <strong>The safety net still holds.</strong> Nobody misses essentials, and the system still never prints money — because the floor is paid by sponsors, not by data revenue. (The cushion gets thin, though: in the storm the poorest end up right at the line, 1.008.)
+- <strong>Sponsoring EDEN still beats running old-fashioned welfare</strong> — that comparison doesn't care about data prices, because both sides shrink together.
+- <strong>The builder economy collapses.</strong> A typical builder's income falls from ~$420 to ~$45 a month; the share of builders earning a real living ($200+/mo) drops from 88% to under 3%.
+- <strong>The floor never pays for itself</strong> and, in the $60 world, gets even further from doing so — it leans harder on sponsors.</p>
+<p><strong>One-line takeaway of the update:</strong> shake the three newest machines and the safety results hold; the <em>safety net</em> survives even the nightmare "data is worthless" world (because sponsors, not data sales, pay for it) — but the <em>builder economy</em> and the dream of a self-funding floor do not. Those two ride entirely on the one experiment we haven't run yet: do people actually value their data? Everything else we can stress-test in software; that one needs the real world.</p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v16-regime-shift-envelope-lucas-sweep-0.png" alt="stray_fig_v15_import_PRE-FIX_archive.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Spec: <code>v16 SPEC - Regime-Shift Envelope (registered).md</code> — bars L1–L4 fixed before code. Engine: <code>lucas_sweep.py</code> (sweeps the committed engines <em>as committed</em>: v6.8 <code>run_fed</code> imported, v15 functions imported, v11 via the closed form proven exact in <code>theory_proofs.py</code> P2). Committed: <code>results_v16.json</code>. Seeds 7 + 11 throughout. Every number traces to <code>results_v16.json → bars / E_B / E_C / sweep_EA</code>.</strong></p>
+<p><strong>Verdict in one line: the peacetime federation headline and the governance/committee results are envelope-robust — but the storm headline is not: it FAILED the registered 75% bar (holds in only 47% of the joint ±50% envelope), and the isolation slices locate the break — storm delivery is conditional on sponsors continuing to pay a recession fraction whose breach threshold sits between 0.45 and 0.60 depending on seed (committed July 11; the two seeds disagree at exactly 0.50), so the sponsor-contract austerity floor must be priced at 0.60, or at 0.50 only with escrow sized to the residual gap.</strong></p>
+<h2 id="bar-summary-l1l3l4-pass-l2-failed-as-a-finding-the-l1-bracket-failed-to-fail-informatively">Bar summary (L1/L3/L4 pass; L2 FAILED as a finding; the L1 bracket failed-to-fail, informatively)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1 peacetime exit, lag ≤ 6</td>
+<td>≥ 90% of envelope holds delivery, zero printing</td>
+<td><strong>100%</strong> (38/38 cells)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>L1 bracket: lag &gt; 6 (escrow fixed at 6)</td>
+<td>breaches appear (E*=lag load-bearing in peacetime)</td>
+<td><strong>0 breaches in 26 cells</strong></td>
+<td><strong>FAILED-TO-FAIL — finding F1</strong></td>
+</tr>
+<tr>
+<td>L2 storm, lag ≤ 6</td>
+<td>≥ 75% of envelope holds</td>
+<td><strong>47.4%</strong> (18/38)</td>
+<td><strong>FAIL — finding F2, the headline of this run</strong></td>
+</tr>
+<tr>
+<td>L3 governance containment (governed κ, α ranges × population envelope)</td>
+<td>100% contain; cartel ≥ 1/κ</td>
+<td><strong>100%</strong> (400 cells; worst overshoot 7×10⁻¹⁸ = machine epsilon; min cartel×κ = 2.02)</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>L4 committee censorship k=201</td>
+<td>≤ 1%/epoch for attacker share ≤ 25%, all H</td>
+<td>PASS at all H; <strong>s* = 28%</strong> everywhere (0.48% at 25% → 5.5% at 28% → 16.9% at 30%)</td>
+<td><strong>PASS + measured bracket</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — E* = 6 = step-up lag is a <em>storm</em> result, and the sweep proved its scope.</strong> The registered bracket predicted delivery breaches wherever step-up lag (3–9 swept) exceeds the committed 6-month escrow <em>in peacetime</em>. Zero occurred (0/26). Re-reading the committed artifacts confirms why: v6.8's J3a escrow sweep — the source of E*=lag — was a <strong>storm</strong> cell; in peacetime the surviving members' payments plus a healthy economy absorb the lag−escrow gap without the poorest noticing. Registered prediction wrong in public, per tradition; the finding <em>sharpens</em> the gate language: <strong>escrow depth ≥ step-up lag is a storm-conditions requirement, not a general one</strong> — which is also why it must never be relaxed on peacetime evidence.</p>
+<p><strong>F2 — The storm headline is dial-local; the dial is austerity.</strong> Under joint ±50% perturbation of nine dials, the registered storm (recession + two exits + chronic delayer) holds delivery in only 47.4% of the lag ≤ 6 envelope — and 18 of the 20 flip-cells breach the program's own 3-consecutive-month failure criterion (worst: 22 months below floor, p10 trough 0.77). <strong>Zero printing anywhere</strong> — the no-print rule held in all 128 cells; the failures are honest rationing. Isolation slices (all else central, storm scenario, both seeds — <strong>committed July 11 to <code>results_v16.json → isolation</code></strong>; the numbers below were originally quoted from uncommitted in-session probes, Verification v4 D2) make the mechanism causal, not correlational. Sponsor recession-payment fraction, seed 7 / seed 11: <strong>0.60 → holds both seeds</strong> (troughs 1.088 / 1.062); <strong>0.50 → the seeds disagree</strong> — seed 7 hairline (1 month below, trough 0.994, no sustained breach), seed 11 a real breach (6 months below, max-consec 5, trough 0.982); <strong>0.45 → 11 / 12 months below</strong>; <strong>0.35 → 13 / 14 months</strong> (troughs 0.869 / 0.856). <strong>So the breach threshold g* sits between 0.45 and 0.60, straddling 0.50 with seed-level variance</strong> — the original "between 0.50 and 0.45" was the seed-7 story; the committed two-seed record shows 0.50 is <em>inside</em> the uncertainty band, not safely above it. A correlational inversion in the LHS medians (flips at <em>higher</em> builder ARPU) was checked by isolation and found to be a small-sample confound — isolated, higher ARPU is monotonically protective in both seeds (months below 14→13 across 450→1350 ARPU at harsh austerity on seed 7; 16→12 on seed 11; troughs improving throughout — the originally-quoted "14→11" matched neither seed and is corrected here). <em>Design consequence (gate-20 candidate, sharpened by the committed slices): the sponsor contract's austerity clause is load-bearing — and because g* straddles 0.50, the safe floor is </em><em>≥ 0.60 of obligations</em><em>, or ≥ 0.50 </em><em>plus escrow explicitly sized against the residual austerity gap</em><em> (not against the exit lag alone). The J4 lesson ("price the backstop") extends: price the austerity floor too, with margin.</em></p>
+<p><strong>F3 — The governance cap function is envelope-robust across its entire governed range.</strong> 400 cells over κ ∈ [0.02, 0.10], α ∈ [0.3, 0.7], σ ∈ [1, 3], whale ∈ [10–50%], N ∈ {2k, 10k, 50k}: water-fill containment held in every cell to machine precision, and the cheapest majority stayed ≥ 2/κ (double the registered bar) everywhere. The single-pass cap would have leaked in <strong>7.75%</strong> of the governed envelope — the v0.2 water-fill mandate is not a corner-case fix; it binds in ~1 of 13 plausible configurations.</p>
+<p><strong>F4 — The k=201 committee has a sharp, previously-unmeasured wall at s* = 28%.</strong> Censorship stays under 1%/epoch through the design's 25% assumption at every pool size, then breaks steeply (5.5% at 28%, 16.9% at 30%). The comfort margin between the cohort-cap regime (≤15–25%) and the censorship wall is <strong>~3 percentage points of attacker share</strong> — thin enough to justify the cross-layer joint cap (v14/gate-18) from this direction too.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Nine dials over two engine cell-families plus two closed-form families is the <em>start</em> of a Lucas answer, not the end: v12/v13-oracle/v14 engines are top-to-bottom scripts and couldn't be swept without refactor (owed — the refactor is mechanical); n=32 LHS points gives coverage, not density (the g* boundary was located by follow-up slices, not by the LHS itself); and the deepest Lucas objection — that the <em>structure</em>, not the dials, shifts under the regime — is answerable only by the pilot. The sweep demotes one committed conclusion (storm robustness → conditional on the austerity floor) and confirms three; no conclusion is promoted for surviving.</p>
+<p><em>Run and written July 9, 2026, verification session (self-labeled Fable per the file header conventions; per the owner's record this sitting ran as Opus 4.8 — see INDEX provenance note). The L2 FAIL and the L1 failed-to-fail bracket are reported, bars unmoved, per house rules.</em></p>
+<p><em>Postscript, July 11, 2026 (Verification v4 action 2, executed by the Fable 5 verification session): the F2 isolation slices — previously quoted from uncommitted in-session probes — are now committed (<code>--isolate gov|arpu</code> → <code>partial_v16_iso_*.pkl</code> → <code>results_v16.json → isolation</code>, both seeds). Seed 7 reproduced every quoted number; seed 11 moved the story at gov_pay 0.50 (sustained 5-consecutive-month breach), so g* is reported as (0.45, 0.60) straddling 0.50, the ARPU slice's "14→11" was corrected to the committed 14→13 (s7) / 16→12 (s11), and the gate-20 candidate's floor language was sharpened to ≥0.60-or-escrowed. Bars L1–L4 and every pre-existing JSON leaf verified unchanged.</em></p>
+<hr>
+<h2 id="backlog-9-extension-july-11-2026-blocker-8-cleared-sweep-the-refactored-engines-densify-g-add-the-fail-tier-wtp-row">Backlog #9 extension — July 11, 2026 (blocker #8 cleared): sweep the refactored engines, densify g*, add the FAIL-tier WTP row</h2>
+<p><strong>#8 made v12/v13-oracle/v14 importable with byte-identical committed output, discharging this run's stated honest-limit. #9 executed the three owed pieces via new engine modes (<code>--sweep-layers</code>, <code>--densify-gstar</code>, <code>--wtp</code> → <code>partial_v16_layers/gstar/wtp.pkl</code>), committed under THREE NEW top-level keys in <code>results_v16.json</code> (<code>sweep_layers</code>, <code>g_star_densification</code>, <code>wtp_fail_tier_sensitivity</code>). Every pre-existing leaf (bars/E_B/E_C/isolation/sweep_EA) is byte-identical — the file minus the three new blocks reproduces the prior <code>results_v16.json</code> byte-for-byte (91,581 bytes), and the assemble is deterministic (run twice → identical). Engines swept AS COMMITTED (imported <code>run()</code>/anchors, never reimplemented); the tested "bars" are each engine's own committed RESULTS headlines (no new bar introduced). Seeds fixed at [7,11] for the three engines (their cross-seed checks hardcode 7/11 — the #8 caveat); the behavioral/economic dials are swept, not the seed set. n=32 joint log-uniform ±50% LHS per engine.</strong></p>
+<h3 id="91-layer-sweep-which-headlines-are-envelope-robust-which-are-dial-local">9.1 — Layer sweep: which headlines are envelope-robust, which are dial-local</h3>
+<table>
+<thead>
+<tr>
+<th>Engine · headline</th>
+<th>Committed</th>
+<th>±50% envelope (n=32)</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>v12</strong> R1 audit deters (q*≤5%)</td>
+<td>0.62%</td>
+<td>q* ∈ [0.41%, 1.03%], 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v12</strong> R2 honest cost ≤0.5%</td>
+<td>0.010%</td>
+<td>[0.005%, 0.015%], 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v12</strong> R3 vesting bracket (V0 profit / V168 deterred)</td>
+<td>pass</td>
+<td>V168 profit = $0 in 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v12</strong> R4 blast ≤0.5% annual mint</td>
+<td>0.0063%</td>
+<td>[0.0012%, 0.019%], 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v13</strong> O1 capture ≥$25M</td>
+<td>$99.5M</td>
+<td>[$42.7M, $169M], 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v13</strong> O2 sabotage-only (ROI&lt;0, ≥3×)</td>
+<td>80×</td>
+<td>ratio [39×, 305×], 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v13</strong> O3-central delivery ≥0.95</td>
+<td>0.960</td>
+<td>[0.9498, 0.985], <strong>31/32</strong></td>
+<td><strong>DIAL-LOCAL (F6)</strong></td>
+</tr>
+<tr>
+<td><strong>v13</strong> O3-stress delivery ≥0.90</td>
+<td>0.888 (baseline FAIL)</td>
+<td>[0.823, 0.967], 18/32 pass</td>
+<td>dial-local (confirms F3)</td>
+</tr>
+<tr>
+<td><strong>v13</strong> O4 lane ≥5× reporter</td>
+<td>4.3× (baseline FAIL)</td>
+<td>[1.55×, 12.0×], 7/32 pass</td>
+<td>dial-local (confirms F4)</td>
+</tr>
+<tr>
+<td><strong>v13</strong> O5 single-source dominated</td>
+<td>1/995</td>
+<td>32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v14</strong> X1 composition discount (joint&lt;sum)</td>
+<td>0.66</td>
+<td>ratio [0.46, 0.87], 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v14</strong> X2 blast past 2% gate</td>
+<td>3.74%</td>
+<td>comp [1.32%, 6.31%], <strong>25/32</strong></td>
+<td><strong>DIAL-LOCAL (F7)</strong></td>
+</tr>
+<tr>
+<td><strong>v14</strong> X3 delivery ≥1.0 (reserve drains)</td>
+<td>1.0 / 4mo</td>
+<td>drain [1.8, 15.5]mo, 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+<tr>
+<td><strong>v14</strong> X4 joint cap restores ≤2%</td>
+<td>0.96%</td>
+<td>[0.48%, 1.41%], 32/32</td>
+<td><strong>ROBUST</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>No robust headline flipped.</strong> All four v12 conclusions (audit almost-free-and-deters, cheap honest cost, vesting load-bearing, bounded blast radius), v13's expensive-capture / sabotage-only / single-source-dominated conclusions, and v14's discount / delivery-protection / joint-cap-fix conclusions survive the joint ±50% shake. Two committed <em>findings</em> that already failed at baseline (v13 O3-stress F3, O4 F4) are confirmed dial-dependent — each passes in part of the envelope, sharpening rather than overturning them (F3's breach is driven by re-validation duration × inflation; O4's "lane is dearest" ordering holds — the lane is always ≥1.55× the reporter class — but the specific ≥5× magnitude clears in only 7/32).</p>
+<p><strong>New flip-findings (reported, not hidden):</strong></p>
+<p><strong>F6 — v13 O3-central is not quite universal (1/32).</strong> Granted-capture central floor delivery dips to <strong>0.9498</strong> — a hair under the 0.95 bar — in one envelope corner: true inflation ~1.5× anchor combined with a short (0.58×) capture horizon. The margin is razor-thin (0.0002) and the mechanism is the same as F3 (inflation erodes real delivery through the quarantine); it says the ≥0.95 granted-capture guarantee should be stated as "at anchor inflation," not unconditionally.</p>
+<p><strong>F7 — v14's "blast composes past the 2% gate" is dial-local (25/32).</strong> In 7/32 points the composed identity blast radius stays <em>within</em> the 2% gate (range 1.32%–6.31%); the flips occur when the identity-layer breach fraction (v10 anchor 1.37%) and per-identity downstream leverage are both near/below their anchors (e.g., identity-fraud ×0.5, leverage-scale ×0.61). So the X2 danger finding is conditional on the identity keystone being at least as bad as v10 measured — which the honest limit already flagged as the load-bearing unknown. <strong>Crucially, the fix (X4 joint cap) restores fraud ≤2% in 32/32 regardless</strong>, so the gate-18 recommendation is unaffected by X2's dial-locality.</p>
+<h3 id="92-g-austerity-boundary-densified-001-grid-and-reconciled-with-v31">9.2 — g* austerity boundary densified (0.01 grid) and reconciled with v31</h3>
+<p>v31 (Austerity Floor &amp; Escrow) already densified g* on the committed v6.8 engine to a <strong>0.05 grid</strong> {0.45, 0.50, 0.55, 0.60}, bracketing the 3-consecutive-month breach edge to <strong>(0.50, 0.55]</strong> and recommending ≥0.60. Rather than duplicate it, #9 added <em>resolution v31 lacks</em>: a <strong>0.01 grid over [0.45, 0.60]</strong>, both seeds, identical committed path (v6.8 <code>run_fed</code>, v16 storm, escrow E=6, same <code>build_params</code> route as the sweep + isolation slices). The finer grid <strong>reproduces v31's 0.50 and 0.55 cells exactly</strong> (0.50: s7 mb=1/mc=1, s11 mb=6/mc=5; 0.55: both 0/0) and refines the edge: on the binding seed (11), the sustained breach persists through <strong>g=0.51 (mc=3)</strong> and clears at <strong>g=0.52 (mc=2)</strong>, so <strong>g* ∈ (0.51, 0.52]</strong> — tighter than v31's (0.50, 0.55]. <strong>Zero months below the floor in both seeds requires g ≥ 0.53</strong> (seed 7 clears at 0.51). max_consec and months_below are monotone in the floor (v31's AB1 holds on the finer grid); the only non-monotonicity is a ≤0.011 p10-trough wiggle at 0.55→0.56 on seed 11, below the breach criterion. <strong>Net: v31's ≥0.60 recommendation stands with even more visible margin — the measured sustained-breach edge is ~0.51–0.52, so a 0.60 floor sits ~8–9 hundredths above it</strong> (troughs 1.088/1.062). Committed to <code>results_v16.json → g_star_densification</code> (cells + per-seed boundaries + v31 reconciliation).</p>
+<h3 id="93-a9-fail-tier-wtp-sensitivity-the-programs-single-hinge">9.3 — A9 FAIL-tier WTP sensitivity (the program's single hinge)</h3>
+<p>The registered field experiment sets WTP FAIL bars an order of magnitude below the anchors (data ~$600/contributor-yr; code $300–1,800; machine-pay $240/agent-yr). #9 divides the three committed anchors <em>jointly</em> (600/900/240) by 5 ($120-world) and 10 (<strong>$60-world = the A9 FAIL tier</strong>) and runs the committed v6.8 <code>run_fed</code>, J1-core peace + J2-core storm, both seeds. At the $60-world:</p>
+<table>
+<thead>
+<tr>
+<th>Headline</th>
+<th>Verdict</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Floor delivery</strong> (essentials floor keeps delivering)</td>
+<td><strong>SURVIVES</strong></td>
+<td>0 months below floor, zero printing, peace + storm, both seeds — floor delivery is <em>sponsor-backed, not WTP-backed</em>. <strong>But the margin evaporates:</strong> storm p10 trough thins from 1.062 to <strong>1.008</strong> (razor-thin), peace payr falls 0.85→0.69.</td>
+</tr>
+<tr>
+<td><strong>Sponsor coverage</strong> (cheaper than traditional welfare)</td>
+<td><strong>SURVIVES</strong></td>
+<td>member cost-per-enrollee ÷ traditional-welfare ratio is WTP-invariant (0.785→0.785 peace; moves &lt;0.01) — EDEN's sponsor cost and the welfare benchmark scale with the same obligation.</td>
+</tr>
+<tr>
+<td><strong>Floor self-funding</strong> (endogenous slice covers the floor)</td>
+<td><strong>already weak; DEEPENS</strong></td>
+<td>endogenous coverage (slice/obligations) is only ~0.13 peace / ~0.07 storm at anchor and roughly <em>halves</em> to ~0.07 / ~0.03 — the floor was never self-funding; the $60-world pushes any self-funding horizon "years to the right."</td>
+</tr>
+<tr>
+<td><strong>Builder viability</strong> (builders earn a living)</td>
+<td><strong>BREAKS</strong></td>
+<td>median builder income collapses ~10× ($420→$45); share of builders clearing the $200/mo jobs line falls <strong>0.884 → 0.028</strong>. The builder economy thins to non-viability.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>This is exactly the A9 prediction, made quantitative:</strong> at the $60-world the <em>builder economy thins</em> (breaks) and <em>machine-pay shrinks</em> (c_arpu 240→24) and the <em>funded floor moves years to the right</em> (self-funding deepens) — while the two sponsor-backed promises (essentials delivery and cheaper-than-welfare sponsorship) <strong>survive</strong>, because they never depended on data ARPU. The honest sharpening: EDEN's <em>safety</em> promises are WTP-robust; EDEN's <em>builder-economy and self-funding</em> promises are WTP-fragile and remain hostage to the pending field experiment. Committed to <code>results_v16.json → wtp_fail_tier_sensitivity</code> (12 cells + four headline verdicts).</p>
+<p><em>Backlog #9 run and written July 11, 2026 (Opus 4.8, owner-directed). No pre-existing bar or JSON leaf moved; two new flip-findings (F6 O3-central, F7 X2) reported per house rules; the g* densification and WTP row are decision-support (gate-20 / red-team A9), not new registered bars. Backup at <code>outputs/backups/v16</code>.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v16-regime-shift-envelope-lucas-sweep-0.json" download>⬇ results_v16.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>

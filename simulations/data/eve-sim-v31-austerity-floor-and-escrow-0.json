@@ -1,0 +1,226 @@
+{
+ "spec": "v31 SPEC - Austerity Floor & Escrow (registered).md",
+ "run_date": "2026-07-11",
+ "grid": {
+  "floors": [
+   0.45,
+   0.5,
+   0.55,
+   0.6
+  ],
+  "escrows": [
+   6,
+   9,
+   12
+  ]
+ },
+ "criterion": "sustained breach = max_consec >= 3 (post-month-42)",
+ "cells": {
+  "f0.45_E6_s7": {
+   "months_below": 11,
+   "max_consec": 5,
+   "p10_min42": 0.9495772895814902,
+   "printed": 0.0
+  },
+  "f0.45_E6_s11": {
+   "months_below": 12,
+   "max_consec": 7,
+   "p10_min42": 0.9337023010834448,
+   "printed": 0.0
+  },
+  "f0.45_E9_s7": {
+   "months_below": 11,
+   "max_consec": 5,
+   "p10_min42": 0.9495772895814902,
+   "printed": 0.0
+  },
+  "f0.45_E9_s11": {
+   "months_below": 12,
+   "max_consec": 7,
+   "p10_min42": 0.9342489210857242,
+   "printed": 0.0
+  },
+  "f0.45_E12_s7": {
+   "months_below": 11,
+   "max_consec": 5,
+   "p10_min42": 0.9495772895814902,
+   "printed": 0.0
+  },
+  "f0.45_E12_s11": {
+   "months_below": 12,
+   "max_consec": 7,
+   "p10_min42": 0.9342489210857242,
+   "printed": 0.0
+  },
+  "f0.50_E6_s7": {
+   "months_below": 1,
+   "max_consec": 1,
+   "p10_min42": 0.993934939656157,
+   "printed": 0.0
+  },
+  "f0.50_E6_s11": {
+   "months_below": 6,
+   "max_consec": 5,
+   "p10_min42": 0.9823373973574385,
+   "printed": 0.0
+  },
+  "f0.50_E9_s7": {
+   "months_below": 1,
+   "max_consec": 1,
+   "p10_min42": 0.9941329881237909,
+   "printed": 0.0
+  },
+  "f0.50_E9_s11": {
+   "months_below": 6,
+   "max_consec": 5,
+   "p10_min42": 0.9827508302158507,
+   "printed": 0.0
+  },
+  "f0.50_E12_s7": {
+   "months_below": 1,
+   "max_consec": 1,
+   "p10_min42": 0.9941329881237909,
+   "printed": 0.0
+  },
+  "f0.50_E12_s11": {
+   "months_below": 6,
+   "max_consec": 5,
+   "p10_min42": 0.9827508302158507,
+   "printed": 0.0
+  },
+  "f0.55_E6_s7": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0406444481280204,
+   "printed": 0.0
+  },
+  "f0.55_E6_s11": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0312023450326144,
+   "printed": 0.0
+  },
+  "f0.55_E9_s7": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0409488109893776,
+   "printed": 0.0
+  },
+  "f0.55_E9_s11": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.025431675445054,
+   "printed": 0.0
+  },
+  "f0.55_E12_s7": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0409488109893776,
+   "printed": 0.0
+  },
+  "f0.55_E12_s11": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.025431675445054,
+   "printed": 0.0
+  },
+  "f0.60_E6_s7": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0883966277215216,
+   "printed": 0.0
+  },
+  "f0.60_E6_s11": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0616956910777433,
+   "printed": 0.0
+  },
+  "f0.60_E9_s7": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0887452123127654,
+   "printed": 0.0
+  },
+  "f0.60_E9_s11": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0616956910777433,
+   "printed": 0.0
+  },
+  "f0.60_E12_s7": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0887452123127654,
+   "printed": 0.0
+  },
+  "f0.60_E12_s11": {
+   "months_below": 0,
+   "max_consec": 0,
+   "p10_min42": 1.0616956910777433,
+   "printed": 0.0
+  }
+ },
+ "AB0": {
+  "pass": true,
+  "cells": {
+   "0.60_s7": true,
+   "0.60_s11": true,
+   "0.50_s7": true,
+   "0.50_s11": true,
+   "0.45_s7": true,
+   "0.45_s11": true
+  }
+ },
+ "AB1": {
+  "pass": true,
+  "violations": []
+ },
+ "AB2": {
+  "cells": {
+   "7": {
+    "months_below": 0,
+    "max_consec": 0,
+    "p10_min42": 1.0883966277215216,
+    "printed": 0.0
+   },
+   "11": {
+    "months_below": 0,
+    "max_consec": 0,
+    "p10_min42": 1.0616956910777433,
+    "printed": 0.0
+   }
+  },
+  "pass": true
+ },
+ "AB3": {
+  "by_escrow": {
+   "6": false,
+   "9": false,
+   "12": false
+  },
+  "min_escrow_holding_both": null,
+  "pass": true
+ },
+ "AB4": {
+  "by_escrow": {
+   "6": false,
+   "9": false,
+   "12": false
+  },
+  "any_rescue": false,
+  "pass": true
+ },
+ "AB5": {
+  "max_printed": 0.0,
+  "pass": true
+ },
+ "bar_summary": {
+  "AB0": true,
+  "AB1": true,
+  "AB2": true,
+  "AB3": true,
+  "AB4": true,
+  "AB5": true
+ }
+}

@@ -1,0 +1,157 @@
+{
+ "spec": "v15 SPEC (bars from Governance Cap-Function Spec v0.1 \u00a74)",
+ "params": {
+  "alpha": 0.5,
+  "kappa": 0.05,
+  "identity_cost": 72000.0
+ },
+ "G0": {
+  "seeds": {
+   "7": {
+    "top_share": 0.04668620242507959,
+    "plutocracy_baseline": 0.04668620242507959,
+    "matches": true
+   },
+   "11": {
+    "top_share": 0.028150296218847078,
+    "plutocracy_baseline": 0.028150296218847078,
+    "matches": true
+   }
+  },
+  "pass": true
+ },
+ "G1": {
+  "single_pass": {
+   "7": 0.010730069622435591,
+   "11": 0.010679775629684377
+  },
+  "water_fill": {
+   "7": 0.010730069622435591,
+   "11": 0.010679775629684377
+  },
+  "extreme": {
+   "7": {
+    "single_pass": 0.09389099315415127,
+    "water_fill": 0.05
+   },
+   "11": {
+    "single_pass": 0.09063646301221275,
+    "water_fill": 0.05
+   }
+  },
+  "pass_singlepass_central": true,
+  "pass_waterfill_central": true,
+  "extreme_singlepass_leaks": true,
+  "extreme_waterfill_holds": true,
+  "bar": 0.05,
+  "pass": true
+ },
+ "G2": {
+  "seeds": {
+   "7": {
+    "cartel_for_majority": 1595,
+    "max_share": 0.003579895903418331
+   },
+   "11": {
+    "cartel_for_majority": 1603,
+    "max_share": 0.002766655715874234
+   }
+  },
+  "cartel_min": 1595,
+  "bar_ge": 20,
+  "pass": true,
+  "note_majority_at_kappa": 10
+ },
+ "G3": {
+  "alpha_sweep": {
+   "0.3": {
+    "top1": 0.0018715334806856307,
+    "top3": 0.003638521074411162,
+    "cartel": 2744
+   },
+   "0.5": {
+    "top1": 0.010730069622435591,
+    "top3": 0.016899271644472545,
+    "cartel": 1563
+   },
+   "0.7": {
+    "top1": 0.05069993023641699,
+    "top3": 0.06851291601634485,
+    "cartel": 710
+   },
+   "1.0": {
+    "top1": 0.3,
+    "top3": 0.3506721121727692,
+    "cartel": 48
+   }
+  },
+  "sigma_at_linear": {
+   "2.0": {
+    "linear_top3": 0.09219696874160747,
+    "sqrt_capped_top1": 0.003579895903418331
+   },
+   "3.0": {
+    "linear_top3": 0.3678095033481637,
+    "sqrt_capped_top1": 0.01470557279210659
+   },
+   "4.0": {
+    "linear_top3": 0.6766571037974535,
+    "sqrt_capped_top1": 0.04668620242507958
+   },
+   "5.0": {
+    "linear_top3": 0.852524899654488,
+    "sqrt_capped_top1": 0.05
+   },
+   "6.0": {
+    "linear_top3": 0.9324366520893315,
+    "sqrt_capped_top1": 0.05000000000051602
+   }
+  },
+  "linear_top3_majority_at_sigma2": false,
+  "sigma_crossover_linear_majority": 4.0,
+  "sqrt_cap_contains_where_linear_fails": true
+ },
+ "G4": {
+  "splits": {
+   "1": {
+    "weight_gain_x": 1.0,
+    "identity_cost": 0.0
+   },
+   "2": {
+    "weight_gain_x": 1.4142135623730951,
+    "identity_cost": 72000.0
+   },
+   "5": {
+    "weight_gain_x": 2.23606797749979,
+    "identity_cost": 288000.0
+   },
+   "10": {
+    "weight_gain_x": 3.16227766016838,
+    "identity_cost": 648000.0
+   },
+   "50": {
+    "weight_gain_x": 7.0710678118654755,
+    "identity_cost": 3528000.0
+   }
+  },
+  "splits_pays_without_idcost": true,
+  "k2_gain": 1.4142135623730951,
+  "closed_by_identity_layer": true
+ },
+ "G5": {
+  "gov_share_at_cap": 0.05,
+  "joint_cap": 0.15,
+  "headroom_other_roles": 0.09999999999999999,
+  "pass": true
+ },
+ "bar_summary": {
+  "G0": true,
+  "G1": true,
+  "G1_extreme_singlepass_leaks": true,
+  "G2": true,
+  "G3_sqrtcap_contains": true,
+  "G3_bracket_broke_at_sigma2": false,
+  "G4_split_pays_raw": true,
+  "G5": true
+ }
+}

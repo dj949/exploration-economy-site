@@ -1,0 +1,218 @@
+{
+  "baseline|decline0": {
+    "creator_real_end": 1.263,
+    "creator_real_min": 0.995,
+    "p10_min": 1.176,
+    "topup_max": 0.0,
+    "infl_10yr": 0.03,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 0.0
+  },
+  "baseline|decline30": {
+    "creator_real_end": 1.133,
+    "creator_real_min": 0.995,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.03,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 0.0
+  },
+  "baseline|decline50": {
+    "creator_real_end": 1.033,
+    "creator_real_min": 0.958,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.03,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 0.0
+  },
+  "baseline|decline70": {
+    "creator_real_end": 0.925,
+    "creator_real_min": 0.847,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.03,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 0.0
+  },
+  "baseline|decline80": {
+    "creator_real_end": 0.855,
+    "creator_real_min": 0.779,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.03,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 0.0
+  },
+  "baseline|decline90": {
+    "creator_real_end": 0.772,
+    "creator_real_min": 0.697,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.03,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 0.0
+  },
+  "baseline|decline95": {
+    "creator_real_end": 0.722,
+    "creator_real_min": 0.647,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.03,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 0.0
+  },
+  "baseline|decline99": {
+    "creator_real_end": 0.67,
+    "creator_real_min": 0.595,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.03,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 0.0
+  },
+  "stab18|decline0": {
+    "creator_real_end": 1.268,
+    "creator_real_min": 1.0,
+    "p10_min": 1.176,
+    "topup_max": 0.0,
+    "infl_10yr": 0.02,
+    "reserve_end_months": 18.0,
+    "released_months_of_slice": 0.1
+  },
+  "stab18|decline30": {
+    "creator_real_end": 1.137,
+    "creator_real_min": 1.0,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.02,
+    "reserve_end_months": 18.0,
+    "released_months_of_slice": 0.1
+  },
+  "stab18|decline50": {
+    "creator_real_end": 1.037,
+    "creator_real_min": 1.0,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.02,
+    "reserve_end_months": 18.0,
+    "released_months_of_slice": 14.8
+  },
+  "stab18|decline70": {
+    "creator_real_end": 0.993,
+    "creator_real_min": 0.922,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.06,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 94.5
+  },
+  "stab18|decline80": {
+    "creator_real_end": 0.924,
+    "creator_real_min": 0.835,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.07,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 99.3
+  },
+  "stab18|decline90": {
+    "creator_real_end": 0.84,
+    "creator_real_min": 0.754,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.08,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 102.8
+  },
+  "stab18|decline95": {
+    "creator_real_end": 0.79,
+    "creator_real_min": 0.703,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.08,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 104.1
+  },
+  "stab18|decline99": {
+    "creator_real_end": 0.737,
+    "creator_real_min": 0.651,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.08,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 105.1
+  },
+  "stab_unlim|decline0": {
+    "creator_real_end": 1.224,
+    "creator_real_min": 1.0,
+    "p10_min": 1.176,
+    "topup_max": 0.0,
+    "infl_10yr": 0.08,
+    "reserve_end_months": 157.2,
+    "released_months_of_slice": 0.1
+  },
+  "stab_unlim|decline30": {
+    "creator_real_end": 1.089,
+    "creator_real_min": 1.0,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.08,
+    "reserve_end_months": 157.2,
+    "released_months_of_slice": 0.1
+  },
+  "stab_unlim|decline50": {
+    "creator_real_end": 1.0,
+    "creator_real_min": 1.0,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.09,
+    "reserve_end_months": 121.4,
+    "released_months_of_slice": 35.2
+  },
+  "stab_unlim|decline70": {
+    "creator_real_end": 1.0,
+    "creator_real_min": 1.0,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.12,
+    "reserve_end_months": 34.6,
+    "released_months_of_slice": 121.1
+  },
+  "stab_unlim|decline80": {
+    "creator_real_end": 0.922,
+    "creator_real_min": 0.892,
+    "p10_min": 1.1,
+    "topup_max": 0.0,
+    "infl_10yr": 0.13,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 155.5
+  },
+  "stab_unlim|decline90": {
+    "creator_real_end": 0.838,
+    "creator_real_min": 0.778,
+    "p10_min": 1.099,
+    "topup_max": 0.0,
+    "infl_10yr": 0.15,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 155.5
+  },
+  "stab_unlim|decline95": {
+    "creator_real_end": 0.789,
+    "creator_real_min": 0.719,
+    "p10_min": 1.099,
+    "topup_max": 0.0,
+    "infl_10yr": 0.16,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 155.5
+  },
+  "stab_unlim|decline99": {
+    "creator_real_end": 0.736,
+    "creator_real_min": 0.661,
+    "p10_min": 1.099,
+    "topup_max": 0.0,
+    "infl_10yr": 0.17,
+    "reserve_end_months": 0.0,
+    "released_months_of_slice": 155.6
+  }
+}

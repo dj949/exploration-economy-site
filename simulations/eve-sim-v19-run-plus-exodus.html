@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>v19 - Run plus Exodus — EDEN simulation report</title>
+<meta name="description" content="Plain-language and technical results for EDEN simulation v19 - Run plus Exodus.">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.72;font-size:17.5px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{max-width:1020px;display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav a.back{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  header{background:linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule);padding:76px 0 54px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  h1{font-size:clamp(30px,5vw,44px);line-height:1.16;color:var(--deep);max-width:24ch;margin:0 auto}
+  header .sub{max-width:56ch;margin:20px auto 0;font-size:18px;color:var(--soft)}
+  .dlrow{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .dlnote{font-size:12.5px;color:var(--soft)}
+  article{padding:56px 0}
+  article p{margin-bottom:20px}
+  article b{color:var(--deep)}
+  article h2{font-size:clamp(21px,3vw,27px);color:var(--deep);line-height:1.25;margin:46px 0 14px}
+  article h2:first-child{margin-top:0}
+  article ul{margin:0 0 20px 22px}
+  article li{margin-bottom:9px;color:var(--soft)}
+  article li b{color:var(--deep)}
+  .callout{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:22px 24px;margin:30px 0}
+  .callout p{margin-bottom:0;font-size:16px}
+  .kit{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:26px 26px;margin:30px 0}
+  .kit h3{font-size:16px;color:var(--deep);margin-bottom:14px;font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.02em}
+  .kit ul{margin:0 0 0 20px}
+  .kit li{font-size:15px}
+  .cmd{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 20px;font-family:'Courier New',monospace;font-size:14px;margin:14px 0 4px;overflow-x:auto}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .wrap{max-width:1020px}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+
+  /* ---- dark mode (match-system + toggle) ---- */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .cta,[data-theme="dark"] .eqstrip,[data-theme="dark"] .cmd{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .w .tag.draft,[data-theme="dark"] .module .tag{background:#3a3320;color:#e6cf95}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+
+<style>
+  article table{border-collapse:collapse;width:100%;margin:22px 0;font-size:14.5px;font-family:'Helvetica Neue',Arial,sans-serif;display:block;overflow-x:auto}
+  article th,article td{border:1px solid var(--rule);padding:9px 12px;text-align:left;vertical-align:top}
+  article th{background:var(--dim);color:var(--deep);font-weight:700}
+  article tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+  [data-theme="dark"] article tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+  article blockquote{border-left:3px solid var(--gold);background:var(--card);margin:22px 0;padding:14px 20px;border-radius:0 4px 4px 0}
+  article blockquote p{margin-bottom:10px}article blockquote p:last-child{margin-bottom:0}
+  article blockquote h2,article blockquote h3{margin-top:6px}
+  article pre{background:var(--deep);color:#e9efe9;border-radius:6px;padding:16px 18px;overflow-x:auto;font-size:13.5px;margin:16px 0}
+  article pre code{background:none;color:inherit;padding:0}
+  article code{background:var(--dim);padding:1.5px 6px;border-radius:3px;font-size:.9em;font-family:'Courier New',monospace}
+  article h3{font-size:19px;color:var(--deep);margin:32px 0 10px}
+  article h4{font-size:16px;color:var(--deep);margin:24px 0 8px;font-family:'Helvetica Neue',Arial,sans-serif}
+  article img{max-width:100%;height:auto;border:1px solid var(--rule);border-radius:5px;margin:20px 0;display:block}
+  article hr{border:none;border-top:1px solid var(--rule);margin:36px 0}
+  .banner{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);border-radius:4px;padding:18px 22px;margin:0 0 30px;font-size:14.5px;color:var(--soft);font-family:'Helvetica Neue',Arial,sans-serif}
+  .banner b{color:var(--deep)}
+  .rnav{font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;margin:0 0 6px;color:var(--soft)}
+  .dlbtn{display:inline-block;margin:8px 10px 8px 0;padding:9px 16px;border-radius:3px;font-size:13.5px;font-family:'Helvetica Neue',Arial,sans-serif;border:1.5px solid var(--deep);color:var(--deep)}
+  .study-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin:18px 0 8px}
+  .scard{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:16px 18px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .scard a{font-weight:700;font-size:15px;border:none}
+  .scard .q{font-size:13px;color:var(--soft);margin-top:6px;line-height:1.5}
+  .eyebrow{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:40px 0 6px}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a><a class="back sans" href="/simulations">← All simulations</a></div></nav>
+<header><div class="wrap">
+<div class="kicker sans">Adversarial &amp; substrate waves (v8–v39)</div>
+<h1>v19 - Run plus Exodus</h1>
+
+</div></header>
+<article><div class="wrap">
+<div class="banner"><b>How to read this page.</b> The plain-language write-up comes first; the technical results follow. Figures and the raw <code>results.json</code> are linked so you can check every number yourself. This is a model of the design under stated assumptions — not a forecast.</div>
+<p class="eyebrow">In plain language</p>
+<p><em>July 9, 2026. Companion to <code>RESULTS - v19.0 Run plus Exodus</code>.</em></p>
+<h2 id="the-fear">The fear</h2>
+<p>The way most crypto-currencies die isn't a clever hack — it's a stampede. The price wobbles, people rush for the exit, their rushing crashes the price further, which makes more people rush… a self-feeding spiral (it's how Terra/Luna evaporated). An earlier test (v9) checked whether a <em>price</em> crash breaks EDEN and found the honest answer "the price can crash but groceries still arrive." This test asks the scarier follow-up: what if the <em>people themselves</em> leave — not just traders dumping coins, but real users abandoning the whole thing, shrinking the base that mints the money and funds the floor? Does the safety net collapse when the crowd walks out?</p>
+<h2 id="what-we-found">What we found</h2>
+<p><strong>You can't run on this floor — and the reason is structural, not lucky.</strong> A bank run works because a bank owes a <em>fixed pile of money</em> to a <em>shrinking crowd</em> of depositors: the pile doesn't get smaller when people flee, so the last ones out find an empty vault. EDEN's floor is the mirror image: it promises <em>each person</em> their essentials, so when people leave, the total bill it owes shrinks exactly as fast as the crowd does.</p>
+<p><strong>A July 11 correction, for honesty's sake:</strong> our first write-up said "we drove the user base down by 88%" — we hadn't. The runs we'd actually saved never lost more than about a quarter of the base (88% was the share who <em>stayed</em>), and the sentence had flipped it. So we went back and ran the missing experiments properly. Result: the panic itself can't produce a deep exodus (even at the nastiest settings we pre-registered, the price recovers before more than ~a third leave) — so we <em>forced</em> people out artificially, month after month, until 88% were gone. <strong>The remaining 12% still got 100% of their essentials, every single month, and the emergency reserve ended the experiment 98% full.</strong> The claim was right; now the experiment behind it actually exists.</p>
+<p>Two things make the spiral fizzle instead of feed:
+- <strong>The bill shrinks with the crowd.</strong> Fewer people = less to deliver = the reserve stretches further, not thinner. The opposite of a bank run.
+- <strong>The reserve is only touched briefly.</strong> When the coin price crashes, there's a lag while the price gauge catches up, and during that lag the reserve tops up the gap (starting one month after the crash, per the newly-computed readout). Once the gauge re-settles (a few months), the top-ups stop.</p>
+<p>We also finally ran the "what if confidence never comes back" experiment we'd previously only talked about — a <em>permanent</em> price depression. The vault's promise held perfectly: essentials delivered in full, forever, reserve never close to empty. But it revealed something our first write-up missed: <strong>under permanent gloom, nothing breaks — people just keep trickling out</strong> until almost nobody's left. You can't <em>run</em> on this floor, but you can <em>abandon</em> it. What stops the trickle in every realistic scenario is the price recovering; if confidence never returns, no mechanism inside the floor brings people back. That's now honestly on the record as the real long-game risk.</p>
+<h2 id="the-one-honest-catch">The one honest catch</h2>
+<p>Our model proves the <em>floor delivery</em> is run-proof. What it doesn't include is <strong>fixed running costs</strong> — the validators, the price oracle, the plumbing — which might cost the same whether a billion people use EDEN or a thousand do. If almost everyone left, per-person grocery delivery to the stragglers would still work, but the <em>system around it</em> could become too expensive to run. So the safety net itself can't be stampeded; the machinery keeping the lights on is the part that a mass exodus could still threaten. That's the next test to build.</p>
+<h2 id="one-line">One line</h2>
+<p><strong>You can't start a bank run on a promise of groceries-per-person: when the crowd flees, the bill flees with them, so the last person standing still eats — the death spiral that kills price-pegged coins has nothing to feed on here. The one thing the floor can't do is make people stay: if confidence never returns, it delivers perfectly to a shrinking room.</strong></p>
+<p class="eyebrow">Figures</p>
+<img src="fig/eve-sim-v19-run-plus-exodus-0.png" alt="fig_v19_run_exodus.png">
+<p class="eyebrow">Technical results</p>
+<p><strong>Run: July 9, 2026. Spec: <code>v19 SPEC - Run plus Exodus (registered).md</code> — bars Z0–Z4 fixed before code. Engine: <code>run_exodus_sim.py</code> (reduced-form composition on v9's committed anchors; deterministic given seeds); committed: <code>results_v19.json</code>, <code>fig_v19_run_exodus.png</code>. Closes the economics red-team's A6 run+exodus residue. Every number traces to <code>results_v19.json</code>.</strong></p>
+<p><strong>Verdict in one line: the reflexive exodus that sank Terra-style designs is structurally survivable here, and the run found <em>why</em> — the floor is a per-capita goods guarantee, so when people leave, the bill shrinks as fast as the base; a floor like that cannot be "run" the way a fixed-liability peg can. All five bars pass. (Corrected + completed July 11, Verification v4 D1: the original F1/F2 quoted two demonstrations — 88%-gone attrition and a permanent shock — that no committed run had performed; the registered x_max sweep, the Z3 scissor readout, and two labeled extension cells now exist on disk, they vindicate the structural claim, and they add one finding the original prose missed: under a <em>permanent</em> confidence depression the vault holds but the population drains to the model floor.)</strong></p>
+<h2 id="bar-summary-all-five-pass">Bar summary (all five pass)</h2>
+<table>
+<thead>
+<tr>
+<th>Bar</th>
+<th>Registered</th>
+<th>Measured</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z0 regression to v9</td>
+<td>exodus-off confidence-shock drawdown ≈ 26±5%, delivery 1.0</td>
+<td><strong>26.3% dd</strong>, delivery 1.000</td>
+<td><strong>PASS</strong> (calibration-consistency vs v9 R0)</td>
+</tr>
+<tr>
+<td>Z1 delivery to remainers under exodus</td>
+<td>≥1.0/mo, or breach ≤ 3-consec</td>
+<td><strong>1.000</strong>, 0 months below</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>Z2 spiral self-limiting</td>
+<td 15_="15%" 4_="4," 8_="8,">≥50% real base retained at h≤1; report runaway; x_max swept</td>
+<td><strong>88% retained at h=1</strong>; 77% at h=2; no runaway in range. <em>Sweep executed July 11 (was declared, unrun):</em> deepest cell x=15%/h=2 bottoms at <strong>68% retained</strong>, delivery 1.0 in all six cells</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>Z3 reserve survival + funding scissor</td>
+<td>≥6 reserve-months after shock; report month lane-cap &lt; floor-delivery need</td>
+<td>reserve <strong>never exhausts</strong> (full 156-mo post-shock horizon); <em>scissor readout computed July 11 (was registered, unreported):</em> lane alone stops covering the gap at <strong>month 25</strong> (one month post-shock), reserve covers thereafter, both β cells</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td>Z4 peg counterfactual</td>
+<td>peg dominated (worse or equal)</td>
+<td>peg no better; <strong>v9's deeper cell shows strong domination</strong> (75.8% dd, 156 mo below)</td>
+<td><strong>PASS (weak here)</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="findings">Findings</h2>
+<p><strong>F1 — The per-capita floor is structurally run-proof (the headline — corrected and now actually demonstrated, July 11).</strong> A bank run works because a bank owes a <em>fixed</em> sum to a <em>shrinking</em> pool of confident depositors — the liability doesn't shrink when depositors flee, so the last ones out get nothing. EDEN's floor is the opposite: it owes <em>per-capita essentials</em> to whoever remains, so the total obligation <code>FS = FLOOR_SELL × (remaining base)</code> shrinks in lockstep with an exodus. <em>Correction for the record (Verification v4, D1): this finding originally claimed "88% of the base gone and delivery still holds" — but no committed run had performed that experiment; the committed cells' deepest attrition was 23% gone, and 88% was the RETAINED fraction (Z2). The claim is now backed by two committed runs.</em> First, the <strong>registered x_max sweep</strong> (executed July 10): even at the maximum registered exodus rate (15%/mo) with strong herding, price-driven exit bottoms out at 68% retained — the price recovers before deep attrition, so <em>reflexive</em> exodus never gets near 88%-gone. Second, the <strong>labeled extension cell</strong> (<code>extension_F1_forced_exodus</code>) forces attrition past what price sentiment can produce — 4%/mo exogenous exit down to <strong>RU = 0.12 (88% gone)</strong> — and delivery to the remaining 12% holds at <strong>1.000 every month, zero months below, reserve ending at $35.3M of $36M, never exhausting</strong>. The structural claim was right; now the run exists. This is the escape from the Diamond–Dybvig / reflexivity trap the economics red-team (A6) flagged: <strong>EDEN cannot be run on the floor, because the floor is a claim on goods per person, not a fixed promise to a pool.</strong></p>
+<p><strong>F2 — Reserve draws are a bounded transition cost — and the permanent-shock cell, now actually run, adds a darker corollary (July 11).</strong> When the EVE price crashes below the (lagging) EBI oracle, floor-sellers get less real value per coin and the M-stack lane + reserve cover the gap; the Z3 scissor readout (registered, now computed) shows the lane alone stops covering that gap at <strong>month 25</strong> — one month after the shock — and the reserve carries it from there without ever exhausting. <em>Correction for the record (v4 D1): the original text claimed this was "tested with a non-decaying confidence shock" — the committed engine had no such test; its shock decay was hardcoded. The labeled extension cell (<code>extension_F2_permanent_shock</code>) now runs it.</em> Result: under a <strong>permanent</strong> 40% confidence depression, the vault claim holds — delivery 1.000 throughout, reserve never exhausts (ends $33.6M) — but the finding the original prose missed is that <strong>the real-user base drains to the model's 2% floor</strong>: nothing breaks, everyone leaves. The floor cannot be run, but it can be <em>abandoned</em> — delivery-to-remainers is the wrong lens for a permanent-depression world, and the honest successor question is what stops the drain (price recovery does, in every decaying-shock cell; nothing does, if confidence never returns). Filed as a finding, not spin.</p>
+<p><strong>F3 — The reflexive spiral is self-limiting at plausible herding (Z2).</strong> Real-user exit driven by price-below-confidence, with herding on recent departures, converges to a new lower equilibrium rather than running to zero: 88% retained at herding h=1, 77% at h=2, no runaway even at h=2. Self-limiting because the two forces that would accelerate a Terra-style death spiral — delivery failure and reserve exhaustion — never fire (F1, F2), so the feedback that turns a price dip into a stampede is absent. Exit is driven only by price sentiment, which stabilizes as the oracle and price re-equilibrate.</p>
+<p><strong>F4 — Peg is dominated, weakly here, strongly in v9 (Z4).</strong> At this v9-calibrated <em>moderate</em> confidence shock, neither the essentials-anchored floor nor a price-peg counterfactual shows a delivery breach, so Z4 passes only weakly (0 = 0 months below). The strong domination is already on the record in v9's deeper <em>levered</em> run: the peg burns 5.1× the reserve, 95.7% of it bailing out speculators, and breaks the floor for 156 months. v19 adds nothing that rescues the peg; it confirms the anchored posture is no worse and v9 shows it is far better under leverage.</p>
+<h2 id="honest-limits">Honest limits</h2>
+<p>Reduced-form (prices normalized; v9's anchors reused but not v9's full two-venue market microstructure — Z0 is a calibration-consistency check against v9's committed R0, not a byte-reproduction; v9 itself is harness-verified). The result's robustness rests on one modeled structural fact — that the floor obligation is strictly per-capita — and its <strong>honest breaking point is exactly what the reduced form omits: fixed costs.</strong> If validator/oracle/infrastructure upkeep is a <em>fixed</em> sum independent of population (not modeled here), then extreme depopulation could starve the <em>system</em> even while per-capita delivery to remainers holds — a fixed-liability failure hiding under a per-capita success. That, plus the identity/consent keystones, is where a real exodus could still bite; the floor delivery itself is run-proof, the surrounding fixed-cost machinery is the unmodeled risk. A fixed-infrastructure-cost cell is the natural successor.</p>
+<p><em>Run and written July 9, 2026, verification session (self-labeled Fable; per the owner's record this sitting ran as Opus 4.8 — see INDEX provenance note). Z4's weak pass and the fixed-cost limit are stated, not buried. Bars unmoved.</em></p>
+<p><em>Postscript, July 11, 2026 (Verification v4 action 1, executed by the Fable 5 verification session): F1's "88% gone" and F2's "permanent shock" claims had no committed runs behind them — F1's read as an inversion of the 88%-retained Z2 result. Fixes: the registered x_max sweep {4, 8, 15%} executed (was declared, unrun); Z3's registered scissor readout computed (month 25); two labeled extension cells committed (forced-exodus-to-12%, permanent shock); the dead seed machinery removed and determinism recorded (the registered "seeds 7+11" clause is discharged by exactness — no random draws exist). F1's structural claim survived its own correction with a real run behind it; F2 gained an honest corollary (permanent depression: vault holds, population drains). Z0's calibration-to-v9 disclosure unchanged. Bars Z0–Z4 unmoved; all pre-existing JSON leaves verified unchanged.</em></p>
+<p class="eyebrow">Raw data</p><p><a class="dlbtn" href="data/eve-sim-v19-run-plus-exodus-0.json" download>⬇ results_v19.json</a></p>
+</div></article>
+<footer><div class="wrap"><p><a href="/">Home</a> · <a href="/what-is-eden">What is EDEN</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/docs/whitepaper">White Paper</a> · <a href="/replication">Replication</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a></p><p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and every simulation so far was produced and checked by AI models from the same family — not yet independently reviewed. Every model is an existence-and-robustness demonstration under stated assumptions, not a forecast. The open questions are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p></div></footer>
+<script>if(location.protocol==='file:'){var M={"/": "../index.html", "/edenquest": "../edenquest.html", "/essays": "../essays.html", "/evidence": "../evidence.html", "/faq": "../faq.html", "/about": "../about.html", "/book": "../book.html", "/what-is-eden": "../what-is-eden.html", "/docs/whitepaper": "../whitepaper.html", "/replication": "../replication.html", "/support": "../support.html", "/simulations": "../simulations/index.html", "/simulations/plain-language": "../simulations/plain-language.html", "/the-power-of-stories": "../the-power-of-stories.html", "/the-stories-we-invest-in": "../the-stories-we-invest-in.html", "/why-we-feel-powerless": "../why-we-feel-powerless.html"};document.querySelectorAll('a[href^="/"]').forEach(function(a){var h=a.getAttribute('href'),hash='',i=h.indexOf('#');if(i>-1){hash=h.slice(i);h=h.slice(0,i);}if(h==='')h='/';if(M[h])a.setAttribute('href',M[h]+hash);});}</script>
+<script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+</body>
+</html>
