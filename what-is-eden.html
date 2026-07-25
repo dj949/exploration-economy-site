@@ -5,6 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>What Is EDEN? — A plain-language guide for newcomers</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="The one document to read if you've never seen this project before: the engine, the overlay, the pieces that fit together, and what we don't yet know — said out loud.">
 <style>
   :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8}
@@ -115,6 +118,21 @@
   .themetoggle:hover{background:var(--green)}
   [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
   [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+
+  /* shared nav — Release 1 cutover */
+  nav ul{display:flex;gap:20px;list-style:none;align-items:center;margin:0}
+  nav ul a{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  .navcta{background:var(--deep);color:#fff !important;padding:8px 15px;border-radius:3px}
+  .r1stamp{margin-top:14px;font-size:12.5px;color:var(--soft)}
+  .navtoggle{display:none;background:none;border:1px solid var(--rule);border-radius:3px;padding:6px 11px;font-size:15px;line-height:1;color:var(--deep);cursor:pointer}
+  @media(max-width:800px){
+    nav ul{display:none}
+    .navtoggle{display:inline-flex;align-items:center}
+    nav.navopen ul{display:flex;flex-direction:column;gap:0;align-items:stretch;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 24px 12px;box-shadow:0 10px 20px rgba(0,0,0,.09)}
+    nav.navopen ul li{padding:10px 0;border-top:1px solid var(--rule)}
+    nav.navopen ul li:first-child{border-top:none}
+    nav.navopen ul li a{display:inline-block}
+  }
 </style>
 </head>
 <body>
@@ -122,7 +140,15 @@
 <nav>
   <div class="wrap">
     <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
-    <a class="back sans" href="/">← Back to the map</a>
+    <ul class="sans" id="navmenu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/start">The Story</a></li>
+      <li><a href="/blueprint">The Blueprint</a></li>
+      <li><a href="/evidence">The Evidence</a></li>
+      <li><a href="/edenquest">The App</a></li>
+      <li><a href="/#subscribe" class="navcta">Subscribe</a></li>
+    </ul>
+    <button class="navtoggle sans" type="button" aria-expanded="false" aria-controls="navmenu" aria-label="Open menu">☰</button>
   </div>
 </nav>
 
@@ -271,6 +297,7 @@
   <div class="wrap">
     <p><a href="/">Home</a> · <a href="/edenquest">EdenQuest</a> · <a href="/essays">Essays</a> · <a href="/evidence">Evidence</a> · <a href="/simulations">Simulations</a> · <a href="/faq">FAQ</a> · <a href="/about">About</a> · <a href="/replication">Replication</a> · <a href="/support">Support</a></p>
     <p class="honest">Honesty note: the economic design is simulation-tested, not world-tested, and not yet independently reviewed. The open questions — will institutions pay, does identity hold at scale, do live adversaries break the price gauge — are exactly what the field experiments and pilot exist to answer, with pass/fail criteria published before they run. If it fails them, that gets published too.</p>
+    <p class="r1stamp">© 2026 explorationeconomy.org · Release 1 · <a href="/start">The Story</a> · <a href="/blueprint">The Blueprint</a></p>
   </div>
 </footer>
 <script>
@@ -292,5 +319,7 @@ if(location.protocol==='file:'){
 }
 </script>
 <script>(function(){var b=document.createElement("button");b.className="themetoggle";b.setAttribute("aria-label","Toggle dark mode");function ic(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.innerHTML=(d?"\u2600 Light mode":"\u263E Dark mode");}ic();b.addEventListener("click",function(){var cur=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var n=cur==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("etheme",n);}catch(e){}ic();});document.body.appendChild(b);})();</script>
+<script>(function(){var b=document.querySelector(".navtoggle");if(!b)return;var n=b.closest("nav,.topbar");if(!n)return;b.addEventListener("click",function(){var o=n.classList.toggle("navopen");b.setAttribute("aria-expanded",o?"true":"false");b.setAttribute("aria-label",o?"Close menu":"Open menu");});})();</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

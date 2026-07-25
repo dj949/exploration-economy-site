@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Exploration Economy — What if everything you create paid you back?</title>
+<meta name="description" content="Most money today is born as debt. EDEN is a tested design for money born from human creativity instead — your data, work, and attention pay you when used. Every failure published.">
+<link rel="canonical" href="https://www.explorationeconomy.org/start">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Exploration Economy">
+<meta property="og:url" content="https://www.explorationeconomy.org/start">
+<meta property="og:title" content="The Exploration Economy — What if everything you create paid you back?">
+<meta property="og:description" content="Most money today is born as debt. EDEN is a tested design for money born from human creativity instead — your data, work, and attention pay you when used. Every failure published.">
+<meta property="og:image" content="https://www.explorationeconomy.org/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Exploration Economy — What if everything you create paid you back?">
+<meta name="twitter:description" content="Most money today is born as debt. EDEN is a tested design for money born from human creativity instead — your data, work, and attention pay you when used. Every failure published.">
+<meta name="twitter:image" content="https://www.explorationeconomy.org/og-card.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root{--ink:#101613;--soft:#3a4540;--paper:#f7f5ef;--dim:#efece2;--green:#1e5c3d;--deep:#0d3524;--glow:#2e8b5f;--gold:#b98a2f;--rule:#d8d2c2;--card:#fffdf8;--coral:#a0674f;--coralbg:#f3e9e3}
+  *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth}
+  body{font-family:Georgia,serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:17px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  .mono{font-family:'Courier New',monospace}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 24px}
+  a{color:var(--green);text-decoration:none;border-bottom:1px solid rgba(30,92,61,.35)} a:hover{border-bottom-color:var(--green)}
+  nav{position:sticky;top:0;background:rgba(247,245,239,.93);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);z-index:50}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .logo{font-weight:700;letter-spacing:.04em;font-size:14.5px;color:var(--deep);border:none}.logo em{font-style:normal;color:var(--gold)}
+  nav ul{display:flex;gap:22px;list-style:none}
+  nav ul a{font-size:13px;letter-spacing:.05em;text-transform:uppercase;border:none;color:var(--soft)}
+  .navcta{background:var(--deep);color:#fff !important;padding:8px 15px;border-radius:3px}
+  .navtoggle{display:none;background:none;border:1px solid var(--rule);border-radius:3px;padding:6px 11px;font-size:15px;line-height:1;color:var(--deep);cursor:pointer}
+  @media(max-width:800px){
+    nav ul{display:none}
+    .navtoggle{display:inline-flex;align-items:center}
+    nav.navopen ul{display:flex;flex-direction:column;gap:0;align-items:stretch;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 24px 12px;box-shadow:0 10px 20px rgba(0,0,0,.09)}
+    nav.navopen ul li{padding:10px 0;border-top:1px solid var(--rule)}
+    nav.navopen ul li:first-child{border-top:none}
+    nav.navopen ul li a{display:inline-block}
+  }
+  header{background:radial-gradient(1000px 460px at 70% -10%,rgba(46,139,95,.15),transparent 60%),linear-gradient(180deg,var(--paper),var(--dim));border-bottom:1px solid var(--rule)}
+  .hero{padding:92px 0 72px;text-align:center}
+  .kicker{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+  h1{font-size:clamp(32px,5.4vw,54px);line-height:1.14;color:var(--deep);max-width:22ch;margin:0 auto}
+  .hero .sub{max-width:60ch;margin:26px auto 0;font-size:19px;color:var(--soft)}
+  .hero .note{margin-top:18px;font-size:13.5px;color:var(--soft);opacity:.85}
+  .btn{display:inline-block;padding:14px 26px;border-radius:3px;font-size:15px;border:none;cursor:pointer}
+  .btn.primary{background:var(--deep);color:#fff}.btn.primary:hover{background:var(--green)}
+  .btn.ghost{border:1.5px solid var(--deep);color:var(--deep)}
+  .btn.gold{background:var(--gold);color:#1a1305;font-weight:700}.btn.gold:hover{background:#a5791f}
+  .hero .ctas{margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center}
+  .hero .side{font-size:14px}
+  /* trust strip */
+  .trust{background:var(--deep);color:#e9efe9;padding:20px 0}
+  .trust .wrap{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:6px 16px;font-size:12.5px;letter-spacing:.04em}
+  section{padding:80px 0}
+  section.dim{background:var(--dim);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  h2{font-size:clamp(25px,3.4vw,36px);color:var(--deep);line-height:1.2}
+  .lede{font-size:18px;color:var(--soft);max-width:64ch;margin-top:16px}
+  /* pillars / beats */
+  .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:46px}
+  .pillar{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:28px 24px;transition:transform .25s ease,box-shadow .25s ease}
+  .pillar:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(13,53,36,.10)}
+  .pillar .n{font-family:'Courier New',monospace;font-size:13px;color:var(--gold);letter-spacing:.1em;margin-bottom:12px}
+  .pillar.today .n{color:var(--coral)}
+  .pillar h3{font-size:18px;color:var(--deep);margin-bottom:9px}
+  .pillar p{font-size:14.5px;color:var(--soft)}
+  .pillar .rule-line{display:block;margin-top:14px;padding-top:12px;border-top:1px dashed var(--rule);font-family:'Courier New',monospace;font-size:12px;color:var(--green)}
+  .pillar details{margin-top:14px;border-top:1px dashed var(--rule);padding-top:11px}
+  .pillar summary{cursor:pointer;font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);list-style:none}
+  .pillar summary::-webkit-details-marker{display:none}
+  .pillar summary::before{content:"+ "}
+  .pillar details[open] summary::before{content:"− "}
+  .pillar details p{margin-top:10px}
+  /* the pivot line */
+  .pivot{max-width:56ch;margin:56px auto 0;text-align:center;font-style:italic;font-size:clamp(19px,2.4vw,23px);color:var(--deep);line-height:1.55}
+  .pivot b{color:var(--green);font-style:normal}
+  /* poll / router */
+  .pollcard{background:var(--card);border:1px solid var(--rule);border-radius:6px;max-width:640px;margin:46px auto 0;padding:38px 34px}
+  .pollcard h3{font-size:22px;color:var(--deep);text-align:center}
+  .pollcard .q{text-align:center;font-size:15px;color:var(--soft);margin-top:8px}
+  .opt{display:block;width:100%;text-align:left;background:var(--paper);border:1.5px solid var(--rule);border-radius:4px;padding:14px 16px;margin-top:10px;font-size:15px;font-family:Georgia,serif;color:var(--ink);cursor:pointer;transition:border-color .15s}
+  .opt:hover{border-color:var(--green)}
+  .opt.sel{border-color:var(--green);background:#eaf2ec;font-weight:700}
+  .pollreply{display:none;margin-top:16px;padding:14px 16px;background:var(--paper);border-left:3px solid var(--green);font-size:14.5px;color:var(--soft)}
+  .pollreply.show{display:block}
+  .pollact{display:none;margin-top:14px}
+  .pollact.show{display:block}
+  .pollmail{display:none;margin-top:14px;gap:10px;flex-wrap:wrap}
+  .pollmail.show{display:flex}
+  .pollmail input{flex:1;min-width:200px;padding:12px 14px;border:1.5px solid var(--rule);border-radius:3px;font-size:14.5px;background:var(--card);font-family:inherit}
+  /* truth vs marketing */
+  .tvm{margin-top:48px;display:grid;gap:18px}
+  .pair{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule);border-radius:5px;overflow:hidden}
+  @media(max-width:700px){.pair{grid-template-columns:1fr}}
+  .pair .m{background:var(--coralbg);padding:24px;color:#7a4a3a}
+  .pair .t{background:var(--card);padding:24px}
+  .pair .lab{font-size:11px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;display:block}
+  .pair .m .lab{color:var(--coral)}.pair .t .lab{color:var(--green)}
+  .pair .m p{text-decoration:line-through;text-decoration-color:rgba(122,74,58,.5);font-size:16px}
+  .pair .t p{font-size:16px;color:var(--ink)}
+  /* evidence */
+  .statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:46px}
+  .stat{background:var(--card);padding:26px 22px;text-align:center}
+  .stat b{display:block;font-size:30px;color:var(--deep);font-family:'Courier New',monospace}
+  .stat span{font-size:13px;color:var(--soft)}
+  .crashes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:36px}
+  .crash{background:var(--card);border:1px solid var(--rule);border-top:4px solid var(--coral);border-radius:5px;padding:28px 24px}
+  .crash .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
+  .crash h3{font-size:19px;color:var(--deep);margin-bottom:9px}
+  .crash p{font-size:14.5px;color:var(--soft)}
+  .crash .fix{margin-top:14px;padding-top:12px;border-top:1px dashed var(--rule);font-size:14px}
+  .crash .fix b{color:var(--green)}
+  /* staircase */
+  .ladder{margin-top:46px}
+  .rung{display:flex;gap:20px;padding:26px 0;border-top:1px solid var(--rule)}
+  .rung:last-child{border-bottom:1px solid var(--rule)}
+  .rung .n{font-family:'Courier New',monospace;font-size:20px;color:var(--gold);min-width:44px;padding-top:2px}
+  .rung h4{font-size:17.5px;color:var(--deep)}
+  .rung p{font-size:15px;color:var(--soft);margin-top:5px;max-width:70ch}
+  .rung.now{background:linear-gradient(90deg,rgba(46,139,95,.07),transparent);border-left:3px solid var(--green);padding-left:16px}
+  .badge{font-size:10.5px;letter-spacing:.14em;color:#fff;background:var(--green);padding:3px 8px;border-radius:2px;vertical-align:middle;margin-left:8px}
+  /* eq strip */
+  .eqstrip{background:var(--deep);color:#e9efe9;border-radius:8px;padding:44px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .eqstrip h2{color:#fff;font-size:26px}
+  .eqstrip p{color:#c4d4c8;font-size:15px;max-width:46ch;margin-top:8px}
+  .eqstrip .btn{background:var(--gold);color:#1a1305;font-weight:700}
+  /* library */
+  .lib{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;margin-top:46px}
+  .doc{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:28px 24px;display:flex;flex-direction:column;transition:transform .25s ease,box-shadow .25s ease}
+  .doc:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(13,53,36,.10)}
+  .doc .who{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .doc h3{font-size:19px;color:var(--deep);margin-bottom:9px}
+  .doc p{font-size:14.5px;color:var(--soft);flex:1}
+  .doc a{margin-top:16px;font-weight:700;font-size:15px}
+  /* contribute */
+  .ways{margin-top:46px}
+  .way{display:flex;gap:20px;padding:22px 0;border-top:1px solid var(--rule);align-items:baseline}
+  .way:last-child{border-bottom:1px solid var(--rule)}
+  .way .n{font-family:'Courier New',monospace;font-size:18px;color:var(--gold);min-width:44px}
+  .way h4{font-size:17px;color:var(--deep);display:inline}
+  .way p{font-size:15px;color:var(--soft);margin-top:4px;max-width:72ch}
+  .way .go{white-space:nowrap;font-weight:700;font-size:14.5px}
+  @media(max-width:700px){.way{flex-wrap:wrap}.way .go{margin-left:64px}}
+  /* subscribe */
+  #subscribe{text-align:center}
+  #subscribe .lede{margin-left:auto;margin-right:auto}
+  .pulse{display:inline-block;margin-top:26px;font-family:'Courier New',monospace;font-size:12px;letter-spacing:.1em;color:var(--gold);border:1px dashed var(--gold);padding:8px 16px;border-radius:3px}
+  .sub-form{margin-top:28px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .sub-form input{padding:13px 16px;border:1.5px solid var(--rule);border-radius:3px;font-size:15px;min-width:260px;background:var(--card);color:var(--ink);font-family:inherit}
+  footer{padding:46px 0;font-size:13.5px;color:var(--soft)}
+  footer .honest{margin-top:10px;font-style:italic;max-width:80ch}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.on{opacity:1;transform:none}
+  .figure{margin:46px auto 6px;max-width:760px}
+  .figure svg{width:100%;height:auto;display:block}
+  .figcap{font-size:12.5px;color:var(--soft);font-style:italic;text-align:center;margin-top:10px}
+  /* HTML diagrams */
+  .dg{font-family:'Helvetica Neue',Arial,sans-serif}
+  .dg .lane-t{font-size:12px;letter-spacing:2px;color:var(--gold);margin:0 0 10px}
+  .dg .lane-t.co{color:var(--coral)}
+  .dg .frow{display:flex;align-items:stretch}
+  .dg .fnode{flex:1 1 0;min-width:0;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:12px 14px;display:flex;gap:11px;align-items:center}
+  .dg .fnode.hl{border-color:var(--green);border-width:1.6px}
+  .dg .fnode.co{border-color:rgba(160,103,79,.5)}
+  .dg .fnode b{display:block;font-size:13.5px;color:var(--deep);line-height:1.25}
+  .dg .fnode span{display:block;font-size:11.5px;color:var(--soft);margin-top:3px;line-height:1.3}
+  .dg .farr{flex:0 0 96px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 9px;text-align:center}
+  .dg .farr.wide{flex-basis:160px}
+  .dg .farr i{font-style:normal;display:block;font-size:11px;line-height:1.3;color:var(--soft);margin-bottom:6px}
+  .dg .farr i.g{color:var(--green);font-weight:700}
+  .dg .farr i.co{color:var(--coral);font-weight:700}
+  .dg .farr em{font-style:normal;display:block;font-size:10.5px;line-height:1.3;color:var(--soft);margin-top:6px}
+  .dg .farr .sh{position:relative;height:2px;width:100%;background:var(--green)}
+  .dg .farr.co .sh{background:var(--coral)}
+  .dg .farr .sh::after{content:"";position:absolute;right:-1px;top:-4px;border-left:8px solid var(--green);border-top:5px solid transparent;border-bottom:5px solid transparent}
+  .dg .farr.co .sh::after{border-left-color:var(--coral)}
+  .dg .dgdiv{display:flex;align-items:center;gap:14px;margin:22px 0;color:var(--green);font-family:'Courier New',monospace;font-weight:700;font-size:13.5px}
+  .dg .dgdiv::before,.dg .dgdiv::after{content:"";flex:1;border-top:1px dashed var(--rule)}
+  .dg .dgnote{text-align:center;font-size:11.5px;color:var(--soft);margin-top:16px;line-height:1.45}
+  @media(max-width:680px){
+    .dg .frow{flex-direction:column}
+    .dg .farr,.dg .farr.wide{flex-basis:auto;padding:9px 0}
+    .dg .farr .sh{width:2px;height:20px}
+    .dg .farr .sh::after{right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:-2px;border:none;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid var(--green)}
+    .dg .farr.co .sh::after{border-top-color:var(--coral)}
+  }
+  /* dark mode */
+  html{color-scheme:light}
+  [data-theme="dark"]{color-scheme:dark;
+    --ink:#eceadf;--soft:#a7ab9e;--paper:#14150f;--dim:#1c1d16;--card:#1b1c15;--rule:#33342a;
+    --green:#6fb58c;--gold:#d2a24a;--deep:#e6f1ea;--coral:#cf9078;--coralbg:#2a201b;--glow:#2e8b5f}
+  [data-theme="dark"] nav{background:rgba(20,21,15,.93)}
+  [data-theme="dark"] .trust,[data-theme="dark"] .eqstrip{background:#10251b}
+  [data-theme="dark"] .btn.primary,[data-theme="dark"] .navcta{background:#1e5c3d;color:#fff}
+  [data-theme="dark"] .btn.primary:hover{background:#2e8b5f}
+  [data-theme="dark"] .btn.ghost{border-color:#6fb58c;color:#cfe6d8}
+  [data-theme="dark"] .pair .m{color:#e8c9bd}
+  [data-theme="dark"] .opt.sel{background:#1e2b23}
+  [data-theme="dark"] header{border-bottom-color:#33342a}
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:.02em;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .themetoggle:hover{background:var(--green)}
+  [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+  [data-theme="dark"] .themetoggle:hover{background:#e6b34a}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo sans" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <ul class="sans" id="navmenu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blueprint">The Blueprint</a></li>
+      <li><a href="/evidence">The Evidence</a></li>
+      <li><a href="/edenquest">The App</a></li>
+      <li><a href="/essays">Essays</a></li>
+      <li><a href="#subscribe" class="navcta">Subscribe</a></li>
+    </ul>
+    <button class="navtoggle sans" type="button" aria-expanded="false" aria-controls="navmenu" aria-label="Open menu">☰</button>
+  </div>
+</nav>
+
+<!-- ================= 01 · HERO — zero product names, one action ================= -->
+<header>
+  <div class="wrap hero">
+    <div class="kicker sans">THE STORY · A NEW DESIGN FOR HOW MONEY IS BORN — BUILT BY TRYING TO BREAK IT</div>
+    <h1>What if everything you create paid you back?</h1>
+    <p class="sub">Most new money today is born as debt, and it flows to whoever already owns assets. This project tests a different design: money born from verified human creativity — where your data, your work, and your attention quietly pay you every time they're used.</p>
+    <div class="ctas sans">
+      <a class="btn primary" href="#problem">Walk through the idea — 3 minutes ↓</a>
+      <a class="side" href="/blueprint#failures">Skeptical? Start where it broke →</a>
+    </div>
+    <p class="note sans">No token. Nothing to buy. Dollars keep working exactly as they do today.</p>
+  </div>
+</header>
+
+<div class="trust sans">
+  <div class="wrap">
+    <span class="pill">39 waves of adversarial simulation</span>
+    <span class="pill">3 full redesigns forced by failures</span>
+    <span class="pill">Every failure published here — not buried</span>
+    <span class="pill">Not yet independently reviewed — we say so</span>
+  </div>
+</div>
+
+<!-- ================= 02 · THE PROBLEM — mechanism, not grievance ================= -->
+<section id="problem">
+  <div class="wrap">
+    <div class="eyebrow sans reveal">HOW MONEY WORKS TODAY</div>
+    <h2 class="reveal">Money is born as debt. Almost everything else follows.</h2>
+    <p class="lede reveal">This isn't a conspiracy, and nobody is hiding it — it's in the textbooks. Nearly all new money enters the world when a bank issues a loan. That single design choice has three quiet consequences:</p>
+    <div class="pillars">
+      <div class="pillar today reveal">
+        <div class="n">01</div>
+        <h3>The treadmill</h3>
+        <p>Every dollar arrives already owing interest, so the whole system has to grow just to stay level. Growth stops being a choice and becomes a debt payment — whether or not anyone actually needs more.</p>
+      </div>
+      <div class="pillar today reveal">
+        <div class="n">02</div>
+        <h3>Assets earn. Time doesn't.</h3>
+        <p>New money flows toward people who already own things — property, stock, capital. If all you have to offer is your time and effort, you fall behind by design, not by laziness. Five generations later, 79% of the same families are still on top.</p>
+      </div>
+      <div class="pillar today reveal">
+        <div class="n">03</div>
+        <h3>Your creativity is free raw material</h3>
+        <p>Everything you write, post, rate, and share is collected, aggregated, and sold — and now used to train AI — while the people who made it are paid nothing. The most valuable new resource on earth is being harvested for free.</p>
+      </div>
+    </div>
+    <p class="pivot reveal">None of this needs a villain. It's a design — and designs can be <b>redesigned</b>. The only question worth asking: does a better one survive honest testing?</p>
+  </div>
+</section>
+
+<!-- ================= 03 · THE FLIP — EDEN introduced here, first time by name ================= -->
+<section class="dim" id="flip">
+  <div class="wrap">
+    <div class="eyebrow sans reveal">THE FLIP</div>
+    <h2 class="reveal">What if money were born from creation instead?</h2>
+    <p class="lede reveal">That's the experiment. <b>EDEN</b> — an Exploration-Driven Economic Network — is an optional layer on the internet you already use. In it, new money is minted exactly one way: a real, verified human genuinely engaging with real work. Your data, your creations, and your attention become assets that pay you when they're used. And an AI that learns from your work doesn't get it free — it pays you.</p>
+
+    <div class="figure dg reveal" role="img" aria-label="Diagram contrasting the debt loop, where banks create money that flows to asset owners, with the exploration loop, where verified human engagement mints new value that pays creators.">
+      <div class="lane-t co">TODAY — THE DEBT LOOP</div>
+      <div class="frow">
+        <div class="fnode co"><div><b>A bank issues a loan</b><span>new dollars are born owing interest</span></div></div>
+        <div class="farr co"><i class="co">must grow to repay</i><div class="sh"></div></div>
+        <div class="fnode co"><div><b>the economy runs the treadmill</b><span>growth as a debt payment</span></div></div>
+        <div class="farr co"><i class="co">value settles on</i><div class="sh"></div></div>
+        <div class="fnode co"><div><b>whoever already owns assets</b><span>time and creativity: paid once, if at all</span></div></div>
+      </div>
+      <div class="dgdiv">the flip</div>
+      <div class="lane-t">EDEN — THE EXPLORATION LOOP</div>
+      <div class="frow">
+        <div class="fnode">
+          <svg class="ic" style="width:32px;height:32px" width="32" height="32" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="12" r="6" fill="none" stroke="var(--green)" stroke-width="2"/><path d="M5 30 q12 -14 24 0" fill="none" stroke="var(--green)" stroke-width="2"/></svg>
+          <div><b>A verified human</b><span>real attention, real effort</span></div>
+        </div>
+        <div class="farr"><i>genuinely engages with</i><div class="sh"></div></div>
+        <div class="fnode">
+          <svg class="ic" style="width:30px;height:32px" width="30" height="32" viewBox="0 0 34 34" aria-hidden="true"><rect x="7" y="4" width="20" height="26" rx="3" fill="none" stroke="var(--deep)" stroke-width="2"/><path d="M12 12 h10 M12 18 h10 M12 24 h6" stroke="var(--deep)" stroke-width="1.6"/></svg>
+          <div><b>someone's work</b><span>free for anyone to use</span></div>
+        </div>
+        <div class="farr"><i class="g">&#10035; new value minted</i><div class="sh"></div></div>
+        <div class="fnode hl"><div><b>the creator is paid</b><span>automatically, every use</span></div></div>
+      </div>
+      <div class="dgnote">And machines? They never mint — ever. An AI that learns from your work buys and pays <em>existing</em> currency to the people it learned from. The money supply stays tied to the one thing no server farm can fake: verified human time.</div>
+    </div>
+    <p class="figcap sans">The whole thesis in one picture. The unit is called EVE — Equitable Value Exchange. Only people can mint it; it is not a token you can buy.</p>
+
+    <div class="pillars" style="margin-top:56px">
+      <div class="pillar reveal">
+        <div class="n">01</div>
+        <h3>You own a money-making machine</h3>
+        <p>Your data and creations pay you automatically whenever they're used — by a person, a company, or an AI acting on someone's behalf.</p>
+        <details><summary>How that holds</summary><p>The archives worth stealing never leave: AI sends questions in and gets answers out, so &ldquo;used&rdquo; can't quietly become &ldquo;taken.&rdquo; Machines never mint money; they only pay people.</p><span class="rule-line">humans mint · machines pay</span></details>
+      </div>
+      <div class="pillar reveal">
+        <div class="n">02</div>
+        <h3>Transparency wins because it earns</h3>
+        <p>Honest, verifiable work simply earns more. Corruption isn't policed away — it runs out of anywhere to hide.</p>
+        <details><summary>How that holds</summary><p>Reviews can't be bought or buried, so honesty compounds. In century-scale modeling, transparent markets captured 96% of sales on their own.</p><span class="rule-line">reviews can't be bought or buried</span></details>
+      </div>
+      <div class="pillar reveal">
+        <div class="n">03</div>
+        <h3>Science partially funds itself</h3>
+        <p>Failed experiments become paid, visible assets instead of vanishing into a drawer.</p>
+        <details><summary>How that holds</summary><p>In modeling, institutions inside discovered at nearly twice the rate — mostly because nobody repeats a dead end.</p><span class="rule-line">failure data: paid + visible</span></details>
+      </div>
+      <div class="pillar reveal">
+        <div class="n">04</div>
+        <h3>Earn it to keep it</h3>
+        <p>Wealth and success stay fully possible — they just stop being automatic and inheritable.</p>
+        <details><summary>How that holds</summary><p>Income streams are earned, never bought or inherited, so staying on top means continuing to create real value. The result is more movement between top and bottom, not less success.</p><span class="rule-line">mobility, not abolition · 10.4% "born-lucky" persistence vs 79%</span></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 · THE EVIDENCE — proof before any ask ================= -->
+<section id="evidence">
+  <div class="wrap">
+    <div class="eyebrow sans reveal">THE EVIDENCE</div>
+    <h2 class="reveal">We crash-tested it like an airplane. Here's where it broke.</h2>
+    <p class="lede reveal">Before any test ran, we wrote down what failure would mean: if the poorest tenth can't afford essentials for three months running, the design fails. Then we spent months trying to make that happen. It broke three times — and every crash is in the open below, originals included.</p>
+    <div class="crashes">
+      <div class="crash reveal">
+        <div class="tag sans">CRASH №1 — THE BATHTUB</div>
+        <h3>Our own design drowned the poor by month 16.</h3>
+        <p>A faucet that never turns off (every hour of attention mints coins) and a barely-open drain: prices climbed ~10% a year and the bottom tenth went under in the very first simulation — and never recovered.</p>
+        <p class="fix"><b>The fix:</b> a thermostat, not a chairman — a formula in the constitution that slows minting when money outruns real goods. Result: roughly 0% inflation through fifteen simulated years of storms.</p>
+      </div>
+      <div class="crash reveal">
+        <div class="tag sans">CRASH №2 — THE CLIFF</div>
+        <h3>The generous version made effort pointless.</h3>
+        <p>The original safety net "topped everyone up" to the same line — so a struggling musician earning 70% of it gained nothing by working. Half the lower earners rationally quit; output fell by a quarter.</p>
+        <p class="fix"><b>The fix:</b> the ramp — every coin you earn adds half a coin above the guarantee, always. Effort is never pointless, and the simulated economy kept essentially all of its output.</p>
+      </div>
+      <div class="crash reveal">
+        <div class="tag sans">CRASH №3 — THE HEIST</div>
+        <h3>A smart thief earned 6× the floor per fake identity.</h3>
+        <p>Our first fraud tests had only imagined lazy thieves. The audit caught it: optimizing rings rotating AI-generated content could quietly capture a third of all new money.</p>
+        <p class="fix"><b>The fix:</b> three locks — near-identical content shares one shrinking payout, earning at scale requires a stake you lose if caught, and your one lifetime identity is too valuable to rent out. Re-run against all three: the heist didn't pay in a single tested case.</p>
+      </div>
+    </div>
+    <div class="statrow reveal">
+      <div class="stat"><b>39</b><span class="sans">waves of simulation, pass/fail bars registered before each run</span></div>
+      <div class="stat"><b>3</b><span class="sans">full public redesigns forced by results we didn't like</span></div>
+      <div class="stat"><b>49/54</b><span class="sans">programs regenerate their published numbers to the sixth decimal</span></div>
+      <div class="stat"><b>10.4%</b><span class="sans">dynasty persistence under EDEN's rules — vs 79% in today's economy</span></div>
+    </div>
+    <p class="lede reveal" style="margin-top:34px">The full story — the bank-run test, the bribed price gauge, the world-scale run, the jury-packing attempt — is written for humans, no math required. <a href="/evidence">Read the Story of the Tests →</a></p>
+  </div>
+</section>
+
+<!-- ================= 05 · A DIFFERENT KIND OF PITCH — trimmed to the two strongest pairs ================= -->
+<section class="dim" id="pitch">
+  <div class="wrap">
+    <div class="eyebrow sans reveal">A DIFFERENT KIND OF PITCH</div>
+    <h2 class="reveal">What marketing would say — and what's actually true.</h2>
+    <p class="lede reveal" style="font-style:italic">Built by one person who isn't an economist — just someone who believed we could do better, spent years unable to prove it, and finally had the tools to test whether it's true. What follows is what survived the testing. <a href="/about">The whole story →</a></p>
+    <div class="tvm">
+      <div class="pair reveal">
+        <div class="m"><span class="lab sans">MARKETING WOULD SAY</span><p>"A guaranteed income for all, starting day one!"</p></div>
+        <div class="t"><span class="lab sans">THE TRUTH</span><p>We don't promise a floor. Under harder testing, the safety net didn't fund itself — so instead of a promise, we publish the best-tested blueprint that exists, for any community or government to fund and run in public. In modeling, delivering it that way came out about a quarter cheaper than traditional welfare.</p></div>
+      </div>
+      <div class="pair reveal">
+        <div class="m"><span class="lab sans">MARKETING WOULD SAY</span><p>"Trust us."</p></div>
+        <div class="t"><span class="lab sans">THE TRUTH</span><p>Don't. The design broke three times in testing. Every crash, every fix, and every remaining open question is published — the embarrassing originals archived beside the corrections. Check the work; that's the whole point.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 · THE ROUTER — reader chooses their path ================= -->
+<section id="router">
+  <div class="wrap">
+    <div class="pollcard reveal">
+      <h3>A better world begins with opting into better systems.</h3>
+      <p class="q sans">Where does this find you? Pick the honest answer — it changes where you should go next.</p>
+      <button class="opt" data-r="Perfect — this was built for you. Don't believe anything; verify it. Every crash and every open question is published in plain language." data-href="/blueprint#failures" data-label="See where it broke →">I'm too jaded to believe any of this.</button>
+      <button class="opt" data-r="Then don't read the whole site — follow the essays instead. One honest piece at a time, failures included, free." data-sub="1">Curious — but give it to me in small doses.</button>
+      <button class="opt" data-r="Start with your own life. The free app is the first real step on this whole path — useful today, even if nothing else here ever launches." data-href="https://edenquest.org?utm_source=eeo&amp;utm_medium=site&amp;utm_campaign=router" data-label="Try EdenQuest — free →">I want to do something today.</button>
+      <button class="opt" data-r="Then you're who this section is for — there are five ways in, and three of them require no belief at all." data-href="#contribute" data-label="See the five ways in ↓">I want to help build this.</button>
+      <div class="pollreply" id="pr"></div>
+      <div class="pollact sans" id="pa"></div>
+      <!-- LIVE SITE: wire this form to Ghost's native Portal signup -->
+      <!-- T2 SUBSCRIBE NOT WIRED (as of 2026-07-24): no newsletter service chosen yet, so this
+           form is intentionally inert (onsubmit="return false"). TO WIRE: add action="<endpoint>"
+           method="post", give the input name="email", drop the onsubmit handler, and add an inline
+           success state. DO NOT PROMOTE TO PRODUCTION until this is live and tested end-to-end. -->
+      <form class="pollmail sans" id="pm" onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address">
+        <button class="btn primary" type="submit">Join the list</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 · THE PATH — honesty about sequence ================= -->
+<section class="dim" id="path">
+  <div class="wrap">
+    <div class="eyebrow sans reveal">THE PATH</div>
+    <h2 class="reveal">Nothing irreversible gets built on an unproven foundation.</h2>
+    <p class="lede reveal">A deliberately sequenced staircase. Each step earns the next; no step requires believing in the last one.</p>
+    <div class="ladder reveal">
+      <div class="rung now"><div class="n mono">01</div><div><h4>Your data improves your own life <span class="badge sans">LIVE NOW</span></h4><p>EdenQuest — a free personal-growth app where the habit of constructive data collection begins. Useful on day one, even if nothing below ever launches.</p></div></div>
+      <div class="rung"><div class="n mono">02</div><div><h4>Ship the work — and hand it to hostile experts</h4><p>The essays, the white paper, the replication kit. Outside economists and independent, out-of-family replication — the review this project openly says it hasn't had yet.</p></div></div>
+      <div class="rung"><div class="n mono">03</div><div><h4>Run the two experiments no simulation can settle</h4><p>Will institutions actually pay for data and code? (A field experiment, designed, with failure defined in advance.) And can unique human identity hold against real adversaries? (A contained pilot.) These are the hinges — we say so.</p></div></div>
+      <div class="rung"><div class="n mono">04</div><div><h4>The floor — for whoever chooses to fund it</h4><p>The tested safety-net blueprint, adoptable by any community or government on public rails: a reserve you can watch fill, activation by formula, an exit that strands no one. A progress bar, not a pledge.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 · EDENQUEST — "change starts with you", after understanding ================= -->
+<section id="edenquest">
+  <div class="wrap">
+    <div class="eqstrip reveal">
+      <div>
+        <h2>Change starts with your own life.</h2>
+        <p>You don't have to believe any of the above to take the first step. EdenQuest is a free, working app that helps you find out what actually makes your good days good — your data, serving you first. Step one of the staircase, live today.</p>
+      </div>
+      <a class="btn sans" href="https://edenquest.org?utm_source=eeo&amp;utm_medium=site&amp;utm_campaign=strip">Try EdenQuest — free →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 09 · THE LIBRARY — pick your depth ================= -->
+<section class="dim" id="library">
+  <div class="wrap">
+    <div class="eyebrow sans reveal">THE LIBRARY</div>
+    <h2 class="reveal">Everything is documented. Pick your depth.</h2>
+    <div class="lib">
+      <div class="doc reveal">
+        <div class="who sans">START HERE · 15 MIN</div>
+        <h3>The Story of the Tests</h3>
+        <p>The whole testing journey in plain language — the crashes, the fixes, the heists, the audit. No math required. This is the one document to read.</p>
+        <a href="/evidence">Read it →</a>
+      </div>
+      <div class="doc reveal">
+        <div class="who sans">PLAIN ENGLISH</div>
+        <h3>What Is EDEN?</h3>
+        <p>The newcomer's guide: the engine, the overlay, the pieces that fit together, and what we don't yet know — said out loud.</p>
+        <a href="/what-is-eden">Start with the guide →</a>
+      </div>
+      <div class="doc reveal">
+        <div class="who sans">THE FORMAL VERSION</div>
+        <h3>The White Paper</h3>
+        <p>The full design: how money is minted, routed, governed, and defended — with every result graded and every open question labeled. A draft, and labeled as one.</p>
+        <a href="/docs/whitepaper">Read the white paper →</a>
+      </div>
+      <div class="doc reveal">
+        <div class="who sans">THE HUMAN STORY</div>
+        <h3>The Book — <em>Common Sense</em></h3>
+        <p>Where today's economy went wrong, what a better one looks like, and the honest path between — written for humans, not economists.</p>
+        <a href="/book">About the book →</a>
+      </div>
+      <div class="doc reveal">
+        <div class="who sans">THE WRITING</div>
+        <h3>Essays</h3>
+        <p>One honest essay at a time: stories, powerlessness, and why the incentives — not the people — are the problem. The pushback becomes the next piece.</p>
+        <a href="/essays">Read the essays →</a>
+      </div>
+      <div class="doc reveal">
+        <div class="who sans">QUESTIONS, ANSWERED STRAIGHT</div>
+        <h3>FAQ</h3>
+        <p>Is this crypto? UBI? Socialism? What happens to my EdenQuest coins? What's still unproven? Short answers, no hedging.</p>
+        <a href="/faq">Read the FAQ →</a>
+      </div>
+      <div class="doc reveal">
+        <div class="who sans">FOR ECONOMISTS · OPEN</div>
+        <h3>The Replication Kit</h3>
+        <p>Every model, every registered pass/fail bar, every archived original — one command re-runs it all. Free to download. We're daring you to break it.</p>
+        <a href="/replication">Download the kit →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10 · CONTRIBUTE — five ways in, smallest first ================= -->
+<section id="contribute">
+  <div class="wrap">
+    <div class="eyebrow sans reveal">BE PART OF IT</div>
+    <h2 class="reveal">Five ways in — smallest first.</h2>
+    <p class="lede reveal">No one is asked to believe. Every rung below is useful on its own, and three of them are useful even if the whole idea turns out to be wrong.</p>
+    <div class="ways reveal">
+      <div class="way"><div class="n">01</div><div><h4>Follow the build.</h4><p>One honest essay at a time, free. Reply to any of them — the pushback becomes the next piece.</p></div><a class="go sans" href="#subscribe">Subscribe →</a></div>
+      <div class="way"><div class="n">02</div><div><h4>Use your data on yourself.</h4><p>Try EdenQuest and find out what actually makes your good days good. That habit is the seed of everything here.</p></div><a class="go sans" href="https://edenquest.org?utm_source=eeo&amp;utm_medium=site&amp;utm_campaign=contribute">Try the app →</a></div>
+      <div class="way"><div class="n">03</div><div><h4>Try to break it.</h4><p>Download the replication kit and attack the results. Every open problem is published. Finding a hole isn't an insult here — it's a contribution, and it gets credited as one.</p></div><a class="go sans" href="/replication">Get the kit →</a></div>
+      <div class="way"><div class="n">04</div><div><h4>Bring a skill.</h4><p>Economist, security researcher, writer, translator, organizer: the review this project needs most is hostile and independent. If that could be you, say hello.</p></div><a class="go sans" href="/about">Get in touch →</a></div>
+      <div class="way"><div class="n">05</div><div><h4>Fund or run a pilot.</h4><p>A community or institution can adopt the tested floor blueprint, or host one of the two field experiments, on public rails. Everything needed is already on the shelf.</p></div><a class="go sans" href="/about">Start a conversation →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 11 · SUBSCRIBE — the one ask ================= -->
+<section class="dim" id="subscribe">
+  <div class="wrap">
+    <div class="eyebrow sans reveal">THE INVITATION</div>
+    <h2 class="reveal">Read it. Try to break it. Tell us where it fails.</h2>
+    <p class="lede reveal">That's the only kind of belief this project is asking for. One honest essay at a time, every open problem in the open — subscribe free, reply anytime; the pushback becomes the next piece.</p>
+    <!-- LIVE SITE: wire to Ghost's native subscribe (Members / Portal). Pulse line: update by hand or inject from Ghost. -->
+    <div class="pulse reveal">STATE OF THE BUILD · WAVE 39 COMPLETE · WHITE PAPER v1.9 SHIPPED · NEXT: HOSTILE OUTSIDE REVIEW</div>
+    <!-- T2 SUBSCRIBE NOT WIRED (as of 2026-07-24): no newsletter service chosen yet, so this
+         form is intentionally inert (onsubmit="return false"). TO WIRE: add action="<endpoint>"
+         method="post", give the input name="email", drop the onsubmit handler, and add an inline
+         success state. DO NOT PROMOTE TO PRODUCTION until this is live and tested end-to-end. -->
+    <form class="sub-form reveal" onsubmit="return false">
+      <input type="email" placeholder="you@email.com" aria-label="Email address">
+      <button class="btn primary sans" type="submit">Follow the build — free</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 explorationeconomy.org · Release 1 · <a href="/">Home</a> · <a href="/blueprint">The Blueprint</a> · <a href="/about">About</a> · <a href="/faq">FAQ</a> · <a href="/replication">Replication kit</a></div>
+    <p class="honest">Honesty note: everything on this page describes tested designs and simulation results, not proven real-world outcomes. The two make-or-break questions — will institutions pay, and does identity hold — have experiments designed but not yet run. We'd rather you know that from us.</p>
+  </div>
+</footer>
+
+<button class="themetoggle" id="tt" aria-label="Toggle dark mode">◐ <span id="ttl">Dark</span></button>
+
+<script>
+// theme toggle
+(function(){
+  var tt=document.getElementById('tt'),ttl=document.getElementById('ttl');
+  function lab(){ttl.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'Light':'Dark';}
+  lab();
+  tt.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',cur);
+    try{localStorage.setItem('etheme',cur);}catch(e){}
+    lab();
+  });
+})();
+// reveal on scroll
+(function(){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+})();
+// router poll
+(function(){
+  var opts=document.querySelectorAll('.opt'),pr=document.getElementById('pr'),pa=document.getElementById('pa'),pm=document.getElementById('pm');
+  opts.forEach(function(o){
+    o.addEventListener('click',function(){
+      opts.forEach(function(x){x.classList.remove('sel');});
+      o.classList.add('sel');
+      pr.textContent=o.getAttribute('data-r');
+      pr.classList.add('show');
+      pa.classList.remove('show');pa.innerHTML='';
+      pm.classList.remove('show');
+      if(o.getAttribute('data-sub')){
+        pm.classList.add('show');
+      }else{
+        var href=o.getAttribute('data-href'),label=o.getAttribute('data-label');
+        if(href&&label){
+          var a=document.createElement('a');a.className='btn primary';a.href=href;a.textContent=label;
+          pa.appendChild(a);pa.classList.add('show');
+        }
+      }
+    });
+  });
+})();
+</script>
+<script>(function(){var b=document.querySelector(".navtoggle");if(!b)return;var n=b.closest("nav,.topbar");if(!n)return;b.addEventListener("click",function(){var o=n.classList.toggle("navopen");b.setAttribute("aria-expanded",o?"true":"false");b.setAttribute("aria-label",o?"Close menu":"Open menu");});})();</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Exploration Economy — a working blueprint</title>
+<meta name="description" content="A working blueprint for an economy where money is born from human creativity instead of debt — crash-tested through 39 adversarial waves, every failure published. Not a belief system: a design you can check.">
+<link rel="canonical" href="https://www.explorationeconomy.org/blueprint">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Exploration Economy">
+<meta property="og:url" content="https://www.explorationeconomy.org/blueprint">
+<meta property="og:title" content="The Exploration Economy — a working blueprint">
+<meta property="og:description" content="A working blueprint for an economy where money is born from human creativity instead of debt — crash-tested through 39 adversarial waves, every failure published. Not a belief system: a design you can check.">
+<meta property="og:image" content="https://www.explorationeconomy.org/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Exploration Economy — a working blueprint">
+<meta name="twitter:description" content="A working blueprint for an economy where money is born from human creativity instead of debt — crash-tested through 39 adversarial waves, every failure published. Not a belief system: a design you can check.">
+<meta name="twitter:image" content="https://www.explorationeconomy.org/og-card.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root{
+    --paper:#fafaf6; --ink:#1c2836; --soft:#5a6472; --line:#d9dce2; --grid:rgba(28,40,54,.045);
+    --card:#ffffff; --accent:#b3661f; --ok:#2e7d52; --fail:#b0532f; --failbg:#f7ede7; --okbg:#eaf3ee;
+    --deep:#1c2836; --chipbg:#f1f2ee;
+  }
+  [data-theme="dark"]{
+    --paper:#152438; --ink:#dbe6f3; --soft:#93a5bb; --line:#2c4265; --grid:rgba(219,230,243,.05);
+    --card:#1b2d47; --accent:#e0a83f; --ok:#7cc79b; --fail:#e09a7a; --failbg:#3a2a22; --okbg:#20362b;
+    --deep:#dbe6f3; --chipbg:#20334f;
+  }
+  html{color-scheme:light;scroll-behavior:smooth}
+  [data-theme="dark"]{color-scheme:dark}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    background:var(--paper);color:var(--ink);line-height:1.6;font-size:16.5px;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:32px 32px;
+  }
+  .mono{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+  a:hover{border-bottom-color:var(--accent)}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+
+  /* top bar */
+  .topbar{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1.5px solid var(--ink)}
+  .topbar .wrap{max-width:1180px;display:flex;align-items:center;justify-content:space-between;height:54px}
+  .brand{font-weight:700;letter-spacing:.06em;font-size:13px;color:var(--ink);border:none}
+  .brand span{color:var(--accent)}
+  .topbar ul{display:flex;gap:20px;list-style:none;align-items:center}
+  .topbar ul a{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);border:none}
+  .topbar .subcta{border:1.5px solid var(--ink);color:var(--ink);padding:7px 14px;border-radius:2px;font-weight:600}
+  .topbar .subcta:hover{background:var(--ink);color:var(--paper)}
+  .navtoggle{display:none;background:none;border:1.5px solid var(--ink);border-radius:2px;padding:6px 11px;font-size:15px;line-height:1;color:var(--ink);cursor:pointer}
+  @media(max-width:800px){
+    .topbar ul li{display:none}
+    .navtoggle{display:inline-flex;align-items:center}
+    .topbar.navopen ul{flex-direction:column;gap:0;align-items:stretch;position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1.5px solid var(--ink);padding:6px 24px 12px;box-shadow:0 10px 20px rgba(28,40,54,.10)}
+    .topbar.navopen ul li{display:block}
+    .topbar.navopen ul li{padding:10px 0;border-top:1px solid var(--line)}
+    .topbar.navopen ul li:first-child{border-top:none}
+  }
+  /* mobile progress bar */
+  .progress{position:fixed;top:54px;left:0;height:2px;background:var(--accent);width:0;z-index:49}
+
+  /* side rail */
+  .rail{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:2px}
+  .rail a{display:flex;align-items:center;gap:9px;padding:5px 6px;border:none;color:var(--soft);font-size:10.5px;letter-spacing:.1em}
+  .rail a b{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10.5px;min-width:22px;color:var(--soft)}
+  .rail a i{font-style:normal;opacity:0;transform:translateX(-4px);transition:.2s;white-space:nowrap;text-transform:uppercase}
+  .rail a:hover i{opacity:1;transform:none}
+  .rail a.on{color:var(--accent)} .rail a.on b{color:var(--accent);font-weight:700}
+  .rail a.on i{opacity:1;transform:none}
+  @media(max-width:1120px){.rail{display:none}}
+
+  /* sheets */
+  .sheet{padding:88px 0;border-bottom:1px solid var(--line)}
+  .sheetlab{display:flex;align-items:baseline;gap:14px;margin-bottom:26px}
+  .sheetlab .no{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:12px;letter-spacing:.14em;color:var(--accent);border:1px solid var(--accent);padding:3px 10px;border-radius:2px}
+  .sheetlab .t{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
+  h2{font-size:clamp(24px,3.4vw,34px);line-height:1.18;letter-spacing:-.01em;max-width:24ch}
+  .lede{margin-top:16px;font-size:17.5px;color:var(--soft);max-width:62ch}
+  .lede b{color:var(--ink)}
+
+  /* cover */
+  .cover{padding:96px 0 72px;border-bottom:1.5px solid var(--ink)}
+  .cover .doc{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.16em;color:var(--soft);display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:34px}
+  .cover .doc s{background:var(--accent);width:34px;height:1.5px;display:inline-block;text-decoration:none}
+  h1{font-size:clamp(34px,6vw,58px);line-height:1.06;letter-spacing:-.02em;max-width:18ch}
+  h1 em{font-style:normal;color:var(--accent)}
+  .cover .sub{margin-top:24px;font-size:18.5px;color:var(--soft);max-width:58ch}
+  .stamps{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+  .stamp{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.12em;border:1.5px solid var(--ink);padding:6px 12px;border-radius:2px;color:var(--ink);background:var(--card)}
+  .stamp.warn{border-color:var(--fail);color:var(--fail)}
+  .cover .ctas{margin-top:38px;display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .btn{display:inline-block;padding:14px 26px;border-radius:2px;font-size:15px;font-weight:600;border:1.5px solid var(--ink);cursor:pointer}
+  .btn.primary{background:var(--ink);color:var(--paper)}
+  .btn.primary:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+  .cover .side{font-size:14px}
+  .cover .note{margin-top:20px;font-size:13px;color:var(--soft)}
+
+  /* figure diagrams */
+  .fig{margin-top:44px;border:1.5px solid var(--ink);border-radius:3px;background:var(--card);padding:26px 24px}
+  .fig .cap{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);margin-bottom:20px}
+  .flow{display:flex;align-items:stretch}
+  .node{flex:1 1 0;min-width:0;border:1.5px solid var(--ink);border-radius:3px;padding:12px 14px;background:var(--paper)}
+  .node.dash{border-style:dashed;border-color:var(--soft)}
+  .node.hl{border-color:var(--ok);box-shadow:0 0 0 1px var(--ok) inset}
+  .node b{display:block;font-size:13.5px;line-height:1.3}
+  .node span{display:block;font-size:11.5px;color:var(--soft);margin-top:4px;line-height:1.35}
+  .arr{flex:0 0 92px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 8px;text-align:center}
+  .arr i{font-style:normal;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10px;letter-spacing:.04em;line-height:1.35;color:var(--soft);margin-bottom:6px}
+  .arr i.g{color:var(--ok);font-weight:700}
+  .arr i.r{color:var(--fail);font-weight:700}
+  .arr .sh{position:relative;height:1.5px;width:100%;background:var(--ink)}
+  .arr .sh::after{content:"";position:absolute;right:-1px;top:-3.5px;border-left:7px solid var(--ink);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+  .fignote{margin-top:18px;font-size:12.5px;color:var(--soft);line-height:1.5}
+  .fignote b{color:var(--ink)}
+  @media(max-width:660px){
+    .flow{flex-direction:column}
+    .arr{flex-basis:auto;padding:8px 0}
+    .arr .sh{width:1.5px;height:18px}
+    .arr .sh::after{right:auto;left:50%;transform:translateX(-50%);top:auto;bottom:-1px;border:none;border-left:4.5px solid transparent;border-right:4.5px solid transparent;border-top:7px solid var(--ink)}
+  }
+
+  /* consequence rows */
+  .rows{margin-top:40px;border-top:1.5px solid var(--ink)}
+  .row{display:flex;gap:22px;padding:22px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .row .k{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.1em;color:var(--accent);min-width:150px}
+  .row h3{font-size:17px;margin-bottom:5px}
+  .row p{font-size:14.5px;color:var(--soft);max-width:62ch}
+  @media(max-width:660px){.row{flex-direction:column;gap:8px}}
+  .pivot{margin:52px auto 0;max-width:56ch;text-align:center;font-size:clamp(18px,2.3vw,22px);line-height:1.5;font-weight:600}
+  .pivot em{font-style:normal;color:var(--accent)}
+
+  /* rule zero */
+  .rule0{margin-top:44px;border:1.5px solid var(--ink);border-left:6px solid var(--accent);border-radius:3px;background:var(--card);padding:24px 26px}
+  .rule0 .k{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.16em;color:var(--accent);margin-bottom:8px}
+  .rule0 p{font-size:16.5px;line-height:1.55}
+
+  /* spec rows w/ expanders */
+  .spec{margin-top:40px;border-top:1.5px solid var(--ink)}
+  .spec details{border-bottom:1px solid var(--line)}
+  .spec summary{display:flex;gap:22px;align-items:baseline;padding:20px 0;cursor:pointer;list-style:none}
+  .spec summary::-webkit-details-marker{display:none}
+  .spec .k{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.1em;color:var(--accent);min-width:56px}
+  .spec .h{font-size:16.5px;font-weight:600;flex:1}
+  .spec .plus{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;color:var(--soft);font-size:14px}
+  .spec details[open] .plus{transform:rotate(45deg)}
+  .spec .body{padding:0 0 22px 78px;font-size:14.5px;color:var(--soft);max-width:66ch}
+  .spec .body .m{display:block;margin-top:10px;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;color:var(--ok)}
+  @media(max-width:660px){.spec .body{padding-left:0}}
+
+  /* margin note (names) */
+  .marginnote{margin-top:44px;display:flex;gap:16px;align-items:flex-start;background:var(--chipbg);border:1px dashed var(--soft);border-radius:3px;padding:20px 22px}
+  .marginnote .tag{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--soft);white-space:nowrap;border:1px solid var(--soft);border-radius:2px;padding:3px 8px;transform:rotate(-2deg)}
+  .marginnote p{font-size:13.5px;color:var(--soft);line-height:1.55}
+  .marginnote b{color:var(--ink)}
+
+  /* failure reports */
+  .frep{margin-top:34px;border:1.5px solid var(--ink);border-radius:3px;background:var(--card);overflow:hidden}
+  .frep .head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 20px;background:var(--failbg);border-bottom:1.5px solid var(--ink);flex-wrap:wrap}
+  .frep .head .t{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:12px;letter-spacing:.14em;color:var(--fail);font-weight:700}
+  .frep .head .r{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.12em;color:var(--ok);border:1.5px solid var(--ok);padding:3px 9px;border-radius:2px;background:var(--okbg)}
+  .frep dl{display:grid;grid-template-columns:150px 1fr;gap:0}
+  .frep dt{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--soft);padding:14px 0 14px 20px;border-bottom:1px solid var(--line)}
+  .frep dd{font-size:14px;color:var(--ink);padding:13px 20px 13px 12px;border-bottom:1px solid var(--line);line-height:1.5}
+  .frep dd.fix b{color:var(--ok)}
+  .frep dl :nth-last-child(-n+2){border-bottom:none}
+  @media(max-width:660px){.frep dl{grid-template-columns:1fr}.frep dt{padding:12px 20px 0}.frep dd{padding:4px 20px 14px}}
+  .testrec{margin-top:36px;display:flex;flex-wrap:wrap;gap:10px}
+  .chip{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.06em;border:1px solid var(--line);background:var(--card);border-radius:2px;padding:8px 13px;color:var(--soft)}
+  .chip b{color:var(--ink)}
+
+  /* open items table */
+  .open{margin-top:40px;border:1.5px solid var(--ink);border-radius:3px;background:var(--card);overflow:hidden}
+  .oitem{display:flex;gap:18px;padding:20px 22px;border-bottom:1px solid var(--line);align-items:baseline;flex-wrap:wrap}
+  .oitem:last-child{border-bottom:none}
+  .oitem .id{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;color:var(--accent);min-width:38px}
+  .oitem .q{flex:1;min-width:220px}
+  .oitem .q b{display:block;font-size:16px}
+  .oitem .q span{display:block;font-size:13.5px;color:var(--soft);margin-top:4px;max-width:60ch}
+  .oitem .st{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10.5px;letter-spacing:.12em;padding:4px 10px;border-radius:2px;border:1.5px solid var(--fail);color:var(--fail);white-space:nowrap}
+  .oitem .st.bp{border-color:var(--accent);color:var(--accent)}
+
+  /* phases */
+  .phases{margin-top:40px;border-top:1.5px solid var(--ink)}
+  .phase{display:flex;gap:22px;padding:24px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .phase .k{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.1em;min-width:150px;color:var(--soft)}
+  .phase .k.live{color:var(--ok);font-weight:700}
+  .phase h3{font-size:17px;margin-bottom:5px}
+  .phase p{font-size:14.5px;color:var(--soft);max-width:60ch}
+  @media(max-width:660px){.phase{flex-direction:column;gap:8px}}
+
+  /* needs + ways */
+  .needs{margin-top:44px;border:1.5px dashed var(--accent);border-radius:3px;padding:26px 28px;background:var(--card)}
+  .needs .k{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.16em;color:var(--accent);margin-bottom:14px}
+  .needs ul{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 26px}
+  .needs li{font-size:14.5px;padding-left:18px;position:relative;color:var(--ink)}
+  .needs li::before{content:"□";position:absolute;left:0;color:var(--accent)}
+  .needs .fund{margin-top:18px;font-size:14.5px}
+  .ways2{margin-top:40px;border-top:1.5px solid var(--ink)}
+  .way2{display:flex;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .way2 .k{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;color:var(--accent);min-width:38px}
+  .way2 .b{flex:1}
+  .way2 h4{font-size:16px;display:inline}
+  .way2 p{display:inline;font-size:14px;color:var(--soft)}
+  .way2 a{white-space:nowrap;font-weight:600;font-size:14px}
+  @media(max-width:660px){.way2{flex-wrap:wrap}.way2 a{margin-left:58px}}
+
+  /* subscribe */
+  .subwrap{margin-top:52px;text-align:center;border:1.5px solid var(--ink);border-radius:3px;background:var(--card);padding:44px 28px}
+  .subwrap h3{font-size:22px}
+  .subwrap p{margin-top:10px;font-size:15px;color:var(--soft);max-width:52ch;margin-left:auto;margin-right:auto}
+  .pulse{display:inline-block;margin-top:20px;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.1em;color:var(--accent);border:1px dashed var(--accent);padding:7px 14px;border-radius:2px}
+  .sub-form{margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  .sub-form input{padding:13px 16px;border:1.5px solid var(--ink);border-radius:2px;font-size:15px;min-width:250px;background:var(--paper);color:var(--ink);font-family:inherit}
+  .depthlinks{margin-top:30px;font-size:13.5px;color:var(--soft)}
+
+  footer{padding:44px 0 64px;font-size:13px;color:var(--soft)}
+  footer .honest{margin-top:10px;font-style:italic;max-width:78ch;line-height:1.6}
+
+  .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:2px;background:var(--ink);color:var(--paper);border:none;cursor:pointer;font-size:12.5px;letter-spacing:.04em;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+  .themetoggle:hover{background:var(--accent);color:#fff}
+
+  .fadein{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .fadein.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/">THE EXPLORATION <span>ECONOMY</span></a>
+    <ul id="navmenu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/start">The story</a></li>
+      <li><a href="/evidence">Failure log</a></li>
+      <li><a href="/edenquest">The app</a></li>
+      <li><a href="/support">Support</a></li>
+      <li><a class="subcta" href="#your-part">Follow the build</a></li>
+    </ul>
+    <button class="navtoggle sans" type="button" aria-expanded="false" aria-controls="navmenu" aria-label="Open menu">☰</button>
+  </div>
+</div>
+<div class="progress" id="pg"></div>
+
+<!-- side rail -->
+<nav class="rail" aria-label="Sheet navigation">
+  <a href="#cover" data-s="cover"><b>00</b><i>Cover</i></a>
+  <a href="#money" data-s="money"><b>01</b><i>Where money comes from</i></a>
+  <a href="#mechanism" data-s="mechanism"><b>02</b><i>The mechanism</i></a>
+  <a href="#failures" data-s="failures"><b>03</b><i>Failure log</i></a>
+  <a href="#open" data-s="open"><b>04</b><i>Open items</i></a>
+  <a href="#sequence" data-s="sequence"><b>05</b><i>Build sequence</i></a>
+  <a href="#your-part" data-s="your-part"><b>06</b><i>Your part</i></a>
+</nav>
+
+<!-- ============ SHEET 00 · COVER ============ -->
+<header class="cover" id="cover">
+  <div class="wrap">
+    <div class="doc">WORKING BLUEPRINT <s></s> RELEASE 1 <s></s> JULY 2026</div>
+    <h1>Money that begins with <em>creation</em>, not debt.</h1>
+    <p class="sub">Nearly every dollar in circulation was born as a loan, and new money settles on whoever already owns assets. This is a working blueprint for the alternative: an economy that mints value from verified human creativity — where your data, your work, and your attention pay you when they're used, and AI pays the people it learns from.</p>
+    <div class="stamps">
+      <span class="stamp">TESTED TO FAILURE — 3 TIMES</span>
+      <span class="stamp">39 ADVERSARIAL WAVES</span>
+      <span class="stamp">EVERY FAILURE PUBLISHED</span>
+      <span class="stamp warn">NOT YET PEER-REVIEWED</span>
+    </div>
+    <div class="ctas">
+      <a class="btn primary" href="#money">Read the blueprint — 4 min ↓</a>
+      <a class="side" href="#failures">Skeptical? Start at the failure log ↓</a>
+    </div>
+    <p class="note">Nothing here is for sale. No token, no coin offering. Your dollars keep working exactly as they do today.</p>
+  </div>
+</header>
+
+<!-- ============ SHEET 01 · WHERE MONEY COMES FROM ============ -->
+<section class="sheet" id="money">
+  <div class="wrap">
+    <div class="sheetlab fadein"><span class="no">SHEET 01</span><span class="t">Where money comes from</span></div>
+    <h2 class="fadein">Almost every dollar is born as someone's debt.</h2>
+    <p class="lede fadein">Not a conspiracy — a design, documented in every economics textbook: when a bank issues a loan, new money comes into existence. Three consequences follow from that one choice:</p>
+
+    <div class="fig fadein" role="img" aria-label="Figure 1: the debt loop. A bank issues a loan creating new dollars that owe interest; the economy must grow to repay; the value settles on whoever already owns assets.">
+      <div class="cap">FIG. 1 — THE DEBT LOOP (CURRENT SYSTEM)</div>
+      <div class="flow">
+        <div class="node"><b>A bank issues a loan</b><span>new dollars are born — already owing interest</span></div>
+        <div class="arr"><i class="r">must grow to repay</i><div class="sh"></div></div>
+        <div class="node"><b>the economy runs a treadmill</b><span>growth as a debt payment, not a choice</span></div>
+        <div class="arr"><i class="r">value settles on</i><div class="sh"></div></div>
+        <div class="node dash"><b>whoever already owns assets</b><span>time &amp; creativity: paid once, if at all</span></div>
+      </div>
+    </div>
+
+    <div class="rows fadein">
+      <div class="row"><span class="k">CONSEQUENCE 1</span><div><h3>The treadmill</h3><p>Every dollar arrives owing interest, so the whole system has to grow just to stay level — whether or not anyone needs more.</p></div></div>
+      <div class="row"><span class="k">CONSEQUENCE 2</span><div><h3>Assets earn; time doesn't</h3><p>New money flows toward what's already owned — property, stock, capital. Offer only your time and effort, and you fall behind by design. Five generations on, 79% of the same families are still on top.</p></div></div>
+      <div class="row"><span class="k">CONSEQUENCE 3</span><div><h3>Creativity is treated as free raw material</h3><p>Everything you write, post, rate, and share is collected, aggregated, sold — and now used to train AI — while the people who made it are paid nothing.</p></div></div>
+    </div>
+
+    <p class="pivot fadein">None of this needs a villain. It's a design — and designs can be <em>revised</em>. The only interesting question is whether a revision survives honest testing.</p>
+  </div>
+</section>
+
+<!-- ============ SHEET 02 · THE MECHANISM ============ -->
+<section class="sheet" id="mechanism">
+  <div class="wrap">
+    <div class="sheetlab fadein"><span class="no">SHEET 02</span><span class="t">The proposed mechanism</span></div>
+    <h2 class="fadein">Mint from creation. Make machines pay.</h2>
+    <p class="lede fadein">The revision under test: an optional layer on the internet we already have, where new money is created exactly one way — <b>a real, verified human genuinely engaging with real work</b>. Your data, creations, and attention become assets that pay you when used.</p>
+
+    <div class="rule0 fadein">
+      <div class="k">RULE 0 — THE ONE RULE EVERYTHING ELSE DEFENDS</div>
+      <p><b>Humans mint. Machines pay.</b> An AI never creates money — when it learns from your work or acts on someone's behalf, it buys and pays <em>existing</em> units to the people whose work it used. The more capable AI becomes, the more it pays the humans it learned from. The money supply stays tied to the one thing no server farm can fake: verified human time.</p>
+    </div>
+
+    <div class="fig fadein" role="img" aria-label="Figure 2: the exploration loop. A verified human genuinely engages with someone's work; new value is minted; the creator is paid automatically on every use.">
+      <div class="cap">FIG. 2 — THE EXPLORATION LOOP (PROPOSED)</div>
+      <div class="flow">
+        <div class="node"><b>A verified human</b><span>real attention, real effort</span></div>
+        <div class="arr"><i>genuinely engages with</i><div class="sh"></div></div>
+        <div class="node"><b>someone's work</b><span>free for anyone to use</span></div>
+        <div class="arr"><i class="g">✳ new value minted</i><div class="sh"></div></div>
+        <div class="node hl"><b>the creator is paid</b><span>automatically, every use</span></div>
+      </div>
+      <div class="fignote"><b>Same picture, second lane:</b> an AI or institution enters this loop only as a payer — it buys existing units and pays the people whose data and code it uses. It can never occupy the minting position.</div>
+    </div>
+
+    <div class="spec fadein">
+      <details>
+        <summary><span class="k">P-1</span><span class="h">Your data and creations become income</span><span class="plus">+</span></summary>
+        <div class="body">Paid automatically whenever they're used — by a person, a company, or an AI acting on someone's behalf. The archives worth stealing never leave home: questions go in, answers come out, so "used" can't quietly become "taken" — by design.<span class="m">humans mint · machines pay</span></div>
+      </details>
+      <details>
+        <summary><span class="k">P-2</span><span class="h">Transparency out-earns opacity</span><span class="plus">+</span></summary>
+        <div class="body">Reviews can't be quietly buried — and buying them doesn't pay — so honest, verifiable work simply earns more; corruption runs out of places to hide rather than being policed away. In century-scale modeling, transparent markets captured 96% of sales on their own.<span class="m">observed: 96% market share, no enforcement</span></div>
+      </details>
+      <details>
+        <summary><span class="k">P-3</span><span class="h">Failed science becomes a paid asset</span><span class="plus">+</span></summary>
+        <div class="body">Negative results become visible, compensated assets instead of vanishing into drawers. Modeled institutions inside the system discovered at nearly twice the rate — mostly because nobody repeats a dead end.<span class="m">observed: ~2× discovery rate</span></div>
+      </details>
+      <details>
+        <summary><span class="k">P-4</span><span class="h">Earned, never bought or inherited</span><span class="plus">+</span></summary>
+        <div class="body">Wealth and success stay fully possible — they just stop being automatic. Income streams can't be purchased or passed down, so staying on top means continuing to create real value. Being born lucky stops predicting where you end up.<span class="m">dynasty persistence: 10.4% vs 79% today</span></div>
+      </details>
+    </div>
+
+    <div class="marginnote fadein">
+      <span class="tag">A NOTE ON NAMES</span>
+      <p>Internally, the reference design is codenamed <b>EDEN</b> (Exploration-Driven Economic Network) and its unit <b>EVE</b> (Equitable Value Exchange). These are <b>working titles, held as loosely as every claim here</b> — if a name ever gets between the idea and the people it's for, the name loses. The commitment is the mechanism: an exploration-driven economy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 03 · FAILURE LOG ============ -->
+<section class="sheet" id="failures">
+  <div class="wrap">
+    <div class="sheetlab fadein"><span class="no">SHEET 03</span><span class="t">Failure log — published, not buried</span></div>
+    <h2 class="fadein">We defined failure first. Then we caused it three times.</h2>
+    <p class="lede fadein">Registered before any test ran: <b>if the poorest tenth can't afford essentials for three months running, the design fails.</b> Months were then spent trying to make exactly that happen. Three crashes, three redesigns — original wreckage archived beside every fix.</p>
+
+    <div class="frep fadein">
+      <div class="head"><span class="t">FAILURE REPORT 01 — "THE BATHTUB"</span><span class="r">RETEST: PASS</span></div>
+      <dl>
+        <dt>OBSERVED</dt><dd>Prices climbed ~10% a year; the bottom tenth went under by month 16 of the very first simulation — and never recovered.</dd>
+        <dt>ROOT CAUSE</dt><dd>A faucet that never turns off (every hour of attention mints coins) draining into a nearly closed drain.</dd>
+        <dt>CORRECTIVE ACTION</dt><dd class="fix"><b>A thermostat, not a chairman:</b> a formula in the constitution slows minting whenever money outruns real goods.</dd>
+        <dt>RETEST RESULT</dt><dd>Roughly 0% inflation through fifteen simulated years of storms.</dd>
+      </dl>
+    </div>
+
+    <div class="frep fadein">
+      <div class="head"><span class="t">FAILURE REPORT 02 — "THE CLIFF"</span><span class="r">RETEST: PASS</span></div>
+      <dl>
+        <dt>OBSERVED</dt><dd>Half of lower earners rationally stopped working; output fell by a quarter.</dd>
+        <dt>ROOT CAUSE</dt><dd>The generous first safety net "topped everyone up" to the same line — a musician earning 70% of it gained nothing by working.</dd>
+        <dt>CORRECTIVE ACTION</dt><dd class="fix"><b>The ramp:</b> every coin earned adds half a coin above the guarantee, always — effort is never pointless.</dd>
+        <dt>RETEST RESULT</dt><dd>The simulated economy kept essentially all of its output.</dd>
+      </dl>
+    </div>
+
+    <div class="frep fadein">
+      <div class="head"><span class="t">FAILURE REPORT 03 — "THE HEIST"</span><span class="r">RETEST: PASS</span></div>
+      <dl>
+        <dt>OBSERVED</dt><dd>An optimizing fraud ring earned 6× the floor per fake identity; rings rotating AI-generated content could capture a third of all new money.</dd>
+        <dt>ROOT CAUSE</dt><dd>The first fraud tests had only imagined lazy thieves. An adversarial audit imagined smart ones.</dd>
+        <dt>CORRECTIVE ACTION</dt><dd class="fix"><b>Three locks:</b> near-identical content shares one shrinking payout; earning at scale requires a stake you lose if caught; your one lifetime identity is too valuable to rent out.</dd>
+        <dt>RETEST RESULT</dt><dd>Re-run against all three locks, the heist didn't pay in a single tested case.</dd>
+      </dl>
+    </div>
+
+    <div class="testrec fadein">
+      <span class="chip"><b>39</b> waves · pass/fail bars registered before each run</span>
+      <span class="chip"><b>3</b> full public redesigns forced by results</span>
+      <span class="chip"><b>49/54</b> programs regenerate published numbers to the 6th decimal</span>
+      <span class="chip"><b>10.4%</b> dynasty persistence vs <b>79%</b> today</span>
+    </div>
+    <p class="lede fadein" style="margin-top:26px">The bank-run test, the bribed price gauge, the world-scale run, the jury-packing attempt — the full history is written for humans, no math required. <a href="/evidence">Read the complete failure log →</a></p>
+  </div>
+</section>
+
+<!-- ============ SHEET 04 · OPEN ITEMS ============ -->
+<section class="sheet" id="open">
+  <div class="wrap">
+    <div class="sheetlab fadein"><span class="no">SHEET 04</span><span class="t">Open items — what simulation cannot settle</span></div>
+    <h2 class="fadein">Two hinges hold all of this up. Neither is proven.</h2>
+    <p class="lede fadein">Simulation took the design as far as simulation can go. What remains are questions only the real world can answer — listed here the way we track them, with failure defined in advance.</p>
+    <div class="open fadein">
+      <div class="oitem">
+        <span class="id">H-1</span>
+        <div class="q"><b>Will institutions actually pay for data and code?</b><span>The economics only work if real buyers show up. A field experiment is designed and registered — with the result that would kill the idea written down first.</span></div>
+        <span class="st">OPEN — EXPERIMENT DESIGNED</span>
+      </div>
+      <div class="oitem">
+        <span class="id">H-2</span>
+        <div class="q"><b>Does one-person-one-identity hold against real adversaries?</b><span>Everything rests on verified humans staying verified. Only a contained, live pilot can answer it; the simulated defenses are not the proof.</span></div>
+        <span class="st">OPEN — PILOT DESIGNED</span>
+      </div>
+      <div class="oitem">
+        <span class="id">F-1</span>
+        <div class="q"><b>The income floor</b><span>It didn't fund itself under stress-testing, so it is not promised. Instead: a fully tested blueprint any community or government can fund and run in public — modeled at roughly a quarter cheaper than traditional welfare delivery.</span></div>
+        <span class="st bp">BLUEPRINT — NOT A PROMISE</span>
+      </div>
+    </div>
+    <p class="lede fadein" style="margin-top:26px">If either hinge fails, this project will say so and publish the wreckage — that's the operating rule everything above was built under.</p>
+  </div>
+</section>
+
+<!-- ============ SHEET 05 · BUILD SEQUENCE ============ -->
+<section class="sheet" id="sequence">
+  <div class="wrap">
+    <div class="sheetlab fadein"><span class="no">SHEET 05</span><span class="t">Build sequence</span></div>
+    <h2 class="fadein">Nothing irreversible gets built on an unproven foundation.</h2>
+    <p class="lede fadein">Deliberately sequenced: each phase earns the next, and no phase requires believing in the last one.</p>
+    <div class="phases fadein">
+      <div class="phase"><span class="k live">PHASE 1 — SHIPPED</span><div><h3>Your data improves your own life</h3><p><a href="https://edenquest.org?utm_source=eeo&amp;utm_medium=site&amp;utm_campaign=bp">EdenQuest</a> — a free personal-growth app: the habit of your data serving <em>you</em> first. The first working part, useful even if nothing else is ever built.</p></div></div>
+      <div class="phase"><span class="k">PHASE 2 — IN PROGRESS</span><div><h3>Ship the work; invite hostile review</h3><p>Essays, white paper, replication kit — into the hands of outside economists and independent, out-of-family replicators. The review this project openly hasn't had yet.</p></div></div>
+      <div class="phase"><span class="k">PHASE 3 — DESIGNED</span><div><h3>Run the two experiments (H-1, H-2)</h3><p>Will institutions pay? Does identity hold? Field experiment and contained pilot, both with failure defined in advance.</p></div></div>
+      <div class="phase"><span class="k">PHASE 4 — BLUEPRINT</span><div><h3>The floor, switched on by whoever funds it</h3><p>A reserve you can watch fill, activation by formula, an exit that strands no one. A progress bar, not a pledge.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SHEET 06 · YOUR PART ============ -->
+<section class="sheet" id="your-part" style="border-bottom:none">
+  <div class="wrap">
+    <div class="sheetlab fadein"><span class="no">SHEET 06</span><span class="t">What this needs · your part</span></div>
+    <h2 class="fadein">Built in public, by one person — so far.</h2>
+    <p class="lede fadein">Not an economist. Just someone who believed we could do better, spent years unable to prove it, and finally had the tools to test whether it's true — <a href="/about">the whole story</a>. Getting from tested blueprint to running experiment is not a one-person job. Here is, plainly, what it needs:</p>
+
+    <div class="needs fadein">
+      <div class="k">REQUIREMENTS TO PROCEED — IN ORDER OF NEED</div>
+      <ul>
+        <li>Economists willing to review this hostilely</li>
+        <li>Security researchers to attack the identity design</li>
+        <li>Independent, out-of-family replication of the models</li>
+        <li>A community or institution to host a contained pilot</li>
+        <li>Runway for one full-time builder</li>
+        <li>Readers who forward one essay to one right person</li>
+      </ul>
+      <p class="fund">If you can help with any line above — especially the unglamorous ones — <a href="/support">support the work</a> or <a href="/about">get in touch</a>.</p>
+    </div>
+
+    <div class="ways2 fadein">
+      <div class="way2"><span class="k">W-1</span><div class="b"><h4>Follow the build.</h4> <p>One honest essay at a time, free — reply, and the pushback becomes the next piece.</p></div><a href="#sub">Subscribe ↓</a></div>
+      <div class="way2"><span class="k">W-2</span><div class="b"><h4>Use the working part.</h4> <p>Let your own data improve your own life first.</p></div><a href="https://edenquest.org?utm_source=eeo&amp;utm_medium=site&amp;utm_campaign=ways">Try the app →</a></div>
+      <div class="way2"><span class="k">W-3</span><div class="b"><h4>Try to break it.</h4> <p>Replication kit, every registered bar, every archived original. Finding a hole is a credited contribution, not an insult.</p></div><a href="/replication">Get the kit →</a></div>
+      <div class="way2"><span class="k">W-4</span><div class="b"><h4>Bring a skill.</h4> <p>Economist, security researcher, writer, translator, organizer.</p></div><a href="/about">Say hello →</a></div>
+      <div class="way2"><span class="k">W-5</span><div class="b"><h4>Fund the next step.</h4> <p>Reviews, replication, pilots, runway — money buys the boring things that make ideas real.</p></div><a href="/support">Support the work →</a></div>
+    </div>
+
+    <div class="subwrap fadein" id="sub">
+      <h3>Read it. Try to break it. Tell us where it fails.</h3>
+      <p>That's the only kind of belief being asked for. Subscribe free — every open problem stays in the open, and the pushback becomes the next essay.</p>
+      <div class="pulse">STATE OF THE BUILD · WAVE 39 COMPLETE · WHITE PAPER v1.9 SHIPPED · NEXT: HOSTILE OUTSIDE REVIEW</div>
+      <!-- LIVE SITE: wire to Ghost's native subscribe (Members / Portal). Static placeholder. -->
+      <!-- T2 SUBSCRIBE NOT WIRED (as of 2026-07-24): no newsletter service chosen yet, so this
+           form is intentionally inert (onsubmit="return false"). TO WIRE: add action="<endpoint>"
+           method="post", give the input name="email", drop the onsubmit handler, and add an inline
+           success state. DO NOT PROMOTE TO PRODUCTION until this is live and tested end-to-end. -->
+      <form class="sub-form" onsubmit="return false">
+        <input type="email" placeholder="you@email.com" aria-label="Email address">
+        <button class="btn primary" type="submit">Follow the build — free</button>
+      </form>
+      <p class="depthlinks">Go deeper: <a href="/evidence">the failure log</a> · <a href="/what-is-eden">the plain-English guide</a> · <a href="/docs/whitepaper">the white paper</a> · <a href="/faq">the FAQ</a></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 explorationeconomy.org · Release 1 · <a href="/">Home</a> · <a href="/start">The Story</a> · <a href="/about">About</a> · <a href="/faq">FAQ</a> · <a href="/replication">Replication kit</a> · <a href="/support">Support</a></div>
+    <p class="honest">Honesty note: this page describes tested designs and simulation results, not proven real-world outcomes. The two make-or-break questions — will institutions pay, and does identity hold — have experiments designed but not yet run. We'd rather you hear that from us.</p>
+  </div>
+</footer>
+
+<button class="themetoggle" id="tt" aria-label="Toggle blueprint mode">◐ <span id="ttl">BLUEPRINT</span></button>
+
+<script>
+// theme toggle — dark mode renders as a cyanotype blueprint
+(function(){
+  var tt=document.getElementById('tt'),ttl=document.getElementById('ttl');
+  function lab(){ttl.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'PAPER':'BLUEPRINT';}
+  lab();
+  tt.addEventListener('click',function(){
+    var cur=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',cur);
+    try{localStorage.setItem('etheme',cur);}catch(e){}
+    lab();
+  });
+})();
+// scroll progress (mobile)
+(function(){
+  var pg=document.getElementById('pg');
+  addEventListener('scroll',function(){
+    var h=document.documentElement, p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+    pg.style.width=(p*100)+'%';
+  },{passive:true});
+})();
+// rail highlight + fade-ins
+(function(){
+  var links={}; document.querySelectorAll('.rail a').forEach(function(a){links[a.getAttribute('data-s')]=a;});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        document.querySelectorAll('.rail a').forEach(function(a){a.classList.remove('on');});
+        var l=links[e.target.id]; if(l)l.classList.add('on');
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('section[id],header[id]').forEach(function(s){io.observe(s);});
+  var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io2.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.fadein').forEach(function(el){io2.observe(el);});
+})();
+</script>
+<script>(function(){var b=document.querySelector(".navtoggle");if(!b)return;var n=b.closest("nav,.topbar");if(!n)return;b.addEventListener("click",function(){var o=n.classList.toggle("navopen");b.setAttribute("aria-expanded",o?"true":"false");b.setAttribute("aria-label",o?"Close menu":"Open menu");});})();</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
