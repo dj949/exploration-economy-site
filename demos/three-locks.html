@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — The Three Locks</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root{--paper:#fafaf6;--ink:#1c2836;--soft:#5a6472;--line:#d9dce2;--card:#fff;--accent:#b3661f;--ok:#2e7d52;--fail:#b0532f;--failbg:#f7ede7;--okbg:#eaf3ee}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;font-size:16px;padding-bottom:60px}
+  .mono{font-family:Menlo,Consolas,'Courier New',monospace}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+  .banner{background:var(--failbg);border-bottom:1.5px solid var(--fail);padding:10px 0}
+  .banner .wrap{font-family:Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.08em;color:var(--fail)}
+  header{padding:40px 0 8px}
+  .k{font-family:Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.16em;color:var(--accent)}
+  h1{font-size:clamp(24px,4vw,34px);margin-top:8px}
+  .lede{color:var(--soft);margin-top:10px;max-width:62ch}
+  .panel{background:var(--card);border:1.5px solid var(--ink);border-radius:4px;margin-top:26px;padding:20px}
+  .locks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .lock{border:1.5px solid var(--line);border-radius:4px;padding:14px;cursor:pointer;user-select:none;transition:.15s}
+  .lock.on{border-color:var(--ok);background:var(--okbg)}
+  .lock .head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .lock b{font-size:14.5px}
+  .lock .st{font-family:Menlo,Consolas,'Courier New',monospace;font-size:10px;letter-spacing:.1em;padding:3px 8px;border-radius:2px;border:1.5px solid var(--fail);color:var(--fail)}
+  .lock.on .st{border-color:var(--ok);color:var(--ok)}
+  .lock p{font-size:12.5px;color:var(--soft);margin-top:7px}
+  .ctl{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--soft);margin:18px 0 6px}
+  .ctl b{color:var(--ink);font-size:13.5px}
+  input[type=range]{width:280px;accent-color:var(--accent)}
+  canvas{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:3px;background:#fff;margin-top:10px}
+  .verdict{margin-top:14px;border-radius:3px;padding:14px 16px;font-size:15px;border:1.5px solid var(--fail);background:var(--failbg)}
+  .verdict.good{border-color:var(--ok);background:var(--okbg)}
+  .verdict b{font-family:Menlo,Consolas,'Courier New',monospace}
+  .explain{margin-top:22px;color:var(--soft);font-size:14.5px;max-width:66ch}
+  .explain b{color:var(--ink)}
+  footer{margin-top:30px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--soft)}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="banner"><div class="wrap">DEMONSTRATION — NOT A TEST · TOY PARAMETERS, CHOSEN FOR LEGIBILITY · THE REGISTERED TESTS LIVE AT <a href="/evidence">/EVIDENCE</a></div></div>
+
+<header class="wrap">
+  <div class="k">DEMO 3 OF 3 · THE MECHANISMS THAT CLOSED CRASH №3, "THE HEIST"</div>
+  <h1>The Three Locks</h1>
+  <p class="lede">An adversarial audit found that optimized fraud rings — fake identities rotating AI-generated content — could out-earn honest users six-to-one and quietly capture a third of all new money. Three ratified locks closed it. Below: you run the fraud ring. Toggle the locks and watch your business model die.</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <div class="locks">
+      <div class="lock on" id="l1" role="switch" aria-checked="true" tabindex="0">
+        <div class="head"><b>Lock 1 — Similarity split</b><span class="st">ENGAGED</span></div>
+        <p>Near-identical content shares <em>one</em> shrinking payout — copies divide the pot instead of multiplying it.</p>
+      </div>
+      <div class="lock on" id="l2" role="switch" aria-checked="true" tabindex="0">
+        <div class="head"><b>Lock 2 — Stake at scale</b><span class="st">ENGAGED</span></div>
+        <p>Earning at scale requires posting a stake you forfeit if caught — and detection odds grow with ring size.</p>
+      </div>
+      <div class="lock on" id="l3" role="switch" aria-checked="true" tabindex="0">
+        <div class="head"><b>Lock 3 — Identity is priceless</b><span class="st">ENGAGED</span></div>
+        <p>One lifetime identity per person. Renting yours to a ring risks losing it — so identities cost the ring dearly.</p>
+      </div>
+    </div>
+
+    <div class="ctl"><b>Fraud-ring size: <span id="nv" class="mono">50</span> fake identities</b><input type="range" id="n" min="1" max="1000" value="50" step="1"></div>
+
+    <canvas id="cv" width="1160" height="360"></canvas>
+    <div class="verdict" id="verdict">—</div>
+  </div>
+
+  <p class="explain"><b>What to notice.</b> Each lock alone only dents the heist — flip any two off and fraud pays again somewhere on the slider. It's the <b>combination</b> that kills the business model at every ring size: the similarity split starves revenue as the ring grows, the stake turns detection into a growing expected loss, and identity scarcity turns the ring's one "free" input into its biggest cost. Toy numbers, real principle. In the registered re-test against all three locks together, <b>the heist didn't pay in a single tested case</b> — with the honest caveat that this defense inherits the identity question (open item H-2), which only a live pilot can settle.</p>
+
+  <footer>Part of Release 1 · This demonstration illustrates ratified mechanisms; it is not evidence. The evidence — the audit, the registered re-runs, the results files — is in the <a href="/replication">replication kit</a> and the <a href="/evidence">Story of the Tests</a>.</footer>
+</div>
+
+<script>
+(function(){
+  var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+  var nEl=document.getElementById('n');
+  var HONEST=100; // honest baseline take-home in this toy
+
+  function model(N,L1,L2,L3){
+    // revenue per fake identity per month
+    var rev = 600; // unchecked: the audit's ~6x-honest figure
+    if(L1){ rev = 600*Math.pow(N,-0.8); if(N===1) rev=600*0.55; } // near-identical content shares one shrinking payout; even one plagiarist splits with the originals it copies
+    // expected stake loss: detection probability grows with ring size
+    var p = Math.min(0.65, 0.05 + 0.0012*N);
+    var stakeLoss = L2 ? 1000*p : 0;
+    // identity acquisition/rental cost
+    var idCost = L3 ? 450 : 40;
+    return {rev:rev, stake:stakeLoss, id:idCost, net:rev-stakeLoss-idCost};
+  }
+
+  function draw(){
+    var N=parseInt(nEl.value,10);
+    document.getElementById('nv').textContent=N;
+    var L1=document.getElementById('l1').classList.contains('on'),
+        L2=document.getElementById('l2').classList.contains('on'),
+        L3=document.getElementById('l3').classList.contains('on');
+    var m=model(N,L1,L2,L3);
+
+    var W=cv.width,H=cv.height,L=70,R=24,T=26,B=40;
+    ctx.clearRect(0,0,W,H);
+    var bars=[
+      ['REVENUE / FAKE ID', m.rev, '#5a6472'],
+      ['− STAKE LOSS', -m.stake, '#b0532f'],
+      ['− IDENTITY COST', -m.id, '#b0532f'],
+      ['= NET / FAKE ID', m.net, m.net>0?'#b3661f':'#2e7d52'],
+      ['HONEST USER (baseline)', HONEST, '#2e7d52']
+    ];
+    var maxV=Math.max(650,Math.abs(m.net)+50);
+    function y(v){var zero=T+(H-T-B)*0.55;return zero-(H-T-B)*0.5*v/maxV;}
+    var zero=y(0);
+    ctx.strokeStyle='#c9cfd8';ctx.beginPath();ctx.moveTo(L,zero);ctx.lineTo(W-R,zero);ctx.stroke();
+    ctx.font='12px Menlo,monospace';ctx.fillStyle='#5a6472';
+    ctx.fillText('0',L-16,zero+4);
+
+    var bw=(W-L-R)/bars.length*0.55, gap=(W-L-R)/bars.length;
+    bars.forEach(function(b,i){
+      var bx=L+gap*i+gap*0.2, v=b[1], by=y(Math.max(v,0)), bh=Math.abs(y(v)-zero);
+      ctx.fillStyle=b[2];ctx.globalAlpha=0.85;
+      ctx.fillRect(bx,v>=0?by:zero,bw,Math.max(bh,1));
+      ctx.globalAlpha=1;
+      ctx.fillStyle='#1c2836';ctx.font='bold 13px Menlo,monospace';
+      ctx.fillText((v>=0?'+':'')+v.toFixed(0),bx+bw/2-22,(v>=0?by:zero+bh)+(v>=0?-8:16));
+      ctx.fillStyle='#5a6472';ctx.font='10.5px Menlo,monospace';
+      var words=b[0].split(' ');
+      words.forEach(function(w,wi){ctx.fillText(w,bx+bw/2-w.length*3.2,H-26+wi*11);});
+    });
+
+    var verdict=document.getElementById('verdict');
+    if(m.net<=HONEST*0.05 || m.net<0){
+      verdict.className='verdict good';
+      verdict.innerHTML='<b>THE HEIST DOESN\'T PAY.</b> Net per fake identity: <b>'+m.net.toFixed(0)+'</b> vs <b>+'+HONEST+'</b> for simply being honest. Ring of '+N+': total '+(m.net*N).toFixed(0)+'/mo'+(m.net<0?' — the ring is burning money.':' — honesty beats it.');
+    }else{
+      verdict.className='verdict';
+      verdict.innerHTML='<b>FRAUD PAYS RIGHT NOW: +'+m.net.toFixed(0)+' per fake identity ('+(m.net/HONEST).toFixed(1)+'× honest).</b> This is roughly the world the audit found — now engage the missing lock'+((L1?0:1)+(L2?0:1)+(L3?0:1)>1?'s':'')+'.';
+    }
+  }
+
+  ['l1','l2','l3'].forEach(function(id){
+    var el=document.getElementById(id);
+    function flip(){el.classList.toggle('on');el.setAttribute('aria-checked',el.classList.contains('on'));el.querySelector('.st').textContent=el.classList.contains('on')?'ENGAGED':'OFF';draw();}
+    el.addEventListener('click',flip);
+    el.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}});
+  });
+  nEl.addEventListener('input',draw);
+  draw();
+})();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

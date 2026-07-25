@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — The Thermostat</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root{--paper:#fafaf6;--ink:#1c2836;--soft:#5a6472;--line:#d9dce2;--card:#fff;--accent:#b3661f;--ok:#2e7d52;--fail:#b0532f;--failbg:#f7ede7}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;font-size:16px;padding-bottom:60px}
+  .mono{font-family:Menlo,Consolas,'Courier New',monospace}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+  .banner{background:var(--failbg);border-bottom:1.5px solid var(--fail);padding:10px 0}
+  .banner .wrap{font-family:Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.08em;color:var(--fail)}
+  header{padding:40px 0 8px}
+  .k{font-family:Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.16em;color:var(--accent)}
+  h1{font-size:clamp(24px,4vw,34px);margin-top:8px}
+  .lede{color:var(--soft);margin-top:10px;max-width:62ch}
+  .panel{background:var(--card);border:1.5px solid var(--ink);border-radius:4px;margin-top:26px;padding:20px}
+  .controls{display:flex;gap:26px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .ctl{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--soft)}
+  .ctl b{color:var(--ink);font-size:13.5px}
+  input[type=range]{width:190px;accent-color:var(--accent)}
+  .switch{display:flex;align-items:center;gap:9px;cursor:pointer;user-select:none}
+  .sw{width:44px;height:24px;border-radius:999px;background:#c9cfd8;position:relative;transition:.2s}
+  .sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+  .switch.on .sw{background:var(--ok)} .switch.on .sw::after{left:23px}
+  canvas{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:3px;background:#fff}
+  .reads{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  .read{flex:1;min-width:200px;border:1px solid var(--line);border-radius:3px;padding:12px 14px}
+  .read .t{font-family:Menlo,Consolas,'Courier New',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--soft)}
+  .read b{display:block;font-size:22px;font-family:Menlo,Consolas,'Courier New',monospace;margin-top:4px}
+  .read.bad b{color:var(--fail)} .read.good b{color:var(--ok)}
+  .explain{margin-top:22px;color:var(--soft);font-size:14.5px;max-width:66ch}
+  .explain b{color:var(--ink)}
+  footer{margin-top:30px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--soft)}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="banner"><div class="wrap">DEMONSTRATION — NOT A TEST · TOY PARAMETERS, CHOSEN FOR LEGIBILITY · THE REGISTERED TESTS LIVE AT <a href="/evidence">/EVIDENCE</a></div></div>
+
+<header class="wrap">
+  <div class="k">DEMO 1 OF 3 · THE MECHANISM THAT CLOSED CRASH №1, "THE BATHTUB"</div>
+  <h1>The Thermostat</h1>
+  <p class="lede">In the first full simulation, minting never slowed while real goods grew slowly — prices climbed ~10% a year and the poorest tenth went under by month 16. The ratified fix: a formula in the constitution that automatically slows minting whenever money outruns real goods. No committee. No chairman. Feel it below: run 15 simulated years, throw storms at it, and flip the thermostat on and off.</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <div class="controls">
+      <div class="switch on" id="thermo" role="switch" aria-checked="true" tabindex="0"><span class="sw"></span><b>Thermostat</b></div>
+      <div class="ctl"><b>Storm severity: <span id="stormv" class="mono">1.0×</span></b><input type="range" id="storm" min="0" max="2" value="1" step="0.1"><span>recessions hit real goods in years 4 and 10</span></div>
+      <div class="ctl"><b>Base minting rate: <span id="mintv" class="mono">1.0%/mo</span></b><input type="range" id="mint" min="0.4" max="2" value="1" step="0.1"><span>how fast attention mints when unchecked</span></div>
+    </div>
+    <canvas id="cv" width="1160" height="480"></canvas>
+    <div class="reads">
+      <div class="read bad"><span class="t">AVG INFLATION — THERMOSTAT OFF</span><b id="roff">—</b></div>
+      <div class="read good"><span class="t">AVG INFLATION — THERMOSTAT ON</span><b id="ron">—</b></div>
+      <div class="read"><span class="t">HOW THE FORMULA RESPONDS</span><b id="rmint" style="font-size:14px;line-height:1.5">—</b></div>
+    </div>
+  </div>
+
+  <p class="explain"><b>What to notice.</b> With the thermostat off, prices drift upward at a constant clip no matter what happens to real goods — that steady red climb is what drowned the simulated poor. With it on, minting throttles itself the moment money runs ahead of goods, and the green line goes flat — through both storms — with nobody in charge of it. The point isn't the exact numbers (these are toy parameters); it's that <b>price stability here is a property of the formula, not a policy decision someone could lobby.</b> In the registered re-test, the repaired design held roughly 0% inflation through fifteen simulated years of storms.</p>
+
+  <footer>Part of Release 1 · This demonstration illustrates a ratified mechanism; it is not evidence. The evidence — registered bars, storm envelopes, results files — is in the <a href="/replication">replication kit</a> and the <a href="/evidence">Story of the Tests</a>.</footer>
+</div>
+
+<script>
+(function(){
+  var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+  var thermoEl=document.getElementById('thermo'),stormEl=document.getElementById('storm'),mintEl=document.getElementById('mint');
+  var MONTHS=180;
+
+  function simulate(thermo,stormMult,baseMint){
+    var G=100,M=100,P0=M/G,pts=[],mintUsed=[];
+    for(var t=0;t<MONTHS;t++){
+      var g=0.002; // real goods growth 0.2%/mo
+      if(t>=44&&t<56) g=-0.010*stormMult;        // storm 1
+      else if(t>=56&&t<76) g=0.006;              // recovery
+      else if(t>=116&&t<126) g=-0.008*stormMult; // storm 2
+      else if(t>=126&&t<142) g=0.005;
+      G*=(1+g);
+      var P=(M/G)/P0;
+      var rate=baseMint/100;
+      if(thermo){ rate=rate*Math.max(0,1-20*(P-1)); }
+      M*=(1+rate);
+      mintUsed.push(rate);
+      pts.push((M/G)/P0);
+    }
+    var yrs=MONTHS/12, infl=(Math.pow(pts[MONTHS-1],1/yrs)-1)*100;
+    return {pts:pts,infl:infl,mint:mintUsed};
+  }
+
+  function draw(){
+    var storm=parseFloat(stormEl.value),base=parseFloat(mintEl.value);
+    document.getElementById('stormv').textContent=storm.toFixed(1)+'×';
+    document.getElementById('mintv').textContent=base.toFixed(1)+'%/mo';
+    var on=thermoEl.classList.contains('on');
+    var off=simulate(false,storm,base), onr=simulate(true,storm,base);
+
+    var W=cv.width,H=cv.height,L=70,R=20,T=24,B=44;
+    ctx.clearRect(0,0,W,H);
+    var maxY=Math.max(2.6,off.pts[MONTHS-1]*1.05);
+    function x(t){return L+(W-L-R)*t/(MONTHS-1);}
+    function y(v){return T+(H-T-B)*(1-(v-0.8)/(maxY-0.8));}
+
+    // storm shading
+    ctx.fillStyle='rgba(176,83,47,0.07)';
+    ctx.fillRect(x(44),T,x(56)-x(44),H-T-B); ctx.fillRect(x(116),T,x(126)-x(116),H-T-B);
+    // grid + labels
+    ctx.strokeStyle='#e4e7ec';ctx.fillStyle='#5a6472';ctx.font='12px Menlo,monospace';ctx.lineWidth=1;
+    for(var gv=1;gv<=Math.floor(maxY*2)/2;gv+=0.5){
+      ctx.beginPath();ctx.moveTo(L,y(gv));ctx.lineTo(W-R,y(gv));ctx.stroke();
+      ctx.fillText((gv*100).toFixed(0),8,y(gv)+4);
+    }
+    for(var yr=0;yr<=15;yr+=3){ctx.fillText('yr '+yr,x(yr*12)-10,H-16);}
+    ctx.save();ctx.translate(16,T+40);ctx.rotate(-Math.PI/2);ctx.fillText('PRICE LEVEL (start = 100)',0,0);ctx.restore();
+    ctx.fillText('storm',x(45),T+14); ctx.fillText('storm',x(117),T+14);
+
+    function line(pts,color,width,dash){
+      ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash||[]);
+      ctx.beginPath();
+      for(var t=0;t<MONTHS;t++){var xx=x(t),yy=y(pts[t]);t?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}
+      ctx.stroke();ctx.setLineDash([]);
+    }
+    line(off.pts,'#b0532f',2.5);
+    if(on) line(onr.pts,'#2e7d52',2.5);
+
+    ctx.font='bold 13px Menlo,monospace';
+    ctx.fillStyle='#b0532f';ctx.fillText('OFF',x(MONTHS-1)-34,y(off.pts[MONTHS-1])-8);
+    if(on){ctx.fillStyle='#2e7d52';ctx.fillText('ON',x(MONTHS-1)-30,y(onr.pts[MONTHS-1])-8);}
+
+    document.getElementById('roff').textContent=(off.infl>=0?'+':'')+off.infl.toFixed(1)+'%/yr';
+    document.getElementById('ron').textContent=on?((onr.infl>=0?'+':'')+onr.infl.toFixed(1)+'%/yr'):'switched off';
+    var late=onr.mint[MONTHS-1]*100;
+    document.getElementById('rmint').textContent=on?('minting self-throttled from '+base.toFixed(1)+'% to '+late.toFixed(2)+'%/mo — automatically'):'no throttle: minting runs at '+base.toFixed(1)+'%/mo forever';
+  }
+
+  thermoEl.addEventListener('click',function(){thermoEl.classList.toggle('on');thermoEl.setAttribute('aria-checked',thermoEl.classList.contains('on'));draw();});
+  thermoEl.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();thermoEl.click();}});
+  stormEl.addEventListener('input',draw); mintEl.addEventListener('input',draw);
+  draw();
+})();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo — The Ramp</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  :root{--paper:#fafaf6;--ink:#1c2836;--soft:#5a6472;--line:#d9dce2;--card:#fff;--accent:#b3661f;--ok:#2e7d52;--fail:#b0532f;--failbg:#f7ede7}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;font-size:16px;padding-bottom:60px}
+  .mono{font-family:Menlo,Consolas,'Courier New',monospace}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px}
+  .banner{background:var(--failbg);border-bottom:1.5px solid var(--fail);padding:10px 0}
+  .banner .wrap{font-family:Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.08em;color:var(--fail)}
+  header{padding:40px 0 8px}
+  .k{font-family:Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.16em;color:var(--accent)}
+  h1{font-size:clamp(24px,4vw,34px);margin-top:8px}
+  .lede{color:var(--soft);margin-top:10px;max-width:62ch}
+  .panel{background:var(--card);border:1.5px solid var(--ink);border-radius:4px;margin-top:26px;padding:20px}
+  .controls{display:flex;gap:26px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .ctl{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--soft)}
+  .ctl b{color:var(--ink);font-size:13.5px}
+  input[type=range]{width:260px;accent-color:var(--accent)}
+  canvas{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:3px;background:#fff}
+  .reads{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+  .read{flex:1;min-width:210px;border:1px solid var(--line);border-radius:3px;padding:12px 14px}
+  .read .t{font-family:Menlo,Consolas,'Courier New',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--soft)}
+  .read b{display:block;font-size:20px;font-family:Menlo,Consolas,'Courier New',monospace;margin-top:4px}
+  .read.bad b{color:var(--fail)} .read.good b{color:var(--ok)}
+  .read span.sub{display:block;font-size:12px;color:var(--soft);margin-top:3px}
+  .explain{margin-top:22px;color:var(--soft);font-size:14.5px;max-width:66ch}
+  .explain b{color:var(--ink)}
+  footer{margin-top:30px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--soft)}
+  a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+<div class="banner"><div class="wrap">DEMONSTRATION — NOT A TEST · TOY PARAMETERS, CHOSEN FOR LEGIBILITY · THE REGISTERED TESTS LIVE AT <a href="/evidence">/EVIDENCE</a></div></div>
+
+<header class="wrap">
+  <div class="k">DEMO 2 OF 3 · THE MECHANISM THAT CLOSED CRASH №2, "THE CLIFF"</div>
+  <h1>The Ramp</h1>
+  <p class="lede">The first safety-net design "topped everyone up" to the same line — so a musician earning 70% of the guarantee gained nothing by working. Half of the lower earners in the simulation rationally quit, and output fell by a quarter. The ratified fix: every unit you earn adds half a unit <em>above</em> the guarantee, always. Drag your earnings below and watch the difference between the cliff and the ramp.</p>
+</header>
+
+<div class="wrap">
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl"><b>Your own earnings: <span id="ev" class="mono">70</span> / month</b><input type="range" id="earn" min="0" max="220" value="70" step="5"><span>the guarantee line in this toy is 100</span></div>
+    </div>
+    <canvas id="cv" width="1160" height="500"></canvas>
+    <div class="reads">
+      <div class="read bad"><span class="t">TOP-UP DESIGN (THE CLIFF) — TAKE-HOME</span><b id="tcliff">—</b><span class="sub" id="mcliff">—</span></div>
+      <div class="read good"><span class="t">RAMP DESIGN — TAKE-HOME</span><b id="tramp">—</b><span class="sub" id="mramp">—</span></div>
+    </div>
+  </div>
+
+  <p class="explain"><b>What to notice.</b> Under the cliff, the flat grey zone is where effort is literally worthless — earn 0 or earn 99, you take home the same 100. That flat zone is what made half of the simulated lower earners quit. Under the ramp there is no flat zone anywhere: <b>every additional unit earned always raises take-home by half a unit</b>, at every income, until you outgrow the guarantee entirely. Toy numbers, real principle — in the registered re-test, the ramp retained essentially all of the economy's output. Fine print from the honest record: the floor these designs sit on is a <b>funded module, not a promise</b> — it never prints money, and if funding falls short it rations honestly rather than inflating.</p>
+
+  <footer>Part of Release 1 · This demonstration illustrates a ratified mechanism; it is not evidence. The evidence — registered bars, output results, the taper's machine-checked no-cliff proof — is in the <a href="/replication">replication kit</a> and the <a href="/evidence">Story of the Tests</a>.</footer>
+</div>
+
+<script>
+(function(){
+  var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+  var earnEl=document.getElementById('earn');
+  var G=100,MAXX=220;
+
+  function cliff(o){return Math.max(o,G);}
+  function ramp(o){return Math.max(o,G+0.5*o);}
+
+  function draw(){
+    var own=parseFloat(earnEl.value);
+    document.getElementById('ev').textContent=own;
+
+    var W=cv.width,H=cv.height,L=70,R=24,T=26,B=48,maxY=240;
+    ctx.clearRect(0,0,W,H);
+    function x(v){return L+(W-L-R)*v/MAXX;}
+    function y(v){return T+(H-T-B)*(1-v/maxY);}
+
+    // dead zone shading (cliff flat region)
+    ctx.fillStyle='rgba(176,83,47,0.08)';
+    ctx.fillRect(x(0),y(G)-14,x(G)-x(0),14);
+    // grid
+    ctx.strokeStyle='#e4e7ec';ctx.fillStyle='#5a6472';ctx.font='12px Menlo,monospace';ctx.lineWidth=1;
+    for(var gv=0;gv<=maxY;gv+=50){ctx.beginPath();ctx.moveTo(L,y(gv));ctx.lineTo(W-R,y(gv));ctx.stroke();ctx.fillText(gv,26,y(gv)+4);}
+    for(var xv=0;xv<=MAXX;xv+=50){ctx.fillText(xv,x(xv)-8,H-18);}
+    ctx.fillText('YOUR OWN EARNINGS →',W/2-70,H-2);
+    ctx.save();ctx.translate(14,T+120);ctx.rotate(-Math.PI/2);ctx.fillText('TAKE-HOME',0,0);ctx.restore();
+
+    // 45° reference (no support)
+    ctx.strokeStyle='#c9cfd8';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(x(0),y(0));ctx.lineTo(x(MAXX),y(MAXX));ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#9aa3ad';ctx.fillText('no support (keep what you earn)',x(150)+6,y(150)+16);
+
+    function curve(f,color){
+      ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.beginPath();
+      for(var v=0;v<=MAXX;v+=2){var xx=x(v),yy=y(f(v));v?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}
+      ctx.stroke();
+    }
+    curve(cliff,'#b0532f');
+    curve(ramp,'#2e7d52');
+    ctx.font='bold 13px Menlo,monospace';
+    ctx.fillStyle='#b0532f';ctx.fillText('THE CLIFF (old design)',x(8),y(G)-22);
+    ctx.fillStyle='#2e7d52';ctx.fillText('THE RAMP (ratified)',x(96),y(ramp(96))-14);
+
+    // your dot on both curves
+    [[cliff(own),'#b0532f'],[ramp(own),'#2e7d52']].forEach(function(d){
+      ctx.fillStyle=d[1];ctx.beginPath();ctx.arc(x(own),y(d[0]),6,0,7);ctx.fill();
+      ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x(own),y(d[0]),6,0,7);ctx.stroke();
+    });
+    ctx.strokeStyle='#c9cfd8';ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(x(own),y(0));ctx.lineTo(x(own),y(Math.max(cliff(own),ramp(own))));ctx.stroke();ctx.setLineDash([]);
+
+    // readouts
+    var dC=cliff(own+10)-cliff(own), dR=ramp(own+10)-ramp(own);
+    document.getElementById('tcliff').textContent=cliff(own).toFixed(0);
+    document.getElementById('tramp').textContent=ramp(own).toFixed(0);
+    document.getElementById('mcliff').textContent='earn 10 more → take home +'+dC.toFixed(0)+(dC===0?'  ← effort is pointless here':'');
+    document.getElementById('mramp').textContent='earn 10 more → take home +'+dR.toFixed(0)+'  — always > 0';
+  }
+
+  earnEl.addEventListener('input',draw);
+  draw();
+})();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
