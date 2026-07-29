@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minting Money from Verified Human Engagement — Evaluable Web-Paper (Draft v0.2)</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Design and pre-registered adversarial testing of an exploration-driven economic network. Claim-by-claim, with statuses, evidence paths, and inline demonstrations. Draft for format feedback.">
+<style>
+  :root{
+    --paper:#fafaf6; --ink:#1c2836; --soft:#5a6472; --line:#d9dce2; --grid:rgba(28,40,54,.04);
+    --card:#ffffff; --accent:#b3661f; --ok:#2e7d52; --okbg:#eaf3ee; --fail:#b0532f; --failbg:#f7ede7;
+    --gold:#8a6a1f; --goldbg:#f5efdd; --gray:#5a6472; --graybg:#eef0f2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:16px;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px}
+  .mono{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent} a:hover{border-bottom-color:var(--accent)}
+  .wrap{max-width:840px;margin:0 auto;padding:0 22px}
+
+  .banner{background:var(--failbg);border-bottom:1.5px solid var(--fail);padding:9px 0;position:sticky;top:0;z-index:50}
+  .banner .wrap{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.08em;color:var(--fail)}
+  .progress{position:fixed;top:38px;left:0;height:2px;background:var(--accent);width:0;z-index:49}
+
+  /* TOC rail */
+  .rail{position:fixed;left:18px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:1px;max-height:86vh;overflow:auto}
+  .rail a{display:flex;gap:8px;padding:3.5px 6px;border:none;color:var(--soft);font-size:10px;letter-spacing:.06em;align-items:baseline}
+  .rail a b{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;min-width:20px;font-size:10px}
+  .rail a i{font-style:normal;opacity:0;transform:translateX(-4px);transition:.2s;white-space:nowrap;text-transform:uppercase}
+  .rail a:hover i,.rail a.on i{opacity:1;transform:none}
+  .rail a.on{color:var(--accent);font-weight:700}
+  @media(max-width:1150px){.rail{display:none}}
+
+  header{padding:64px 0 40px;border-bottom:1.5px solid var(--ink)}
+  .doc{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.14em;color:var(--soft);margin-bottom:26px}
+  .doc em{font-style:normal;color:var(--accent)}
+  h1{font-size:clamp(26px,4.6vw,40px);line-height:1.14;letter-spacing:-.015em;max-width:26ch}
+  .authors{margin-top:18px;font-size:14.5px;color:var(--soft)}
+  .authors b{color:var(--ink)}
+  .absbox{margin-top:26px;border:1.5px solid var(--ink);border-left:6px solid var(--accent);border-radius:3px;background:var(--card);padding:20px 22px;font-size:15px;color:var(--soft)}
+  .absbox b{color:var(--ink)}
+
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sec-h{display:flex;gap:14px;align-items:baseline;margin-bottom:18px}
+  .sec-h .no{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.12em;color:var(--accent);border:1px solid var(--accent);padding:2px 9px;border-radius:2px;white-space:nowrap}
+  h2{font-size:clamp(20px,3vw,27px);line-height:1.2;letter-spacing:-.01em}
+  .lede{color:var(--soft);max-width:66ch;margin-bottom:8px;font-size:15.5px}
+  .lede b{color:var(--ink)}
+
+  /* status chips */
+  .chip{display:inline-block;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10px;letter-spacing:.1em;padding:3px 9px;border-radius:2px;border:1.5px solid;white-space:nowrap}
+  .chip.pass{color:var(--ok);border-color:var(--ok);background:var(--okbg)}
+  .chip.repaired{color:var(--ok);border-color:var(--ok);background:#fff}
+  .chip.demoted{color:var(--gold);border-color:var(--gold);background:var(--goldbg)}
+  .chip.fail{color:var(--fail);border-color:var(--fail);background:var(--failbg)}
+  .chip.open{color:var(--fail);border-color:var(--fail);background:#fff}
+  .chip.assume{color:var(--gray);border-color:var(--gray);background:var(--graybg)}
+  .chip.stub{color:var(--soft);border-color:var(--line);background:var(--graybg)}
+
+  /* claim cards */
+  .cc{border:1.5px solid var(--ink);border-radius:3px;background:var(--card);margin-top:20px;padding:16px 18px}
+  .cchead{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .cid{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:12px;font-weight:700;color:var(--accent)}
+  .clink{margin-left:auto;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:12px;color:var(--soft);border:none;cursor:pointer;background:none}
+  .clink:hover{color:var(--accent)}
+  .cc h4{margin-top:10px;font-size:16.5px;line-height:1.4}
+  .ccmeta{margin-top:12px;display:grid;gap:6px;font-size:12.5px;color:var(--soft)}
+  .ccmeta b{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink);margin-right:6px}
+  code.todo{background:var(--goldbg);color:var(--gold);padding:1px 6px;border-radius:2px;font-size:11.5px;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace}
+  .cc details{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  .cc summary{cursor:pointer;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11px;letter-spacing:.08em;color:var(--accent);list-style:none}
+  .cc summary::-webkit-details-marker{display:none}
+  .cc summary::before{content:"+ "}
+  .cc details[open] summary::before{content:"− "}
+  .cc details .body{margin-top:10px;font-size:13.5px;color:var(--soft);max-width:66ch}
+  .cc details .body b{color:var(--ink)}
+
+  /* failure reports (from blueprint) */
+  .frep{margin-top:20px;border:1.5px solid var(--ink);border-radius:3px;background:var(--card);overflow:hidden}
+  .frep .head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px;background:var(--failbg);border-bottom:1.5px solid var(--ink);flex-wrap:wrap}
+  .frep .head .t{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:11.5px;letter-spacing:.12em;color:var(--fail);font-weight:700}
+  .frep dl{display:grid;grid-template-columns:140px 1fr}
+  .frep dt{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10px;letter-spacing:.1em;color:var(--soft);padding:12px 0 12px 18px;border-bottom:1px solid var(--line)}
+  .frep dd{font-size:13.5px;padding:11px 18px 11px 10px;border-bottom:1px solid var(--line);line-height:1.5}
+  .frep dd b{color:var(--ok)}
+  .frep dl :nth-last-child(-n+2){border-bottom:none}
+  @media(max-width:640px){.frep dl{grid-template-columns:1fr}.frep dt{padding:10px 18px 0}.frep dd{padding:3px 18px 12px}}
+
+  /* demo embed */
+  .demoembed{margin-top:22px;border:1.5px dashed var(--accent);border-radius:3px;overflow:hidden;background:var(--card)}
+  .demoembed .cap{font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--accent);padding:9px 14px;border-bottom:1px dashed var(--accent)}
+  .demoembed iframe{width:100%;height:880px;border:none;display:block;background:#fff}
+
+  /* stubs */
+  .stubsec .sec-h{opacity:.85}
+  .stubbody{border:1.5px dashed var(--line);border-radius:3px;padding:16px 18px;color:var(--soft);font-size:14px;background:rgba(255,255,255,.5)}
+  .stubbody b{color:var(--ink)}
+
+  /* legend */
+  .legend{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}
+  .oitem{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline;flex-wrap:wrap}
+  .oitem:last-child{border-bottom:none}
+
+  footer{padding:44px 0 70px;font-size:12.5px;color:var(--soft)}
+  .printnote{display:none}
+  @media print{
+    .banner,.rail,.progress,.demoembed iframe{display:none}
+    .printnote{display:block;font-size:11px;color:var(--soft);font-style:italic;padding:8px 14px}
+    .cc details .body{display:block}
+    section{page-break-inside:avoid}
+    body{background:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner"><div class="wrap">DRAFT v0.2 — FOR FORMAT FEEDBACK · NOT YET SUBMITTED · UNLISTED · TEXT: DESIGN PAPER v2.0, RATIFIED JULY 24 2026 (OWNER, PROVISIONAL) · CLAIMS-REGISTER KEYS MARKED "TODO" ARE UNMINED, NOT MISSING — THEY EXIST IN THE REPLICATION KIT</div></div>
+<div class="progress" id="pg"></div>
+
+<nav class="rail" aria-label="Sections">
+  <a href="#s0" data-s="s0"><b>00</b><i>How to read this</i></a>
+  <a href="#s1" data-s="s1"><b>01</b><i>Problem &amp; goals</i></a>
+  <a href="#s2" data-s="s2"><b>02</b><i>Mechanism</i></a>
+  <a href="#s3" data-s="s3"><b>03</b><i>Machines &amp; institutions</i></a>
+  <a href="#s4" data-s="s4"><b>04</b><i>People &amp; property</i></a>
+  <a href="#s5" data-s="s5"><b>05</b><i>Stability</i></a>
+  <a href="#s6" data-s="s6"><b>06</b><i>Incentives</i></a>
+  <a href="#s7" data-s="s7"><b>07</b><i>Integrity</i></a>
+  <a href="#s8" data-s="s8"><b>08</b><i>Governance</i></a>
+  <a href="#s9" data-s="s9"><b>09</b><i>The floor</i></a>
+  <a href="#s10" data-s="s10"><b>10</b><i>Failure log</i></a>
+  <a href="#s11" data-s="s11"><b>11</b><i>Demotions</i></a>
+  <a href="#s12" data-s="s12"><b>12</b><i>Open items</i></a>
+  <a href="#s13" data-s="s13"><b>13</b><i>Methods</i></a>
+  <a href="#s14" data-s="s14"><b>14</b><i>For evaluators</i></a>
+  <a href="#s15" data-s="s15"><b>15</b><i>Citation</i></a>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="doc">EVALUABLE WEB-PAPER · <em>RELEASE 1</em> · JULY 2026 · EXPLORATIONECONOMY.ORG/PAPER</div>
+    <h1>Minting Money from Verified Human Engagement: Design and Pre-Registered Adversarial Testing of an Exploration-Driven Economic Network</h1>
+    <p class="authors"><b>Devan Allen</b> (design owner) — devan@ai-realized.com · built and, to date, checked only with AI systems (Anthropic Claude); provenance and trust model in §00. Reference design codenamed <b>EDEN</b>; unit codenamed <b>EVE</b> — working titles.</p>
+    <div class="absbox"><b>Abstract.</b> Most new money is created as bank debt and accrues to existing asset holders. We design and stress-test an alternative monetary layer in which currency is minted solely by verified humans' engaged attention to real digital work; machine and institutional actors participate only as payers and can never mint. Income streams are non-transferable, transparency is rewarded rather than mandated, and a guaranteed-essentials floor is specified as a separately funded module after stress tests showed it does not self-fund — a negative result we retain. Methods: 39 waves of agent-based simulation with pass/fail bars registered before each run, machine-checked algebra for load-bearing closed forms, and a replication harness regenerating 49 of 54 result sets to 1e-6. Three registered failures forced three published redesigns. Results are claimed strictly as <b>mechanism-existence under stated dials</b>, never as forecasts. All revenue-side results are conditional on exogenous willingness-to-pay anchors; a field experiment with failure defined in advance is registered but not yet run. This document exists to be evaluated claim-by-claim: every claim carries a status, an evidence path, and the assumptions it leans on.</div>
+  </div>
+</header>
+
+<!-- ===================== 00 ===================== -->
+<section id="s0">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 00</span><h2>How to read this — trust model, provenance, statuses</h2></div>
+    <p class="lede"><b>Trust model.</b> Every result here is <b>mechanism-existence under stated dials</b>: "this rule closes this specific failure mode under these assumptions" — never a forecast, never a guarantee. Pass/fail bars were registered in writing before each engine ran. Dials and sweep ranges are enumerated in the replication kit's ASSUMPTIONS LEDGER.</p>
+    <p class="lede"><b>Provenance, stated plainly.</b> Every artifact behind this paper — simulations, proofs, verification passes, and this text — was produced by the owner working with AI models. AI is, so far, the only thing that has checked this work. The program's own standard is <i>in-family; verify, don't trust</i>, and its two standing obligations are exactly what this document exists to invite: hostile out-of-family review and field evidence.</p>
+    <p class="lede"><b>Reading paths.</b> Full read ≈ 60–90 min. The 15-minute skeptic's path: this section → §10 Failure log → §11 Demotions → §12 Open items. The failures are not in an appendix; they are the spine.</p>
+    <p class="lede" style="margin-top:14px"><b>Status vocabulary</b> (every claim carries exactly one):</p>
+    <div class="legend">
+      <span class="chip pass">TESTED — PASS</span>
+      <span class="chip repaired">TESTED — FAIL → REPAIRED</span>
+      <span class="chip demoted">DEMOTED</span>
+      <span class="chip fail">TESTED — FAIL (STANDS)</span>
+      <span class="chip open">OPEN</span>
+      <span class="chip assume">ASSUMPTION (EXOGENOUS)</span>
+    </div>
+    <p class="lede" style="margin-top:14px">Every claim card is anchor-linkable (cite <span class="mono">/paper#C-10</span>, not a paragraph) and ends in a kit path so any number can be traced to the results file and code that produced it in two clicks. <span class="mono">TODO</span> markers are unmined CLAIMS-REGISTER keys — present in the kit, not yet wired into this draft.</p>
+  </div>
+</section>
+
+<!-- ===================== 01–04 STUBS ===================== -->
+<section id="s1">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 01</span><h2>The problem &amp; design goals</h2></div>
+    <p class="lede">Nearly all new money enters the world as bank credit — born as someone's debt, already owing interest. Three defaults follow. The economy must grow to service its own money-creation, whether or not anyone needs more. New money settles on those who already hold assets; people whose only asset is time fall behind by design. And human creative output — the writing, data, and code that now train AI systems — is priced at zero and harvested as free raw material. None of this requires a villain, and none of it is hidden. It is a design. This paper specifies a revision and reports how the revision has been tested.</p>
+    <p class="lede"><b>Goals.</b> (1) Give every verified person an income-bearing asset: their data, creations, and genuine attention. (2) Make machine and institutional use of human work a payment event, permanently. (3) Reward transparency so honesty out-competes opacity on economics rather than enforcement. (4) Keep wealth earnable but not inheritable or purchasable, so mobility replaces dynasty. (5) Remain optional at every step.</p>
+    <p class="lede"><b>Non-goals, stated as hard boundaries.</b> Not a replacement for the dollar — promises are denominated in goods; dollars remain the pricing language at the interface. Not a token sale: there is nothing to buy, and the unit cannot be purchased into existence. Not a new internet: an overlay changing four layers of the one we have — monetization (creators paid natively when work is used), discovery (neutral retrieval, disclosed ranking), identity (one portable, self-owned identity), provenance (signed, checkable origin) — while transport, hosting, browsers, devices, jobs, and dollars stay where they are. And not a promise of a safety-net floor (§09).</p>
+  </div>
+</section>
+
+<section id="s2">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 02</span><h2>The mechanism: Rule 0, minting, decay ladder, custody &amp; pricing</h2></div>
+    <p class="lede"><b>Rule 0: humans mint; machines pay.</b> New currency is created in exactly one circumstance — a verified human genuinely engaging with real work — and the mint event pays the work's creators automatically. Machine and institutional actors can hold and transfer existing units but can never occupy the minting position; the prohibition is enforceable in code, which is why "never" is used here and almost nowhere else. The money supply stays anchored to the one input that cannot be server-farmed: verified human time and attention.</p>
+    <p class="lede"><b>Digital work is free at the door.</b> Creators are paid per use rather than charging tolls. Payouts follow a decay ladder — heavily-used work earns broad-and-shallow — with two ratified companions: <b>per-buyer cumulative pricing</b> (one buyer's aggregate pull gets more expensive, not cheaper, so bulk extraction never rides the popularity discount) and the <b>minimum ask</b> (a non-waivable, essentials-indexed floor on personal-data prices; above it, owners price freely; launch value stays at canon's conservative 1e-4 with the calibration method ratified and the number pilot-gated).</p>
+    <p class="lede"><b>Custody is freshness-matched (DR-20).</b> Declared commons stay freely copyable (K0). Short-half-life data — live market and behavioral streams, below τ* ≈ 4.35 years — may leave under priced export licenses, because staleness itself is the moat (K1). Long-half-life data, the stores actually worth stealing, never leaves: compute-to-data access with per-buyer cumulative egress budgets (K2). Individual-granularity-sensitive data is aggregate-only (K3).</p>
+
+    <article class="cc" id="C-20">
+      <div class="cchead"><span class="cid">C-20</span><span class="chip repaired">TESTED — FAIL → REPAIRED</span><button class="clink" data-a="C-20" title="Copy link">#copy</button></div>
+      <h4>Under pre-repair terms, a pay-once-copy-forever extraction captured long-lived data value for ≈1.6% of its worth. The freshness-matched custody system plus per-buyer cumulative pricing closes it.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> exfiltration &amp; stale-copy economics; repair ratified as DR-20</div>
+        <div><b>EVIDENCE</b> EVE Sim v37 (XF0–XF8; XF7a = registered safe-to-refute expectation confirmed) · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> freshness half-life measurement (τ* boundary) · v27-class breach enforcement · KYC'd bridge legal layer for off-ledger residual</div>
+      </div>
+      <details><summary>why the repair is custody-plus-pricing, not custody alone</summary><div class="body">The floor prices the living stream, custody prices the stolen copy, and freshness picks which one binds. Below τ*, a copy goes stale before it amortizes — export licensing is safe and staleness is the moat. Above τ*, a stale copy is barely stale — so the corpus never leaves (K2). The decay-ladder interaction is fixed separately: bulk buyers ride their own rising curve, not the anti-concentration discount meant for creator fairness (v37 F1).</div></details>
+    </article>
+
+    <article class="cc" id="C-21">
+      <div class="cchead"><span class="cid">C-21</span><span class="chip pass">TESTED — PASS</span><button class="clink" data-a="C-21" title="Copy link">#copy</button></div>
+      <h4>The non-waivable minimum ask is load-bearing: without it, the clearing price collapses to ≈5% of the revenue-optimal reserve under supply abundance, and ≈90% of sellers would undersell it if allowed.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> mechanism-existence; the collective-bargaining rhyme of objection A2</div>
+        <div><b>EVIDENCE</b> EVE Sim v37 (floor-necessity finding) · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> WTP anchors (H-1) for absolute levels; the <em>necessity</em> result is about relative collapse, not the anchor</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="s3">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 03</span><h2>Machines &amp; institutions: pay-never-mint, coordinator-never-owner, owner linkage</h2></div>
+    <p class="lede">Every non-human actor — a lab training a model, a company, a personal AI assistant reading someone's work on a user's behalf — participates as a <b>payer</b>. Capability growth therefore translates into payment flow toward the humans it learned from. <b>Corporations coordinate; they never own the mint-anchor</b> (DR-18): a firm can organize, fund, and profit from collective work through a capped coordination cut (ceiling 25%) for a bounded term (30 years), with income streams anchored to the human contributors. The transparency principle is <b>privacy for people, transparency for power</b>: individual reading and browsing stay private (read-logging was measured and declined); value flows are public.</p>
+
+    <article class="cc" id="C-22">
+      <div class="cchead"><span class="cid">C-22</span><span class="chip pass">TESTED — PASS</span><button class="clink" data-a="C-22" title="Copy link">#copy</button></div>
+      <h4>Owner linkage in strong form takes beneficial-ownership evasion from 24.7× (blind gate) to 1.20× at central dials: entities must carry human-rooted links to hold income streams; links are title records; closure is transitive through any shell depth; backed by a slashable link-bond plus provenance audit.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> mechanism-existence at central dials; boundary located at a_n* = 0.172/yr</div>
+        <div><b>EVIDENCE</b> EVE Sim v36 (OL0–OL6) + mix-frontier extension; chassis v35 re-run exact · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> identity keystone (H-2) · audit funding floor a_n ≥ 0.05/yr with bond B ≈ 1.0 · disclosure-aversion pilot dial (d_med)</div>
+      </div>
+      <details><summary>each leg is load-bearing · what was declined · the participation price</summary><div class="body"><b>Remove a leg and the number tells you:</b> no link-to-coordinate → 9.5×; no title semantics → 4.3–14.1×; no transitive closure → 24.7×; no audit/overhead leg → 2.55×. <b>Declined on measurement:</b> entity read-logging — only 4.5% of entity query value attributable at central evasion costs; paid queries are already public machine-pay transactions, so no protocol surface is spent metering free reads. <b>The cost is priced, not hidden:</b> disclosure trims relative participation ~6pp (0.657 → 0.597), above its registered bar; if the pilot measures worse aversion, the funding mix shifts by pre-scoped fallback.</div></details>
+    </article>
+
+    <article class="cc" id="C-24">
+      <div class="cchead"><span class="cid">C-24</span><span class="chip pass">TESTED — PASS</span><button class="clink" data-a="C-24" title="Copy link">#copy</button></div>
+      <h4>Ownership resolves through real capital structures: ultimate beneficial holders at ≥ 5% pass through any number of layers with registered links; sub-threshold float terminates at bonded, KYC'd intermediaries; officer/controller links are title-class — closing the on-ledger empire channel at zero marginal audit cost.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> multi-root/diamond ownership graphs; the named successor to C-22, discharged</div>
+        <div><b>EVIDENCE</b> EVE Sim v38 (MR0–MR7, 8/8; registered expectations confirmed) · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> θ = 5% pilot-calibrated against real holder distributions · empire/concert flag compresses off-protocol residual 16.1× → 3.6×, handed to the KYC'd bridge's legal layer</div>
+      </div>
+      <details><summary>scope boundary, recorded</summary><div class="body">Coordination among genuinely distinct humans multiplies nothing the ownership gate polices (they already hold their lawful caps), and chasing it would require person-level behavioral profiling barred constitutionally — concert harms belong to the governance/market-power layer, by design.</div></details>
+    </article>
+  </div>
+</section>
+
+<section id="s4">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 04</span><h2>People &amp; property: non-transferability and the dynasty result</h2></div>
+    <p class="lede">Each person holds <b>one lifetime identity</b> (the keystone assumption — H-2). Income streams are <b>non-transferable</b>: they cannot be sold, bought, or inherited. Success and wealth remain fully achievable — they must simply be continuously earned, because no one can purchase another's money-making machine or bequeath their own.</p>
+
+    <article class="cc" id="C-30">
+      <div class="cchead"><span class="cid">C-30</span><span class="chip pass">TESTED — PASS</span><button class="clink" data-a="C-30" title="Copy link">#copy</button></div>
+      <h4>Five-generation dynasty persistence falls from 79.2% (calibrated status-quo baseline) to 10.4% under non-transferability — approximately the fair-deck rate at which birth luck stops predicting outcomes.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> mechanism-existence; 125-year model; corporate-wrapper attack included and closed in ratified canon</div>
+        <div><b>EVIDENCE</b> EVE Sim v3 (Multi-Generational Wealth; anchors 10.4 / 67.7 / 79.2) + v35 · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> identity keystone (H-2) · wrapper closure (C-31) · cap/W_age machinery (v3 Network &amp; Dependency Graph)</div>
+      </div>
+      <details><summary>the middle anchor</summary><div class="body">The 67.7% middle scenario is the half-measure: streams non-inheritable but purchasable. Purchasability alone recovers most of the dynasty effect — which is why "earned, never bought <em>or</em> inherited" is one invariant, not two.</div></details>
+    </article>
+
+    <article class="cc" id="C-31">
+      <div class="cchead"><span class="cid">C-31</span><span class="chip repaired">TESTED — FAIL → REPAIRED</span><button class="clink" data-a="C-31" title="Copy link">#copy</button></div>
+      <h4>The corporate wrapper ("immortality loophole") initially evaded the inheritance rule — blind evasion 24.7× — and one wrapper test failed as registered, filed as a defense-in-depth finding. Closed by DR-18/19; the dynasty result holds ≤ 10.5% under every variant, including the no-audit stress arm.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> the strongest attack on §04's headline result, run before the headline was trusted</div>
+        <div><b>EVIDENCE</b> EVE Sim v35 (CW0–CW8; CW4 FAIL on the record) · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> owner linkage (C-22) and look-through (C-24) as the closure mechanism</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 05 STABILITY (BUILT) ===================== -->
+<section id="s5">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 05</span><h2>Stability: the thermostat, the essentials index, and what's still soft</h2></div>
+    <p class="lede">Minting anchored to human attention is a faucet that never closes by itself. The first full simulation proved exactly that — and the repair is a formula, not a committee. This section carries four claims; two of them are failures we keep.</p>
+
+    <article class="cc" id="C-10">
+      <div class="cchead"><span class="cid">C-10</span><span class="chip repaired">TESTED — FAIL → REPAIRED</span><button class="clink" data-a="C-10" title="Copy link">#copy</button></div>
+      <h4>With the constitutional minting throttle ("the thermostat"), the price level holds ≈0% inflation across fifteen simulated years inside the registered storm envelope.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> mechanism-existence under stated dials; storm envelope per ASSUMPTIONS LEDGER</div>
+        <div><b>EVIDENCE</b> Crash №1 ("The Bathtub") → thermostat retest · results key: <code class="todo">TODO: CLAIMS-REGISTER</code> · kit: <code class="todo">TODO: path</code></div>
+        <div><b>LEANS ON</b> essentials-index integrity (C-12, C-13) · storm-envelope dials · no discretionary authority exists to lobby</div>
+      </div>
+      <details><summary>method · registered bar · what would change our mind</summary><div class="body"><b>Registered bar (before any run):</b> if the poorest simulated decile cannot afford essentials for three consecutive months, the design fails. <b>Original failure:</b> prices climbed ~10%/yr; the bottom decile went under by month 16 and never recovered. <b>Corrective action:</b> a formula in the constitution slows minting whenever money outruns real goods — a thermostat, not a chairman. <b>Retest:</b> ≈0% inflation through fifteen simulated years of storms. <b>What would change our mind:</b> a storm profile inside the ledger's envelope that re-breaks the bar; or demonstration that the throttle's inputs (C-13) can be gamed faster than re-validation catches.</div></details>
+    </article>
+
+    <div class="demoembed">
+      <div class="cap">INTERACTIVE — DEMONSTRATION, NOT A TEST (TOY PARAMETERS; THE REGISTERED TESTS ARE THE EVIDENCE LINE ABOVE)</div>
+      <!-- DEPLOY: swap src to /demos/thermostat -->
+      <iframe src="/demos/thermostat" loading="lazy" title="Thermostat demonstration"></iframe>
+      <p class="printnote">[Interactive demonstration omitted in print — explorationeconomy.org/demos/thermostat]</p>
+    </div>
+
+    <article class="cc" id="C-12">
+      <div class="cchead"><span class="cid">C-12</span><span class="chip fail">TESTED — FAIL (STANDS)</span><button class="clink" data-a="C-12" title="Copy link">#copy</button></div>
+      <h4>The essentials index's fixed 0.05 bias budget is insufficient against systematic composition drift; a ≤ ~2.5-year re-basing rule is required (canon candidate, not yet ratified).</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> index-governance stress test (Lucas/Goodhart family, objection A3)</div>
+        <div><b>EVIDENCE</b> EVE Sim v33 (Index Drift) · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> basket composition governance (EBI Methodology Spec)</div>
+      </div>
+      <details><summary>why this stays a failure on the books</summary><div class="body">The repair (periodic re-basing) is specified but <b>not ratified</b> — so the claim stands as a failure until the rule enters canon and passes retest. This is also the finding that moved objection A3 (index-number bias) from unanswered to partial in the red-team scorecard (§12).</div></details>
+    </article>
+
+    <article class="cc" id="C-13">
+      <div class="cchead"><span class="cid">C-13</span><span class="chip fail">TESTED — FAIL (STANDS)</span><button class="clink" data-a="C-13" title="Copy link">#copy</button></div>
+      <h4>Under the bribed-price-gauge attack, oracle re-validation speed missed its registered bar: 0.888 vs 0.90.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> adversarial oracle capture; the thermostat's input integrity</div>
+        <div><b>EVIDENCE</b> oracle re-validation wave · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> re-validation cadence dials</div>
+      </div>
+      <details><summary>status note</summary><div class="body">Published as a miss, at the same prominence as the passes. A near-miss on a registered bar is a finding, not a rounding choice — the bar existed before the run.</div></details>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 06–09 STUBS ===================== -->
+<section id="s6">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 06</span><h2>Incentives: the ramp</h2></div>
+    <p class="lede">Support that tops everyone up to the same line makes marginal effort worthless below it. The second registered failure proved it, and the repair is a taper whose no-cliff property is machine-checked, not asserted.</p>
+
+    <article class="cc" id="C-50">
+      <div class="cchead"><span class="cid">C-50</span><span class="chip repaired">TESTED — FAIL → REPAIRED</span><button class="clink" data-a="C-50" title="Copy link">#copy</button></div>
+      <h4>Under top-up support, half of lower earners rationally quit and output fell ~25%. Under the ramp — every unit earned adds half a unit above the guarantee, at every income — the simulated economy retained essentially all output.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> incentive-compatibility of the floor's delivery mechanics (module design; the floor itself is §09)</div>
+        <div><b>EVIDENCE</b> Crash №2 ("The Cliff") → ramp retest · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> machine-checked taper no-cliff closed form (§13) — marginal return to effort is strictly positive at every income</div>
+      </div>
+      <details><summary>why this is a proof-plus-simulation claim</summary><div class="body">The no-cliff property is exact-rational algebra (sympy-checked): there is no income at which earning one more unit fails to raise take-home. The simulation result (output retention) is the behavioral consequence under the model's labor-supply dials — attack the dials, not the algebra.</div></details>
+    </article>
+
+    <div class="demoembed">
+      <div class="cap">INTERACTIVE — DEMONSTRATION, NOT A TEST (TOY PARAMETERS; THE REGISTERED TESTS ARE THE EVIDENCE LINE ABOVE)</div>
+      <!-- DEPLOY: swap src to /demos/the-ramp -->
+      <iframe src="/demos/the-ramp" loading="lazy" title="Ramp demonstration"></iframe>
+      <p class="printnote">[Interactive demonstration omitted in print — explorationeconomy.org/demos/the-ramp]</p>
+    </div>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 07</span><h2>Integrity: the three locks and the identity keystone</h2></div>
+    <p class="lede">The most dangerous adversary isn't lazy. The third registered failure came from an adversarial audit that modeled smart thieves — and the repair is three interlocking economic locks rather than surveillance, because surveillance was tested on its own terms and lost.</p>
+
+    <article class="cc" id="C-51">
+      <div class="cchead"><span class="cid">C-51</span><span class="chip repaired">TESTED — FAIL → REPAIRED</span><button class="clink" data-a="C-51" title="Copy link">#copy</button></div>
+      <h4>Optimized fraud rings initially earned 6× the floor per fake identity (projected capture ≈ one-third of new issuance). Against all three locks — similarity-split payouts, slashable stakes at scale, lifetime-identity scarcity — the heist was unprofitable in every tested configuration.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> adaptive-adversary fraud economics; conditional on the identity keystone</div>
+        <div><b>EVIDENCE</b> Crash №3 ("The Heist") audit → three-lock retest · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> H-2 (one-person-one-identity holds against live adversaries) — inherited explicitly, stated in §12</div>
+      </div>
+      <details><summary>the three locks, mechanically</summary><div class="body">(1) Near-identical content shares one <em>shrinking</em> payout — copy-farms divide rewards instead of multiplying them. (2) Earning at scale requires a posted stake, forfeited on detection — accountability priced in, not policed after. (3) A lifetime identity is too valuable to rent out, because renting it risks losing it — the ring's one "free" input becomes its largest cost.</div></details>
+    </article>
+
+    <article class="cc" id="C-52">
+      <div class="cchead"><span class="cid">C-52</span><span class="chip fail">TESTED — FAIL (ROAD REJECTED)</span><button class="clink" data-a="C-52" title="Copy link">#copy</button></div>
+      <h4>The surveillance alternative was measured and rejected: ambient per-identity watching delivered zero security improvement at 187× the honest-participation cost.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> road-not-taken, kept on the books — why integrity here is economic, not observational</div>
+        <div><b>EVIDENCE</b> EVE Sim v8.1 · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+      </div>
+    </article>
+
+    <div class="demoembed">
+      <div class="cap">INTERACTIVE — DEMONSTRATION, NOT A TEST (TOY PARAMETERS; THE REGISTERED TESTS ARE THE EVIDENCE LINE ABOVE)</div>
+      <!-- DEPLOY: swap src to /demos/three-locks -->
+      <iframe src="/demos/three-locks" loading="lazy" title="Three locks demonstration"></iframe>
+      <p class="printnote">[Interactive demonstration omitted in print — explorationeconomy.org/demos/three-locks]</p>
+    </div>
+  </div>
+</section>
+
+<section id="s8">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 08</span><h2>Governance: formulas, sortition, two houses, the conduct-claim class</h2></div>
+    <p class="lede">Rules change by formula and jury, not by executive. Disputes and parameter changes route through <b>sortition juries</b> of verified persons; structural change requires <b>two-house</b> concurrence — one-person-one-vote alongside a contribution-weighted house with hard caps. An early cap leaked 9.4% of influence as first written; fixed, and disclosed as a failure (card C-46, §11). All governance actions, like all value flows, are public.</p>
+
+    <article class="cc" id="C-54">
+      <div class="cchead"><span class="cid">C-54</span><span class="chip pass">TESTED — PASS</span><button class="clink" data-a="C-54" title="Copy link">#copy</button></div>
+      <h4>The conduct-claim class (DR-22) separates truth from flooding at launch bonds (B, β) = (2.0, 0.5): expected value +0.070 per true claim, −1.600 per false one — telling the truth pays, lying costs.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> a market for evidence-backed conduct claims about any entity; staged, governance-gated rollout</div>
+        <div><b>EVIDENCE</b> EVE Sim v39 (both registered safe-to-refute expectations refuted in the robust direction) · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> account-silence as a constitutional-class invariant (the platform <em>cannot</em> confirm whose account disclosed — architecture, not policy) · adjudication speed as a funded target (T_adj = 0.5 yr) · jury adjudication with "unverifiable" as an honest third verdict</div>
+      </div>
+      <details><summary>the two things it can't fix, named on the label</summary><div class="body">Short-and-distort profit is bounded by the pre-verdict window (speed is the only protocol lever; the residual hands off to securities law via the bridge pattern), and off-protocol books are invisible by construction. Certified capture ships as armor, not a launch gate — the market separates even on uncertified evidence. Comms guardrail honored here: this is <em>not</em> called the best whistleblowing tool.</div></details>
+    </article>
+  </div>
+</section>
+
+<section id="s9">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 09</span><h2>The floor: a funded module, not a promise</h2></div>
+    <p class="lede">The project set out to guarantee everyone's essentials. Stress-testing returned the program's largest honest negative, and the design bends to it rather than around it: the floor is published as a fully-specified, separately-funded <b>module</b> — reserve mechanics visible on-ledger, activation by formula, staged delivery tied to funding — that any community, government, or coalition can adopt and run in public. A progress bar, not a pledge.</p>
+
+    <article class="cc" id="C-55">
+      <div class="cchead"><span class="cid">C-55</span><span class="chip fail">TESTED — FAIL (STANDS)</span><button class="clink" data-a="C-55" title="Copy link">#copy</button></div>
+      <h4>The floor does not self-fund as a protocol property: every activation scenario required real outside funding. Its failure mode is honest rationing, never money-printing — the floor cannot mint.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> the reason the floor is a module, not a promise; the never-prints property is code-enforced</div>
+        <div><b>EVIDENCE</b> floor stress waves; the ecology-model boundary (C-43) marks where one funding route died · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> nothing — this is the claim the rest of §09 leans on</div>
+      </div>
+      <details><summary>why publish a failure this central</summary><div class="body">Because the alternative — promising a floor the tests say doesn't self-fund — is how projects like this usually die, slowly and dishonestly. The tested blueprint (reserve, activation formula, ramp delivery, exit design) is real and adoptable; what it needs is a funder, and the design says so out loud.</div></details>
+    </article>
+
+    <article class="cc" id="C-56">
+      <div class="cchead"><span class="cid">C-56</span><span class="chip pass">TESTED — PASS</span><button class="clink" data-a="C-56" title="Copy link">#copy</button></div>
+      <h4>Sponsor exit strands no one: in the simulated walk-away, no participant ended worse off than if the floor had never existed. Delivery cost: see C-44 (~26% headline, ~9% mid-storm — both numbers travel together).</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> module exit design; delivery-cost cross-reference to §11</div>
+        <div><b>EVIDENCE</b> sponsor-exit wave · results key: <code class="todo">TODO: CLAIMS-REGISTER</code></div>
+        <div><b>LEANS ON</b> staged-delivery mechanics; ramp incentive-compatibility (C-50)</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 10 FAILURE LOG (BUILT) ===================== -->
+<section id="s10">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 10</span><h2>Failure log — the three registered crashes</h2></div>
+    <p class="lede">Failure was defined before any test ran: <b>if the poorest tenth can't afford essentials for three consecutive months, the design fails.</b> Months were then spent trying to cause exactly that. It worked, three times. Full plain-language history: <a href="/evidence">/evidence</a>.</p>
+
+    <div class="frep">
+      <div class="head"><span class="t">FAILURE REPORT 01 — "THE BATHTUB"</span><span class="chip repaired">RETEST: PASS → C-10</span></div>
+      <dl>
+        <dt>OBSERVED</dt><dd>Prices +~10%/yr; bottom decile underwater by month 16 of the first full simulation, no recovery.</dd>
+        <dt>ROOT CAUSE</dt><dd>Minting that never slows, draining into a nearly closed drain.</dd>
+        <dt>CORRECTIVE ACTION</dt><dd><b>The thermostat:</b> a constitutional formula slows minting when money outruns real goods; no discretionary authority.</dd>
+        <dt>RETEST</dt><dd>≈0% inflation across fifteen simulated years inside the registered storm envelope (claim C-10).</dd>
+      </dl>
+    </div>
+
+    <div class="frep">
+      <div class="head"><span class="t">FAILURE REPORT 02 — "THE CLIFF"</span><span class="chip repaired">RETEST: PASS → §06</span></div>
+      <dl>
+        <dt>OBSERVED</dt><dd>Half of lower earners rationally stopped working; output fell ~25%.</dd>
+        <dt>ROOT CAUSE</dt><dd>Top-up-to-a-line support made marginal effort worthless below the line.</dd>
+        <dt>CORRECTIVE ACTION</dt><dd><b>The ramp:</b> every unit earned adds half a unit above the guarantee, at every income (machine-checked no-cliff property).</dd>
+        <dt>RETEST</dt><dd>Simulated economy retained essentially all output.</dd>
+      </dl>
+    </div>
+
+    <div class="frep">
+      <div class="head"><span class="t">FAILURE REPORT 03 — "THE HEIST"</span><span class="chip repaired">RETEST: PASS → §07</span></div>
+      <dl>
+        <dt>OBSERVED</dt><dd>Optimized fraud rings earned 6× the floor per fake identity; projected capture ≈ one-third of new issuance.</dd>
+        <dt>ROOT CAUSE</dt><dd>Fraud tests had modeled lazy thieves; the adversarial audit modeled smart ones.</dd>
+        <dt>CORRECTIVE ACTION</dt><dd><b>Three locks:</b> near-identical content shares one shrinking payout; earning at scale requires a slashable stake; a lifetime identity is too valuable to rent.</dd>
+        <dt>RETEST</dt><dd>Heist unprofitable in every tested configuration — conditional on the identity keystone (open item H-2, §12).</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 11 DEMOTIONS (BUILT) ===================== -->
+<section id="s11">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 11</span><h2>Demotions &amp; corrections — published at the same prominence</h2></div>
+    <p class="lede">The program's verification passes re-run everything and re-score downward where re-runs disagree. The current record is the post-correction one; earlier circulating numbers are superseded by the cards below.</p>
+
+    <article class="cc" id="C-40">
+      <div class="cchead"><span class="cid">C-40</span><span class="chip demoted">DEMOTED</span><button class="clink" data-a="C-40" title="Copy link">#copy</button></div>
+      <h4>The federation storm headline survives in only 47% of a ±50% joint-dial sweep — now conditional on a proposed sponsor-contract term (recommended threshold ≥ 0.60).</h4>
+      <div class="ccmeta"><div><b>EVIDENCE</b> EVE Sim v16 (joint sensitivity / Lucas-critique instrument) + v31 · <code class="todo">TODO: key</code></div><div><b>NOTE</b> peacetime, governance, and committee results survived the same shaking — this one didn't, and was demoted for it</div></div>
+    </article>
+
+    <article class="cc" id="C-41">
+      <div class="cchead"><span class="cid">C-41</span><span class="chip fail">TESTED — FAIL (STANDS)</span><button class="clink" data-a="C-41" title="Copy link">#copy</button></div>
+      <h4>The basket rate-cap fails as registered: food/shelter capture $21.6M vs the $20M bar; defenses-off capture ≈12,400×.</h4>
+      <div class="ccmeta"><div><b>EVIDENCE</b> v17 re-execution (VERIFICATION v4) · <code class="todo">TODO: key</code></div></div>
+    </article>
+
+    <article class="cc" id="C-42">
+      <div class="cchead"><span class="cid">C-42</span><span class="chip fail">TESTED — FAIL (STANDS)</span><button class="clink" data-a="C-42" title="Copy link">#copy</button></div>
+      <h4>Influence catch-up misses its 10-year bar (0.78 vs 0.80); the bar is met at ≈12 years.</h4>
+      <div class="ccmeta"><div><b>EVIDENCE</b> v22 re-execution (VERIFICATION v4) · <code class="todo">TODO: key</code></div></div>
+    </article>
+
+    <article class="cc" id="C-43">
+      <div class="cchead"><span class="cid">C-43</span><span class="chip fail">RESOLVED-NEGATIVE</span><button class="clink" data-a="C-43" title="Copy link">#copy</button></div>
+      <h4>The ecology model is structurally unfundable at registered dials; a rebuild is owed, and no ecological claims are made until it exists.</h4>
+      <div class="ccmeta"><div><b>EVIDENCE</b> v13.1, regression-gated · <code class="todo">TODO: key</code></div></div>
+    </article>
+
+    <article class="cc" id="C-44">
+      <div class="cchead"><span class="cid">C-44</span><span class="chip pass">TESTED — PASS (WITH COMPRESSION)</span><button class="clink" data-a="C-44" title="Copy link">#copy</button></div>
+      <h4>Floor delivery modeled ~26% cheaper than traditional welfare administration in the headline scenario — compressing to ~9% for a mid-storm backstop. Both numbers travel together.</h4>
+      <div class="ccmeta"><div><b>EVIDENCE</b> floor delivery waves + VERIFICATION v4 compression note · <code class="todo">TODO: key</code></div></div>
+    </article>
+
+    <article class="cc" id="C-45">
+      <div class="cchead"><span class="cid">C-45</span><span class="chip pass">TESTED — PASS</span><button class="clink" data-a="C-45" title="Copy link">#copy</button></div>
+      <h4>49 of 54 simulation programs regenerate their published numbers to 1e-6 from the code on disk; the five exceptions are individually documented.</h4>
+      <div class="ccmeta"><div><b>EVIDENCE</b> <span class="mono">verify_all.py</span> (replication kit) — run it yourself; python ≥ 3.10</div></div>
+    </article>
+
+    <article class="cc" id="C-46">
+      <div class="cchead"><span class="cid">C-46</span><span class="chip repaired">TESTED — FAIL → REPAIRED</span><button class="clink" data-a="C-46" title="Copy link">#copy</button></div>
+      <h4>An early governance cap leaked 9.4% of influence as first written; fixed, and disclosed as a failure.</h4>
+      <div class="ccmeta"><div><b>EVIDENCE</b> governance cap wave · <code class="todo">TODO: key</code></div></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 12 OPEN ITEMS (BUILT) ===================== -->
+<section id="s12">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 12</span><h2>Open items — what simulation cannot settle</h2></div>
+
+    <article class="cc" id="H-1">
+      <div class="cchead"><span class="cid">H-1</span><span class="chip assume">ASSUMPTION (EXOGENOUS)</span><span class="chip open">OPEN — EXPERIMENT DESIGNED</span><button class="clink" data-a="H-1" title="Copy link">#copy</button></div>
+      <h4>Willingness-to-pay anchors: data ≈ $600/contributor-yr · commons code $300–1,800/yr · consumer machine-pay ≈ $240/agent-yr. Every revenue-side result leans on these; they are exogenous in every simulation. This is the hinge.</h4>
+      <div class="ccmeta">
+        <div><b>REGISTERED BARS</b> FAIL &lt; $120/contributor-yr (20% of anchor — published as failure, sims re-run at the measured number) · PASS-weak $120–600 · PASS-anchor ≥ $600 in signed contracts across ≥3 independent buyers with ≥1 renewal</div>
+        <div><b>INSTRUMENTS</b> stated-preference screening (never counted as a pass) → incentive-compatible BDM auctions with real budgets → signed contracts</div>
+        <div><b>EVIDENCE</b> WTP Experiment Design (registered July 9, 2026) — design published; not yet run</div>
+      </div>
+      <details><summary>the sharpest version of the attack, stated by us</summary><div class="body">The friendliest literature (data-as-labor) contains it: individual marginal data value ≈ 0. If that's right, the fail bar triggers and we say so. Improving this experiment's design — or showing it cannot work — is the single most valuable contribution an outside economist can make.</div></details>
+    </article>
+
+    <article class="cc" id="H-2">
+      <div class="cchead"><span class="cid">H-2</span><span class="chip open">OPEN — PILOT DESIGNED</span><button class="clink" data-a="H-2" title="Copy link">#copy</button></div>
+      <h4>Does one-person-one-identity hold against live adversaries? Only a contained pilot can answer; the simulated defenses (§07) explicitly inherit this assumption.</h4>
+      <div class="ccmeta"><div><b>NOTE</b> ambient per-identity surveillance was tested and rejected on its own terms (zero security at 187× honest cost) — the defense is architectural, not observational</div></div>
+    </article>
+
+    <article class="cc" id="O-1">
+      <div class="cchead"><span class="cid">O-1</span><span class="chip open">OPEN — UNSOLVED</span><button class="clink" data-a="O-1" title="Copy link">#copy</button></div>
+      <h4>World-scale consent: implied cross-region transfers (~25% of regional mint) exceed measured political tolerance (~6%). The design's own fiscal-federalism problem, measured and unsolved.</h4>
+      <div class="ccmeta"><div><b>EVIDENCE</b> world-scale consent wave · <code class="todo">TODO: key</code></div></div>
+    </article>
+
+    <article class="cc" id="O-2">
+      <div class="cchead"><span class="cid">O-2</span><span class="chip demoted">SCORECARD</span><button class="clink" data-a="O-2" title="Copy link">#copy</button></div>
+      <h4>The economics red-team: ten strongest published objections (Lucas, Hayek, Goodhart, incidence, index bias, crisis models, OCA, unit-of-account inertia, data-valuation gap, Baumol) argued at full strength and self-graded — 4 answered at strength, 6 partial, none unanswered.</h4>
+      <div class="ccmeta"><div><b>NOTE</b> A3 (index-number bias) upgraded from unanswered to partial after the v33 index-drift work — the same work that keeps C-12 on the books as a failure. <b>Grading this grading is a fast route to findings.</b></div></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================== 13 STUB ===================== -->
+<section id="s13">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 13</span><h2>Methods &amp; replication</h2></div>
+    <p class="lede"><b>Bars before code.</b> Every engine's pass/fail bars were fixed in writing before the engine was coded; failures were published as failures, and three forced full public redesigns. The lineage runs v1–v39 with lettered sub-waves (and two distinct v13 engines — Oracle and Ecology — noted to prevent citation confusion). Verification passes v2–v6 re-executed the record and re-scored downward where re-runs disagreed; §11 carries the results.</p>
+    <p class="lede"><b>Reproducibility is verified, not asserted.</b> <span class="mono">verify_all.py</span> (python ≥ 3.10; numpy, scipy, matplotlib) regenerates 49 of 54 engines to 1e-6 from the code on disk (C-45); the five exceptions are individually explained. Every headline traces from the CLAIMS REGISTER to a committed results file to the code that produced it. The reviewer guide ships a <b>two-day hostile plan</b>: day one, read (this paper, then the red-team scorecard, then the ledgers); day two, re-run and attack. Different numbers on your hardware is a finding we want filed.</p>
+
+    <article class="cc" id="C-60">
+      <div class="cchead"><span class="cid">C-60</span><span class="chip pass">TESTED — PASS</span><button class="clink" data-a="C-60" title="Copy link">#copy</button></div>
+      <h4>The load-bearing algebra is machine-checked (exact-rational / sympy): taper no-cliff, committee hypergeometrics to the last digit, cap-function properties, closed forms vs Monte Carlo — 10/10 with grade labels.</h4>
+      <div class="ccmeta">
+        <div><b>SCOPE</b> proof artifacts, graded honestly: one of the ten (P8) is a self-consistency check rather than an independent re-derivation, and is labeled as such</div>
+        <div><b>EVIDENCE</b> Proofs — Machine-Checked Theory Claims (replication kit) · <code class="todo">TODO: path</code></div>
+      </div>
+    </article>
+
+    <p class="lede" style="margin-top:18px"><b>What "in-family" means, and why it's on every page.</b> All artifacts were produced by the owner working with AI models (Anthropic Claude; per-artifact attribution recorded as uncertain after a mid-session model switch — the provenance note travels with the index). In-family verification can catch arithmetic and internal inconsistency; it cannot substitute for hostile, out-of-family review or field evidence. Those are the program's two standing obligations, and this document is the instrument for the first.</p>
+  </div>
+</section>
+
+<!-- ===================== 14 FOR EVALUATORS (BUILT) ===================== -->
+<section id="s14">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 14</span><h2>For evaluators — what to attack first</h2></div>
+    <p class="lede">Attack the assumptions, not the arithmetic — the arithmetic reproduces mechanically (C-45), and different numbers on your hardware is a finding we want. The six standing questions per artifact: does it trust an input it doesn't control; static vs adaptive adversary; any "by construction" tells; off-protocol flanks; correlated failures; does transparency break it.</p>
+    <p class="lede"><b>Highest-value targets, in our own estimation:</b> the WTP anchors (H-1 — improve the experiment or show it can't work); the incidence chain (who ultimately pays for machine participation); essentials-index composition governance (C-12); the austerity-threshold contract framing (C-40); and grading the red-team's self-grades (O-2).</p>
+    <p class="lede"><b>Filing findings:</b> against named artifacts (file + JSON key) wherever possible — they can be verified in minutes. Findings are published with named credit; a finding that forces a canon change is the product working, not an insult. Engagement terms for commissioned review (fixed fee, published verbatim whatever it concludes) available on request: devan@ai-realized.com.</p>
+  </div>
+</section>
+
+<!-- ===================== 15 CITATION (BUILT) ===================== -->
+<section id="s15" style="border-bottom:none">
+  <div class="wrap">
+    <div class="sec-h"><span class="no">§ 15</span><h2>Citation &amp; changelog</h2></div>
+    <p class="lede"><b>Cite:</b> Allen, D. (2026). <i>Minting Money from Verified Human Engagement: Design and Pre-Registered Adversarial Testing of an Exploration-Driven Economic Network.</i> Release 1, paper v2.0 (web). explorationeconomy.org/paper — cite claim anchors (e.g., <span class="mono">/paper#C-10</span>) rather than page sections. DOI: <code class="todo">TODO — Zenodo snapshot per release</code>.</p>
+    <p class="lede"><b>Changelog:</b> v0.2 (July 24, 2026) — all sixteen sections assembled; 24 claim cards live (C-10…C-60, H-1/H-2, O-1/O-2); all three demonstrations embedded; CLAIMS-REGISTER keys still unmined (<span class="mono">TODO</span> markers). v0.1 (July 24, 2026) — first assembled draft; nine sections stubbed. Underlying text: Design Paper v2.0, ratified July 24, 2026 (owner, provisional), including the five ratification corrections (custody K-classes; DR-18 ceiling; DR-21 look-through; DR-22 conduct-claim class; red-team 4/6/0).</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © 2026 explorationeconomy.org · Release 1 · <a href="/evidence">the full failure log</a> · <a href="/replication">the replication kit</a> · devan@ai-realized.com
+    <p style="margin-top:8px;font-style:italic">Honesty note: this paper describes tested designs and simulation results under stated assumptions — not proven real-world outcomes. The two make-or-break questions (H-1, H-2) have experiments designed but not yet run.</p>
+  </div>
+</footer>
+
+<script>
+// progress bar
+(function(){
+  var pg=document.getElementById('pg');
+  addEventListener('scroll',function(){
+    var h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight);
+    pg.style.width=(p*100)+'%';
+  },{passive:true});
+})();
+// rail highlight
+(function(){
+  var links={};document.querySelectorAll('.rail a').forEach(function(a){links[a.getAttribute('data-s')]=a;});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        document.querySelectorAll('.rail a').forEach(function(a){a.classList.remove('on');});
+        var l=links[e.target.id];if(l)l.classList.add('on');
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  document.querySelectorAll('section[id]').forEach(function(s){io.observe(s);});
+})();
+// copy claim links
+(function(){
+  document.querySelectorAll('.clink').forEach(function(b){
+    b.addEventListener('click',function(){
+      var url=location.origin+location.pathname+'#'+b.getAttribute('data-a');
+      if(navigator.clipboard){navigator.clipboard.writeText(url);b.textContent='copied';setTimeout(function(){b.textContent='#copy';},1200);}
+      else{location.hash=b.getAttribute('data-a');}
+    });
+  });
+})();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
