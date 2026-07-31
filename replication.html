@@ -126,7 +126,7 @@
     <h2>What's actually been done (and how much to trust it)</h2>
     <ul>
       <li><b>39 pre-registered simulation waves</b> (v1–v39) with pass/fail bars fixed in writing <em>before</em> each engine was coded; failures published as failures; three full public redesigns forced by the design's own tests.</li>
-      <li><b>Mechanical reproducibility is verified, not asserted:</b> a re-run harness (<span class="mono">verify_all.py</span>) regenerates 49 of 54 engines to 1e-6 from the code on disk; the five exceptions are individually explained (schema drift, one self-timing field, one fixed path bug).</li>
+      <li><b>Mechanical reproducibility is verified, not asserted:</b> a re-run harness (<span class="mono">verify_all.py</span>) re-runs every discovered engine; in the most recent independent run (out-of-family AI, July 31, 2026) 72 of 82 reproduced within tolerance, every exception classified (runtime-only, legacy numeric drift, additive schema, or helper scripts with no registered output).</li>
       <li><b>The load-bearing algebra is machine-checked</b> (exact-rational): taper no-cliff, committee hypergeometrics, cap-function properties, closed forms vs Monte Carlo.</li>
       <li><b>Honest failures kept on the record:</b> the floor is <em>structurally unfundable at registered dials</em> without an outside funder (why the site no longer promises it); a world-scale consent bar the design fails; an oracle re-validation speed miss; the "26% cheaper than welfare" number compressing toward single digits for a mid-storm backstop.</li>
     </ul>
