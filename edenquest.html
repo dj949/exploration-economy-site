@@ -93,6 +93,17 @@
     nav .wrap, nav.sitenav .navwrap, .topbar .wrap { gap:8px; }
     .wrap { padding-left:16px; padding-right:16px; }
   }
+
+  /* touch targets: interactive controls reach ~44px on phones (desktop untouched) */
+  @media (pointer:coarse), (max-width:800px) {
+    .navtoggle { min-width:44px; min-height:44px; justify-content:center; }
+    .themetoggle { min-height:44px; }
+    .pillar summary { padding:13px 0; }
+    .cc summary { padding:14px 0; }
+    .clink { min-height:44px; min-width:44px; padding:0 8px; }
+    .switch { min-height:44px; }
+    input[type=range] { height:44px; }
+  }
 </style>
 </head>
 <body>
