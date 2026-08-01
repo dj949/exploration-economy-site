@@ -252,6 +252,13 @@
     .switch { min-height:44px; }
     input[type=range] { height:44px; }
   }
+
+  /* subscribe: inline result message (EmailOctopus, posted from our own form) */
+  .eo-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+  .eo-msg { margin:10px 0 0; font-size:14.5px; font-family:'Helvetica Neue',Arial,sans-serif; }
+  .eo-msg.eo-ok { color:var(--green, #1e5c3d); }
+  .eo-msg.eo-err { color:var(--coral, #a0674f); }
+  .sub-form button[disabled], .pollmail button[disabled] { opacity:.6; cursor:default; }
 </style>
 </head>
 <body>
@@ -502,13 +509,9 @@
       <h3>Read it. Try to break it. Tell us where it fails.</h3>
       <p>That's the only kind of belief being asked for. Subscribe free — every open problem stays in the open, and the pushback becomes the next essay.</p>
       <div class="pulse">STATE OF THE BUILD · WAVE 39 COMPLETE · WHITE PAPER v1.9 SHIPPED · NEXT: HOSTILE OUTSIDE REVIEW</div>
-      <!-- LIVE SITE: wire to Ghost's native subscribe (Members / Portal). Static placeholder. -->
-      <!-- T2 SUBSCRIBE NOT WIRED (as of 2026-07-24): no newsletter service chosen yet, so this
-           form is intentionally inert (onsubmit="return false"). TO WIRE: add action="<endpoint>"
-           method="post", give the input name="email", drop the onsubmit handler, and add an inline
-           success state. DO NOT PROMOTE TO PRODUCTION until this is live and tested end-to-end. -->
-      <form class="sub-form" onsubmit="return false">
-        <input type="email" placeholder="you@email.com" aria-label="Email address">
+      <form class="sub-form" data-eo>
+        <div class="eo-hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        <input type="email" name="field_0" required placeholder="you@email.com" aria-label="Email address">
         <button class="btn primary" type="submit">Follow the build — free</button>
       </form>
       <p class="depthlinks">Go deeper: <a href="/evidence">the failure log</a> · <a href="/what-is-eden">the plain-English guide</a> · <a href="/docs/whitepaper">the white paper</a> · <a href="/faq">the FAQ</a></p>
@@ -518,7 +521,7 @@
 
 <footer>
   <div class="wrap">
-    <div>© 2026 explorationeconomy.org · Release 1 · <a href="/">Home</a> · <a href="/start">The Story</a> · <a href="/about">About</a> · <a href="/independent-reviews">Reviews</a> · <a href="/rights">Rights</a> · <a href="/faq">FAQ</a> · <a href="/replication">Replication kit</a> · <a href="/support">Support</a></div>
+    <div>© 2026 explorationeconomy.org · Release 1 · <a href="/">Home</a> · <a href="/start">The Story</a> · <a href="/about">About</a> · <a href="/contact">Contact</a> · <a href="/independent-reviews">Reviews</a> · <a href="/rights">Rights</a> · <a href="/faq">FAQ</a> · <a href="/replication">Replication kit</a> · <a href="/support">Support</a></div>
     <p class="honest">Honesty note: this page describes tested designs and simulation results, not proven real-world outcomes. The two make-or-break questions — will institutions pay, and does identity hold — have experiments designed but not yet run. We'd rather you hear that from us.</p>
   </div>
 </footer>
@@ -564,5 +567,33 @@
 </script>
 <script>(function(){var b=document.querySelector(".navtoggle");if(!b)return;var n=b.closest("nav,.topbar");if(!n)return;b.addEventListener("click",function(){var o=n.classList.toggle("navopen");b.setAttribute("aria-expanded",o?"true":"false");b.setAttribute("aria-label",o?"Close menu":"Open menu");});})();</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script>
+/* eo-subscribe: post the site's own forms to EmailOctopus and report inline. */
+(function(){
+  var EO="https://eocampaign1.com/form/f9920bf6-8dd2-11f1-a411-45baaa99678b", RE=/^[^@\s]+@[^@\s.]+\.[^@\s]+$/;
+  document.querySelectorAll('form[data-eo]').forEach(function(f){
+    var input=f.querySelector('input[type=email]'), btn=f.querySelector('[type=submit]');
+    var msg=document.createElement('p'); msg.className='eo-msg';
+    msg.setAttribute('role','status'); msg.setAttribute('aria-live','polite');
+    f.parentNode.insertBefore(msg, f.nextSibling);
+    function say(t,ok){ msg.textContent=t; msg.className='eo-msg '+(ok?'eo-ok':'eo-err'); }
+    f.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var hp=f.querySelector('input[name=website]');
+      if(hp && hp.value){ f.reset(); say("Thanks — you’re on the list.", true); return; }
+      var email=(input.value||'').trim();
+      if(!RE.test(email)){ say("That doesn't look like an email address.", false); input.focus(); return; }
+      var label=btn?btn.textContent:''; if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
+      msg.textContent='';
+      var body=new URLSearchParams(); body.append('field_0', email);
+      fetch(EO,{method:'POST',body:body})
+        .then(function(r){ if(!r.ok) throw new Error(r.status);
+          f.reset(); say("Thanks — you’re on the list.", true); })
+        .catch(function(){ say('Something went wrong. Email devan@explorationeconomy.org and I will add you by hand.', false); })
+        .then(function(){ if(btn){ btn.disabled=false; btn.textContent=label; } });
+    });
+  });
+})();
+</script>
 </body>
 </html>
