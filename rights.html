@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<script>(function(){try{var t=localStorage.getItem("etheme");if(t!=="dark"&&t!=="light"){t=(window.matchMedia&&window.matchMedia("(prefers-color-scheme:dark)").matches)?"dark":"light";}document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="The ratified Rights Charter and standing Appeals &amp; Grievance Body of the Exploration Economy: ten constitutional rights, a three-tier appeals ladder with 72-hour emergency stays, published error metrics, and the honest limits — six evidence gaps disclosed, not hidden.">
@@ -26,9 +27,56 @@
   .resp { border:1px solid var(--line); background:#fff; padding:8px 26px 20px; margin-top:14px; }
   .resp h3 { font-size:17px; margin:22px 0 6px; }
   .foot { margin-top:56px; padding-top:20px; border-top:1px solid var(--line); font-size:14px; color:var(--dim); }
+
+  /* ---- shared site nav + dark mode (Release 1 conventions) ---- */
+  nav.sitenav { position:sticky; top:0; z-index:50; background:var(--bg); border-bottom:1px solid var(--line); }
+  nav.sitenav .navwrap { max-width:1020px; margin:0 auto; padding:0 20px; height:56px; display:flex; align-items:center; justify-content:space-between; }
+  nav.sitenav .logo { font:700 14.5px/1 'Helvetica Neue', Arial, sans-serif; letter-spacing:.04em; color:var(--accent); text-decoration:none; }
+  nav.sitenav .logo em { font-style:normal; color:var(--warn); }
+  nav.sitenav ul { display:flex; gap:20px; list-style:none; align-items:center; margin:0; padding:0; }
+  nav.sitenav ul a { font:13px/1 'Helvetica Neue', Arial, sans-serif; letter-spacing:.05em; text-transform:uppercase; color:var(--dim); text-decoration:none; }
+  nav.sitenav ul a:hover { color:var(--ink); }
+  nav.sitenav .navcta { background:var(--accent); color:#fff; padding:8px 15px; border-radius:3px; }
+  .navtoggle { display:none; background:none; border:1px solid var(--line); border-radius:3px; padding:6px 11px; font-size:15px; line-height:1; color:var(--ink); cursor:pointer; }
+  @media (max-width:800px) {
+    nav.sitenav ul { display:none; }
+    .navtoggle { display:inline-flex; align-items:center; }
+    nav.sitenav.navopen ul { display:flex; flex-direction:column; gap:0; align-items:stretch; position:absolute; left:0; right:0; top:100%; background:var(--bg); border-bottom:1px solid var(--line); padding:6px 20px 12px; box-shadow:0 10px 20px rgba(0,0,0,.09); }
+    nav.sitenav.navopen ul li { padding:10px 0; border-top:1px solid var(--line); }
+    nav.sitenav.navopen ul li:first-child { border-top:none; }
+  }
+  .themetoggle { position:fixed; bottom:20px; right:20px; z-index:60; display:inline-flex; align-items:center; gap:7px; padding:10px 16px; border-radius:999px; background:var(--accent); color:#fff; border:none; cursor:pointer; font:13px 'Helvetica Neue', Arial, sans-serif; box-shadow:0 6px 18px rgba(0,0,0,.22); }
+
+  html { color-scheme:light; }
+  [data-theme="dark"] {
+    color-scheme:dark;
+    --ink:#eceadf; --dim:#a7ab9e; --line:#33342a; --bg:#14150f; --accent:#6fb58c; --warn:#d2a24a;
+  }
+  /* the page's hardcoded light panels, re-toned for dark */
+  [data-theme="dark"] .banner { background:#2a2415; }
+  [data-theme="dark"] .meta { background:#1b1c15; }
+  [data-theme="dark"] blockquote { background:#1b1c15; }
+  [data-theme="dark"] .resp { background:#1b1c15; }
+  [data-theme="dark"] .btn { border-color:var(--accent); }
+  [data-theme="dark"] nav.sitenav .navcta { background:#1e5c3d; color:#fff; }
+  [data-theme="dark"] .themetoggle { background:var(--warn); color:#1a1305; }
 </style>
 </head>
 <body>
+<nav class="sitenav">
+  <div class="navwrap">
+    <a class="logo" href="/">EXPLORATION<em>ECONOMY</em>.ORG</a>
+    <ul id="navmenu">
+      <li><a href="/">Home</a></li>
+      <li><a href="/start">The Story</a></li>
+      <li><a href="/blueprint">The Blueprint</a></li>
+      <li><a href="/evidence">The Evidence</a></li>
+      <li><a href="/edenquest">The App</a></li>
+      <li><a href="/#subscribe" class="navcta">Subscribe</a></li>
+    </ul>
+    <button class="navtoggle" type="button" aria-expanded="false" aria-controls="navmenu" aria-label="Open menu">&#9776;</button>
+  </div>
+</nav>
 <div class="banner">RATIFIED JULY 31, 2026 (PROVISIONAL, PENDING HUMAN-RIGHTS + ECONOMIST REVIEW) · CONSOLIDATES TESTED MECHANISMS · SIX EVIDENCE GAPS DISCLOSED, NOT HIDDEN</div>
 <div class="wrap">
   <h1>Rights &amp; due process</h1>
@@ -112,5 +160,6 @@
   <p class="foot">Ratified July 31, 2026 — provisional per the program's convention: everything on this page remains open to revision under external review (economist, out-of-family, and human-rights). The controlling texts are the Rights Charter &amp; Sanctions-Recovery Matrix (v1.0) and the Appeals &amp; Grievance Body Spec (v0.1, DR-27); clause-by-clause citations to the tested simulation results and ratified decision records travel with the <a href="/replication">replication kit</a>. · <a href="/independent-reviews">Independent reviews</a> · <a href="/paper">The paper</a> · <a href="/evidence">Evidence</a></p>
 </div>
 <script defer src="/_vercel/insights/script.js"></script>
+<script>(function(){var b=document.querySelector(".navtoggle");if(b){var n=b.closest("nav");b.addEventListener("click",function(){var o=n.classList.toggle("navopen");b.setAttribute("aria-expanded",o?"true":"false");b.setAttribute("aria-label",o?"Close menu":"Open menu");});}var t=document.createElement("button");t.className="themetoggle";t.setAttribute("aria-label","Toggle dark mode");function ic(){t.innerHTML=document.documentElement.getAttribute("data-theme")==="dark"?"\u2600 Light mode":"\u263E Dark mode";}ic();t.addEventListener("click",function(){var c=document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";var nx=c==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",nx);try{localStorage.setItem("etheme",nx);}catch(e){}ic();});document.body.appendChild(t);})();</script>
 </body>
 </html>
