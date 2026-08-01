@@ -151,6 +151,17 @@
   [data-theme="dark"] .open .tag{background:#3a3320;color:#e6cf95}
   .themetoggle{position:fixed;bottom:20px;right:20px;z-index:60;display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:999px;background:var(--deep);color:#fff;border:none;cursor:pointer;font-size:13px;font-family:'Helvetica Neue',Arial,sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.22)}
   [data-theme="dark"] .themetoggle{background:var(--gold);color:#1a1305}
+
+  /* very narrow phones: keep the header on one line, let long tokens wrap */
+  body { overflow-wrap:break-word; }
+  code, .mono, pre, td, th, .meta, .rec, .stat, .cmd { overflow-wrap:anywhere; }
+  @media (max-width:400px) {
+    .logo { font-size:12px; letter-spacing:.02em; }
+    .brand { font-size:11px; letter-spacing:.03em; }
+    nav a.back { font-size:11px; letter-spacing:.02em; }
+    nav .wrap, nav.sitenav .navwrap, .topbar .wrap { gap:8px; }
+    .wrap { padding-left:16px; padding-right:16px; }
+  }
 </style>
 </head>
 <body>

@@ -230,6 +230,17 @@
 
   .fadein{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
   .fadein.on{opacity:1;transform:none}
+
+  /* very narrow phones: keep the header on one line, let long tokens wrap */
+  body { overflow-wrap:break-word; }
+  code, .mono, pre, td, th, .meta, .rec, .stat, .cmd { overflow-wrap:anywhere; }
+  @media (max-width:400px) {
+    .logo { font-size:12px; letter-spacing:.02em; }
+    .brand { font-size:11px; letter-spacing:.03em; }
+    nav a.back { font-size:11px; letter-spacing:.02em; }
+    nav .wrap, nav.sitenav .navwrap, .topbar .wrap { gap:8px; }
+    .wrap { padding-left:16px; padding-right:16px; }
+  }
 </style>
 </head>
 <body>

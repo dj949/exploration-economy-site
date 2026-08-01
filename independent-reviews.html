@@ -58,6 +58,34 @@
   [data-theme="dark"] .btn { border-color:var(--accent); }
   [data-theme="dark"] nav.sitenav .navcta { background:#1e5c3d; color:#fff; }
   [data-theme="dark"] .themetoggle { background:var(--warn); color:#1a1305; }
+
+  /* findings ledger: scrollable at tablet widths, stacked cards on phones */
+  .tablewrap { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:14px 0; }
+  @media (max-width:640px) {
+    .tablewrap table { border-collapse:collapse; }
+    .tablewrap tr.thead-row { display:none; }
+    .tablewrap table, .tablewrap tbody, .tablewrap tr, .tablewrap td { display:block; width:100%; }
+    .tablewrap tr { border:1px solid var(--line); border-radius:4px; padding:10px 12px; margin:0 0 10px; }
+    .tablewrap td { padding:2px 0 !important; border:none; }
+    .tablewrap td::before { content:attr(data-label) ": "; font-weight:700; color:var(--dim); }
+    .tablewrap td[data-label="Finding"] { font-size:14px; font-weight:700; margin-bottom:2px; }
+    .tablewrap td[data-label="Finding"]::before { content:""; }
+  }
+  /* the ledger panel is deliberately lighter than .meta in light mode; keep that
+     contrast in dark mode instead of letting an inline #fff survive the theme */
+  .meta.meta-plain { background:#fff; }
+  [data-theme="dark"] .meta.meta-plain { background:#101109; }
+
+  /* very narrow phones: keep the header on one line, let long tokens wrap */
+  body { overflow-wrap:break-word; }
+  code, .mono, pre, td, th, .meta, .rec, .stat, .cmd { overflow-wrap:anywhere; }
+  @media (max-width:400px) {
+    .logo { font-size:12px; letter-spacing:.02em; }
+    .brand { font-size:11px; letter-spacing:.03em; }
+    nav a.back { font-size:11px; letter-spacing:.02em; }
+    nav .wrap, nav.sitenav .navwrap, .topbar .wrap { gap:8px; }
+    .wrap { padding-left:16px; padding-right:16px; }
+  }
 </style>
 </head>
 <body>
@@ -122,35 +150,37 @@
 
   <h2>Adoption ledger</h2>
   <p>One row per finding, across both review documents. "Resolved" links are checkable in the public kit and site; nothing here is graded by the reviewer — this is the team's own accounting, offered for audit.</p>
-  <div class="meta" style="background:#fff">
-  <table style="width:100%;border-collapse:collapse;font:13px/1.5 ui-monospace,Menlo,monospace">
-  <tr style="text-align:left;border-bottom:1.5px solid var(--line)"><th style="padding:4px 6px">Finding</th><th style="padding:4px 6px">Status</th><th style="padding:4px 6px">Where</th></tr>
-  <tr><td style="padding:3px 6px">Canonical engine manifest</td><td>RESOLVED</td><td>kit: manifest.yaml (82 programs across 63 folder rows; roles + per-engine statuses)</td></tr>
-  <tr><td style="padding:3px 6px">Current reproduction ledgers</td><td>RESOLVED</td><td>kit: dated standard + clean-room ledgers, LATEST.json</td></tr>
-  <tr><td style="padding:3px 6px">Mismatch taxonomy</td><td>RESOLVED</td><td>kit: classify_report.py; classes enumerated on /replication and this page</td></tr>
-  <tr><td style="padding:3px 6px">Claims register through v39</td><td>RESOLVED</td><td>kit: register + claims.json + drift_check.py; prose reconciled Jul 31</td></tr>
-  <tr><td style="padding:3px 6px">Economist Brief missing / stale</td><td>RESOLVED</td><td>packaged; rewritten v2 (Jul 31) around the 82-engine record</td></tr>
-  <tr><td style="padding:3px 6px">Environment specification</td><td>PARTIAL</td><td>floors + 3 attested matrices ship; hash-lock + CI owed</td></tr>
-  <tr><td style="padding:3px 6px">Clean-room recomputation</td><td>PARTIAL</td><td>69/82 from scratch; 4 engines lack a from-scratch path (tracked S13)</td></tr>
-  <tr><td style="padding:3px 6px">Preregistration evidence</td><td>PARTIAL</td><td>v40 frozen spec ships in kit; external timestamps pending DOI</td></tr>
-  <tr><td style="padding:3px 6px">Immutable release + DOI</td><td>IN PROGRESS</td><td>console repo committed; Zenodo release = owner steps</td></tr>
-  <tr><td style="padding:3px 6px">"≈0% inflation" headline</td><td>RESOLVED</td><td>retired on all six surfaces; index-governance limits stated</td></tr>
-  <tr><td style="padding:3px 6px">Dynasty metric conflation</td><td>RESOLVED</td><td>statistic defined on C-30; /whitepaper C.8 reconciled</td></tr>
-  <tr><td style="padding:3px 6px">Stale reproduction counts (49/54)</td><td>RESOLVED</td><td>replaced on every claim surface; dated sim-report pages carry retirement notes</td></tr>
-  <tr><td style="padding:3px 6px">Bank-money opener</td><td>RESOLVED</td><td>/paper §01, /start, /blueprint, homepage (Jul 31)</td></tr>
-  <tr><td style="padding:3px 6px">"Permanent exile" language</td><td>RESOLVED</td><td>/evidence rewritten to the due-process story</td></tr>
-  <tr><td style="padding:3px 6px">Whistle-market card missing limits</td><td>RESOLVED</td><td>C-54 carries its two named limits</td></tr>
-  <tr><td style="padding:3px 6px">Provenance precision ("no external review")</td><td>RESOLVED</td><td>site-wide: one out-of-family AI review exists; no human review yet</td></tr>
-  <tr><td style="padding:3px 6px">$600 "presented as market price"</td><td>DECLINED</td><td>H-1 already labels it an exogenous assumption with a FAIL bar</td></tr>
-  <tr><td style="padding:3px 6px">Unlinkable-persona identity architecture</td><td>TESTED INSTEAD</td><td>v40 frozen preregistration; rights charter + appeals published (/rights)</td></tr>
-  <tr><td style="padding:3px 6px">Shadow EVE ledger</td><td>MODIFIED-ADOPTED</td><td>two-arm non-transferable credit design + liability/outage/label guardrails</td></tr>
-  <tr><td style="padding:3px 6px">Full stack unbundling</td><td>PARTIAL</td><td>adopted as validation strategy; compositions stay first-class claims</td></tr>
-  <tr><td style="padding:3px 6px">Incidence workstream</td><td>ADOPTED</td><td>WTP field-kit addendum (who ultimately pays)</td></tr>
-  <tr><td style="padding:3px 6px">Reviews discoverability</td><td>RESOLVED</td><td>this page: indexed, in footers and sitemap (Jul 31)</td></tr>
-  <tr><td style="padding:3px 6px">EdenQuest on the economist paper</td><td>RESOLVED</td><td>/paper §12 Stage-0 deployment &amp; identification note</td></tr>
-  <tr><td style="padding:3px 6px">EdenQuest privacy items (operator ID, child-data, E2E default, crash-report disclosure, AI safety)</td><td>OPEN</td><td>app-team punch list, tracked S14</td></tr>
-  <tr><td style="padding:3px 6px">Conventional PDF working paper / TODO markers</td><td>OPEN</td><td>clears at submission (Unjournal path); TODOs are unmined register keys</td></tr>
-  </table></div>
+  <div class="meta meta-plain">
+  <div class="tablewrap">
+<table style="width:100%;border-collapse:collapse;font:13px/1.5 ui-monospace,Menlo,monospace">
+  <tr class="thead-row" style="text-align:left;border-bottom:1.5px solid var(--line)"><th style="padding:4px 6px">Finding</th><th style="padding:4px 6px">Status</th><th style="padding:4px 6px">Where</th></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Canonical engine manifest</td><td data-label="Status">RESOLVED</td><td data-label="Where">kit: manifest.yaml (82 programs across 63 folder rows; roles + per-engine statuses)</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Current reproduction ledgers</td><td data-label="Status">RESOLVED</td><td data-label="Where">kit: dated standard + clean-room ledgers, LATEST.json</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Mismatch taxonomy</td><td data-label="Status">RESOLVED</td><td data-label="Where">kit: classify_report.py; classes enumerated on /replication and this page</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Claims register through v39</td><td data-label="Status">RESOLVED</td><td data-label="Where">kit: register + claims.json + drift_check.py; prose reconciled Jul 31</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Economist Brief missing / stale</td><td data-label="Status">RESOLVED</td><td data-label="Where">packaged; rewritten v2 (Jul 31) around the 82-engine record</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Environment specification</td><td data-label="Status">PARTIAL</td><td data-label="Where">floors + 3 attested matrices ship; hash-lock + CI owed</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Clean-room recomputation</td><td data-label="Status">PARTIAL</td><td data-label="Where">69/82 from scratch; 4 engines lack a from-scratch path (tracked S13)</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Preregistration evidence</td><td data-label="Status">PARTIAL</td><td data-label="Where">v40 frozen spec ships in kit; external timestamps pending DOI</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Immutable release + DOI</td><td data-label="Status">IN PROGRESS</td><td data-label="Where">console repo committed; Zenodo release = owner steps</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">"≈0% inflation" headline</td><td data-label="Status">RESOLVED</td><td data-label="Where">retired on all six surfaces; index-governance limits stated</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Dynasty metric conflation</td><td data-label="Status">RESOLVED</td><td data-label="Where">statistic defined on C-30; /whitepaper C.8 reconciled</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Stale reproduction counts (49/54)</td><td data-label="Status">RESOLVED</td><td data-label="Where">replaced on every claim surface; dated sim-report pages carry retirement notes</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Bank-money opener</td><td data-label="Status">RESOLVED</td><td data-label="Where">/paper §01, /start, /blueprint, homepage (Jul 31)</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">"Permanent exile" language</td><td data-label="Status">RESOLVED</td><td data-label="Where">/evidence rewritten to the due-process story</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Whistle-market card missing limits</td><td data-label="Status">RESOLVED</td><td data-label="Where">C-54 carries its two named limits</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Provenance precision ("no external review")</td><td data-label="Status">RESOLVED</td><td data-label="Where">site-wide: one out-of-family AI review exists; no human review yet</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">$600 "presented as market price"</td><td data-label="Status">DECLINED</td><td data-label="Where">H-1 already labels it an exogenous assumption with a FAIL bar</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Unlinkable-persona identity architecture</td><td data-label="Status">TESTED INSTEAD</td><td data-label="Where">v40 frozen preregistration; rights charter + appeals published (/rights)</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Shadow EVE ledger</td><td data-label="Status">MODIFIED-ADOPTED</td><td data-label="Where">two-arm non-transferable credit design + liability/outage/label guardrails</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Full stack unbundling</td><td data-label="Status">PARTIAL</td><td data-label="Where">adopted as validation strategy; compositions stay first-class claims</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Incidence workstream</td><td data-label="Status">ADOPTED</td><td data-label="Where">WTP field-kit addendum (who ultimately pays)</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Reviews discoverability</td><td data-label="Status">RESOLVED</td><td data-label="Where">this page: indexed, in footers and sitemap (Jul 31)</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">EdenQuest on the economist paper</td><td data-label="Status">RESOLVED</td><td data-label="Where">/paper §12 Stage-0 deployment &amp; identification note</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">EdenQuest privacy items (operator ID, child-data, E2E default, crash-report disclosure, AI safety)</td><td data-label="Status">OPEN</td><td data-label="Where">app-team punch list, tracked S14</td></tr>
+  <tr><td data-label="Finding" style="padding:3px 6px">Conventional PDF working paper / TODO markers</td><td data-label="Status">OPEN</td><td data-label="Where">clears at submission (Unjournal path); TODOs are unmined register keys</td></tr>
+  </table>
+</div></div>
 
   <p class="foot">Standing invitation: we commission and host hostile reviews with unrestricted publication rights. If you are an economist, security researcher, identity or civil-rights specialist and want the kit plus a fixed fee to attack this work in public, see <a href="/replication">the replication page</a> for the current kit and contact route. · <a href="/paper">Back to the paper</a></p>
 </div>
