@@ -416,7 +416,7 @@
     f.addEventListener('submit', function(ev){
       ev.preventDefault();
       var hp=f.querySelector('input[name=website]');
-      if(hp && hp.value){ f.reset(); say("Thanks — you’re on the list.", true); return; }
+      if(hp && hp.value){ f.reset(); say("Thanks — check your inbox to confirm your subscription.", true); return; }
       var email=(input.value||'').trim();
       if(!RE.test(email)){ say("That doesn't look like an email address.", false); input.focus(); return; }
       var label=btn?btn.textContent:''; if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
@@ -424,7 +424,7 @@
       var body=new URLSearchParams(); body.append('field_0', email);
       fetch(EO,{method:'POST',body:body})
         .then(function(r){ if(!r.ok) throw new Error(r.status);
-          f.reset(); say("Thanks — you’re on the list.", true); })
+          f.reset(); say("Thanks — check your inbox to confirm your subscription.", true); })
         .catch(function(){ say('Something went wrong. Email devan@explorationeconomy.org and I will add you by hand.', false); })
         .then(function(){ if(btn){ btn.disabled=false; btn.textContent=label; } });
     });
