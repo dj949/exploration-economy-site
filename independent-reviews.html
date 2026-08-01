@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
 <title>Independent Reviews — The Exploration Economy</title>
 <style>
   :root { --ink:#1a1a1a; --dim:#555; --line:#d9d5cc; --bg:#faf8f3; --accent:#0b5d3b; --warn:#8a5a00; }
@@ -25,7 +24,7 @@
 </style>
 </head>
 <body>
-<div class="banner">UNLISTED · INDEPENDENT REVIEWS ARE HOSTED UNEDITED · OUR RESPONSES ARE POSTED ALONGSIDE, NEVER MERGED INTO THE REVIEW</div>
+<div class="banner">INDEPENDENT REVIEWS ARE HOSTED UNEDITED · OUR RESPONSES ARE POSTED ALONGSIDE, NEVER MERGED INTO THE REVIEW</div>
 <div class="wrap">
   <h1>Independent reviews</h1>
   <p class="sub">Reviews of this program by parties outside the family of AI models that built it — published verbatim, criticisms included. A review we could edit would be worth nothing.</p>
@@ -35,6 +34,7 @@
     <b>Reviewer:</b> 5.6 Sol, an out-of-family AI model (a different family from the models that produced this work)<br>
     <b>Access given:</b> this public website and the public replication kit only — no internal records, no vault access<br>
     <b>Commissioned by:</b> the project owner (disclosed; the reviewer's conclusions were not subject to approval or edit)<br>
+    <b>Kit reviewed:</b> SHA-256 <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px">11a13f03…6fd8</span> (605 entries)<br>
     <b>Independent harness run:</b> macOS arm64 · Python 3.12.13 · NumPy 2.3.5 — <b>72 of 82</b> discovered programs reproduced within tolerance; 7 mismatches classified as runtime-only, legacy numeric, or additive-schema drift (none verdict-reversing under the reviewer's classification); 3 helper scripts with no registered output<br>
     <b>What this is:</b> machine replication and machine criticism. <b>What this is not:</b> human peer review. The human tests — independent economists, real buyers, a live identity pilot — remain open, and remain the point.
   </div>
@@ -43,6 +43,18 @@
     <a class="btn" href="/EDEN_Independent_Review_and_Roadmap_2026-07-31.pdf">Read the full review (PDF, unedited)</a>
   </p>
   <p>The review found real defects — stale reproduction counts, a claims register that lagged the newest simulations, unpinned software versions, a promised document missing from the kit archive, and public claims (including a retired inflation headline) that had drifted from the internal record. We regard the fact that it found problems as the evidence of its independence. The defects it identified are being corrected under the adoption record below.</p>
+
+  <h2>Addendum — same reviewer, same day (July 31, 2026)</h2>
+  <div class="meta">
+    <b>Scope:</b> change memo after our public response, the site corrections, the R2 packaging changes, and a separate review of the live EdenQuest app<br>
+    <b>Kit reviewed:</b> SHA-256 <span style="font-family:ui-monospace,Menlo,monospace;font-size:12px">bd1c514c…d3f</span> (617 entries) — differentially audited against the original corpus: no simulation engine or result changed; the reviewer therefore did not re-claim a fresh replication<br>
+    <b>What moved:</b> team credibility and reproducibility upgraded on behavior; the launch question split by layer (EdenQuest public beta reasonable; monetary/identity/lending/conduct/floor layers still not ready); the identity criticism narrowed after our corrections<br>
+    <b>What did not move:</b> the two decisive hinges — buyer willingness to pay and live identity — remain untested, and the reviewer says so
+  </div>
+  <p>
+    <a class="btn" href="/EDEN_Revised_Independent_Review_Addendum_2026-07-31.pdf">Read the full addendum (PDF, unedited)</a>
+  </p>
+  <p>The addendum found the next layer of the same disease it named in round one — "reconciliation debt": stale counts and provenance statements surviving in start-here documents and one homepage line beneath the corrected surfaces. Those items were corrected the same day; the ledger below tracks every finding across both documents.</p>
 
   <h2>Our response (July 31, 2026)</h2>
   <div class="resp">
@@ -55,6 +67,38 @@
     <h3>Corrections to the review</h3>
     <p>Two calibration notes, for the record: the $600/contributor-year figure the review criticizes as "presented as a market price" is labeled on this site as an exogenous assumption with a pre-registered failure bar — it is the hinge, and marked as such. And several "do not launch yet" cautions land on doors already locked: there is no token, the floor is already published as a separately funded module rather than a promise, and the program's own gates already sequence review before pilots before any settlement question.</p>
   </div>
+
+  <h2>Adoption ledger</h2>
+  <p>One row per finding, across both review documents. "Resolved" links are checkable in the public kit and site; nothing here is graded by the reviewer — this is the team's own accounting, offered for audit.</p>
+  <div class="meta" style="background:#fff">
+  <table style="width:100%;border-collapse:collapse;font:13px/1.5 ui-monospace,Menlo,monospace">
+  <tr style="text-align:left;border-bottom:1.5px solid var(--line)"><th style="padding:4px 6px">Finding</th><th style="padding:4px 6px">Status</th><th style="padding:4px 6px">Where</th></tr>
+  <tr><td style="padding:3px 6px">Canonical engine manifest</td><td>RESOLVED</td><td>kit: manifest.yaml (82 engines, roles, statuses)</td></tr>
+  <tr><td style="padding:3px 6px">Current reproduction ledgers</td><td>RESOLVED</td><td>kit: dated standard + clean-room ledgers, LATEST.json</td></tr>
+  <tr><td style="padding:3px 6px">Mismatch taxonomy</td><td>RESOLVED</td><td>kit: classify_report.py; classes on /paper C-45</td></tr>
+  <tr><td style="padding:3px 6px">Claims register through v39</td><td>RESOLVED</td><td>kit: register + claims.json + drift_check.py; prose reconciled Jul 31</td></tr>
+  <tr><td style="padding:3px 6px">Economist Brief missing / stale</td><td>RESOLVED</td><td>packaged; rewritten v2 (Jul 31) around the 82-engine record</td></tr>
+  <tr><td style="padding:3px 6px">Environment specification</td><td>PARTIAL</td><td>floors + 3 attested matrices ship; hash-lock + CI owed</td></tr>
+  <tr><td style="padding:3px 6px">Clean-room recomputation</td><td>PARTIAL</td><td>69/82 from scratch; 4 engines lack a from-scratch path (tracked S13)</td></tr>
+  <tr><td style="padding:3px 6px">Preregistration evidence</td><td>PARTIAL</td><td>v40 frozen spec ships in kit; external timestamps pending DOI</td></tr>
+  <tr><td style="padding:3px 6px">Immutable release + DOI</td><td>IN PROGRESS</td><td>console repo committed; Zenodo release = owner steps</td></tr>
+  <tr><td style="padding:3px 6px">"≈0% inflation" headline</td><td>RESOLVED</td><td>retired on all six surfaces; index-governance limits stated</td></tr>
+  <tr><td style="padding:3px 6px">Dynasty metric conflation</td><td>RESOLVED</td><td>statistic defined on C-30; /whitepaper C.8 reconciled</td></tr>
+  <tr><td style="padding:3px 6px">Stale reproduction counts (49/54)</td><td>RESOLVED</td><td>replaced site-wide with the two July 31 runs</td></tr>
+  <tr><td style="padding:3px 6px">Bank-money opener</td><td>RESOLVED</td><td>/paper §01, /start, /blueprint, homepage (Jul 31)</td></tr>
+  <tr><td style="padding:3px 6px">"Permanent exile" language</td><td>RESOLVED</td><td>/evidence rewritten to the due-process story</td></tr>
+  <tr><td style="padding:3px 6px">Whistle-market card missing limits</td><td>RESOLVED</td><td>C-54 carries its two named limits</td></tr>
+  <tr><td style="padding:3px 6px">Provenance precision ("no external review")</td><td>RESOLVED</td><td>site-wide: one out-of-family AI review exists; no human review yet</td></tr>
+  <tr><td style="padding:3px 6px">$600 "presented as market price"</td><td>DECLINED</td><td>H-1 already labels it an exogenous assumption with a FAIL bar</td></tr>
+  <tr><td style="padding:3px 6px">Unlinkable-persona identity architecture</td><td>TESTED INSTEAD</td><td>v40 frozen preregistration; rights charter + appeals published (/rights)</td></tr>
+  <tr><td style="padding:3px 6px">Shadow EVE ledger</td><td>MODIFIED-ADOPTED</td><td>two-arm non-transferable credit design + liability/outage/label guardrails</td></tr>
+  <tr><td style="padding:3px 6px">Full stack unbundling</td><td>PARTIAL</td><td>adopted as validation strategy; compositions stay first-class claims</td></tr>
+  <tr><td style="padding:3px 6px">Incidence workstream</td><td>ADOPTED</td><td>WTP field-kit addendum (who ultimately pays)</td></tr>
+  <tr><td style="padding:3px 6px">Reviews discoverability</td><td>RESOLVED</td><td>this page: indexed, in footers and sitemap (Jul 31)</td></tr>
+  <tr><td style="padding:3px 6px">EdenQuest on the economist paper</td><td>RESOLVED</td><td>/paper §12 Stage-0 deployment &amp; identification note</td></tr>
+  <tr><td style="padding:3px 6px">EdenQuest privacy items (operator ID, child-data, E2E default, crash-report disclosure, AI safety)</td><td>OPEN</td><td>app-team punch list, tracked S14</td></tr>
+  <tr><td style="padding:3px 6px">Conventional PDF working paper / TODO markers</td><td>OPEN</td><td>clears at submission (Unjournal path); TODOs are unmined register keys</td></tr>
+  </table></div>
 
   <p class="foot">Standing invitation: we commission and host hostile reviews with unrestricted publication rights. If you are an economist, security researcher, identity or civil-rights specialist and want the kit plus a fixed fee to attack this work in public, see <a href="/replication">the replication page</a> for the current kit and contact route. · <a href="/paper">Back to the paper</a></p>
 </div>
